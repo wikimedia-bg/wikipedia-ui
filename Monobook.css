@@ -29,6 +29,10 @@
    /* font-weight: bold; */
  }
 
+ .code {
+   font-family: monospace;
+ }
+
  /* подравняване на текста в таблицата нагоре */
  table.nagore tbody {
    vertical-align:top;
