@@ -84,7 +84,7 @@
    font-weight: bold;
    font-size: 0.9em;
    border: thin #006699 outset;
-   padding: 0.1em;
+   padding: 0 0.1em 0.1em 0.1em;
  }
  #my-buttons a:hover, #my-buttons a:active {
    background-color: #bbccdd;
