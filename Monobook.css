@@ -32,4 +32,4 @@ table.nagore tbody {
 }
 
 #siteNotice { padding: 0.3em; text-align: center; margin-bottom: 0.5em; }
-#siteNotice:after { content: ' Българското време е с 3 часа назад.' }
+#siteNotice:after { content: ' Българското време е напред, прибавете 3 часа.' }
