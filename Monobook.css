@@ -142,28 +142,18 @@
     -moz-border-radius-topright: .5em;
  }
 
- .portal-box-left, .portal-box-right {
-   width: 47%;
+ .portal-box {
    border: thin dotted #003366;
    padding: 0.5em;
    margin-bottom: 0.5em;
  }
- .portal-box-left {
-   float: left;
-   clear: left;
- }
-  .portal-box-right {
-   float: right;
-   clear: right;
- }
- .portal-box-left h2, .portal-box-right h2 {
+ .portal-box h2 {
    color: white;
    background-color: #005588;
    border: 0;
    padding: 0.3em 0.5em 0.2em 1em;
    font-size: 1.2em;
  }
- .portal-box-left .editsection, .portal-box-right .editsection,
- .portal-box-left .editsection a, .portal-box-right .editsection a {
+ .portal-box .editsection, .portal-box .editsection a {
    color: white;
  }
