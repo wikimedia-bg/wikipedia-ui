@@ -47,3 +47,9 @@
  #ca-edit a { 
    font-weight: bold !important; 
  }
+
+ /* клас за текста, отбелязващ нова статия в последните промени [[МедияУики:Newpageletter]] */
+ .new {
+   color: black;
+   background-color: yellow;
+ }
