@@ -5,6 +5,16 @@
   font-size: 130%;
 }
 
+/* underline links */
+a {
+  text-decoration: underline;
+}
+
+/* don't underline mouseover-links */
+a:hover {
+  text-decoration: none;
+}
+
 /* link in selected tab */
 #p-cactions ul li.selected a {
   font-weight: bold;
