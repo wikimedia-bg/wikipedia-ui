@@ -34,7 +34,11 @@
  input[type=submit]:hover {
    color: black;
    background-color: lightyellow;
- }  
+ }
+ /* бутона „Предварителен преглед“ */
+ #wpPreview {
+   font-weight: bold;
+ }
 
  /* link in selected tab */
  #p-cactions ul li.selected a {
