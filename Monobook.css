@@ -6,3 +6,8 @@
 #p-cactions ul li.selected a {
   font-weight: bold;
 }
+
+/* images */
+div.floatright {
+  background-color: inherit;
+}
