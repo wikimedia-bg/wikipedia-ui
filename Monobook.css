@@ -51,7 +51,7 @@
  }
 
  /* клас за текста, отбелязващ нова статия в последните промени [[МедияУики:Newpageletter]] */
- .newarticle-mark {
+ .newpage {
    color: black;
    background-color: yellow;
  }
