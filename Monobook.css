@@ -8,7 +8,7 @@
 }
 
 /* images */
-div.floatright {
+div.floatright, div.floatleft {
   /* махане на бялата рамка */
   border-color: transparent;
 }
