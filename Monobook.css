@@ -9,5 +9,6 @@
 
 /* images */
 div.floatright {
-  background-color: inherit;
+  /* махане на бялата рамка */
+  border-color: inherit;
 }
