@@ -112,11 +112,11 @@
    font-weight: bold;
  }
  table.toccolours tr.hrow th {
-   background-color: #efefef;
+   background-color: #e0e6e9;
  }
  table.toccolours tr.odd {
   background-color: inherit;
  }
  table.toccolours tr.even {
-  background-color: #f3f3f3;
+  background-color: #eceff3;
  }
