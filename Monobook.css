@@ -101,4 +101,5 @@
  }
  #navtree ul {
    border-left: thin dotted gray;
+   padding-left: .5em;
  }
