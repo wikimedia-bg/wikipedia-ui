@@ -108,6 +108,9 @@
     text-align: center;
  }
 
+ table.toccolours caption {
+   font-weight: bold;
+ }
  table.toccolours th {
    background-color: #efefef;
  }
