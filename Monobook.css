@@ -26,4 +26,5 @@ div.floatright, div.floatleft {
 /*  border-color: transparent; */
 }
 
+#siteNotice { padding: 0.3em }
 #siteNotice:after { content: ' Българското време е с 3 часа назад.' }
