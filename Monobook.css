@@ -1,6 +1,8 @@
-#globalWrapper { font-size: 129%; }
+#globalWrapper { 
+  font-size: 130%;
+}
 
 /* link in selected tab */
 #p-cactions ul li.selected a {
-  font-weight: italic;
+  font-weight: bold;
 }
