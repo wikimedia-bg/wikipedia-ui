@@ -65,7 +65,7 @@
  /* стилове за съдържанието от началната страница - [[Шаблон:Съдържание]] */
  #mainpage-toc h3 {
    font-size: 110%;
-   margin-bottom: 0.2em;
+   margin-bottom: 0;
  }
  #mainpage-toc p {
    margin-top: 0;
