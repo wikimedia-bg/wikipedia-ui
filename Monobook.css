@@ -1,0 +1,4 @@
+/* link in selected tab */
+#p-cactions ul li.selected a {
+  font-weight: bold;
+}
