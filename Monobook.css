@@ -17,6 +17,9 @@
    text-decoration: none;
  }
 
+ /* показване на плъзгачи при необходимост */
+ pre { overflow: auto; }
+
  /* link in selected tab */
  #p-cactions ul li.selected a {
    /* font-weight: bold; */
