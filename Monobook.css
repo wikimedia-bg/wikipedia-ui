@@ -53,3 +53,9 @@
    color: black;
    background-color: yellow;
  }
+
+ /* клас за изпъкване */
+ .hilite {
+   color: inherit;
+   background-color: #ffffcc;
+ }
