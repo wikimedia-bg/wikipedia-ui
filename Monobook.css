@@ -111,7 +111,7 @@
  table.toccolours caption {
    font-weight: bold;
  }
- table.toccolours th {
+ table.toccolours th.line {
    background-color: #efefef;
  }
  table.toccolours tr.odd {
