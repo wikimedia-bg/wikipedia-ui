@@ -167,3 +167,9 @@
    padding: .5em;
    border: thin dashed gray;
  }
+
+ /* [[МедияУики:Monobook.js|поздравително съобщение]] за всеки невлязъл потребител */
+ #externMessage {
+   text-align: center;
+   padding: .5em;
+ }
