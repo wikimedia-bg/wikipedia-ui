@@ -12,6 +12,6 @@
 
 /* images */
 div.floatright, div.floatleft {
-  /* махане на бялата рамка */
-  border-color: transparent;
+  /* махане на бялата рамка - не работи с ИЕ */
+/*  border-color: transparent; */
 }
