@@ -70,10 +70,15 @@
    font-weight: bold !important; 
  }
 
- /* клас за текста, отбелязващ нова статия в последните промени [[МедияУики:Newpageletter]] */
+ /* клас за текста, отбелязващ нова страница в последните промени [[МедияУики:Newpageletter]] */
  .newpage {
    color: black;
    background-color: yellow;
+ }
+
+ /* клас за текста, отбелязващ малките промени [[МедияУики:Minoreditletter]] */
+ span.minor {
+   font-weight: normal;
  }
 
  /* клас за изпъкване */
