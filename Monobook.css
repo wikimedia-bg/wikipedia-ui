@@ -157,3 +157,9 @@
  .portal-box .editsection, .portal-box .editsection a {
    color: white;
  }
+
+ .template-wrapper {
+   background: #fcfcec;
+   padding: .5em;
+   border: thin dashed gray;
+ }
