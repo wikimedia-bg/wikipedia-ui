@@ -150,7 +150,7 @@
  }
   .portal-box-right {
    float: right;
-   clear: right;
+/*   clear: right;*/
  }
  .portal-box-left h2, .portal-box-right h2 {
    color: white;
