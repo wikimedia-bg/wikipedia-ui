@@ -100,6 +100,14 @@
    padding-left: .5em;
  }
 
+ #stubmessage {
+   text-align: center;
+   padding: 5px;
+   width: 75%;
+   margin: 1em auto;
+   clear: both;
+ }
+
  /* центриране на описанията на миникартинките */
  div.thumb div div.thumbcaption {
     text-align: center;
