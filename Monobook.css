@@ -42,6 +42,9 @@
    font-size: 0.95em; 
    font-style: italic;
  }
+ .ns-0 #siteSub:after {
+   content: ' (можете да промените тази страница веднага)';
+ }
 
  /* етикетът "Редактиране" */
  #ca-edit a { 
