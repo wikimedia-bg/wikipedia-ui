@@ -77,11 +77,11 @@
  }
 
  /* клас за текста, отбелязващ малките промени [[МедияУики:Minoreditletter]] */
- .minor {
+ span.minor {
    font-weight: normal;
  }
  /* "вътрешни" малки промени при подобрените "последни промени" */
- .minoredit {
+ span.minoredit {
    font-weight: normal;
  }
 
