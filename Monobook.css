@@ -117,3 +117,14 @@
  table.toccolours tr.even {
   background-color: #eceff3;
  }
+
+ .pBody {
+    padding: 0.3em 0.1em;
+    -moz-border-radius-topright: .5em;
+ }
+ .portlet h5 {
+    background-color: #e0e3e6;
+    border: thin solid silver;
+    -moz-border-radius-topleft: .5em;
+    -moz-border-radius-topright: .5em;
+ }
