@@ -77,7 +77,7 @@
  }
 
  /* клас за текста, отбелязващ малките промени [[МедияУики:Minoreditletter]] */
- span.minor {
+ #pagehistory span.minor {
    font-weight: normal;
  }
  /* "вътрешни" малки промени при подобрените "последни промени" */
