@@ -171,5 +171,9 @@
  /* [[МедияУики:Monobook.js|поздравително съобщение]] за всеки невлязъл потребител */
  #externMessage {
    text-align: center;
-   padding: .5em;
+   color: black;
+   background-color: #FFEE99;
+   border: thin solid #FFA500;
+   padding: .4em;
+   margin-top: .2em;
  }
