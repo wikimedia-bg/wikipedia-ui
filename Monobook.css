@@ -108,9 +108,9 @@
     text-align: center;
  }
 
- .toccolours tr.odd {
+ table.toccolours tr.odd {
     background-color: inherit;
  }
- .toccolours tr.even {
+ table.toccolours tr.even {
     background-color: #f3f3f3;
  }
