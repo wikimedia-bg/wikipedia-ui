@@ -1,37 +1,46 @@
-/* 
-В този файл можем да задаваме собствени настройки за облика 'Monobook', които ще действат при всички потребители. Засега този файл не се използва при анонимните потребители. */
+ /* 
+ В този файл можем да задаваме собствени настройки за облика 'Monobook', 
+ които ще действат при всички потребители. 
+ */
 
-#globalWrapper { 
-  font-size: 130%;
-}
+ #globalWrapper { 
+   font-size: 130%;
+ }
 
-/* underline links */
-a {
-  text-decoration: underline;
-}
+ /* underline links */
+ a {
+   text-decoration: underline;
+ }
 
-/* don't underline mouseover-links */
-a:hover {
-  text-decoration: none;
-}
+ /* don't underline mouseover-links */
+ a:hover {
+   text-decoration: none;
+ }
 
-/* link in selected tab */
-#p-cactions ul li.selected a {
-  font-weight: bold;
-}
+ /* link in selected tab */
+ #p-cactions ul li.selected a {
+   /* font-weight: bold; */
+ }
 
-/* images */
-div.floatright, div.floatleft {
-  /* махане на бялата рамка - не работи с ИЕ */
-/*  border-color: transparent; */
-}
+ /* подравняване на текста в таблицата нагоре */
+ table.nagore tbody {
+   vertical-align:top;
+ }
 
-/* подравняване на текста в таблицата нагоре */
-table.nagore tbody {
-  vertical-align:top;
-}
+ #siteNotice { padding: 0.3em; text-align: center; margin-bottom: 0.5em; }
+ #siteNotice:after { 
+ /* content: ' Българското време е напред, прибавете 3 часа.' */
+ }
 
-#siteNotice { padding: 0.3em; text-align: center; margin-bottom: 0.5em; }
-#siteNotice:after { 
-/*content: ' Българското време е напред, прибавете 3 часа.' */
-}
+ /* показване на "от Уикипедия, свободната енциклопедия */
+ #siteSub {
+   display: inline;
+   font-weight: normal;
+   font-size: 0.95em; 
+   font-style: italic;
+ }
+
+ /* етикетът "Редактиране" */
+ #ca-edit a { 
+   font-weight: bold !important; 
+ }
