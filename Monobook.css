@@ -99,3 +99,7 @@
    list-style: none;
    margin-left: -1em;
  }
+ #navtree ul {
+   border-left: thin dotted gray;
+   padding-left: 1.5em;
+ }
