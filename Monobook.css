@@ -105,6 +105,6 @@
  }
 
  /* центриране на описанията на миникартинките */
- .thumbcaption {
+ div.thumb div div.thumbcaption {
     text-align: center;
-  }
+ }
