@@ -7,6 +7,10 @@
    font-size: 130%;
  }
 
+ table {
+   background-color: inherit;
+ }
+
  /* underline links */
  a {
    text-decoration: underline;
