@@ -103,3 +103,8 @@
    border-left: thin dotted gray;
    padding-left: .5em;
  }
+
+ /* центриране на описанията на миникартинките */
+ .thumbcaption {
+    text-align: center;
+  }
