@@ -124,10 +124,10 @@
  table.toccolours tr.hrow th {
    background-color: #e0e6e9;
  }
- table.toccolours tr.odd {
+ tr.odd {
   background-color: inherit;
  }
- table.toccolours tr.even {
+ tr.even {
   background-color: #eceff3;
  }
 
