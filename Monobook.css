@@ -24,6 +24,18 @@
  /* показване на плъзгачи при необходимост */
  pre { overflow: auto; }
 
+ /* бутоните за изпращане на формулярите */
+ input[type=submit] {
+   color: black;
+   background-color: #e8e8e8;
+   border: thin outset white;
+   padding: 0 0.1ex;
+ }
+ input[type=submit]:hover {
+   color: black;
+   background-color: lightyellow;
+ }  
+
  /* link in selected tab */
  #p-cactions ul li.selected a {
    /* font-weight: bold; */
