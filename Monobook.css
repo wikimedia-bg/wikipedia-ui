@@ -57,5 +57,6 @@
  /* клас за изпъкване */
  .hilite {
    color: inherit;
-   background-color: #ffffcc;
+   background-color: #fff6e6; 
+   border: thin dotted silver;
  }
