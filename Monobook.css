@@ -76,6 +76,11 @@
    background-color: yellow;
  }
 
+ /* клас за текста, отбелязващ малките промени [[МедияУики:Minoreditletter]] */
+ .minor {
+   font-weight: normal;
+ }
+
  /* клас за изпъкване */
  .hilite {
    color: inherit;
