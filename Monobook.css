@@ -159,3 +159,6 @@
    padding: 0.3em 0.5em 0.2em 1em;
    font-size: 1.2em;
  }
+ .portal-box-left .editsection a, .portal-box-right .editsection a {
+   color: white;
+ }
