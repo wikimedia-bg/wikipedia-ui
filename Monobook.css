@@ -76,16 +76,6 @@
    background-color: yellow;
  }
 
- /* клас за текста, отбелязващ малките промени [[МедияУики:Minoreditletter]] */
- #pagehistory span.minor {
-   font-weight: normal;
- }
- /* "вътрешни" малки промени при подобрените "последни промени" */
- span.minoredit {
-   font-weight: normal;
- }
-
-
  /* клас за изпъкване */
  .hilite {
    color: inherit;
