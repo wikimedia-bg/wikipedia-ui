@@ -104,10 +104,10 @@
    margin-bottom: 0;
  }
 
- #my-buttons {
+ .buttonlinks {
    padding: 0.5em;
  }
- #my-buttons a {
+ .buttonlinks a {
    color: black;
    background-color: #ccddee;
    font-weight: bold;
@@ -116,7 +116,7 @@
    border: thin #006699 outset;
    padding: 0 0.1em 0.1em 0.1em;
  }
- #my-buttons a:hover, #my-buttons a:active {
+ .buttonlinks a:hover, .buttonlinks a:active {
    background-color: #bbccdd;
    border-style: inset;
  }
