@@ -70,8 +70,8 @@
    font-style: italic;
  }
 
- /* етикетът "Редактиране" */
- #ca-edit a { 
+ /* етикетът „Редактиране“, съобщението „Влизане“ за невлязъл потребител */
+ #ca-edit a, #pt-login a { 
    font-weight: bold !important; 
  }
 
