@@ -44,4 +44,34 @@ With MediaWiki 1.5, the mechanism has changed: instead of a SPAN of class "urlex
 .plainlinksneverexpand a.external.autonumber:after {
   display: none !important;
 }
-/* </pre> */
+/* </pre> 
+
+== Prettytable ==
+
+<pre>*/
+.prettytable, .prettytable table
+{
+    border: 1px solid #aaa;
+    border-collapse: collapse;
+    font-size: 95%;
+    margin: 1em 0;
+    background: #f9f9f9;
+}
+
+.prettytable table
+{
+    margin: 0;
+}
+
+.prettytable td, table.prettytable th
+{
+    border: 1px solid #aaa;
+    padding: 4px;
+}
+
+.prettytable th
+{
+    background-color: #ddd;
+}
+
+/*</pre>
