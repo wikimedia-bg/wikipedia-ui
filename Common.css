@@ -1,15 +1,17 @@
-/* Common CSS for all skins */
+/* 
 
-
-/*Add formatting to make sure that "external references" from [[Template:Ref]] do
-  not get URL expansion, not even when printed. The mechanism up to MediaWiki 1.4 was
-  that the HTML code contained a SPAN following the anchor A; this SPAN had the class
-  "urlexpansion", which was not displayed on screen, but was shown when the medium was
-  "print". The rules below ensure (a) that there is no extra padding to the right of
-  the anchor (displayed as "[<number>]"), (b) that there is no "external link arrow" for
-  the link, and (c) that this SPAN of class "urlexpansion" is never shown.
-  [[Потребител:Nk|Спас Колев]] 15:02, 23 февруари 2006 (UTC)
+'''Common CSS for all skins''' 
+__СЪДЪРЖАНИЕ__ 
 */
+
+
+/*
+
+== Plainlinks ==
+Add formatting to make sure that "external references" from [[Template:Ref]] do not get URL expansion, not even when printed. The mechanism up to MediaWiki 1.4 was that the HTML code contained a SPAN following the anchor A; this SPAN had the class "urlexpansion", which was not displayed on screen, but was shown when the medium was "print". The rules below ensure (a) that there is no extra padding to the right of the anchor (displayed as "[<number>]"), (b) that there is no "external link arrow" for
+the link, and (c) that this SPAN of class "urlexpansion" is never shown.
+
+<pre>*/
 
 .plainlinksneverexpand {
   background: none ! important;
@@ -19,25 +21,27 @@
 .plainlinksneverexpand .urlexpansion {
   display: none ! important;
 }
+/* </pre> */
 
-/* Make sure that ext links displayed within "plainlinksneverexpand" don't get
-   the arrow...
-*/
+/* 
+
+Make sure that ext links displayed within "plainlinksneverexpand" don't get the arrow...
+<pre>*/
 .plainlinksneverexpand a {
    background: none !important;
    padding: 0 !important;
 }
+/* </pre> */
 
-/* With MediaWiki 1.5, the mechanism has changed: instead of a SPAN of class "urlexpansion"
-   following the anchor A, the anchor itself now has class "external autonumber" and the
-   expansion is inserted when printing (see the common printing style sheet at
-   http://en.wikipedia.org/skins-1.5/common/commonPrint.css) using the ":after" pseudo-
-   element of CSS. We have to switch this off for links due to Template:Ref!
-   [[Потребител:Nk|Спас Колев]] 15:02, 23 февруари 2006 (UTC)
-*/
+/* 
+
+With MediaWiki 1.5, the mechanism has changed: instead of a SPAN of class "urlexpansion" following the anchor A, the anchor itself now has class "external autonumber" and the expansion is inserted when printing (see the common printing style sheet at http://en.wikipedia.org/skins-1.5/common/commonPrint.css) using the ":after" pseudo-element of CSS. We have to switch this off for links due to Template:Ref!
+<pre>*/
+
 .plainlinksneverexpand a.external.text:after {
   display: none !important;
 }
 .plainlinksneverexpand a.external.autonumber:after {
   display: none !important;
 }
+/* </pre> */
