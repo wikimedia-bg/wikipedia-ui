@@ -75,3 +75,25 @@ With MediaWiki 1.5, the mechanism has changed: instead of a SPAN of class "urlex
 }
 
 /*</pre>
+
+/* 
+== Специални шрифтове ==
+
+Support for Template:IPA, Template:Unicode and Template:Polytonic. The inherit declaration resets the font for all browsers except MSIE6.  The empty comment must remain. 
+
+<pre>*/
+
+.IPA {
+        font-family: Chrysanthi Unicode, Doulos SIL, Gentium, GentiumAlt, Code2000, TITUS Cyberbit Basic, DejaVu Sans, Bitstream Vera Sans, Bitstream Cyberbit, Arial Unicode MS, Lucida Sans Unicode, Hiragino Kaku Gothic Pro, Matrix Unicode;
+        font-family /**/:inherit;
+}
+.Unicode {
+        font-family: TITUS Cyberbit Basic, Code2000, Doulos SIL, Chrysanthi Unicode, Bitstream Cyberbit, Bitstream CyberBase, Bitstream Vera, Thryomanes, Gentium, GentiumAlt, Visual Geez Unicode, Lucida Grande, Arial Unicode MS, Microsoft Sans Serif, Lucida Sans Unicode;
+        font-family /**/:inherit;
+}
+.polytonic {
+        font-family: Athena, Gentium, Palatino Linotype, Arial Unicode MS, Lucida Sans Unicode, Lucida Grande, Code2000; 
+        font-family /**/:inherit;
+}
+
+/*</pre>
