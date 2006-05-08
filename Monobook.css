@@ -1,4 +1,4 @@
-/*</pre>*/
+/*<pre>*/
 #globalWrapper { font-size: 130%; }
 
 table { background-color: inherit; }
@@ -153,27 +153,20 @@ tr.even { background-color: #eceff3; }
 }
 
 /* Standard Navigationsleisten, aka box hiding thingy from .de.*/
-div.Boxmerge,
-div.NavFrame {
-	margin: 0px;
-	padding: 2px;
-	border: 1px solid #aaaaaa;
+div.Boxmerge, div.NavFrame {
+	margin: 0;
+	padding: 0.2ex;
+	border: thin solid #aaaaaa;
 	text-align: center;
 	border-collapse: collapse;
 	font-size: 95%;
 }
-div.Boxmerge div.NavFrame {
-	border-style: none;
-	border-style: hidden;
-}
-div.NavFrame + div.NavFrame {
-	border-top-style: none;
-	border-top-style: hidden;
-}
+div.Boxmerge div.NavFrame { border-style: none; border-style: hidden; }
+div.NavFrame + div.NavFrame { border-top-style: none; border-top-style: hidden; }
 div.NavPic {
 	background-color: #ffffff;
-	margin: 0px;
-	padding: 2px;
+	margin: 0;
+	padding: 0.2ex;
 	float: left;
 }
 div.NavFrame div.NavHead {
@@ -185,15 +178,15 @@ div.NavFrame div.NavHead {
 }
 div.NavFrame p, div.NavContent, div.NavContent p { font-size: 100%; }
 div.NavEnd {
-	margin: 0px;
-	padding: 0px;
-	line-height: 1px;
+	margin: 0;
+	padding: 0;
+	line-height: 0.1em;
 	clear: both;
 }
 a.NavToggle {
 	position:absolute;
-	top:0px;
-	right:3px;
+	top:0;
+	right:0.2em;
 	font-weight:normal;
 	font-size:smaller;
 }
