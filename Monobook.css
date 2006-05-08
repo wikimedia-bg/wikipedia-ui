@@ -1,256 +1,200 @@
- /* 
- В този файл можем да задаваме собствени настройки за облика 'Monobook', 
- които ще действат при всички потребители. 
- */
+/*</pre>*/
+#globalWrapper { font-size: 130%; }
 
- #globalWrapper { 
-   font-size: 130%;
- }
+table { background-color: inherit; }
 
- table {
-   background-color: inherit;
- }
+a { text-decoration: underline; }
+a:hover { text-decoration: none; }
 
- /* underline links */
- a {
-   text-decoration: underline;
- }
+/* показване на плъзгачи при необходимост */
+/*pre { overflow: auto; }*/
 
- /* don't underline mouseover-links */
- a:hover {
-   text-decoration: none;
- }
+input[type=submit] {
+	color: black;
+	background-color: #e8e8e8;
+	border: thin outset white;
+	padding: 0 0.1ex;
+}
+input[type=submit]:hover {
+	color: black;
+	background-color: lightyellow;
+}
+/* бутона „Предварителен преглед“ */
+#wpPreview { font-weight: bold; }
 
- /* показване на плъзгачи при необходимост */
- /*pre { overflow: auto; }*/
+.code { font-family: monospace; }
 
- /* бутоните за изпращане на формулярите */
- input[type=submit] {
-   color: black;
-   background-color: #e8e8e8;
-   border: thin outset white;
-   padding: 0 0.1ex;
- }
- input[type=submit]:hover {
-   color: black;
-   background-color: lightyellow;
- }
- /* бутона „Предварителен преглед“ */
- #wpPreview {
-   font-weight: bold;
- }
+/* подравняване на текста в таблицата нагоре */
+table.nagore tbody { vertical-align:top; }
 
- /* link in selected tab */
- #p-cactions ul li.selected a {
-   /* font-weight: bold; */
- }
+#siteNotice { padding: 0.3em; text-align: center; margin-bottom: 0.5em; }
 
- .code {
-   font-family: monospace;
- }
+#siteSub {
+	display: inline;
+	font-weight: normal;
+	font-size: 0.95em;
+}
+.ns-0 #siteSub:after {
+	content: ' (можете да редактирате и подобрите тази статия веднага)';
+	font-style: italic;
+}
 
- /* подравняване на текста в таблицата нагоре */
- table.nagore tbody {
-   vertical-align:top;
- }
+/* етикетът „Редактиране“, съобщението „Влизане“ за невлязъл потребител */
+#ca-edit a, #pt-login a { 
+	font-weight: bold !important;
+}
 
- #siteNotice { padding: 0.3em; text-align: center; margin-bottom: 0.5em; }
- #siteNotice:after { 
- /* content: ' Българското време е напред, прибавете 3 часа.' */
- }
+/* клас за текста, отбелязващ нова страница в последните промени [[МедияУики:Newpageletter]] */
+.newpage { color: black; background-color: yellow; }
 
- /* показване на "от Уикипедия, свободната енциклопедия */
- #siteSub {
-   display: inline;
-   font-weight: normal;
-   font-size: 0.95em; 
- }
- .ns-0 #siteSub:after {
-   content: ' (можете да редактирате и подобрите тази статия веднага)';
-   font-style: italic;
- }
+/* клас за текста, отбелязващ малките промени [[МедияУики:Minoreditletter]] */
+span.minor { font-weight: normal; }
 
- /* етикетът „Редактиране“, съобщението „Влизане“ за невлязъл потребител */
- #ca-edit a, #pt-login a { 
-   font-weight: bold !important; 
- }
+/* клас за изпъкване */
+.hilite {
+	color: inherit;
+	background-color: #fff6e6;
+	padding: 0.2em 0.5em;
+	border: thin dotted silver;
+}
 
- /* клас за текста, отбелязващ нова страница в последните промени [[МедияУики:Newpageletter]] */
- .newpage {
-   color: black;
-   background-color: yellow;
- }
+/* стилове за съдържанието от началната страница - [[Шаблон:Съдържание]] */
+#mainpage-toc h3 {
+	font-size: 110%;
+	margin-bottom: 0;
+}
+#mainpage-toc p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
 
- /* клас за текста, отбелязващ малките промени [[МедияУики:Minoreditletter]] */
- span.minor {
-   font-weight: normal;
- }
+.buttonlinks a {
+	color: black;
+	background-color: #ccddee;
+	background-image: url('http://upload.wikimedia.org/wikipedia/commons/c/c6/Blending_blue_button_background.png');
+	background-repeat: repeat-x;
+	font-weight: bold;
+	font-size: 0.9em;
+	text-decoration: none;
+	border: thin #006699 outset;
+	padding: 0 0.1em 0.1em 0.1em;
+}
+.buttonlinks a:hover, .buttonlinks a:active {
+	background-color: #bbccdd;
+	border-style: inset;
+}
 
- /* клас за изпъкване */
- .hilite {
-   color: inherit;
-   background-color: #fff6e6;
-   padding: 0.2em 0.5em;
-   border: thin dotted silver;
- }
+#navbox ul li {
+	list-style: none;
+	margin-left: -1em;
+}
+#navtree ul {
+	border-left: thin dotted gray;
+	padding-left: .5em;
+}
 
- /* стилове за съдържанието от началната страница - [[Шаблон:Съдържание]] */
- #mainpage-toc h3 {
-   font-size: 110%;
-   margin-bottom: 0;
- }
- #mainpage-toc p {
-   margin-top: 0;
-   margin-bottom: 0;
- }
+#stubmessage {
+	font-style: italic;
+	text-align: center;
+	padding: 5px;
+	width: 75%;
+	margin: 1em auto;
+}
 
- #my-buttons {
-   padding: 0.5em;
- }
- .buttonlinks a {
-   color: black;
-   background-color: #ccddee;
-   background-image: url('http://upload.wikimedia.org/wikipedia/commons/c/c6/Blending_blue_button_background.png');
-   background-repeat: repeat-x;
-   font-weight: bold;
-   font-size: 0.9em;
-   text-decoration: none;
-   border: thin #006699 outset;
-   padding: 0 0.1em 0.1em 0.1em;
- }
- .buttonlinks a:hover, .buttonlinks a:active {
-   background-color: #bbccdd;
-   border-style: inset;
- }
+/* центриране на описанията на миникартинките */
+div.thumb div div.thumbcaption { text-align: center; }
 
- #navbox ul li {
-   list-style: none;
-   margin-left: -1em;
- }
- #navtree ul {
-   border-left: thin dotted gray;
-   padding-left: .5em;
- }
+table.toccolours caption { font-weight: bold; }
+table.toccolours tr.hrow th { background-color: #e0e6e9; }
+tr.odd { background-color: inherit; }
+tr.even { background-color: #eceff3; }
 
- #stubmessage {
-   font-style: italic;
-   text-align: center;
-   padding: 5px;
-   width: 75%;
-   margin: 1em auto;
- }
+.pBody {
+	 padding: 0.3em 0.1em;
+	 -moz-border-radius-topright: .5em;
+}
+.portlet h5 {
+	 background-color: #e0e3e6;
+	 border: thin solid silver;
+	 -moz-border-radius-topleft: .5em;
+	 -moz-border-radius-topright: .5em;
+}
 
- /* центриране на описанията на миникартинките */
- div.thumb div div.thumbcaption {
-    text-align: center;
- }
+.portal-box {
+	border: thin dotted #003366;
+	padding: 0.5em;
+	margin-bottom: 0.5em;
+}
+.portal-box h2 {
+	color: white;
+	background-color: #005588;
+	border: 0;
+	padding: 0.3em 0.5em 0.2em 1em;
+	font-size: 1.2em;
+}
+.portal-box .editsection, .portal-box .editsection a {
+	color: white;
+}
 
- table.toccolours caption {
-   font-weight: bold;
- }
- table.toccolours tr.hrow th {
-   background-color: #e0e6e9;
- }
- tr.odd {
-  background-color: inherit;
- }
- tr.even {
-  background-color: #eceff3;
- }
+.template-wrapper {
+	background: #fcfcec;
+	padding: .5em;
+	border: thin dashed gray;
+}
 
- .pBody {
-    padding: 0.3em 0.1em;
-    -moz-border-radius-topright: .5em;
- }
- .portlet h5 {
-    background-color: #e0e3e6;
-    border: thin solid silver;
-    -moz-border-radius-topleft: .5em;
-    -moz-border-radius-topright: .5em;
- }
+/* [[МедияУики:Monobook.js|поздравително съобщение]] за всеки невлязъл потребител */
+#externMessage {
+	text-align: center;
+	color: black;
+	background-color: #FFEE99;
+	border: thin solid #FFA500;
+	padding: .4em;
+	margin-top: .2em;
+}
 
- .portal-box {
-   border: thin dotted #003366;
-   padding: 0.5em;
-   margin-bottom: 0.5em;
- }
- .portal-box h2 {
-   color: white;
-   background-color: #005588;
-   border: 0;
-   padding: 0.3em 0.5em 0.2em 1em;
-   font-size: 1.2em;
- }
- .portal-box .editsection, .portal-box .editsection a {
-   color: white;
- }
-
- .template-wrapper {
-   background: #fcfcec;
-   padding: .5em;
-   border: thin dashed gray;
- }
-
- /* [[МедияУики:Monobook.js|поздравително съобщение]] за всеки невлязъл потребител */
- #externMessage {
-   text-align: center;
-   color: black;
-   background-color: #FFEE99;
-   border: thin solid #FFA500;
-   padding: .4em;
-   margin-top: .2em;
- }
-
- /* Standard Navigationsleisten, aka box hiding thingy from .de.*/
- div.Boxmerge,
- div.NavFrame {
-        margin: 0px;
-        padding: 2px;
-        border: 1px solid #aaaaaa;
-        text-align: center;
-        border-collapse: collapse;
-        font-size: 95%;
- }
- div.Boxmerge div.NavFrame {
-        border-style: none;
-        border-style: hidden;
- }
- div.NavFrame + div.NavFrame {
-        border-top-style: none;
-        border-top-style: hidden;
- }
- div.NavPic {
-        background-color: #ffffff;
-        margin: 0px;
-        padding: 2px;
-        float: left;
- }
- div.NavFrame div.NavHead {
-        height: 1.6em;
-        font-weight: bold;
-        font-size: 100%;
-        background-color: #efefef;
-        position:relative;
- }
- div.NavFrame p {
-        font-size: 100%;
- }
- div.NavFrame div.NavContent {
-        font-size: 100%;
- }
- div.NavFrame div.NavContent p {
-        font-size: 100%;
- }
- div.NavEnd {
-        margin: 0px;
-        padding: 0px;
-        line-height: 1px;
-        clear: both;
- }
- a.NavToggle {
-        position:absolute;
-        top:0px;
-        right:3px;
-        font-weight:normal;
-        font-size:smaller;
- }
+/* Standard Navigationsleisten, aka box hiding thingy from .de.*/
+div.Boxmerge,
+div.NavFrame {
+	margin: 0px;
+	padding: 2px;
+	border: 1px solid #aaaaaa;
+	text-align: center;
+	border-collapse: collapse;
+	font-size: 95%;
+}
+div.Boxmerge div.NavFrame {
+	border-style: none;
+	border-style: hidden;
+}
+div.NavFrame + div.NavFrame {
+	border-top-style: none;
+	border-top-style: hidden;
+}
+div.NavPic {
+	background-color: #ffffff;
+	margin: 0px;
+	padding: 2px;
+	float: left;
+}
+div.NavFrame div.NavHead {
+	height: 1.6em;
+	font-weight: bold;
+	font-size: 100%;
+	background-color: #efefef;
+	position:relative;
+}
+div.NavFrame p, div.NavContent, div.NavContent p { font-size: 100%; }
+div.NavEnd {
+	margin: 0px;
+	padding: 0px;
+	line-height: 1px;
+	clear: both;
+}
+a.NavToggle {
+	position:absolute;
+	top:0px;
+	right:3px;
+	font-weight:normal;
+	font-size:smaller;
+}
+/*</pre>*/
