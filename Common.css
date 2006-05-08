@@ -45,7 +45,7 @@ span.minor { font-weight: normal; }
 	font-size: 0.9em;
 	text-decoration: none;
 	border: thin #006699 outset;
-	padding: 0 0.1em 0.1em 0.1em;
+	padding: 0.1em;
 }
 .buttonlinks a:hover, .buttonlinks a:active {
 	background-color: #bbccdd;
