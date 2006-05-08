@@ -1,99 +1,181 @@
-/* 
+/*<pre>*/
 
-'''Common CSS for all skins''' 
-__СЪДЪРЖАНИЕ__ 
-*/
+table { background-color: inherit; }
 
+/* бутона „Предварителен преглед“ */
+#wpPreview { font-weight: bold; }
 
-/*
+.code { font-family: monospace; }
 
-== Plainlinks ==
-Add formatting to make sure that "external references" from [[Template:Ref]] do not get URL expansion, not even when printed. The mechanism up to MediaWiki 1.4 was that the HTML code contained a SPAN following the anchor A; this SPAN had the class "urlexpansion", which was not displayed on screen, but was shown when the medium was "print". The rules below ensure (a) that there is no extra padding to the right of the anchor (displayed as "[<number>]"), (b) that there is no "external link arrow" for
-the link, and (c) that this SPAN of class "urlexpansion" is never shown.
+/* подравняване на текста в таблицата нагоре */
+table.nagore tbody { vertical-align:top; }
 
-<pre>*/
+#siteNotice { padding: 0.3em; text-align: center; margin-bottom: 0.5em; }
 
-.plainlinksneverexpand {
-  background: none ! important;
-  padding: 0 ! important;
+/* клас за текста, отбелязващ нова страница в последните промени [[МедияУики:Newpageletter]] */
+.newpage { color: black; background-color: yellow; }
+
+/* клас за текста, отбелязващ малките промени [[МедияУики:Minoreditletter]] */
+span.minor { font-weight: normal; }
+
+/* клас за изпъкване */
+.hilite {
+	color: inherit;
+	background-color: #fff6e6;
+	padding: 0.2em 0.5em;
+	border: thin dotted silver;
 }
 
-.plainlinksneverexpand .urlexpansion {
-  display: none ! important;
+/* стилове за съдържанието от началната страница - [[Шаблон:Съдържание]] */
+#mainpage-toc h3 {
+	font-size: 110%;
+	margin-bottom: 0;
 }
-/* </pre> */
-
-/* 
-
-Make sure that ext links displayed within "plainlinksneverexpand" don't get the arrow...
-<pre>*/
-.plainlinksneverexpand a {
-   background: none !important;
-   padding: 0 !important;
-}
-/* </pre> */
-
-/* 
-
-With MediaWiki 1.5, the mechanism has changed: instead of a SPAN of class "urlexpansion" following the anchor A, the anchor itself now has class "external autonumber" and the expansion is inserted when printing (see the common printing style sheet at http://en.wikipedia.org/skins-1.5/common/commonPrint.css) using the ":after" pseudo-element of CSS. We have to switch this off for links due to Template:Ref!
-<pre>*/
-
-.plainlinksneverexpand a.external.text:after {
-  display: none !important;
-}
-.plainlinksneverexpand a.external.autonumber:after {
-  display: none !important;
-}
-/* </pre> 
-
-== Prettytable ==
-
-<pre>*/
-.prettytable, .prettytable table
-{
-    border: 1px solid #aaa;
-    border-collapse: collapse;
-    font-size: 95%;
-    margin: 1em 0;
-    background: #f9f9f9;
+#mainpage-toc p {
+	margin-top: 0;
+	margin-bottom: 0;
 }
 
-.prettytable table
-{
-    margin: 0;
+.buttonlinks a {
+	color: black;
+	background-color: #ccddee;
+	background-image: url('http://upload.wikimedia.org/wikipedia/commons/c/c6/Blending_blue_button_background.png');
+	background-repeat: repeat-x;
+	font-weight: bold;
+	font-size: 0.9em;
+	text-decoration: none;
+	border: thin #006699 outset;
+	padding: 0 0.1em 0.1em 0.1em;
+}
+.buttonlinks a:hover, .buttonlinks a:active {
+	background-color: #bbccdd;
+	border-style: inset;
 }
 
-.prettytable td, table.prettytable th
-{
-    border: 1px solid #aaa;
-    padding: 4px;
+#navbox ul li {
+	list-style: none;
+	margin-left: -1em;
+}
+#navtree ul {
+	border-left: thin dotted gray;
+	padding-left: .5em;
 }
 
-.prettytable th
-{
-    background-color: #ddd;
+#stubmessage {
+	font-style: italic;
+	text-align: center;
+	padding: 5px;
+	width: 75%;
+	margin: 1em auto;
 }
 
-/*</pre>
+/* центриране на описанията на миникартинките */
+div.thumb div div.thumbcaption { text-align: center; }
 
-/* 
-== Специални шрифтове ==
+table.toccolours caption { font-weight: bold; }
+table.toccolours tr.hrow th { background-color: #e0e6e9; }
+tr.odd { background-color: inherit; }
+tr.even { background-color: #eceff3; }
 
-Support for Template:IPA, Template:Unicode and Template:Polytonic. The inherit declaration resets the font for all browsers except MSIE6.  The empty comment must remain. 
+.portal-box {
+	border: thin dotted #003366;
+	padding: 0.5em;
+	margin-bottom: 0.5em;
+}
+.portal-box h2 {
+	color: white;
+	background-color: #005588;
+	border: 0;
+	padding: 0.3em 0.5em 0.2em 1em;
+	font-size: 1.2em;
+}
+.portal-box .editsection, .portal-box .editsection a {
+	color: white;
+}
 
-<pre>*/
+.template-wrapper {
+	background: #fcfcec;
+	padding: .5em;
+	border: thin dashed gray;
+}
+
+/* [[МедияУики:Monobook.js|поздравително съобщение]] за всеки невлязъл потребител */
+#externMessage {
+	text-align: center;
+	color: black;
+	background-color: #FFEE99;
+	border: thin solid #FFA500;
+	padding: .4em;
+	margin-top: .2em;
+}
+
+/* Standard Navigationsleisten, aka box hiding thingy from .de.*/
+div.Boxmerge, div.NavFrame {
+	margin: 0;
+	padding: 0.2ex;
+	border: thin solid #aaaaaa;
+	text-align: center;
+	border-collapse: collapse;
+	font-size: 95%;
+}
+div.Boxmerge div.NavFrame { border-style: none; border-style: hidden; }
+div.NavFrame + div.NavFrame { border-top-style: none; border-top-style: hidden; }
+div.NavPic {
+	background-color: #ffffff;
+	margin: 0;
+	padding: 0.2ex;
+	float: left;
+}
+div.NavFrame div.NavHead {
+	height: 1.6em;
+	font-weight: bold;
+	font-size: 100%;
+	background-color: #efefef;
+	position:relative;
+}
+div.NavFrame p, div.NavContent, div.NavContent p { font-size: 100%; }
+div.NavEnd {
+	margin: 0;
+	padding: 0;
+	line-height: 0.1em;
+	clear: both;
+}
+a.NavToggle {
+	position:absolute;
+	top:0;
+	right:0.2em;
+	font-weight:normal;
+	font-size:smaller;
+}
+
+.plainlinksneverexpand { background: none ! important; padding: 0 ! important; }
+.plainlinksneverexpand .urlexpansion { display: none ! important; }
+.plainlinksneverexpand a { background: none !important; padding: 0 !important; }
+.plainlinksneverexpand a.external.text:after { display: none !important; }
+.plainlinksneverexpand a.external.autonumber:after { display: none !important; }
+
+.prettytable, .prettytable table {
+	border: thin solid #aaa;
+	border-collapse: collapse;
+	font-size: 95%;
+	margin: 1em 0;
+	background: #f9f9f9;
+}
+.prettytable table { margin: 0; }
+.prettytable td, table.prettytable th { border: thin solid #aaa; padding: 0.3em; }
+.prettytable th { background-color: #ddd; }
 
 .IPA {
-        font-family: Chrysanthi Unicode, Doulos SIL, Gentium, GentiumAlt, Code2000, TITUS Cyberbit Basic, DejaVu Sans, Bitstream Vera Sans, Bitstream Cyberbit, Arial Unicode MS, Lucida Sans Unicode, Hiragino Kaku Gothic Pro, Matrix Unicode;
-        font-family /**/:inherit;
+	font-family: Chrysanthi Unicode, Doulos SIL, Gentium, GentiumAlt, Code2000, TITUS Cyberbit Basic, DejaVu Sans, Bitstream Vera Sans, Bitstream Cyberbit, Arial Unicode MS, Lucida Sans Unicode, Hiragino Kaku Gothic Pro, Matrix Unicode;
+	font-family /**/:inherit;
 }
 .Unicode {
-        font-family: TITUS Cyberbit Basic, Code2000, Doulos SIL, Chrysanthi Unicode, Bitstream Cyberbit, Bitstream CyberBase, Bitstream Vera, Thryomanes, Gentium, GentiumAlt, Visual Geez Unicode, Lucida Grande, Arial Unicode MS, Microsoft Sans Serif, Lucida Sans Unicode;
-        font-family /**/:inherit;
+	font-family: TITUS Cyberbit Basic, Code2000, Doulos SIL, Chrysanthi Unicode, Bitstream Cyberbit, Bitstream CyberBase, Bitstream Vera, Thryomanes, Gentium, GentiumAlt, Visual Geez Unicode, Lucida Grande, Arial Unicode MS, Microsoft Sans Serif, Lucida Sans Unicode;
+	font-family /**/:inherit;
 }
 .polytonic {
-        font-family: Athena, Gentium, Palatino Linotype, Arial Unicode MS, Lucida Sans Unicode, Lucida Grande, Code2000; 
-        font-family /**/:inherit;
+	font-family: Athena, Gentium, Palatino Linotype, Arial Unicode MS, Lucida Sans Unicode, Lucida Grande, Code2000;
+	font-family /**/:inherit;
 }
 
-/*</pre>
+/*</pre>*/
