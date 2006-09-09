@@ -179,3 +179,27 @@ a.NavToggle {
 }
 
 /*</pre>*/
+
+/* Messagebox templates */
+
+.messagebox {
+   border: 1px solid #aaaaaa;
+   background-color: #f9f9f9;
+   width: 80%;
+   margin: 0 auto 1em auto;
+   padding: .2em;
+}
+.messagebox.merge {
+   border: 1px solid #c0b8cc;
+   background-color: #f0e5ff;
+   text-align: center;
+}
+.messagebox.cleanup {
+   border: 1px solid #9f9fff;
+   background-color: #efefff;
+   text-align: center;
+}
+.messagebox.standard-talk {
+   border: 1px solid #c0c090;
+   background-color: #f8eaba;
+}
