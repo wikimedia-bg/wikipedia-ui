@@ -203,3 +203,95 @@ a.NavToggle {
    border: 1px solid #c0c090;
    background-color: #f8eaba;
 }
+
+/* Infobox template style */
+
+.infobox {
+   border: 1px solid #aaaaaa;
+   background-color: #f9f9f9;
+   color: black;
+   margin-bottom: 0.5em;
+   margin-left: 1em;
+   padding: 0.2em;
+   float: right;
+   clear: right;
+}
+.infobox td,
+.infobox th {
+   vertical-align: top;
+}
+.infobox caption {
+   font-size: larger;
+   margin-left: inherit;
+}
+.infobox.bordered {
+   border-collapse: collapse;
+}
+.infobox.bordered td,
+.infobox.bordered th {
+   border: 1px solid #aaaaaa;
+}
+.infobox.bordered .borderless td,
+.infobox.bordered .borderless th {
+   border: 0;
+}
+
+.infobox.sisterproject {
+   width: 20em;
+   font-size: 90%;
+}
+
+/* styles for bordered infobox with merged rows */
+.infobox.bordered .mergedtoprow td,
+.infobox.bordered .mergedtoprow th {
+   border: 0;
+   border-top: 1px solid #aaaaaa;
+   border-right: 1px solid #aaaaaa;
+}
+
+.infobox.bordered .mergedrow td,
+.infobox.bordered .mergedrow th {
+   border: 0;
+   border-right: 1px solid #aaaaaa;
+}
+
+
+/* styles for geography infoboxes, e.g. countries, national subdivisions, cities, etc. */
+
+.infobox.geography {
+   border: 1px solid #ccd2d9;
+   text-align: left;
+   border-collapse: collapse;
+   line-height: 1.2em; 
+   font-size: 90%;
+}
+
+.infobox.geography  td,
+.infobox.geography  th {
+   border-top: solid 1px #ccd2d9;
+   padding: 0.4em 0.2em 0.4em 0.8em;
+}
+.infobox.geography .mergedtoprow td,
+.infobox.geography .mergedtoprow th {
+   border-top: solid 1px #ccd2d9;
+   padding: 0.4em 0.2em 0.2em 0.8em;
+}
+
+.infobox.geography .mergedrow td,
+.infobox.geography .mergedrow th {
+      border: 0;
+      padding: 0 0.2em 0.2em 0.8em;
+}
+
+.infobox.geography .mergedbottomrow td,
+.infobox.geography .mergedbottomrow th {
+   border-top: 0;
+   border-bottom: solid 1px #ccd2d9;
+   padding: 0 0.2em 0.4em 0.8em;
+}
+
+.infobox.geography .maptable td,
+.infobox.geography .maptable th {
+      border: 0;
+      padding: 0 0 0 0;
+}
