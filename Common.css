@@ -324,3 +324,21 @@ table.prettytable caption {
   margin-right: inherit;
   font-weight: bold;
 }
+
+#coordinates {  
+ position:absolute;
+ z-index:1;
+ border:none;
+ background:none;
+ right:30px;
+ top:3.7em;
+ float:right;
+ margin:0.0em;
+ padding:0.0em;
+ line-height:1.5em;
+ text-align:right;
+ text-indent:0;
+ font-size:85%;
+ text-transform:none;
+ white-space:nowrap;
+}
