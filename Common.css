@@ -343,7 +343,7 @@ table.prettytable caption {
  white-space:nowrap;
 }
 
-.references-small { font-size: 90%;}
+.references-small { font-size: 85%;}
 
 /* VALIDATOR NOTICE: the following is correct, but the W3C validator doesn't accept it */
 /* -moz-* is a vendor-specific extension (CSS 2.1 4.1.2.1) */
