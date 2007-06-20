@@ -88,3 +88,13 @@
  
    return str;
  }
+
+ /** MediaWiki media player *******************************************************
+   *
+   *  Description: A Java player for in-browser playback of media files.
+   *  Created by: [[User:Gmaxwell]]
+   */
+ 
+ document.write('<script type="text/javascript" src="' 
+             + 'http://en.wikipedia.org/w/index.php?title=Mediawiki:Wikimediaplayer.js' 
+             + '&action=raw&ctype=text/javascript&dontcountme=s"></script>');
