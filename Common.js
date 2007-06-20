@@ -1,8 +1,4 @@
-/*
-
-проба, колкото да видя, наистина ли взема пред вид този файл
-
-*/
+//<source line lang=javascript>
 
  /** "Technical restrictions" title fix *****************************************
   *
@@ -98,3 +94,5 @@
  document.write('<script type="text/javascript" src="' 
              + 'http://en.wikipedia.org/w/index.php?title=Mediawiki:Wikimediaplayer.js' 
              + '&action=raw&ctype=text/javascript&dontcountme=s"></script>');
+
+//</source>
