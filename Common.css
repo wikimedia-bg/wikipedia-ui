@@ -355,6 +355,8 @@ table.prettytable caption {
   column-count:2;
 }
 
+.same-bg { background: none }
+
 /* Highlight clicked reference in blue to help navigation */
  
 ol.references > li:target {
