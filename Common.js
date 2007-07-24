@@ -95,4 +95,31 @@
              + 'http://en.wikipedia.org/w/index.php?title=Mediawiki:Wikimediaplayer.js' 
              + '&action=raw&ctype=text/javascript&dontcountme=s"></script>');
 
+ /* Déplacement des [modifier]
+  * Correction des titres qui s'affichent mal en raison de limitations dues à MediaWiki.
+  * Copyright 2006, Marc Mongenet. Licence GPL et GFDL.
+  * The function looks for <span class="editsection">, and move them
+  * at the end of their parent and display them inline in small font.
+  * var oldEditsectionLinks=true disables the function.
+  */
+ 
+ function setModifySectionStyle() {
+   try {
+     if (!(typeof oldEditsectionLinks == 'undefined' || oldEditsectionLinks == false)) return;
+     var spans = document.getElementsByTagName("span");
+     for (var s = 0; s < spans.length; ++s) {
+       var span = spans[s];
+       if (span.className == "editsection") {
+         span.style.fontSize = "small";
+         span.style.fontWeight = "normal";
+         span.style.cssFloat = span.style.styleFloat = "none";
+         span.parentNode.appendChild(document.createTextNode(" "));
+         span.parentNode.appendChild(span);
+       }
+     }
+   } catch (e) { /* something went wrong */ }
+ }
+ 
+ addOnloadHook(setModifySectionStyle);
+
 //</source>
