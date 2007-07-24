@@ -111,7 +111,9 @@
        var span = spans[s];
        if (span.className == "editsection") {
          span.style.fontSize = "small";
-         span.style.fontWeight = "normal";
+         span.style.variant = "small-caps";
+         span.style.fontStyle = "italic";
+         span.style.fontFamily = "Serif";
          span.style.cssFloat = span.style.styleFloat = "none";
          span.parentNode.appendChild(document.createTextNode(" "));
          span.parentNode.appendChild(span);
