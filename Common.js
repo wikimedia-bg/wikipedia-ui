@@ -112,7 +112,7 @@
        if (span.className == "editsection") {
          span.style.fontSize = "small";
          span.style.fontWeight = "normal";
-         span.style.cssFloat = span.style.styleFloat = "italic";
+         span.style.cssFloat = span.style.styleFloat = "none";
          span.parentNode.appendChild(document.createTextNode(" "));
          span.parentNode.appendChild(span);
        }
