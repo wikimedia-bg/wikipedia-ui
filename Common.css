@@ -387,3 +387,11 @@ sup.reference:target {
     border-top: 2px solid #ddd;
     border-bottom:2px solid #ddd;
 }
+
+/* Coloured watchlist numbers */
+.mw-plusminus-pos {
+  color: #006400; /* darkgreen */
+}
+/* .mw-plusminus-null currently at developer default */
+.mw-plusminus-neg {
+  color: #8B0000; /* darkred */
