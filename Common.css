@@ -4,7 +4,7 @@ table { background-color: inherit; }
 
 /* Горен/долен индекс със запазване на височината на реда */
 
-sub {vertical-align: baseline; font-size: 0.8em; position: relative; bottom: 0.4em }
+sub {vertical-align: baseline; font-size: 0.8em; position: relative; top: 0.4em }
 sup {vertical-align: baseline; font-size: 0.8em; position: relative; top: -0.4em }
 
 /* бутона „Предварителен преглед“ */
