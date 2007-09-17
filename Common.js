@@ -1,5 +1,16 @@
 //<source line lang=javascript>
 
+/**
+Replaces the scope in a function with the object’s one.
+Based on definition from the Prototype framework (http://prototype.conio.net/).
+*/
+Function.prototype.bind = function(object) {
+	var __method = this;
+	return function() {
+		return __method.apply(object, arguments);
+	}
+}
+
  /** "Technical restrictions" title fix *****************************************
   *
   *  Description:
@@ -84,6 +95,42 @@
  
    return str;
  }
+
+
+/** Import module *************************************************************
+ *
+ *  Description: Includes a raw wiki page as javascript or CSS, 
+ *               used for including user made modules.
+ *  Maintainers: [[User:AzaToth]]
+ */
+var importedScripts = {}; // object keeping track of included scripts, so a script ain't included twice
+function importScript( page ) {
+	if( importedScripts[page] ) {
+		return;
+	}
+	importedScripts[page] = true;
+	var url = wgScriptPath
+		+ '/index.php?title='
+		+ encodeURIComponent( page.replace( / /g, '_' ) )
+		+ '&action=raw&ctype=text/javascript';
+	var scriptElem = document.createElement( 'script' );
+	scriptElem.setAttribute( 'src' , url );
+	scriptElem.setAttribute( 'type' , 'text/javascript' );
+	document.getElementsByTagName( 'head' )[0].appendChild( scriptElem );
+}
+
+function importStylesheet( page ) {
+	var sheet = '@import "'
+		+ wgScriptPath
+		+ '/index.php?title='
+		+ encodeURIComponent( page.replace( / /g, '_' ) )
+		+ '&action=raw&ctype=text/css";';
+	var styleElem = document.createElement( 'style' );
+	styleElem.setAttribute( 'type' , 'text/css' );
+	styleElem.appendChild( document.createTextNode( sheet ) );
+	document.getElementsByTagName( 'head' )[0].appendChild( styleElem );
+}
+
 
  /** MediaWiki media player *******************************************************
    *
