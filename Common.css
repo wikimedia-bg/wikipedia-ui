@@ -20,6 +20,9 @@ table.nagore tbody { vertical-align:top; }
 /* клас за текста, отбелязващ нова страница в последните промени [[МедияУики:Newpageletter]] */
 .newpage { color: black; background-color: yellow; }
 
+/* клас за препратки, които не се виждат като подчертани */
+.noulinks a { text-decoration: none; }
+
 /* клас за текста, отбелязващ малките промени [[МедияУики:Minoreditletter]] */
 span.minor { font-weight: normal; }
 
