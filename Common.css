@@ -351,7 +351,6 @@ table.prettytable caption {
  white-space:nowrap;
 }
 
-.references-small { font-size: 85%;}
 .references { font-size: 85%;}
 
 /* VALIDATOR NOTICE: the following is correct, but the W3C validator doesn't accept it */
