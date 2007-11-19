@@ -34,6 +34,14 @@ span.minor { font-weight: normal; }
 	border: thin dotted silver;
 }
 
+/* клас на връзките за редактиране на раздел */
+.editsection {
+	font-size: small;
+	font-style: italic;
+	font-family: Serif;
+	float: none;
+}
+
 /* стилове за съдържанието от началната страница - [[Шаблон:Съдържание]] */
 #mainpage-toc h3 {
 	font-size: 110%;
