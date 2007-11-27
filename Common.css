@@ -117,6 +117,21 @@ tr.even { background-color: #eceff3; }
 	margin-top: .2em;
 }
 
+#loadIndicatorWrapper {
+	position: absolute;
+	top: 6em;
+	width: 100%;
+}
+#loadIndicator {
+	color: black;
+	background-color: #CCDDEE;
+	font-size: 2em;
+	border: solid thin #006699;
+	margin: 0 auto;
+	padding: 0.5em;
+	width: 20em;
+}
+
 /* Standard Navigationsleisten, aka box hiding thingy from .de.*/
 div.Boxmerge, div.NavFrame {
 	margin: 0;
