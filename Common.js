@@ -461,7 +461,7 @@ function toggleElemDisplay(elemId) {
 /* * * * * * * * * *   Ajax functions   * * * * * * * * * */
 
 var prevReq;
-var pageUrl = wgScriptPath + "?title=$1&action=raw&templates=expand";
+var pageUrl = wgScript + "?title=$1&action=raw&templates=expand";
 var pageToFetch = "";
 
 function loadPage(page) {
