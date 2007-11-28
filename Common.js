@@ -521,7 +521,18 @@ function insertIntoWikiText() {
 	// изтриване на текст, отбелязан за невмъкване + <pre> и <nowiki>
 	var re = /<!--noinclude-->.*<!--\/noinclude-->|<\/?pre>|<\/?nowiki>/g;
 	var content = prevReq.responseText.replace(re, "");
-	insertTags(content, "", "");
+	// replace escaped tags
+	var specials = ["pre", "nowiki"];
+	for (var i in specials) {
+		re = new RegExp("\\[(\/?)"+ specials[i] +"\\]", "g");
+		content = content.replace(re, "<$1"+ specials[i] +">");
+	}
+	// split at caret’s position
+	var parts = content.split(">>|<<");
+	var left = parts[0];
+	delete(parts[0]);
+	var right = parts.join("");
+	insertTags(left, right, "");
 }
 
 var loadIndicator;
