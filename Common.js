@@ -198,6 +198,8 @@ function externMessage() {
 	}
 }
 
+addOnloadHook(externMessage);
+
 
 /* * * * * * * * * *   Edit tools functions   * * * * * * * * * */
 
@@ -277,7 +279,7 @@ var customInsButtons = [
 	["&nbsp;", "", "", "+несекаем интервал", "nbsp"],
 	["„", "“", "текст в кавички", "+български кавички", "„“"],
 	["<del>", "</del>", "зачертан текст", "Отбелязване на текст като изтрит", "<del>del</del>"],
-	["{"+"{", "}}", "", "+скоби за шаблон", "{{}}"],
+	["{"+"{", "}}", "", "+скоби за шаблон", "{"+"{}}"],
 	["|", "", "", "+отвесна черта — |", "&nbsp;|&nbsp;"],
 	["—", "", "", "+дълга чертица — mdash", "—"],
 	["–", "", "", "+средна чертица — ndash", "&nbsp;–&nbsp;"],
@@ -288,7 +290,7 @@ var customInsButtons = [
 	["[[en:", "]]", "en", "+английско междуики", "en:"],
 	["dot.png", "", "", "+dot.png — прозрачен пиксел", "dot"],
 	["{"+"{Уики ен|", "}}", "", "Добавяне на източник", "Изт."],
-        ["{"+"{Br}}\n", "", "", "Шаблон Br", "br"],
+	["{"+"{Br}}\n", "", "", "Шаблон Br", "br"],
 	["<ref>", "</ref>", "", "Бележка под линия", "ref"]
 ];
 
@@ -378,7 +380,7 @@ var tpl2 = {
 	}
 };
 
-var baseTplVarName = "tpl";
+var tplVarBaseName = "tpl";
 
 // добавя нови бутони и други играчки
 function setupCustomEditTools() {
@@ -413,6 +415,8 @@ function setupCustomEditTools() {
 	toolbar.appendChild(chbox);
 }
 
+hookEvent("load", setupCustomEditTools);
+
 // генерира падащото меню с шаблоните
 function makeTemplateSelectBox() {
 	var box = document.createElement("select");
@@ -424,7 +428,7 @@ function makeTemplateSelectBox() {
 		}
 		return false;
 	};
-	box.appendChild( newOption("", "Елементи от статията...") );
+	box.appendChild( newOption("", "Елемент от статията...") );
 	for (var i in tpl) { box.appendChild( newOption(i, tpl[i][3]) ); }
 	return box;
 }
@@ -438,7 +442,7 @@ function addCustomButton(box, item) {
 
 function addDropDownMenus(parent) {
 	var tplVar = null;
-	for ( var i = 1; tplVar = baseTplVarName + i,
+	for ( var i = 1; tplVar = tplVarBaseName + i,
 			eval("var tpl = typeof("+ tplVar +") == 'object' ? "+ tplVar +" : null"),
 			tpl != null; i++ ) {
 		addDropDownMenu(parent, tpl);
@@ -456,11 +460,13 @@ function addDropDownMenu(parent, content) {
 		}
 		return;
 	};
-	appendOptions(box, content);
-	parent.appendChild(box);
+	if ( appendOptions(box, content) > 1 ) {
+		parent.appendChild(box);
+	}
 }
 
 function appendOptions(box, opts) {
+	var count = 0;
 	for (var i in opts) {
 		if (opts[i] == "") {
 			continue; // skip emtpy entries
@@ -469,7 +475,9 @@ function appendOptions(box, opts) {
 			? newOptgroup(i, opts[i])
 			: newOption(opts[i], i);
 		box.appendChild(child);
+		count++;
 	}
+	return count;
 }
 
 function newOptgroup(label, data) {
@@ -553,11 +561,8 @@ function showLoadIndicator() {
 		return;
 	}
 	loadIndicator = document.createElement("div");
-	loadIndicator.id = "loadIndicatorWrapper";
-	var txt = document.createElement("div");
-	txt.id = "loadIndicator";
-	txt.appendChild( document.createTextNode("Шаблонът се зарежда…") );
-	loadIndicator.appendChild(txt);
+	loadIndicator.id = "loadIndicator";
+	loadIndicator.appendChild( document.createTextNode("Шаблонът се зарежда…") );
 	content.appendChild(loadIndicator);
 }
 
@@ -736,11 +741,6 @@ function zamena(bds) {
 	txt = txt.replace (/\&euro;/gi, "€");
 
 	// Вставляем пропущенные и убираем лишние пробелы
-	txt=txt.replace(/и т\.д\./g, "и\u00A0т\.\u00A0д\.");
-	txt=txt.replace(/и т\.п\./g, "и\u00A0т\.\u00A0п\.");
-	txt=txt.replace(/н\.э\./g, "н\. э\.");
-	txt=txt.replace(/т\.е\./g, "т\.\u00A0е\.");
-	txt=txt.replace(/т\.к\./g, "т\.\u00A0к\.");
 	txt=txt.replace(/([А-Я]\.)([А-Я]\.)([А-Я][а-я])/g, "$1 $2 $3");
 	txt=txt.replace(/([А-Я]\.)([А-Я]\.)/g, "$1 $2");
 	txt=txt.replace(/^([#\*])([\*#]*)([\[\"\(\„\w\dа-яё])/mg, "$1$2 $3");
@@ -879,6 +879,8 @@ function LinkFA() {
 	}
 }
 
+addOnloadHook(LinkFA);
+
 
 // BEGIN Dynamic Navigation Bars (experimental)
 
@@ -953,12 +955,8 @@ function createNavBarToggleButton()
 			toggleNavBar(i);
 		}
 	}
-
 }
 
-// END Dynamic Navigation Bars
-
-hookEvent("load", setupCustomEditTools);
-addOnloadHook(externMessage);
-addOnloadHook(LinkFA);
 addOnloadHook(createNavBarToggleButton);
+
+// END Dynamic Navigation Bars
