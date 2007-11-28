@@ -428,7 +428,7 @@ function makeTemplateSelectBox() {
 		}
 		return false;
 	};
-	box.appendChild( newOption("", "Елемент от статията...") );
+	box.appendChild( newOption("", "Елементи от статията...") );
 	for (var i in tpl) { box.appendChild( newOption(i, tpl[i][3]) ); }
 	return box;
 }
