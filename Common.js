@@ -1,13 +1,4 @@
-/**
-	Replaces the scope in a function with the object’s one.
-	Based on definition from the Prototype framework (http://prototype.conio.net/).
-*/
-Function.prototype.bind = function(object) {
-	var __method = this;
-	return function() {
-		return __method.apply(object, arguments);
-	}
-}
+{{МедияУики:Common.js/Core}}
 
 
 {{МедияУики:Common.js/Titlefix}}
