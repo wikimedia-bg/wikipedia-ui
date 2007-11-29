@@ -427,8 +427,8 @@ function makeTemplateSelectBox() {
 		}
 		return false;
 	};
-	box.appendChild( newOption("", "Елементи от статията...") );
-	for (var i in tpl) { box.appendChild( newOption(i, tpl[i][3]) ); }
+	box.appendChild( Creator.newOption("", "Елементи от статията...") );
+	for (var i in tpl) { box.appendChild( Creator.newOption(i, tpl[i][3]) ); }
 	return box;
 }
 
@@ -471,29 +471,31 @@ function appendOptions(box, opts) {
 			continue; // skip emtpy entries
 		}
 		var child = typeof(opts[i]) == "object"
-			? newOptgroup(i, opts[i])
-			: newOption(opts[i], i);
+			? Creator.newOptgroup(i, opts[i])
+			: Creator.newOption(opts[i], i);
 		box.appendChild(child);
 		count++;
 	}
 	return count;
 }
 
-function newOptgroup(label, data) {
-	var g = document.createElement("optgroup");
-	g.label = label;
-	for (var i in data) {
-		g.appendChild( newOption(data[i], i) );
-	}
-	return g;
-}
+var Creator = {
+	newOptgroup: function(label, data) {
+		var g = document.createElement("optgroup");
+		g.label = label;
+		for (var i in data) {
+			g.appendChild( Creator.newOption(data[i], i) );
+		}
+		return g;
+	},
 
-function newOption(val, text) {
-	var o = document.createElement("option");
-	o.value = val;
-	o.appendChild( document.createTextNode(text) );
-	return o;
-}
+	newOption: function(val, text) {
+		var o = document.createElement("option");
+		o.value = val;
+		o.appendChild( document.createTextNode(text) );
+		return o;
+	}
+};
 
 /** скрива/показва елемент */
 function toggleElemDisplay(elemId) {
