@@ -1,8 +1,9 @@
-/*<pre>*/
 #globalWrapper { font-size: 130%; }
 
 a { text-decoration: underline; }
 a:hover { text-decoration: none; }
+.portlet a { text-decoration: none; }
+.portlet a:hover { text-decoration: underline; }
 
 input[type=submit] {
 	color: black;
@@ -36,5 +37,3 @@ input[type=submit]:hover {
 	 -moz-border-radius-topleft: .5em;
 	 -moz-border-radius-topright: .5em;
 }
-
-/*</pre>*/
