@@ -411,3 +411,50 @@ sup.reference:target {
 .mw-plusminus-neg {
   color: #8B0000; /* darkred */
 }
+
+/* Article message box template styles */
+table.ambox {
+    margin: 0 10%;                       /* Will not overlap with other elements */
+    border-collapse: collapse; 
+    background: #fbfbfb; 
+    border: 1px solid #aaa; 
+    border-left: 10px solid #1e90ff;     /* Default "notice" blue */
+}
+table.ambox th.ambox-text, table.ambox td.ambox-text {      /* The message body cell(s) */
+    padding: 0.25em 0.5em;            /* 0.5em left/right */
+    width: 100%;                      /* Make all templates the same width regardless of text size */
+}
+table.ambox td.ambox-image {          /* The left image cell */
+    padding: 2px 0px 2px 0.5em;       /* 0.5em left, 0px right */
+    text-align: center; 
+}
+table.ambox td.ambox-imageright {     /* The right image cell */
+    padding: 2px 4px 2px 0px;         /* 0px left, 4px right */
+    text-align: center; 
+}
+table.ambox-notice {
+    border-left: 10px solid #1e90ff;     /* Blue */
+/* border-right: 10px solid #1e90ff; */  /* If you want two blue bars */
+}
+table.ambox-delete,
+table.ambox-serious {
+    border-left: 10px solid #b22222;     /* Red */
+}
+table.ambox-content {
+    border-left: 10px solid #f28500;     /* Orange */
+}
+table.ambox-style {
+    border-left: 10px solid #f4c430;     /* Yellow */
+}
+table.ambox-merge {
+    border-left: 10px solid #9932cc;     /* Purple */
+}
+table.ambox-protection {
+    border-left: 10px solid #bba;        /* Gray */
+}
+table.ambox.ambox-mini {                 /* small floating box variant */
+    float: right;
+    clear: right;
+    margin: 0 0 0 1em;
+    width: 25%;
+}
