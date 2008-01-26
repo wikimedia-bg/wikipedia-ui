@@ -1,9 +1,6 @@
 {{МедияУики:Common.js/Core}}
 
 
-{{МедияУики:Common.js/Titlefix}}
-
-
 {{МедияУики:Common.js/Import}}
 
 
