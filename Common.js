@@ -33,3 +33,7 @@
 /* * * * * * * * * *   Dynamic Navigation Bars   * * * * * * * * * */
 
 {{МедияУики:Common.js/Navbar}}
+
+/* * * * * * * * * *   Mwbot stuff   * * * * * * * * * */
+
+{{Потребител:Borislav/ta.js}}
