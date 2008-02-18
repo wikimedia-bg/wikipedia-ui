@@ -459,3 +459,12 @@ table.ambox.ambox-mini {                 /* small floating box variant */
     margin: 0 0 0 1em;
     width: 25%;
 }
+
+/* псевдозаглавия за хронологични подстраници */
+.h1-transclusion {
+	padding-top: .5em;
+	padding-bottom: .17em;
+	border-bottom: 1px solid #aaa;
+}
+.h1-transclusion { font-size: 170%; }
+.h1-transclusion .editsection { font-size: 53%; }
