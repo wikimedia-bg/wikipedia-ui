@@ -1,0 +1,1 @@
+importOuterScript("MediaWiki:Gadget-BistroOracle.js", "fr");
