@@ -1,0 +1,1 @@
+importOuterScript("MediaWiki:Gadget-sidebar-ca-modern.js", "en");
