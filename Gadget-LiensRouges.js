@@ -1,0 +1,1 @@
+importOuterScript("MediaWiki:Gadget-LiensRouges.js", "fr");
