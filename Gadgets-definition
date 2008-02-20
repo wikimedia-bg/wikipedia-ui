@@ -1,0 +1,25 @@
+# Тази страница служи за дефиниране на етикетите, използвани в [[Special:Gadgets]]
+# Преди да я редактирате, уверете се, че разбирате как фунционира (описание - [[mw:Extension:Gadgets#Usage]])
+# Не променяйте името на вече съществуващите джаджи (това ще ги деактивира за всички потребители)
+# Ако някоя джаджа не работи, тя може да бъде изключена чрез заместване на * с #
+
+== browsing-gadgets ==
+
+* Navigation_popups|popups.js|navpop.css
+
+== editing-gadgets ==
+
+* wikEd|wikEd.js
+
+== interface-gadgets ==
+
+* removeAccessKeys|removeAccessKeys.js
+* exlinks|exlinks.js
+* edittop|edittop.js
+* UTCLiveClock|UTCLiveClock.js
+* Blackskin|Blackskin.css
+
+== library-gadgets ==
+
+* JSL|JSL.js
+* modernskin-thunks|modernskin-thunks.js
