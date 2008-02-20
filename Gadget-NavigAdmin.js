@@ -1,0 +1,1 @@
+importOuterScript("MediaWiki:Gadget-NavigAdmin.js", "fr");
