@@ -1,0 +1,1 @@
+importOuterScript("MediaWiki:Gadget-addsection-plus.js", "en");
