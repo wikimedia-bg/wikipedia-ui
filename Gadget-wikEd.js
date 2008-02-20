@@ -1,0 +1,1 @@
+importOuterScript("MediaWiki:Gadget-wikEd.js", "en");
