@@ -1,0 +1,1 @@
+importOuterScript("MediaWiki:Gadget-protection-sidebar.js", "en");
