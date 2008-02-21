@@ -5,21 +5,21 @@
 
 == browsing-gadgets ==
 
-* Navigation_popups|popups.js|navpop.css
+* Navigation_popups|Core.js|popups.js|navpop.css
 
 == editing-gadgets ==
 
-* wikEd|wikEd.js
+* wikEd|Core.js|wikEd.js
 
 == interface-gadgets ==
 
-* removeAccessKeys|removeAccessKeys.js
-* exlinks|exlinks.js
-* EditZeroth|EditZeroth.js
-* UTCLiveClock|UTCLiveClock.js
-* Blackskin|Blackskin.css
+* removeAccessKeys|Core.js|removeAccessKeys.js
+* exlinks|Core.js|exlinks.js
+* EditZeroth|Core.js|EditZeroth.js
+* UTCLiveClock|Core.js|UTCLiveClock.js
+* Blackskin|Core.js|Blackskin.css
 
 == library-gadgets ==
 
-* JSL|JSL.js
-* modernskin-thunks|modernskin-thunks.js
+* JSL|Core.js|JSL.js
+* modernskin-thunks|Core.js|modernskin-thunks.js
