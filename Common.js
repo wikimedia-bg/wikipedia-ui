@@ -1,38 +1,38 @@
-{{МедияУики:Common.js/Core}}
+{{МедияУики:Common.js/Core.js}}
 
 
-{{МедияУики:Common.js/Import}}
+{{МедияУики:Common.js/Import.js}}
 
 
-{{МедияУики:Common.js/Media player}}
+{{МедияУики:Common.js/Media player.js}}
 
 
-{{МедияУики:Common.js/Edit section}}
+{{МедияУики:Common.js/Edit section.js}}
 
 
-{{МедияУики:Common.js/Extern message}}
+{{МедияУики:Common.js/Extern message.js}}
 
 
 /* * * * * * * * * *   Edit tools functions   * * * * * * * * * */
 
-{{МедияУики:Common.js/Edit tools data}}
+{{МедияУики:Common.js/Edit tools data.js}}
 
-{{МедияУики:Common.js/Edit tools}}
+{{МедияУики:Common.js/Edit tools.js}}
 
 
 /* * * * * * * * * *   Wikificator functions   * * * * * * * * * */
 
-{{МедияУики:Common.js/Wikificator}}
+{{МедияУики:Common.js/Wikificator.js}}
 
 
 /* * * * * * * * * *   Featured article marker   * * * * * * * * * */
 
-{{МедияУики:Common.js/FA}}
+{{МедияУики:Common.js/FA.js}}
 
 
 /* * * * * * * * * *   Dynamic Navigation Bars   * * * * * * * * * */
 
-{{МедияУики:Common.js/Navbar}}
+{{МедияУики:Common.js/Navbar.js}}
 
 /* * * * * * * * * *   Mwbot stuff   * * * * * * * * * */
 
