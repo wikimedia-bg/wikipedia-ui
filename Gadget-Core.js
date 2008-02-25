@@ -8,4 +8,4 @@ function importOuterScript( page, wiki ) {
 		+ '&action=raw&ctype=text/javascript"></scr'+'ipt>');
 }
 
-importScript("МедияУики:JSconfig.js");
+importOuterScript("МедияУики:JSconfig.js", "bg");
