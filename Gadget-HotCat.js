@@ -1,1 +1,1 @@
-importOuterScript("MediaWiki:Gadget-HotCat.js", "http://commons.wikimedia.org");
+importOuterScript("MediaWiki:Gadget-HotCat.js", "http://commons.wikimedia.org/w");
