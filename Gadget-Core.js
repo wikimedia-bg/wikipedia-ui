@@ -7,3 +7,5 @@ function importOuterScript( page, wiki ) {
 		+ encodeURIComponent( page.replace( / /g, '_' ) )
 		+ '&action=raw&ctype=text/javascript"></scr'+'ipt>');
 }
+
+{{МедияУики:JSconfig.js}}
