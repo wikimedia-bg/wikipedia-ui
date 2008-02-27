@@ -468,3 +468,7 @@ table.ambox.ambox-mini {                 /* small floating box variant */
 }
 .h1-transclusion { font-size: 170%; }
 .h1-transclusion .editsection { font-size: 53%; }
+
+li.FA {
+    list-style-image: url("http://upload.wikimedia.org/wikipedia/en/d/d4/Monobook-bullet-star.png");
+}
