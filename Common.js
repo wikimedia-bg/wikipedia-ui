@@ -1,5 +1,5 @@
 {{МедияУики:Common.js/Core.js}}
-
+{{МедияУики:Common.js/CoreObjects.js}}
 
 {{МедияУики:Common.js/Import.js}}
 
