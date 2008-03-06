@@ -14,13 +14,13 @@
 
 == interface-gadgets ==
 
-* removeAccessKeys|Core.js|removeAccessKeys.js
+#* removeAccessKeys|Core.js|removeAccessKeys.js
 * exlinks|Core.js|exlinks.js
 * edittop|Core.js|edittop.js
 * UTCLiveClock|Core.js|UTCLiveClock.js
-* Blackskin|Core.js|Blackskin.css
+#* Blackskin|Core.js|Blackskin.css
 
-== library-gadgets ==
+#== library-gadgets ==
 
-* JSL|Core.js|JSL.js
-* modernskin-thunks|Core.js|modernskin-thunks.js
+#* JSL|Core.js|JSL.js
+#* modernskin-thunks|Core.js|modernskin-thunks.js
