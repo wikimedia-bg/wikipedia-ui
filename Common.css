@@ -472,3 +472,8 @@ table.ambox.ambox-mini {                 /* small floating box variant */
 li.FA {
     list-style-image: url("http://upload.wikimedia.org/wikipedia/en/d/d4/Monobook-bullet-star.png");
 }
+
+div.hilited, span.hilited {
+	color: white;
+	background-color: #000080";
+}
