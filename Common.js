@@ -4,10 +4,18 @@
 {{МедияУики:Common.js/Import.js}}
 
 
+{{МедияУики:JSconfig.js}}
+
+
 {{МедияУики:Common.js/Media player.js}}
 
 
 {{МедияУики:Common.js/Edit section.js}}
+
+
+/* * * * * * * * * *   Toolbox add-ons   * * * * * * * * * */
+
+{{МедияУики:Common.js/Toolbox.js}}
 
 
 {{МедияУики:Common.js/Extern message.js}}
