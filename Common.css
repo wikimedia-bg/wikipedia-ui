@@ -477,3 +477,10 @@ div.hilited, span.hilited {
 	color: white;
 	background-color: #000080;
 }
+
+ 
+/* Prevents line breaks in links; see docs at Template:Nowraplinks */
+ 
+.nowraplinks a {
+    white-space: nowrap;
+}
