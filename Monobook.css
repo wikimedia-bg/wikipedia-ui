@@ -17,6 +17,8 @@ input[type=submit]:hover {
 }
 
 #siteSub { display: inline; font-weight: normal; font-size: 0.95em; }
+.page-Начална_страница #siteSub { display: none; }
+
 .ns-0 #siteSub:after {
 	content: ' (можете да редактирате и подобрите тази статия веднага)';
 	font-style: italic;
