@@ -483,3 +483,11 @@ div.hilited, span.hilited {
 .nowraplinks a {
     white-space: nowrap;
 }
+
+/* съобщения за блокиране на беседи */
+
+div.user-block {
+    padding: 5px;
+    border: 1px solid #A9A9A9;
+    background-color: #FFEFD5;
+}
