@@ -4,7 +4,6 @@ table { background-color: inherit; }
 .allpagesredirect { font-style:italic; }
 
 /* Горен/долен индекс със запазване на височината на реда */
-
 sub {vertical-align: baseline; font-size: 0.8em; position: relative; top: 0.4em }
 sup {vertical-align: baseline; font-size: 0.8em; position: relative; top: -0.4em }
 
@@ -202,7 +201,6 @@ a.NavToggle {
 /*</pre>*/
 
 /* Messagebox templates */
-
 .messagebox {
    border: 1px solid #aaaaaa;
    background-color: #f9f9f9;
@@ -226,7 +224,6 @@ a.NavToggle {
 }
 
 /* Infobox template style */
-
 .infobox {
    border: 1px solid #aaaaaa;
    background-color: #f9f9f9;
@@ -278,7 +275,6 @@ a.NavToggle {
 
 
 /* styles for geography infoboxes, e.g. countries, national subdivisions, cities, etc. */
-
 .infobox.geography {
    border: 1px solid #ccd2d9;
    text-align: left;
@@ -318,7 +314,6 @@ a.NavToggle {
 }
 
 /* wikitable/prettytable class for skinning normal tables */
-
 table.wikitable,
 table.prettytable {
   margin: 1em 1em 1em 0;
@@ -378,7 +373,6 @@ table.prettytable caption {
 .same-bg { background: none }
 
 /* Highlight clicked reference in blue to help navigation */
- 
 ol.references > li:target {
  background-color: #DEF;
 }
@@ -479,15 +473,22 @@ div.hilited, span.hilited {
 
  
 /* Prevents line breaks in links; see docs at Template:Nowraplinks */
- 
 .nowraplinks a {
     white-space: nowrap;
 }
 
 /* съобщения за блокиране на беседи */
-
 div.user-block {
     padding: 5px;
     border: 1px solid #A9A9A9;
     background-color: #FFEFD5;
+}
+
+/* Страница с документация на шаблон */
+.template-documentation {
+    clear: both;
+    margin: 1em 0 0 0;
+    border: 1px solid #aaa; 
+    background-color: #ecfcf4; 
+    padding: 5px;
 }
