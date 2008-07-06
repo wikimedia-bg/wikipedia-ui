@@ -1,5 +1,3 @@
-/*<pre>*/
-
 table { background-color: inherit; }
 .allpagesredirect { font-style:italic; }
 
@@ -491,4 +489,49 @@ div.user-block {
     border: 1px solid #aaa; 
     background-color: #ecfcf4; 
     padding: 5px;
+}
+
+/* Меню с ушенца */
+ul.tabbedmenu {
+	font-size: 95%;
+	font-weight: bold;
+	background: url("http://bmanolov.free.fr/tests/bg.png") repeat-x bottom;
+	list-style-type: none;
+	list-style-image: none;
+	width: 99%;
+	padding: 0 0 0 1%;
+	margin: 0;
+	float: left;
+}
+ul.tabbedmenu li {
+	font-variant: small-caps;
+	background: url("http://bmanolov.free.fr/tests/left.png") no-repeat left top;
+	padding: 0 0 0 0.5em;
+	margin: 0;
+	float: left;
+}
+ul.tabbedmenu a {
+	color: #002bb8;
+	background: url("http://bmanolov.free.fr/tests/right.png") no-repeat right top;
+	text-decoration: none;
+	padding: 0.3em 1em 0.3em 0.5em;
+	display: block;
+}
+ul.tabbedmenu a:hover {
+	color: darkblue;
+}
+ul.tabbedmenu .selected {
+	background-image: url("http://bmanolov.free.fr/tests/left_on.png");
+}
+ul.tabbedmenu .selected a {
+	color: #333;
+	background-image: url("http://bmanolov.free.fr/tests/right_on.png");
+	padding-bottom: 0.4em;
+}
+/* Тяло след меню с ушенца */
+div.tabbedpanebody {
+	clear: both;
+	border: medium solid #aaa;
+	border-top-width: 0;
+	padding: 1em;
 }
