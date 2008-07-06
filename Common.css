@@ -526,7 +526,7 @@ ul.tabbedmenu .selected {
 ul.tabbedmenu .selected a {
 	color: #333;
 	background-image: url("http://bmanolov.free.fr/tests/right_on.png");
-	padding-bottom: 0.2em;
+	padding-bottom: 0.25em;
 }
 /* Тяло след меню с ушенца */
 div.tabbedpanebody {
