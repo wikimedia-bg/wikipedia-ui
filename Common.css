@@ -514,7 +514,7 @@ ul.tabbedmenu a {
 	color: #002bb8;
 	background: url("http://bmanolov.free.fr/tests/right.png") no-repeat right top;
 	text-decoration: none;
-	padding: 0.3em 1em 0.3em 0.5em;
+	padding: 0.3em 1em 0.15em 0.4em;
 	display: block;
 }
 ul.tabbedmenu a:hover {
@@ -526,7 +526,7 @@ ul.tabbedmenu .selected {
 ul.tabbedmenu .selected a {
 	color: #333;
 	background-image: url("http://bmanolov.free.fr/tests/right_on.png");
-	padding-bottom: 0.4em;
+	padding-bottom: 0.2em;
 }
 /* Тяло след меню с ушенца */
 div.tabbedpanebody {
