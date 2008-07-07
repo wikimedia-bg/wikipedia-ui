@@ -506,7 +506,7 @@ ul.tabmenu {
 ul.tabmenu li {
 	font-variant: small-caps;
 	background: url("http://bmanolov.free.fr/tests/left.png") no-repeat left top;
-	padding: 0 0 0 0.5em;
+	padding: 0 0 0 9px;
 	margin: 0;
 	float: left;
 }
@@ -514,7 +514,7 @@ ul.tabmenu a {
 	color: #002bb8;
 	background: url("http://bmanolov.free.fr/tests/right.png") no-repeat right top;
 	text-decoration: none;
-	padding: 0.3em 1em 0.15em 0.4em;
+	padding: 0.3em 1em 4px 0.4em;
 	display: block;
 }
 ul.tabmenu a:hover {
@@ -526,7 +526,7 @@ ul.tabmenu .selected {
 ul.tabmenu .selected a {
 	color: #333;
 	background-image: url("http://bmanolov.free.fr/tests/right_on.png");
-	padding-bottom: 0.25em;
+	padding-bottom: 5px;
 }
 /* Тяло след меню с ушенца */
 div.tabbody {
