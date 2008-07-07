@@ -491,8 +491,8 @@ div.user-block {
     padding: 5px;
 }
 
-/* Меню с ушенца */
-ul.tabbedmenu {
+/* Меню с ушенца, базирано на http://alistapart.com/articles/slidingdoors/ */
+ul.tabmenu {
 	font-size: 95%;
 	font-weight: bold;
 	background: url("http://bmanolov.free.fr/tests/bg.png") repeat-x bottom;
@@ -503,33 +503,33 @@ ul.tabbedmenu {
 	margin: 0;
 	float: left;
 }
-ul.tabbedmenu li {
+ul.tabmenu li {
 	font-variant: small-caps;
 	background: url("http://bmanolov.free.fr/tests/left.png") no-repeat left top;
 	padding: 0 0 0 0.5em;
 	margin: 0;
 	float: left;
 }
-ul.tabbedmenu a {
+ul.tabmenu a {
 	color: #002bb8;
 	background: url("http://bmanolov.free.fr/tests/right.png") no-repeat right top;
 	text-decoration: none;
 	padding: 0.3em 1em 0.15em 0.4em;
 	display: block;
 }
-ul.tabbedmenu a:hover {
+ul.tabmenu a:hover {
 	color: darkblue;
 }
-ul.tabbedmenu .selected {
+ul.tabmenu .selected {
 	background-image: url("http://bmanolov.free.fr/tests/left_on.png");
 }
-ul.tabbedmenu .selected a {
+ul.tabmenu .selected a {
 	color: #333;
 	background-image: url("http://bmanolov.free.fr/tests/right_on.png");
 	padding-bottom: 0.25em;
 }
 /* Тяло след меню с ушенца */
-div.tabbedpanebody {
+div.tabbody {
 	clear: both;
 	border: medium solid #aaa;
 	border-top-width: 0;
