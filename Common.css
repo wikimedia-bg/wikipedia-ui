@@ -1,3 +1,11 @@
+/* препратките [редактиране] при разделите */
+.editsection {
+	font-size: small;
+	font-variant: small-caps;
+	font-style: italic;
+	font-family: Serif;
+}
+
 table { background-color: inherit; }
 .allpagesredirect { font-style:italic; }
 
