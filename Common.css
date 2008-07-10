@@ -498,44 +498,38 @@ div.user-block {
     padding: 5px;
 }
 
-/* Меню с ушенца, базирано на http://alistapart.com/articles/slidingdoors/ */
+/* Меню като ушенца, базирано на http://alistapart.com/articles/slidingdoors/ */
 ul.tabmenu {
 	font-size: 95%;
 	font-weight: bold;
 	background: url("http://bmanolov.free.fr/tests/bg.png") repeat-x bottom;
 	list-style-type: none;
 	list-style-image: none;
-	width: 99%;
-	padding: 0 0 0 1%;
+	width: 100%;
+	padding: 0;
 	margin: 0;
 	float: left;
 }
 ul.tabmenu li {
 	font-variant: small-caps;
-	background: url("http://bmanolov.free.fr/tests/left.png") no-repeat left top;
 	padding: 0 0 0 9px;
-	margin: 0;
+	margin: 0 0 0 0.5em;
+	border: thin solid #aaa;
+	border-bottom-width: 0;
 	float: left;
 }
 ul.tabmenu a {
-	color: #002bb8;
-	background: url("http://bmanolov.free.fr/tests/right.png") no-repeat right top;
 	text-decoration: none;
 	padding: 0.3em 1em 4px 0.4em;
 	display: block;
 }
-ul.tabmenu a:hover {
-	color: darkblue;
-}
-ul.tabmenu .selected {
-	background-image: url("http://bmanolov.free.fr/tests/left_on.png");
+ul.tabmenu .selected, ul.tabmenu li:hover {
+	border-color: #fabd23;
 }
 ul.tabmenu .selected a {
-	color: #333;
-	background-image: url("http://bmanolov.free.fr/tests/right_on.png");
 	padding-bottom: 5px;
 }
-/* Тяло след меню с ушенца */
+/* Тяло след ушато меню */
 div.tabbody {
 	clear: both;
 	border: medium solid #aaa;
