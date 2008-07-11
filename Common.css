@@ -502,32 +502,28 @@ div.user-block {
 ul.tabmenu {
 	font-size: 95%;
 	font-weight: bold;
-	background: url("http://bmanolov.free.fr/tests/bg.png") repeat-x bottom;
+	background: url("http://bmanolov.free.fr/tests/bg.png") repeat-x 0% 98%;
 	list-style-type: none;
 	list-style-image: none;
 	width: 100%;
-	padding: 0;
+	padding: 0 0 0 1em;
 	margin: 0;
-	float: left;
 }
 ul.tabmenu li {
 	font-variant: small-caps;
-	padding: 0 0 0 9px;
-	margin: 0 0 0 0.5em;
+	padding: .3em 0 .1em 0;
+	margin: 0 0 0 .5em;
 	border: thin solid #aaa;
 	border-bottom-width: 0;
-	float: left;
+	display: inline;
 }
-ul.tabmenu a {
+ul.tabmenu li a {
 	text-decoration: none;
-	padding: 0.3em 1em 4px 0.4em;
-	display: block;
+	padding: 0 .8em;
 }
 ul.tabmenu .selected, ul.tabmenu li:hover {
+	background-color: white;
 	border-color: #fabd23;
-}
-ul.tabmenu .selected a {
-	padding-bottom: 5px;
 }
 /* Тяло след ушато меню */
 div.tabbody {
