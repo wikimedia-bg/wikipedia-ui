@@ -497,38 +497,3 @@ div.user-block {
     background-color: #eaf1f4; 
     padding: 5px;
 }
-
-/* Меню като ушенца, базирано на http://alistapart.com/articles/slidingdoors/ */
-ul.tabmenu {
-	font-size: 95%;
-	font-weight: bold;
-	background: url("http://bmanolov.free.fr/tests/bg.png") repeat-x 0% 98%;
-	list-style-type: none;
-	list-style-image: none;
-	width: 100%;
-	padding: 0 0 0 1em;
-	margin: 0;
-}
-ul.tabmenu li {
-	font-variant: small-caps;
-	padding: .3em 0 .1em 0;
-	margin: 0 0 0 .5em;
-	border: thin solid #aaa;
-	border-bottom-width: 0;
-	display: inline;
-}
-ul.tabmenu li a {
-	text-decoration: none;
-	padding: 0 .8em;
-}
-ul.tabmenu .selected, ul.tabmenu li:hover {
-	background-color: white;
-	border-color: #fabd23;
-}
-/* Тяло след ушато меню */
-div.tabbody {
-	clear: both;
-	border: medium solid #aaa;
-	border-top-width: 0;
-	padding: 1em;
-}
