@@ -13,21 +13,28 @@ var showQuickLink = (function() {
 	var quickPage = 'Потребител:' + wgUserName +'/Бързи връзки';
 	var quickLink = null;
 	var quickLinks = null;
+	var editLink = null;
 	var parents = {
 		// skin : parent element ID
 		'monobook': 'pt-userpage',
 		'cologneblue': 'langlinks'
 	};
 	var parent = parents[skin];
-	var plus = '+', minus = '–', wait = '…';
+	var plus = '+', minus = '&minus;', wait = '…';
 
 	var showContainer = function(content) {
 		quickLinks = Creator.createElement('div', {
 			'id' : 'myquicklinks',
 			'class' : 'toccolours',
 			'style' : 'position: absolute; top: 3em; left: 3em; z-index: 1000; overflow: auto; width: 90%; padding: 1em'
-			});
-		quickLinks.innerHTML = content;
+		});
+		quickLinks.innerHTML = '<div style="float:right">[<a href="'
+			+ Creator.createInternUrl(quickPage, 'edit')
+			+ '" title="Редактиране на страницата с бързите връзки">'
+			+ 'редактиране</a>]</div>';
+		quickLinks.innerHTML += content.indexOf('emptypage') != -1
+			? '<em>Страницата ви с бързи връзки е празна.</em>'
+			: content;
 		document.getElementsByTagName('body')[0].appendChild(quickLinks);
 		quickLink.innerHTML = minus;
 	};
