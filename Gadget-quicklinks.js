@@ -21,13 +21,17 @@ var showQuickLink = (function() {
 	};
 	var parent = parents[skin];
 	var plus = '+', minus = '&minus;', wait = '…';
+	var loaded = false;
 
 	var showContainer = function(content) {
-		quickLinks = Creator.createElement('div', {
-			'id' : 'myquicklinks',
-			'class' : 'toccolours',
-			'style' : 'position: absolute; top: 3em; left: 3em; z-index: 1000; overflow: auto; width: 90%; padding: 1em'
-		});
+		if ( quickLinks === null ) {
+			quickLinks = Creator.createElement('div', {
+				'id' : 'myquicklinks',
+				'class' : 'toccolours',
+				'style' : 'position: absolute; top: 3em; left: 3em; z-index: 1000; overflow: auto; width: 90%; padding: 1em'
+			});
+			document.getElementsByTagName('body')[0].appendChild(quickLinks);
+		}
 		quickLinks.innerHTML = '<div class="editsection" style="float:right">[<a href="'
 			+ Creator.createInternUrl(quickPage, 'edit')
 			+ '" title="Редактиране на страницата с бързите връзки">'
@@ -35,12 +39,12 @@ var showQuickLink = (function() {
 		quickLinks.innerHTML += content.indexOf('emptypage') != -1
 			? '<em>Страницата ви с бързи връзки е празна.</em>'
 			: content;
-		document.getElementsByTagName('body')[0].appendChild(quickLinks);
 		quickLink.innerHTML = minus;
 	};
 
 	var showFullContainer = function(bot) {
 		showContainer(bot.page_content);
+		loaded = true;
 	}
 
 	var showEmptyContainer = function(bot) {
@@ -56,7 +60,7 @@ var showQuickLink = (function() {
 
 		quickLink = Creator.createAnchor('#', plus, 'Показване на бързите връзки');
 		quickLink.onclick = function() {
-			if ( quickLinks !== null ) {
+			if ( loaded ) {
 				if ( quickLinks.style.display == 'none' ) {
 					quickLinks.style.display = '';
 					quickLink.innerHTML = minus;
