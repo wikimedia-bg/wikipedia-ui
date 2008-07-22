@@ -28,7 +28,7 @@ var showQuickLink = (function() {
 			'class' : 'toccolours',
 			'style' : 'position: absolute; top: 3em; left: 3em; z-index: 1000; overflow: auto; width: 90%; padding: 1em'
 		});
-		quickLinks.innerHTML = '<div style="float:right">[<a href="'
+		quickLinks.innerHTML = '<div class="editsection" style="float:right">[<a href="'
 			+ Creator.createInternUrl(quickPage, 'edit')
 			+ '" title="Редактиране на страницата с бързите връзки">'
 			+ 'редактиране</a>]</div>';
@@ -73,7 +73,7 @@ var showQuickLink = (function() {
 			bot.fetchHtml(quickPage);
 			return false;
 		};
-	
+
 		var c = Creator.createElement('span', {}, [' (', quickLink, ')']);
 		p.appendChild(c);
 	});
