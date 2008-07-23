@@ -27,7 +27,7 @@ var showQuickLink = (function() {
 		if ( quickLinks === null ) {
 			quickLinks = Creator.createElement('div', {
 				'id' : 'myquicklinks',
-				'class' : 'toccolours',
+				'class' : 'messagebox',
 				'style' : 'position: absolute; top: 3em; left: 3em; z-index: 1000; overflow: auto; width: 90%; padding: 1em'
 			});
 			document.getElementsByTagName('body')[0].appendChild(quickLinks);
