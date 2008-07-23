@@ -497,3 +497,6 @@ div.user-block {
     background-color: #eaf1f4; 
     padding: 5px;
 }
+
+/* временно скриване на формуляра за качване */
+#mw-upload-form { display: none; }
