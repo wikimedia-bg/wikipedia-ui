@@ -499,8 +499,8 @@ div.user-block {
 }
 
 /* прости списъчета, чиито елементи е добре да се показват един до друг с разделител */
-.simplelist li { display: inline; margin: 0; padding: 0; }
-.simplelist li { white-space: nowrap; }
+.simplelist ul, .simplelist li { margin: 0; padding: 0; }
+.simplelist li { display: inline; white-space: nowrap; }
 .simplelist li:after { content: "\00A0\2022 "; /* circle */ }
 .simplelist li:last-child:after { content: ""; }
 
