@@ -498,5 +498,11 @@ div.user-block {
     padding: 5px;
 }
 
+/* прости списъчета, чиито елементи е добре да се показват един до друг с разделител */
+.simplelist li { display: inline; margin: 0; padding: 0; }
+.simplelist li { white-space: nowrap; }
+.simplelist li:after { content: "\00A0\2022 "; /* circle */ }
+.simplelist li:last-child:after { content: ""; }
+
 /* временно скриване на формуляра за качване */
 #mw-upload-form { display: none; }
