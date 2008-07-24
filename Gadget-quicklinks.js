@@ -50,11 +50,11 @@ var showQuickLink = (function() {
 	var showFullContainer = function(bot) {
 		showContainer(bot.page_content);
 		loaded = true;
-	}
+	};
 
 	var showEmptyContainer = function(bot) {
 		showContainer('Бързите връзки не можаха да бъдат заредени.');
-	}
+	};
 
 	return (function() {
 		if ( typeof parents[skin] == "undefined" ) {
