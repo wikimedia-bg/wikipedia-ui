@@ -16,10 +16,15 @@ var showQuickLink = (function() {
 	var editLink = null;
 	var parents = {
 		// skin : parent element ID
+		'standard' : 'searchform',
+		'nostalgia' : 'specialpages',
+		'cologneblue': 'langlinks',
 		'monobook': 'pt-userpage',
-		'cologneblue': 'langlinks'
+		'myskin' : 'pt-userpage',
+		'chick' : 'siteSub',
+		'simple' : 'pt-userpage',
+		'modern' : 'pt-userpage'
 	};
-	var parent = parents[skin];
 	var plus = '+', minus = '&minus;', wait = '…';
 	var loaded = false;
 
@@ -28,7 +33,7 @@ var showQuickLink = (function() {
 			quickLinks = Creator.createElement('div', {
 				'id' : 'myquicklinks',
 				'class' : 'messagebox',
-				'style' : 'position: absolute; top: 3em; left: 3em; z-index: 1000; overflow: auto; width: 90%; padding: 1em'
+				'style' : 'position: absolute; top: 3em; left: 3em; z-index: 10; overflow: auto; width: 90%; padding: 1em'
 			});
 			document.getElementsByTagName('body')[0].appendChild(quickLinks);
 		}
@@ -52,13 +57,17 @@ var showQuickLink = (function() {
 	}
 
 	return (function() {
-		var p = document.getElementById(parent);
+		if ( typeof parents[skin] == "undefined" ) {
+			return; // unsupported skin
+		}
+		var p = document.getElementById(parents[skin]);
 		if ( !p ) {
 			alert('В текущия документ не съществува елемент с ID „'+p+'“. Контролерът на бързите връзки не може да бъде зареден.');
 			return;
 		}
 
-		quickLink = Creator.createAnchor('#', plus, 'Показване на бързите връзки');
+		quickLink = Creator.createAnchor( Creator.createInternUrl(quickPage),
+			plus, 'Показване на бързите връзки');
 		quickLink.onclick = function() {
 			if ( loaded ) {
 				if ( quickLinks.style.display == 'none' ) {
@@ -78,7 +87,9 @@ var showQuickLink = (function() {
 			return false;
 		};
 
-		var c = Creator.createElement('span', {}, [' (', quickLink, ')']);
+		var c = Creator.createElement('span',
+			{'style' : 'z-index: 11'},
+			[' (', quickLink, ')']);
 		p.appendChild(c);
 	});
 
