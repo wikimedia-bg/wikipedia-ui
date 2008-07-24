@@ -10,7 +10,7 @@
 importScript('Потребител:Borislav/mwbot.js');
 
 var showQuickLink = (function() {
-	var quickPage = 'Потребител:' + wgUserName +'/Бързи връзки';
+	var quickPage = 'User:' + wgUserName +'/Бързи връзки';
 	var quickLink = null;
 	var quickLinks = null;
 	var editLink = null;
