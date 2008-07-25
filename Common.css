@@ -33,7 +33,7 @@ span.minor { font-weight: normal; }
 
 /* клас за изпъкване */
 .hilite {
-	color: inherit;
+	color: black;
 	background-color: #fff6e6;
 	padding: 0.2em 0.5em;
 	border: thin dotted silver;
@@ -207,161 +207,158 @@ a.NavToggle {
 
 /* Messagebox templates */
 .messagebox {
-   border: 1px solid #aaaaaa;
-   background-color: #f9f9f9;
-   width: 80%;
-   margin: 0 auto 1em auto;
-   padding: .2em;
+	border: 1px solid #aaaaaa;
+	background-color: #f9f9f9;
+	width: 80%;
+	margin: 0 auto 1em auto;
+	padding: .2em;
 }
 .messagebox.merge {
-   border: 1px solid #c0b8cc;
-   background-color: #f0e5ff;
-   text-align: center;
+	border: 1px solid #c0b8cc;
+	background-color: #f0e5ff;
+	text-align: center;
 }
 .messagebox.cleanup {
-   border: 1px solid #9f9fff;
-   background-color: #efefff;
-   text-align: center;
+	border: 1px solid #9f9fff;
+	background-color: #efefff;
+	text-align: center;
 }
 .messagebox.standard-talk {
-   border: 1px solid #c0c090;
-   background-color: #f8eaba;
+	border: 1px solid #c0c090;
+	background-color: #f8eaba;
 }
 
 /* Infobox template style */
 .infobox {
-   border: 1px solid #aaaaaa;
-   background-color: #f9f9f9;
-   color: black;
-   margin-bottom: 0.5em;
-   margin-left: 1em;
-   padding: 0.2em;
-   float: right;
-   clear: right;
+	border: 1px solid #aaaaaa;
+	background-color: #f9f9f9;
+	color: black;
+	margin-bottom: 0.5em;
+	margin-left: 1em;
+	padding: 0.2em;
+	float: right;
+	clear: right;
 }
 .infobox td,
 .infobox th {
-   vertical-align: top;
+	vertical-align: top;
 }
 .infobox caption {
-   font-size: larger;
-   margin-left: inherit;
+	font-size: larger;
+	margin-left: inherit;
 }
 .infobox.bordered {
-   border-collapse: collapse;
+	border-collapse: collapse;
 }
 .infobox.bordered td,
 .infobox.bordered th {
-   border: 1px solid #aaaaaa;
+	border: 1px solid #aaaaaa;
 }
 .infobox.bordered .borderless td,
 .infobox.bordered .borderless th {
-   border: 0;
+	border: 0;
 }
 
 .infobox.sisterproject {
-   width: 20em;
-   font-size: 90%;
+	width: 20em;
+	font-size: 90%;
 }
 
 /* styles for bordered infobox with merged rows */
 .infobox.bordered .mergedtoprow td,
 .infobox.bordered .mergedtoprow th {
-   border: 0;
-   border-top: 1px solid #aaaaaa;
-   border-right: 1px solid #aaaaaa;
+	border: 0;
+	border-top: 1px solid #aaaaaa;
+	border-right: 1px solid #aaaaaa;
 }
 
 .infobox.bordered .mergedrow td,
 .infobox.bordered .mergedrow th {
-   border: 0;
-   border-right: 1px solid #aaaaaa;
+	border: 0;
+	border-right: 1px solid #aaaaaa;
 }
 
 
 /* styles for geography infoboxes, e.g. countries, national subdivisions, cities, etc. */
 .infobox.geography {
-   border: 1px solid #ccd2d9;
-   text-align: left;
-   border-collapse: collapse;
-   line-height: 1.2em; 
-   font-size: 90%;
+	border: 1px solid #ccd2d9;
+	text-align: left;
+	border-collapse: collapse;
+	line-height: 1.2em;
+	font-size: 90%;
 }
 
-.infobox.geography  td,
-.infobox.geography  th {
-   border-top: solid 1px #ccd2d9;
-   padding: 0.4em 0.2em 0.4em 0.8em;
+.infobox.geography td,
+.infobox.geography th {
+	border-top: solid 1px #ccd2d9;
+	padding: 0.4em 0.2em 0.4em 0.8em;
 }
 .infobox.geography .mergedtoprow td,
 .infobox.geography .mergedtoprow th {
-   border-top: solid 1px #ccd2d9;
-   padding: 0.4em 0.2em 0.2em 0.8em;
+	border-top: solid 1px #ccd2d9;
+	padding: 0.4em 0.2em 0.2em 0.8em;
 }
 
 .infobox.geography .mergedrow td,
 .infobox.geography .mergedrow th {
-      border: 0;
-      padding: 0 0.2em 0.2em 0.8em;
+	border: 0;
+	padding: 0 0.2em 0.2em 0.8em;
 }
 
 .infobox.geography .mergedbottomrow td,
 .infobox.geography .mergedbottomrow th {
-   border-top: 0;
-   border-bottom: solid 1px #ccd2d9;
-   padding: 0 0.2em 0.4em 0.8em;
+	border-top: 0;
+	border-bottom: solid 1px #ccd2d9;
+	padding: 0 0.2em 0.4em 0.8em;
 }
 
 .infobox.geography .maptable td,
 .infobox.geography .maptable th {
-      border: 0;
-      padding: 0 0 0 0;
+	border: 0;
+	padding: 0 0 0 0;
 }
 
 /* wikitable/prettytable class for skinning normal tables */
-table.wikitable,
-table.prettytable {
-  margin: 1em 1em 1em 0;
-  background: #f9f9f9;
-  border: 1px #aaaaaa solid;
-  border-collapse: collapse;
+table.wikitable, table.prettytable {
+	margin: 1em 1em 1em 0;
+	background: #f9f9f9;
+	border: 1px #aaaaaa solid;
+	border-collapse: collapse;
 }
 
 table.wikitable th, table.wikitable td,
 table.prettytable th, table.prettytable td {
-  border: 1px #aaaaaa solid;
-  padding: 0.2em;
+	border: 1px #aaaaaa solid;
+	padding: 0.2em;
 }
 
-table.wikitable th,
-table.prettytable th {
-  background: #f2f2f2;
-  text-align: center;
+table.wikitable th, table.prettytable th {
+	background: #f2f2f2;
+	text-align: center;
 }
 
-table.wikitable caption,
-table.prettytable caption {
-  margin-left: inherit;
-  margin-right: inherit;
-  font-weight: bold;
+table.wikitable caption, table.prettytable caption {
+	margin-left: inherit;
+	margin-right: inherit;
+	font-weight: bold;
 }
 
-#coordinates {  
- position:absolute;
- z-index:1;
- border:none;
- background:none;
- right:30px;
- top:4.8em;
- float:right;
- margin:0.0em;
- padding:0.0em;
- line-height:1.5em;
- text-align:right;
- text-indent:0;
- font-size:85%;
- text-transform:none;
- white-space:nowrap;
+#coordinates {
+	position:absolute;
+	z-index:1;
+	border:none;
+	background:none;
+	right:30px;
+	top:4.8em;
+	float:right;
+	margin:0.0em;
+	padding:0.0em;
+	line-height:1.5em;
+	text-align:right;
+	text-indent:0;
+	font-size:85%;
+	text-transform:none;
+	white-space:nowrap;
 }
 
 .references { font-size: 85%;}
@@ -371,91 +368,92 @@ table.prettytable caption {
 /* column-count is from the CSS3 module "CSS Multi-column Layout" */
 /* Please ignore any validator errors caused by these two lines */
 .references-2column {
-  -moz-column-count:2;
-  column-count:2;
+	-moz-column-count:2;
+	column-count:2;
 }
 
 .same-bg { background: none }
 
 /* Highlight clicked reference in blue to help navigation */
 ol.references > li:target {
- background-color: #DEF;
+	background-color: #DEF;
 }
- 
-sup.reference:target { 
-  background-color: #DEF;
+
+sup.reference:target {
+	background-color: #DEF;
 }
 
 /* Style for "notices" */
 .notice {
-    margin: 1em;
-    padding: 0.2em;
+	margin: 1em;
+	padding: 0.2em;
 }
 
 #disambig {
-    border-top: 1px solid #ccc; 
-    border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 }
 
 #spoiler {
-    border-top: 2px solid #ddd;
-    border-bottom:2px solid #ddd;
+	border-top: 2px solid #ddd;
+	border-bottom:2px solid #ddd;
 }
 
 /* Coloured watchlist numbers */
 .mw-plusminus-pos {
-  color: #006400; /* darkgreen */
+	color: #006400; /* darkgreen */
 }
 /* .mw-plusminus-null currently at developer default */
 .mw-plusminus-neg {
-  color: #8B0000; /* darkred */
+	color: #8B0000; /* darkred */
 }
 
 /* Article message box template styles */
 table.ambox {
-    margin: 0 10%;                       /* Will not overlap with other elements */
-    border-collapse: collapse; 
-    background: #fbfbfb; 
-    border: 1px solid #aaa; 
-    border-left: 10px solid #1e90ff;     /* Default "notice" blue */
+	margin: 0 10%;                    /* Will not overlap with other elements */
+	border-collapse: collapse;
+	background: #fbfbfb;
+	border: 1px solid #aaa;
+	border-left: 10px solid #1e90ff;  /* Default "notice" blue */
 }
-table.ambox th.ambox-text, table.ambox td.ambox-text {      /* The message body cell(s) */
-    padding: 0.25em 0.5em;            /* 0.5em left/right */
-    width: 100%;                      /* Make all templates the same width regardless of text size */
+/* The message body cell(s) */
+table.ambox th.ambox-text, table.ambox td.ambox-text {
+	padding: 0.25em 0.5em;            /* 0.5em left/right */
+	width: 100%;                      /* Make all templates the same width regardless of text size */
 }
 table.ambox td.ambox-image {          /* The left image cell */
-    padding: 2px 0px 2px 0.5em;       /* 0.5em left, 0px right */
-    text-align: center; 
+	padding: 2px 0px 2px 0.5em;       /* 0.5em left, 0px right */
+	text-align: center;
 }
 table.ambox td.ambox-imageright {     /* The right image cell */
-    padding: 2px 4px 2px 0px;         /* 0px left, 4px right */
-    text-align: center; 
+	padding: 2px 4px 2px 0px;         /* 0px left, 4px right */
+	text-align: center;
 }
 table.ambox-notice {
-    border-left: 10px solid #1e90ff;     /* Blue */
+	border-left: 10px solid #1e90ff;     /* Blue */
 /* border-right: 10px solid #1e90ff; */  /* If you want two blue bars */
 }
 table.ambox-delete,
 table.ambox-serious {
-    border-left: 10px solid #b22222;     /* Red */
+	border-left: 10px solid #b22222;     /* Red */
 }
 table.ambox-content {
-    border-left: 10px solid #f28500;     /* Orange */
+	border-left: 10px solid #f28500;     /* Orange */
 }
 table.ambox-style {
-    border-left: 10px solid #f4c430;     /* Yellow */
+	border-left: 10px solid #f4c430;     /* Yellow */
 }
 table.ambox-merge {
-    border-left: 10px solid #9932cc;     /* Purple */
+	border-left: 10px solid #9932cc;     /* Purple */
 }
 table.ambox-protection {
-    border-left: 10px solid #bba;        /* Gray */
+	border-left: 10px solid #bba;        /* Gray */
 }
 table.ambox.ambox-mini {                 /* small floating box variant */
-    float: right;
-    clear: right;
-    margin: 0 0 0 1em;
-    width: 25%;
+	float: right;
+	clear: right;
+	margin: 0 0 0 1em;
+	width: 25%;
 }
 
 /* псевдозаглавия за хронологични подстраници */
@@ -468,7 +466,7 @@ table.ambox.ambox-mini {                 /* small floating box variant */
 .h1-transclusion .editsection { font-size: 53%; }
 
 li.FA {
-    list-style-image: url("http://upload.wikimedia.org/wikipedia/en/d/d4/Monobook-bullet-star.png");
+	list-style-image: url("http://upload.wikimedia.org/wikipedia/en/d/d4/Monobook-bullet-star.png");
 }
 
 div.hilited, span.hilited {
@@ -476,26 +474,26 @@ div.hilited, span.hilited {
 	background-color: #000080;
 }
 
- 
+
 /* Prevents line breaks in links; see docs at Template:Nowraplinks */
 .nowraplinks a {
-    white-space: nowrap;
+	white-space: nowrap;
 }
 
 /* съобщения за блокиране на беседи */
 div.user-block {
-    padding: 5px;
-    border: 1px solid #A9A9A9;
-    background-color: #FFEFD5;
+	padding: 5px;
+	border: 1px solid #A9A9A9;
+	background-color: #FFEFD5;
 }
 
 /* Страница с документация на шаблон */
 .template-documentation {
-    clear: both;
-    margin: 1em 0 0 0;
-    border: 1px solid #aaa; 
-    background-color: #eaf1f4; 
-    padding: 5px;
+	clear: both;
+	margin: 1em 0 0 0;
+	border: 1px solid #aaa;
+	background-color: #eaf1f4;
+	padding: 5px;
 }
 
 /* прости списъчета, чиито елементи е добре да се показват един до друг с разделител */
