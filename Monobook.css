@@ -2,7 +2,7 @@
 
 a, .portlet a:hover {
 	text-decoration: none;
-	border-bottom: 1px dashed #888;
+	border-bottom: 1px solid #c0c0c0;
 }
 a:hover, .portlet a {
 	border-bottom: 0;
