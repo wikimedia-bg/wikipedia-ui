@@ -117,7 +117,7 @@ var showQuickLink = (function() {
 		p.appendChild(c);
 		document.getElementsByTagName("body")[0].onclick = function() {
 			// hide container by clicking anywhere in the document
-			container.hide();
+			if (container) container.hide();
 		};
 	});
 
