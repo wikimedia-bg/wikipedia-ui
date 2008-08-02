@@ -32,7 +32,6 @@ function createPoll(pollElem) {
 		pollElem.style.display = "none";
 		return;
 	}
-	Cookie.create(pollName, 1, 360);
 
 	var page = pollElem.getElementsByTagName("p")[0];
 	var list = pollElem.getElementsByTagName("ul")[0];
@@ -69,7 +68,8 @@ function createPollButton(pollElem, pollName, pageName) {
 		function appendVote(bot) {
 			var comment = document.getElementById(pollName+"comment").value;
 			comment = comment.replace(/\n/g, "<br/>");
-			bot.append_page_content("# " + comment + " — — [[Потребител:Borislav|Борислав]] 10:35, 2 август 2008 (UTC)");
+			bot.append_page_content("# " + comment + " — ~~"+"~~");
+			Cookie.create(pollName, 1, 360);
 		}
 
 		function showResults(bot) {
