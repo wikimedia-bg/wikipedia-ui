@@ -41,7 +41,7 @@ span.minor { font-weight: normal; }
 
 /* клас за архивна страница */
 .archive {
-        opacity:0.6; 
+        opacity:0.7; 
         background-color: #fffaf0; 
         padding: 0.2em 0.5em; 
         border: thin dotted silver;
