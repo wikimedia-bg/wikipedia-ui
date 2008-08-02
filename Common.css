@@ -39,6 +39,14 @@ span.minor { font-weight: normal; }
 	border: thin dotted silver;
 }
 
+/* клас за архивна страница */
+.archive {
+        opacity:0.5; 
+        background-color: #fffaf0; 
+        padding: 0.2em 0.5em; 
+        border: thin dotted silver;
+}
+
 /* стилове за съдържанието от началната страница - [[Шаблон:Съдържание]] */
 #mainpage-toc h3 {
 	font-size: 110%;
