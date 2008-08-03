@@ -1,9 +1,9 @@
 /**
 	Simple poll manager.
-	Uses wiki pages as poll database.
+	Uses wiki pages as poll “databases”.
 	@uses Mwbot ([[Потребител:Borislav/mwbot.js]])
 	@uses Creator
- 
+
 	License: Public domain
 	Author: Borislav Manolov
 */
@@ -19,6 +19,7 @@ var pollMsgs = {
 	"comment-label" : "Коментар:",
 	"vote-button"   : "Гласуване",
 	"no-answer"     : "Не сте избрали отговор!",
+	"respagesuff"   : "/Резултати",
 	"reslink"       : "[Резултати]",
 	"reslink-title" : "Преглед на резултата от гласуването",
 	"load-img"      : "http://upload.wikimedia.org/wikipedia/commons/4/42/Loading.gif",
@@ -84,7 +85,7 @@ function createPollButton(pollElem, pollName, pageName) {
 		bot.set_section(radioValue);
 		bot.register_hook('do_edit', appendVote);
 		bot.register_hook('on_submit', showResults);
-		bot.edit(pageName);
+		bot.edit(pageName + pollMsgs["respagesuff"]);
 	};
 	return button;
 }
