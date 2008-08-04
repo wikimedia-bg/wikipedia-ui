@@ -66,6 +66,7 @@ function createPollButton(pollElem, pollName, pageName) {
 			var comment = document.getElementById(pollName+"comment").value;
 			comment = comment.replace(/\n/g, "<br/>");
 			bot.append_page_content("# " + comment + " — ~~"+"~~");
+			bot.append_edit_summary(comment);
 			Cookie.create(pollName, 1, 360);
 		}
 
