@@ -39,3 +39,8 @@ input[type=submit]:hover {
 	 -moz-border-radius-topleft: .5em;
 	 -moz-border-radius-topright: .5em;
 }
+
+.force-underlined-links a { text-decoration: underline; }
+.force-underlined-links a:hover { text-decoration: none; }
+.force-naked-links a { text-decoration: none; }
+.force-naked-links a:hover { text-decoration: underline; }
