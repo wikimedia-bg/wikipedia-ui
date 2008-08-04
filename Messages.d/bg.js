@@ -30,5 +30,17 @@ _lang_messages["bg"] = {
 "tb-subpages-settings": "Показване на препратка към подстраниците в кутията с инструменти:",
 "tb-inother": "В други проекти",
 
+// Polls with [[MediaWiki:Poll.js]]
+"poll-comment-label" : "Коментар:",
+"poll-vote-button"   : "Гласуване",
+"poll-no-answer"     : "Не сте избрали отговор!",
+"poll-respagesuff"   : "/Резултати",
+"poll-resmsg"        : "Благодарим ви, че попълнихте анкетата. Вижте ",
+"poll-reslink"       : "резултатите",
+"poll-reslink-title" : "Преглед на резултата от гласуването",
+"poll-already-voted" : "Вече сте участвали в анкетата. Вижте ",
+"poll-load-img"      : "http://upload.wikimedia.org/wikipedia/commons/4/42/Loading.gif",
+"poll-load-img-alt"  : "…"
+
 "":""
 };
