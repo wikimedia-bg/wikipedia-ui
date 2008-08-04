@@ -15,36 +15,29 @@ function showPolls() {
 	}
 }
 
-var pollMsgs = {
-	"comment-label" : "Коментар:",
-	"vote-button"   : "Гласуване",
-	"no-answer"     : "Не сте избрали отговор!",
-	"respagesuff"   : "/Резултати",
-	"reslink"       : "[Резултати]",
-	"reslink-title" : "Преглед на резултата от гласуването",
-	"load-img"      : "http://upload.wikimedia.org/wikipedia/commons/4/42/Loading.gif",
-	"load-img-alt"  : "…"
-};
-
 function createPoll(pollElem) {
 	var pollName = wgDBname + "-poll-" + pollElem.id;
+	var page = pollElem.getElementsByTagName("p")[0];
+	var pageName = page.textContent.trim();
+
 	if ( Cookie.read(pollName) !== null ) {
 		// already voted, do not spam user again
-		pollElem.style.display = "none";
+		pollElem.innerHTML = gLang.msg("poll-already-voted");
+		pollElem.appendChild( createPollResultsLink(pageName) );
+		pollElem.innerHTML += ".";
 		return;
 	}
 
-	var page = pollElem.getElementsByTagName("p")[0];
 	var list = pollElem.getElementsByTagName("ul")[0];
-	page.style.display = "none";
-	list.style.display = "none";
-	var pageName = page.textContent.trim();
 	var items = list.getElementsByTagName("li");
 	var data = new Array();
 	for (var i = 0; i < items.length; i++) {
 		var content = items[i].textContent.trim();
 		data[pollName + i] = [i+1, content];
 	}
+
+	list.style.display = "none";
+	page.style.display = "none";
 
 	pollElem.appendChild( Creator.createRadios(pollName, data, "") );
 	pollElem.appendChild( createPollComment(pollName) );
@@ -54,16 +47,16 @@ function createPoll(pollElem) {
 function createPollComment(pollName) {
 	var id = pollName + "comment";
 	var t = Creator.createTextarea(id);
-	var l = Creator.createLabel(id, pollMsgs["comment-label"]);
+	var l = Creator.createLabel(id, gLang.msg("poll-comment-label"));
 	return Creator.createElement("div", {}, [l, t]);
 }
 
 function createPollButton(pollElem, pollName, pageName) {
-	var button = Creator.createButton(pollMsgs["vote-button"]);
+	var button = Creator.createButton(gLang.msg("poll-vote-button"));
 	button.onclick = function() {
 		var radioValue = getRadioValue(pollName);
 		if (radioValue === null) {
-			alert(pollMsgs["no-answer"]);
+			alert(gLang.msg("poll-no-answer"));
 			return;
 		}
 		function appendVote(bot) {
@@ -74,20 +67,26 @@ function createPollButton(pollElem, pollName, pageName) {
 		}
 
 		function showResults(bot) {
-			var l = Creator.createAnchor(Creator.createInternUrl(pageName),
-				pollMsgs["reslink"], pollMsgs["reslink-title"]);
-			pollElem.replaceChild(l, button);
+			var msg = Creator.createElement("span", {}, gLang.msg("poll-resmsg"));
+			msg.appendChild(createPollResultsLink(pageName));
+			msg.innerHTML += ".";
+			pollElem.replaceChild(msg, button);
 		}
-		var loadInd = Creator.createImage(pollMsgs["load-img"], pollMsgs["load-img-alt"], "");
+		var loadInd = Creator.createImage(gLang.msg("poll-load-img"), gLang.msg("poll-load-img-alt"), "");
 		this.appendChild(loadInd);
 		this.disabled = true;
 		var bot = new Mwbot();
 		bot.set_section(radioValue);
 		bot.register_hook('do_edit', appendVote);
 		bot.register_hook('on_submit', showResults);
-		bot.edit(pageName + pollMsgs["respagesuff"]);
+		bot.edit(pageName + gLang.msg("poll-respagesuff"));
 	};
 	return button;
+}
+
+function createPollResultsLink(pageName) {
+	return Creator.createAnchor(Creator.createInternUrl(pageName),
+		gLang.msg("poll-reslink"), gLang.msg("poll-reslink-title"));
 }
 
 function getRadioValue(name) {
