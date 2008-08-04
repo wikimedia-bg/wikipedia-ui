@@ -40,7 +40,7 @@ _lang_messages["bg"] = {
 "poll-reslink-title" : "Преглед на резултата от гласуването",
 "poll-already-voted" : "Вече сте участвали в анкетата. Вижте ",
 "poll-load-img"      : "http://upload.wikimedia.org/wikipedia/commons/4/42/Loading.gif",
-"poll-load-img-alt"  : "…"
+"poll-load-img-alt"  : "…",
 
 "":""
 };
