@@ -54,6 +54,9 @@ function createPollComment(pollName) {
 function createPollButton(pollElem, pollName, pageName) {
 	var button = Creator.createButton(gLang.msg("poll-vote-button"));
 	button.onclick = function() {
+		if ( Cookie.read(pollName) !== null ) {
+			return;
+		}
 		var radioValue = getRadioValue(pollName);
 		if (radioValue === null) {
 			alert(gLang.msg("poll-no-answer"));
