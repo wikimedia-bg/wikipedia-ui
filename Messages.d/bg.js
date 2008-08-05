@@ -33,6 +33,7 @@ _lang_messages["bg"] = {
 // Polls with [[MediaWiki:Poll.js]]
 "poll-comment-label" : "Коментар:",
 "poll-vote-button"   : "Гласуване",
+"poll-anon-warning"  : "Внимание: Не сте влезли в системата. В страницата с резултатите ще бъде записан вашият IP-адрес.",
 "poll-no-answer"     : "Не сте избрали отговор!",
 "poll-respagesuff"   : "/Резултати",
 "poll-resmsg"        : "Благодарим ви, че попълнихте анкетата. Вижте ",
