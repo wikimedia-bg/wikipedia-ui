@@ -42,7 +42,7 @@ function createPoll(pollElem) {
 	pollElem.appendChild( Creator.createRadios(pollName, data, "") );
 	pollElem.appendChild( createPollComment(pollName) );
 	if ( wgUserName === null ) {
-		pollElem.appendChild( Creator.createElement("p", {}, gLang.msg("poll-anon-warning") );
+		pollElem.appendChild( Creator.createElement("p", {}, gLang.msg("poll-anon-warning") ) );
 	}
 	pollElem.appendChild( createPollButton(pollElem, pollName, pageName) );
 }
