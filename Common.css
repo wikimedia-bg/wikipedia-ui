@@ -509,6 +509,3 @@ div.user-block {
 .simplelist li { display: inline; white-space: nowrap; }
 .simplelist li:after { content: "\00A0\2022 "; /* circle */ }
 .simplelist li:last-child:after { content: ""; }
-
-/* временно скриване на формуляра за качване */
-#mw-upload-form { display: none; }
