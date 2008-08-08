@@ -511,7 +511,7 @@ div.user-block {
 .simplelist li:last-child:after { content: ""; }
 
 .yaw {
-	border: 2px solid #A3B1BF;
+	border: 1px solid #A3B1BF;
 	padding: 1em;
 	border-top: none;
 	background-color: #fff;
