@@ -20,7 +20,7 @@ function createPoll(pollElem) {
 	var page = pollElem.getElementsByTagName("p")[0];
 	var pageName = page.textContent.trim();
 
-	if ( Cookie.read(pollName) !== null ) {
+	if ( Cookie.read(pollName) != null ) {
 		// already voted, do not spam user again
 		pollElem.innerHTML = gLang.msg("poll-already-voted");
 		pollElem.appendChild( createPollResultsLink(pageName) );
@@ -41,7 +41,7 @@ function createPoll(pollElem) {
 
 	pollElem.appendChild( Creator.createRadios(pollName, data, "") );
 	pollElem.appendChild( createPollComment(pollName) );
-	if ( wgUserName === null ) {
+	if ( wgUserName == null ) {
 		pollElem.appendChild( Creator.createElement("p", {}, gLang.msg("poll-anon-warning") ) );
 	}
 	pollElem.appendChild( createPollButton(pollElem, pollName, pageName) );
@@ -57,11 +57,11 @@ function createPollComment(pollName) {
 function createPollButton(pollElem, pollName, pageName) {
 	var button = Creator.createButton(gLang.msg("poll-vote-button"));
 	button.onclick = function() {
-		if ( Cookie.read(pollName) !== null ) {
+		if ( Cookie.read(pollName) != null ) {
 			return;
 		}
 		var radioValue = getRadioValue(pollName);
-		if (radioValue === null) {
+		if (radioValue == null) {
 			alert(gLang.msg("poll-no-answer"));
 			return;
 		}
