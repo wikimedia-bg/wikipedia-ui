@@ -517,5 +517,15 @@ div.user-block {
 	background-color: #fff;
 	color: #000;
 }
+/* кутии с връзки в доста страници от ИП Уикипедия */
+.user-wpnav {
+	border: 1px solid #A3B1BF;
+	margin-bottom: 1em;
+	padding: .5em .5em 0em .5em;
+	background-color: #F8FCFF;
+	color: #000;
+	text-align: center;
+	min-height: 2em;
+}
 /* за редове, които не трябва да се пренасят */
 .oneline { white-space: nowrap; }
