@@ -509,3 +509,11 @@ div.user-block {
 .simplelist li { display: inline; white-space: nowrap; }
 .simplelist li:after { content: "\00A0\2022 "; /* circle */ }
 .simplelist li:last-child:after { content: ""; }
+
+.yaw {
+	border: 2px solid #A3B1BF;
+	padding: 1em;
+	border-top: none;
+	background-color: #fff;
+	color: #000;
+}
