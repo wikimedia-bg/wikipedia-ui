@@ -517,3 +517,5 @@ div.user-block {
 	background-color: #fff;
 	color: #000;
 }
+/* за редове, които не трябва да се пренасят */
+.oneline { white-space: nowrap; }
