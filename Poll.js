@@ -18,7 +18,7 @@ function showPolls() {
 function createPoll(pollElem) {
 	var pollName = wgDBname + "-poll-" + pollElem.id;
 	var page = pollElem.getElementsByTagName("p")[0];
-	var pageName = page.textContent.trim();
+	var pageName = (page.textContent || page.innerText).trim();
 
 	if ( Cookie.read(pollName) != null ) {
 		// already voted, do not spam user again
@@ -32,7 +32,7 @@ function createPoll(pollElem) {
 	var items = list.getElementsByTagName("li");
 	var data = new Array();
 	for (var i = 0; i < items.length; i++) {
-		var content = items[i].textContent.trim();
+		var content = (items[i].textContent || items[i].innerText).trim();
 		data[pollName + i] = [i+1, content];
 	}
 
