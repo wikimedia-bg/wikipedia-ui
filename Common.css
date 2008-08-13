@@ -6,7 +6,9 @@
 }
 
 table { background-color: inherit; }
-.allpagesredirect { font-style:italic; }
+.allpagesredirect, .wp-admin .mw-redirect {
+	font-style: italic;
+}
 
 /* Горен/долен индекс със запазване на височината на реда */
 sub {vertical-align: baseline; font-size: 0.8em; position: relative; top: 0.4em }
