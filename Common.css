@@ -519,7 +519,7 @@ div.user-block {
 
 .yaw {
 	border: 1px solid #A3B1BF;
-	padding: 1em;
+	padding: 1em 1em .2em 1em;
 	border-top: none;
 	background-color: #fff;
 	color: #000;
