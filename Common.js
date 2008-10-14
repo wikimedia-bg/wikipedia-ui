@@ -46,3 +46,6 @@
 
 
 {{МедияУики:Poll.js}}
+
+/* * * * * * * * * *   Title fix  * * * * * * * * */
+{{МедияУики:Common.js/Title fix.js}}
