@@ -44,8 +44,5 @@
 
 {{Потребител:Borislav/ta.js}}
 
-
-{{МедияУики:Poll.js}}
-
 /* * * * * * * * * *   Title fix  * * * * * * * * */
 {{МедияУики:Common.js/Title fix.js}}
