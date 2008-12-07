@@ -358,6 +358,8 @@ table.wikitable table td, table.prettytable table td {
 	border: none;
 }
 
+/* стилове за шаблоните за координати */
+
 #coordinates {
 	position:absolute;
 	z-index:1;
@@ -366,15 +368,29 @@ table.wikitable table td, table.prettytable table td {
 	right:30px;
 	top:4.8em;
 	float:right;
-	margin:0.0em;
-	padding:0.0em;
 	line-height:1.5em;
 	text-align:right;
 	text-indent:0;
 	font-size:85%;
-	text-transform:none;
 	white-space:nowrap;
 }
+
+#coordinates, .coordinates {
+ text-transform:none;
+ margin:0;
+ padding:0;
+}
+
+.geo-google {
+ font-family:serif;
+ font-weight:bold;
+ line-height:1em;
+}
+
+.geo-geo-dec .geo-dec, .geo-geo-dms .geo-dms {display:inline}
+.geo-geo-dec .geo-dms, .geo-geo-dms .geo-dec, .geo-multi-punct {display:none}
+.geo-lat, .geo-lon {white-space:nowrap}
+
 
 .references { font-size: 85%;}
 
