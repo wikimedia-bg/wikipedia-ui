@@ -1,8 +1,8 @@
 importScriptURI("http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js");
 
 /** 
-	Create bigger maps for each [[Шаблон:ПК|dynamic map]].
-	The big map should be shown on a mouse click.
+	Create a bigger map for each [[Шаблон:ПК|dynamic map]].
+	The new map should be shown on a mouse click.
 	The old image links are disabled.
 	@uses jQuery
 */
