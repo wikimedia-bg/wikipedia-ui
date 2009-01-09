@@ -1,4 +1,4 @@
-importScriptURI("http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js");
+importScript("МедияУики:JQuery.js");
 
 /** 
 	Create a bigger map for each [[Шаблон:ПК|dynamic map]].
