@@ -8,12 +8,14 @@
 * Navigation_popups|Core.js|popups.js|navpop.css
 * quicklinks|quicklinks.js
 * lum|lum.js
+* ced|ced.js
 * HideFundraisingNotice|HideFundraisingNotice.css
 
 == editing-gadgets ==
 
 * wikEd|Core.js|wikEd.js
 * HotCat|Core.js|HotCat.js
+* Advisor|Core.js|Advisor.js
 
 == interface-gadgets ==
 
