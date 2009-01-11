@@ -1,4 +1,6 @@
-importScript("МедияУики:JQuery.js");
+if ( window.importScript ) {
+	importScript("МедияУики:Gadget-jQuery.js");
+}
 
 /** 
 	Create a bigger map for each [[Шаблон:ПК|dynamic map]].
