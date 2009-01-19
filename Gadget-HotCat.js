@@ -354,7 +354,7 @@ hotcat_getEvt = function (evt) {
 	return evt || window.event || window.Event; // Gecko, IE, Netscape
 }
 
-hotcat_evt = function2node (evt) {
+hotcat_evt2node = function (evt) {
 	var node = null;
 	try {
 		var e = hotcat_getEvt (evt);
