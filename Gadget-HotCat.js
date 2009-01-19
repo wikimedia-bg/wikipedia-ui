@@ -87,7 +87,7 @@ function hotcat_check_upload () {
 		}
 	}
 	if (label == null)
-		ntde.appendChild (document.createTextNode ( gLang("cats") + ":"));
+		ntde.appendChild (document.createTextNode ( gLang.msg("cats") + ":"));
 	else {
 		ntde.setAttribute ('id', 'hotcatLabelTranslated');
 		// Change the ID to avoid that UploadForm tries to translate it again.
@@ -145,7 +145,7 @@ function hotcat_on_upload () {
 	for ( var i = 0 ; i < cats.length ; i++ ) {
 		var t = cats[i].hotcat_name;
 		if (!t) continue ;
-		var new_cat = "\[\["+ gLang("cat") +":" + t + "\]\]" ;
+		var new_cat = "\[\["+ gLang.msg("cat") +":" + t + "\]\]" ;
 		// Only add if not already present
 		if (eb.value.indexOf (new_cat) < 0) eb.value += "\n" + new_cat ;
 	}
@@ -153,7 +153,7 @@ function hotcat_on_upload () {
 }
 
 function hotcat () {
-	JSconfig.registerKey('HotCatDelay', 100, gLang("delay") + ':', 5);
+	JSconfig.registerKey('HotCatDelay', 100, gLang.msg("delay") + ':', 5);
 
 	if ( hotcat_check_action() ) return ; // Edited page, reloading anyway
 	if (hotcat_loaded) return; // Guard against double inclusions
@@ -210,7 +210,7 @@ function hotcat () {
 		var label = document.createElement ('a');
 		label.setAttribute ('href', wgArticlePath.replace (/\$1/, 'Special:Categories'));
 		label.setAttribute ('title', 'Special:Categories');
-		label.appendChild (document.createTextNode ( gLang("cat") ));
+		label.appendChild (document.createTextNode ( gLang.msg("cat") ));
 		visible_cats.appendChild (label);
 		visible_cats.appendChild (document.createTextNode (':'));
 		if (hidden_cats == null) {
@@ -397,7 +397,7 @@ function hotcat_find_category (wikitext, category)
 	var cat_name  = category.replace(/([\\\^\$\.\?\*\+\(\)])/g, "\\$1");
 	var initial   = cat_name.substr (0, 1);
 	// Borislav, 2009-01-19
-	var cat_regex = new RegExp ("\\[\\[\\s*(Category|" + gLang("cat") + ")\\s*:\\s*"
+	var cat_regex = new RegExp ("\\[\\[\\s*(Category|" + gLang.msg("cat") + ")\\s*:\\s*"
 		+ (initial == "\\"
 			? initial
 			: "[" + initial.toUpperCase() + initial.toLowerCase() + "]")
@@ -436,10 +436,10 @@ function hotcat_check_action () {
 	if (cat_rm != null && cat_rm.length > 0) {
 		var matches = hotcat_find_category (t, cat_rm);
 		if (!matches || matches.length == 0) {
-			alert ( gLang("notfound", cat_rm) );
+			alert ( gLang.msg("notfound", cat_rm) );
 			prevent_autocommit = 1;
 		} else if (matches.length > 1) {
-			alert ( gLang("multifound", cat_rm) );
+			alert ( gLang.msg("multifound", cat_rm) );
 			prevent_autocommit = 1;
 		} else {
 			if (cat_add != null && cat_add.length > 0 && matches[0].match.length > 1)
@@ -461,23 +461,23 @@ function hotcat_check_action () {
 					&& t2.length > 0 && t2.substr (0, 1).search (/\S/) >= 0)
 				t1 = t1 + ' ';
 			t = t1 + t2;
-			summary.push ( gLang("rmdcat", cat_rm) ) ;
+			summary.push ( gLang.msg("rmdcat", cat_rm) ) ;
 			ret = 1;
 		}
 	}
 	if (cat_add != null && cat_add.length > 0) {
 		var matches = hotcat_find_category (t, cat_add);
 		if (matches && matches.length > 0) {
-			alert ( gLang("catexists", cat_add) );
+			alert ( gLang.msg("catexists", cat_add) );
 			prevent_autocommit = 1;
 		} else {
 			if (t.charAt (t.length - 1) != '\n') t = t + '\n';
-			t = t + '\[\['+gLang("cat")+':' + cat_add + (cat_key != null ? cat_key : "") + '\]\]\n';
+			t = t + '\[\['+gLang.msg("cat")+':' + cat_add + (cat_key != null ? cat_key : "") + '\]\]\n';
 			summary.push ( glang("quickcomment", cat_add, comment) );
 			var t2 = t.replace(hotcat_uncat_regex, ""); // Remove "uncat" templates
 			if (t2.length != t.length) {
 				t = t2;
-				summary.push ( gLang("rmduncat") ) ;
+				summary.push ( gLang.msg("rmduncat") ) ;
 			}
 			ret = 1;
 		}
@@ -485,7 +485,7 @@ function hotcat_check_action () {
 	if (ret) {
 		document.editform.wpTextbox1.value = t ;
 		document.editform.wpSummary.value = summary.join( "; " )
-			+ " (" + gLang("using") + ")" ;
+			+ " (" + gLang.msg("using") + ")" ;
 		document.editform.wpMinoredit.checked = true ;
 		if (!prevent_autocommit) {
 			// Hide the entire edit section so as not to tempt the user into editing...
@@ -653,7 +653,7 @@ function hotcat_ok (nocommit) {
 					hotcat_closeform (
 						nocommit,
 						(txt && txt.value != v)
-							? " " + gLang("redirresolved", v)
+							? " " + gLang.msg("redirresolved", v)
 							: null
 					);
 				}
@@ -760,7 +760,7 @@ function hotcat_just_add ( text ) {
 	var na = document.createElement ( "a" ) ;
 	na.href = wgArticlePath.split("$1").join("Category:" + encodeURI (text)) ;
 	na.appendChild ( document.createTextNode ( text ) ) ;
-	na.setAttribute ( "title" , gLang("cat") + ":" + text ) ;
+	na.setAttribute ( "title" , gLang.msg("cat") + ":" + text ) ;
 	span.appendChild ( na ) ;
 	var catline = getElementsByClassName ( document , "p" , "catlinks" ) [0] ;
 	if ( add ) hotcat_append_add_span ( catline ) ;
