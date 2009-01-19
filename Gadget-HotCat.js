@@ -1,3 +1,5 @@
+addOnloadHook( function(){
+
 var hotcat_loaded = false; // Guard against double inclusions
 var hotcat_running = 0 ;
 var hotcat_last_v = "" ;
@@ -996,4 +998,6 @@ function hotcat_set_state (state)
 	return null;
 }
 
-addOnloadHook ( hotcat ) ;
+hotcat();
+
+});
