@@ -17,6 +17,43 @@ var hotcat_modify_blacklist = new Array (
 "GFDL" ,
 "PD"
 ) ;
+// All redirects to Template:Uncategorized
+var hotcat_uncat_regex =
+	/\{\{\s*([Uu]ncat(egori[sz]ed( image)?)?|[Nn]ocat|[Nn]eedscategory)[^}]*\}\}/g;
+
+// declare functions as global
+var
+hotcat_remove_upload,
+hotcat_check_upload,
+hotcat_on_upload,
+hotcat,
+hotcat_append_add_span,
+hotcat_is_on_blacklist,
+hotcat_modify_span,
+hotcat_modify_existing,
+hotcat_getEvt,
+hotcat_evt2node,
+hotcat_evtkeys,
+hotcat_killEvt,
+hotcat_remove,
+hotcatGetParamValue,
+hotcat_find_category,
+hotcat_check_action,
+hotcat_clear_span,
+hotcat_create_span,
+hotcat_modify,
+hotcat_add_new,
+hotcat_button_label,
+hotcat_create_new_span,
+hotcat_ok,
+hotcat_json_resolve,
+hotcat_closeform,
+hotcat_just_add,
+hotcat_cancel,
+hotcat_text_changed,
+hotcat_show_suggestions,
+hotcat_get_state,
+hotcat_set_state;
 
 addOnloadHook( function(){
 
@@ -49,7 +86,7 @@ gLang.addMessages( {
 }, "bg" );
 
 
-function hotcat_remove_upload ( text ) {
+hotcat_remove_upload = function ( text ) {
 	var cats = document.getElementById ( "catlinks" ) ;
 	cats = cats.getElementsByTagName ( "span" ) ;
 	for ( var i = 0 ; i < cats.length ; i++ ) {
@@ -61,7 +98,7 @@ function hotcat_remove_upload ( text ) {
 	}
 }
 
-function hotcat_check_upload () {
+hotcat_check_upload = function () {
 	// Don't do anything if not "Special:Upload", or user not logged in.
 	if ( wgNamespaceNumber != -1 || wgTitle != "Upload" || wgUserName == null) return ;
 	var ip = document.getElementById ( "wpWatchthis" ) ;
@@ -123,7 +160,7 @@ function hotcat_check_upload () {
 	}
 }
 
-function hotcat_on_upload () {
+hotcat_on_upload = function () {
 	// First, make sure that if we have an open category input form, we close it.
 	var input = document.getElementById ('hotcat_text');
 	if (input != null) hotcat_ok ();
@@ -152,7 +189,7 @@ function hotcat_on_upload () {
 	return true;
 }
 
-function hotcat () {
+hotcat = function () {
 	JSconfig.registerKey('HotCatDelay', 100, gLang.msg("delay") + ':', 5);
 
 	if ( hotcat_check_action() ) return ; // Edited page, reloading anyway
@@ -238,7 +275,7 @@ function hotcat () {
 		UploadForm.previous_hotcat_state = hotcat_set_state (UploadForm.previous_hotcat_state);
 }
 
-function hotcat_append_add_span ( catline ) {
+hotcat_append_add_span = function ( catline ) {
 	var span_add = document.createElement ( "span" ) ;
 	if ( catline.getElementsByTagName('span')[0] )
 		catline.appendChild (document.createTextNode (" | "));
@@ -252,7 +289,7 @@ String.prototype.ucFirst = function () {
 	return this.substr(0,1).toUpperCase() + this.substr(1,this.length);
 }
 
-function hotcat_is_on_blacklist ( cat_title ) {
+hotcat_is_on_blacklist = function ( cat_title ) {
 	if ( !cat_title ) return 0 ;
 	// cat_title = cat_title.split(":",2).pop() ; // Not needed anymore: we work without 'Category:'
 	for ( var i = 0 ; i < hotcat_modify_blacklist.length ; i++ ) {
@@ -261,7 +298,7 @@ function hotcat_is_on_blacklist ( cat_title ) {
 	return 0 ;
 }
 
-function hotcat_modify_span ( span , i ) {
+hotcat_modify_span = function ( span , i ) {
 	//var cat_title = span.firstChild.getAttribute ( "title" ) ;
 	// This fails with MW 1.13alpha if the category is a redlink, because MW 1.13alpha appends
 	// [[MediaWiki:Red-link-title]] to the category name... it also fails if the category name
@@ -306,18 +343,18 @@ function hotcat_modify_span ( span , i ) {
 	span.hotcat_name = cat_title; //Store the extracted category name in our own new property of the span DOM node
 }
 
-function hotcat_modify_existing ( catline ) {
+hotcat_modify_existing = function ( catline ) {
 	var spans = catline.getElementsByTagName ( "span" ) ;
 	for ( var i = 0 ; i < spans.length ; i++ ) {
 		hotcat_modify_span ( spans[i] , i ) ;
 	}
 }
 
-function hotcat_getEvt (evt) {
+hotcat_getEvt = function (evt) {
 	return evt || window.event || window.Event; // Gecko, IE, Netscape
 }
 
-function hotcat_evt2node (evt) {
+hotcat_evt = function2node (evt) {
 	var node = null;
 	try {
 		var e = hotcat_getEvt (evt);
@@ -329,7 +366,7 @@ function hotcat_evt2node (evt) {
 	return node;
 }
 
-function hotcat_evtkeys (evt) {
+hotcat_evtkeys = function (evt) {
 	var code = 0;
 	try {
 		var e = hotcat_getEvt (evt);
@@ -345,7 +382,7 @@ function hotcat_evtkeys (evt) {
 	return code;
 }
 
-function hotcat_killEvt (evt)
+hotcat_killEvt = function (evt)
 {
 	try {
 		var e = hotcat_getEvt (evt);
@@ -358,7 +395,7 @@ function hotcat_killEvt (evt)
 	}
 }
 
-function hotcat_remove (evt) {
+hotcat_remove = function (evt) {
 	var node = hotcat_evt2node (evt);
 	if (!node) return false;
 	// Get the category name from the original link to the category, which is at
@@ -379,7 +416,7 @@ function hotcat_remove (evt) {
 	return false;
 }
 
-function hotcatGetParamValue(paramName, h) {
+hotcatGetParamValue = function(paramName, h) {
 	if (typeof h == 'undefined' ) { h = document.location.href; }
 	var cmdRe=RegExp('[&?]'+paramName+'=([^&]*)');
 	var m=cmdRe.exec(h);
@@ -392,7 +429,7 @@ function hotcatGetParamValue(paramName, h) {
 }
 
 // New. Code by Lupo & Superm401, added by Lupo, 2008-02-27
-function hotcat_find_category (wikitext, category)
+hotcat_find_category = function (wikitext, category)
 {
 	var cat_name  = category.replace(/([\\\^\$\.\?\*\+\(\)])/g, "\\$1");
 	var initial   = cat_name.substr (0, 1);
@@ -412,12 +449,8 @@ function hotcat_find_category (wikitext, category)
 	return result; // An array containing all matches, with positions, in result[i].match
 }
 
-// All redirects to Template:Uncategorized
-var hotcat_uncat_regex =
-	/\{\{\s*([Uu]ncat(egori[sz]ed( image)?)?|[Nn]ocat|[Nn]eedscategory)[^}]*\}\}/g;
-
 // Rewritten (nearly) from scratch. Lupo, 2008-02-27
-function hotcat_check_action () {
+hotcat_check_action = function () {
 	var ret = 0;
 	if (wgAction != 'edit') return ret; // Not an edit page, so not our business...
 	var summary = new Array () ;
@@ -499,11 +532,11 @@ function hotcat_check_action () {
 	return ret;
 }
 
-function hotcat_clear_span ( span_add ) {
+hotcat_clear_span = function ( span_add ) {
 	while ( span_add.firstChild ) span_add.removeChild ( span_add.firstChild ) ;
 }
 
-function hotcat_create_span ( span_add ) {
+hotcat_create_span = function ( span_add ) {
 	hotcat_clear_span ( span_add ) ;
 	var a_add = document.createElement ( "a" ) ;
 	var a_text = document.createTextNode ( "(+)" ) ;
@@ -513,7 +546,7 @@ function hotcat_create_span ( span_add ) {
 	span_add.appendChild ( a_add ) ;
 }
 
-function hotcat_modify ( link_id ) {
+hotcat_modify = function ( link_id ) {
 	var link = document.getElementById ( link_id ) ;
 	var span = link.parentNode ;
 	var catname = span.hotcat_name;
@@ -525,14 +558,14 @@ function hotcat_modify ( link_id ) {
 	hotcat_text_changed () ; // Update icon
 }
 
-function hotcat_add_new () {
+hotcat_add_new = function () {
 	var span_add = document.getElementById ( "hotcat_add" ) ;
 	hotcat_clear_span ( span_add ) ;
 	hotcat_last_v = "" ;
 	hotcat_create_new_span ( span_add , "" ) ;
 }
 
-function hotcat_button_label (id, defaultText)
+hotcat_button_label = function (id, defaultText)
 {
 	var label = null;
 	if (hotcat_upload
@@ -551,7 +584,7 @@ function hotcat_button_label (id, defaultText)
 	return label.data;
 }
 
-function hotcat_create_new_span ( thespan , init_text ) {
+hotcat_create_new_span = function ( thespan , init_text ) {
 	var form = document.createElement ( "form" ) ;
 	form.method = "post" ;
 	form.onsubmit = function () { hotcat_ok(); return false; } ;
@@ -617,7 +650,7 @@ function hotcat_create_new_span ( thespan , init_text ) {
 	text.focus () ;
 }
 
-function hotcat_ok (nocommit) {
+hotcat_ok = function (nocommit) {
 	var text = document.getElementById ( "hotcat_text" ) ;
 	var v = text.value || "";
 	v = v.replace(/_/g, ' ').replace(/^\s\s*/, '').replace(/\s\s*$/, ''); // Trim leading and trailing blanks
@@ -664,7 +697,7 @@ function hotcat_ok (nocommit) {
 	request.send (null);
 }
 
-function hotcat_json_resolve (params)
+hotcat_json_resolve = function (params)
 {
 	function resolve (page)
 	{
@@ -714,7 +747,7 @@ function hotcat_json_resolve (params)
 	return true; // In case we have none.
 }
 
-function hotcat_closeform (nocommit, comment)
+hotcat_closeform = function (nocommit, comment)
 {
 	var text = document.getElementById ( "hotcat_text" ) ;
 	var v = text.value || "";
@@ -750,7 +783,7 @@ function hotcat_closeform (nocommit, comment)
 	document.location = url ;
 }
 
-function hotcat_just_add ( text ) {
+hotcat_just_add = function ( text ) {
 	var span = document.getElementById("hotcat_form") ;
 	while ( span.tagName != "SPAN" ) span = span.parentNode ;
 	var add = 0 ;
@@ -772,7 +805,7 @@ function hotcat_just_add ( text ) {
 	}
 }
 
-function hotcat_cancel () {
+hotcat_cancel = function () {
 	var span = document.getElementById("hotcat_form").parentNode ;
 	if ( span.id == "hotcat_add" ) {
 		hotcat_create_span ( span ) ;
@@ -787,7 +820,7 @@ function hotcat_cancel () {
 	}
 }
 
-function hotcat_text_changed () {
+hotcat_text_changed = function () {
 	if ( hotcat_running ) return ;
 	var text = document.getElementById ( "hotcat_text" ) ;
 	var v = text.value.ucFirst() ;
@@ -849,7 +882,7 @@ function hotcat_text_changed () {
 	hotcat_running = 0 ;
 }
 
-function hotcat_show_suggestions ( titles ) {
+hotcat_show_suggestions = function ( titles ) {
 	var text = document.getElementById ( "hotcat_text" ) ;
 	var list = document.getElementById ( "hotcat_list" ) ;
 	var icon = document.getElementById ( "hotcat_exists" ) ;
@@ -952,7 +985,7 @@ function hotcat_show_suggestions ( titles ) {
 	}
 }
 
-function hotcat_get_state ()
+hotcat_get_state = function ()
 {
 	var cats = document.getElementById ('catlinks');
 	if (cats == null) return "";
@@ -970,7 +1003,7 @@ function hotcat_get_state ()
 	return result;
 }
 
-function hotcat_set_state (state)
+hotcat_set_state = function (state)
 {
 	var cats = state.split ('\n');
 	if (cats.length == 0) return null;
