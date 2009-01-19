@@ -77,9 +77,9 @@ gLang.addMessages( {
 	"delay" : "Изчакване за автоматичен завършек (в ms)",
 	"notfound" : 'Категория „$1“ не беше открита на страницата; може би е част от използван шаблон?',
 	"multifound" : 'Категория „$1“ беше открита повече от един път на страницата; HotCat не знае кое от срещанията да премахне.',
-	"rmdcat" : 'Премахване на категория „$1“',
+	"rmdcat" : 'Премахване на [[Категория:$1]]',
 	"catexists" : 'Категория „$1“ вече присъства в страницата и затова не беше добавена повторно.',
-	"quickcomment" : 'Бързо добавяне на „$1“$2',
+	"quickcomment" : 'Бързо добавяне на [[Категория:$1]]$2',
 	"rmduncat" : "премахване на {" + "{uncategorized}}",
 	"using" : "ползвайки [[MediaWiki:Gadget-HotCat.js|HotCat.js]]",
 	"redirresolved" : "(оправено пренасочване към \[\[:Категория:$1|$1\]\])"
@@ -434,7 +434,7 @@ hotcat_find_category = function (wikitext, category)
 	var cat_name  = category.replace(/([\\\^\$\.\?\*\+\(\)])/g, "\\$1");
 	var initial   = cat_name.substr (0, 1);
 	// Borislav, 2009-01-19
-	var cat_regex = new RegExp ("\\[\\[\\s*(Category|" + gLang.msg("cat") + ")\\s*:\\s*"
+	var cat_regex = new RegExp ("\\[\\[\\s*(?:Category|" + gLang.msg("cat") + ")\\s*:\\s*"
 		+ (initial == "\\"
 			? initial
 			: "[" + initial.toUpperCase() + initial.toLowerCase() + "]")
