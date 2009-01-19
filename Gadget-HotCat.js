@@ -1,5 +1,3 @@
-addOnloadHook( function(){
-
 var hotcat_loaded = false; // Guard against double inclusions
 var hotcat_running = 0 ;
 var hotcat_last_v = "" ;
@@ -19,6 +17,8 @@ var hotcat_modify_blacklist = new Array (
 "GFDL" ,
 "PD"
 ) ;
+
+addOnloadHook( function(){
 
 // Borislav, 2009-01-19
 gLang.addMessages( {
