@@ -18,6 +18,35 @@ var hotcat_modify_blacklist = new Array (
 "PD"
 ) ;
 
+// Borislav, 2009-01-19
+gLang.addMessages( {
+	"cat" : "Category",
+	"cats" : "Categories",
+	"delay" : "HotCat autocompletion delay (ms)",
+	"notfound" : 'Category "$1" not found; maybe it is in a template?',
+	"multifound" : 'Category "$1" found several times; don’t know which occurrence to remove.',
+	"rmdcat" : 'Removed category "$1"',
+	"catexists" : 'Category "$1" already exists; not added.',
+	"quickcomment" : 'Quick-adding category "$1"$2',
+	"rmduncat" : "removed {" + "{uncategorized}}",
+	"using" : "using [[MediaWiki:Gadget-HotCat.js|HotCat.js]]",
+	"redirresolved" : "(redirect \[\[:Category:$1|$1\]\] resolved)"
+}, "en" );
+gLang.addMessages( {
+	"cat" : "Категория",
+	"cats" : "Категории",
+	"delay" : "Изчакване за автоматичен завършек (в ms)",
+	"notfound" : 'Категория „$1“ не беше открита на страницата; може би е част от използван шаблон?',
+	"multifound" : 'Категория „$1“ беше открита повече от един път на страницата; HotCat не знае кое от срещанията да премахне.',
+	"rmdcat" : 'Премахване на категория „$1“',
+	"catexists" : 'Категория „$1“ вече присъства в страницата и затова не беше добавена повторно.',
+	"quickcomment" : 'Бързо добавяне на „$1“$2',
+	"rmduncat" : "премахване на {" + "{uncategorized}}",
+	"using" : "ползвайки [[MediaWiki:Gadget-HotCat.js|HotCat.js]]",
+	"redirresolved" : "(оправено пренасочване към \[\[:Категория:$1|$1\]\])"
+}, "bg" );
+
+
 function hotcat_remove_upload ( text ) {
 	var cats = document.getElementById ( "catlinks" ) ;
 	cats = cats.getElementsByTagName ( "span" ) ;
@@ -56,7 +85,7 @@ function hotcat_check_upload () {
 		}
 	}
 	if (label == null)
-		ntde.appendChild (document.createTextNode ("Categories:"));
+		ntde.appendChild (document.createTextNode ( gLang("cats") + ":"));
 	else {
 		ntde.setAttribute ('id', 'hotcatLabelTranslated');
 		// Change the ID to avoid that UploadForm tries to translate it again.
@@ -114,7 +143,7 @@ function hotcat_on_upload () {
 	for ( var i = 0 ; i < cats.length ; i++ ) {
 		var t = cats[i].hotcat_name;
 		if (!t) continue ;
-		var new_cat = "\[\[Category:" + t + "\]\]" ;
+		var new_cat = "\[\["+ gLang("cat") +":" + t + "\]\]" ;
 		// Only add if not already present
 		if (eb.value.indexOf (new_cat) < 0) eb.value += "\n" + new_cat ;
 	}
@@ -122,7 +151,7 @@ function hotcat_on_upload () {
 }
 
 function hotcat () {
-	JSconfig.registerKey('HotCatDelay', 100, 'HotCat autocompletion delay (ms):', 5);
+	JSconfig.registerKey('HotCatDelay', 100, gLang("delay") + ':', 5);
 
 	if ( hotcat_check_action() ) return ; // Edited page, reloading anyway
 	if (hotcat_loaded) return; // Guard against double inclusions
@@ -157,7 +186,7 @@ function hotcat () {
 			|| wgAction != 'view'                         // User is editing or previewing or...
 			|| wgNamespaceNumber == -1 && !hotcat_upload) // Special page other than Special:Upload
 	return;
-	
+
 	if (!wgIsArticle && !hotcat_upload) return;       // Diff pages...
 	// Note that wgIsArticle is also set to true for category, talk, user, etc. pages: anything that
 	// can be edited. It is false for diff pages, special pages, and ...
@@ -179,7 +208,7 @@ function hotcat () {
 		var label = document.createElement ('a');
 		label.setAttribute ('href', wgArticlePath.replace (/\$1/, 'Special:Categories'));
 		label.setAttribute ('title', 'Special:Categories');
-		label.appendChild (document.createTextNode ('Category'));
+		label.appendChild (document.createTextNode ( gLang("cat") ));
 		visible_cats.appendChild (label);
 		visible_cats.appendChild (document.createTextNode (':'));
 		if (hidden_cats == null) {
@@ -250,9 +279,9 @@ function hotcat_modify_span ( span , i ) {
 	}
 	// Strip namespace, replace _ by blank
 	cat_title = cat_title.substring (cat_title.indexOf (':') + 1).replace (/_/g, ' ');
-	
+
 	var sep1 = document.createTextNode ( " " ) ;
-	var a1 = document.createTextNode ( "(-)" ) ;
+	var a1 = document.createTextNode ( "(−)" ) ;
 	var remove_link = document.createElement ( "a" ) ;
 	// Set the href to a dummy value to make sure we don't move if somehow the onclick handler
 	// is bypassed.
@@ -285,7 +314,7 @@ function hotcat_modify_existing ( catline ) {
 function hotcat_getEvt (evt) {
 	return evt || window.event || window.Event; // Gecko, IE, Netscape
 }
-	
+
 function hotcat_evt2node (evt) {
 	var node = null;
 	try {
@@ -326,7 +355,7 @@ function hotcat_killEvt (evt)
 	} catch (ex) {
 	}
 }
-	
+
 function hotcat_remove (evt) {
 	var node = hotcat_evt2node (evt);
 	if (!node) return false;
@@ -365,13 +394,14 @@ function hotcat_find_category (wikitext, category)
 {
 	var cat_name  = category.replace(/([\\\^\$\.\?\*\+\(\)])/g, "\\$1");
 	var initial   = cat_name.substr (0, 1);
-	var cat_regex = new RegExp ("\\[\\[\\s*[Cc]ategory\\s*:\\s*"
-															+ (initial == "\\"
-																? initial
-																: "[" + initial.toUpperCase() + initial.toLowerCase() + "]")
-															+ cat_name.substring (1).replace (/[ _]/g, "[ _]")
-															+ "\\s*(\\|.*?)?\\]\\]", "g"
-														);
+	// Borislav, 2009-01-19
+	var cat_regex = new RegExp ("\\[\\[\\s*(Category|" + gLang("cat") + ")\\s*:\\s*"
+		+ (initial == "\\"
+			? initial
+			: "[" + initial.toUpperCase() + initial.toLowerCase() + "]")
+		+ cat_name.substring (1).replace (/[ _]/g, "[ _]")
+		+ "\\s*(\\|.*?)?\\]\\]", "gi"
+	);
 	var result = new Array ();
 	var curr_match  = null;
 	while ((curr_match = cat_regex.exec (wikitext)) != null) {
@@ -380,7 +410,7 @@ function hotcat_find_category (wikitext, category)
 	return result; // An array containing all matches, with positions, in result[i].match
 }
 
-// All redirects to Template:Uncategorized 
+// All redirects to Template:Uncategorized
 var hotcat_uncat_regex =
 	/\{\{\s*([Uu]ncat(egori[sz]ed( image)?)?|[Nn]ocat|[Nn]eedscategory)[^}]*\}\}/g;
 
@@ -404,11 +434,10 @@ function hotcat_check_action () {
 	if (cat_rm != null && cat_rm.length > 0) {
 		var matches = hotcat_find_category (t, cat_rm);
 		if (!matches || matches.length == 0) {
-			alert ('Category "' + cat_rm + '" not found; maybe it is in a template?');
+			alert ( gLang("notfound", cat_rm) );
 			prevent_autocommit = 1;
 		} else if (matches.length > 1) {
-			alert ('Category "' + cat_rm
-						+ "\" found several times; don't know which occurrence to remove.");
+			alert ( gLang("multifound", cat_rm) );
 			prevent_autocommit = 1;
 		} else {
 			if (cat_add != null && cat_add.length > 0 && matches[0].match.length > 1)
@@ -430,23 +459,23 @@ function hotcat_check_action () {
 					&& t2.length > 0 && t2.substr (0, 1).search (/\S/) >= 0)
 				t1 = t1 + ' ';
 			t = t1 + t2;
-			summary.push ( "Removed category \"" + cat_rm + "\"" ) ;
+			summary.push ( gLang("rmdcat", cat_rm) ) ;
 			ret = 1;
 		}
 	}
 	if (cat_add != null && cat_add.length > 0) {
 		var matches = hotcat_find_category (t, cat_add);
 		if (matches && matches.length > 0) {
-			alert ('Category "' + cat_add + '" already exists; not added.');
+			alert ( gLang("catexists", cat_add) );
 			prevent_autocommit = 1;
 		} else {
 			if (t.charAt (t.length - 1) != '\n') t = t + '\n';
-			t = t + '\[\[Category:' + cat_add + (cat_key != null ? cat_key : "") + '\]\]\n';
-			summary.push ("Quick-adding category \"" + cat_add + "\"" + comment);
+			t = t + '\[\['+gLang("cat")+':' + cat_add + (cat_key != null ? cat_key : "") + '\]\]\n';
+			summary.push ( glang("quickcomment", cat_add, comment) );
 			var t2 = t.replace(hotcat_uncat_regex, ""); // Remove "uncat" templates
 			if (t2.length != t.length) {
 				t = t2;
-				summary.push ( "removed {{uncategorized}}" ) ;
+				summary.push ( gLang("rmduncat") ) ;
 			}
 			ret = 1;
 		}
@@ -454,13 +483,13 @@ function hotcat_check_action () {
 	if (ret) {
 		document.editform.wpTextbox1.value = t ;
 		document.editform.wpSummary.value = summary.join( "; " )
-																			+ " (using [[MediaWiki:Gadget-HotCat.js|HotCat.js]])" ;
+			+ " (" + gLang("using") + ")" ;
 		document.editform.wpMinoredit.checked = true ;
 		if (!prevent_autocommit) {
 			// Hide the entire edit section so as not to tempt the user into editing...
-			var content =    document.getElementById ("bodyContent")       // "monobook" skin
-										|| document.getElementById ("mw_contentholder")  // "modern" skin
-										|| document.getElementById ("article");          // classic skins
+			var content = document.getElementById ("bodyContent")// "monobook" skin
+				|| document.getElementById ("mw_contentholder")  // "modern" skin
+				|| document.getElementById ("article");          // classic skins
 			if (content) content.style.display = "none" ;
 			document.editform.submit ();
 		}
@@ -486,7 +515,7 @@ function hotcat_modify ( link_id ) {
 	var link = document.getElementById ( link_id ) ;
 	var span = link.parentNode ;
 	var catname = span.hotcat_name;
-	
+
 	while ( span.firstChild.nextSibling ) span.removeChild ( span.firstChild.nextSibling ) ;
 	span.firstChild.style.display = "none" ;
 	hotcat_create_new_span ( span , catname ) ;
@@ -506,7 +535,8 @@ function hotcat_button_label (id, defaultText)
 	var label = null;
 	if (hotcat_upload
 			&& typeof (UFUI) != 'undefined'
-			&& typeof (UFUI.getLabel) == 'function') {
+			&& typeof (UFUI.getLabel) == 'function'
+	) {
 		try {
 			label = UFUI.getLabel (id, true);
 			// Extract the plain text. IE doesn't know that Node.TEXT_NODE == 3
@@ -527,33 +557,31 @@ function hotcat_create_new_span ( thespan , init_text ) {
 	form.style.display = "inline" ;
 
 	var list = null;
-	
+
 	if (!hotcat_nosuggestions) {
 		// Only do this if we may actually use XMLHttp...
 		list = document.createElement ( "select" ) ;
 		list.id = "hotcat_list" ;
-		list.onclick = function ()
-			{
-				var l = document.getElementById("hotcat_list");
-				if (l != null)
-					document.getElementById("hotcat_text").value = l.options[l.selectedIndex].text;
-				hotcat_text_changed();
-			};
-		list.ondblclick = function (evt)
-			{
-				var l = document.getElementById("hotcat_list");
-				if (l != null)
-					document.getElementById("hotcat_text").value = l.options[l.selectedIndex].text;
-				// Don't call text_changed here if on upload form: hotcat_ok will remove the list
-				// anyway, so we must not ask for new suggestions since show_suggestions might
-				// raise an exception if it tried to show a no longer existing list.
-				// Lupo, 2008-01-20
-				if (!hotcat_upload) hotcat_text_changed();
-				hotcat_ok(hotcat_evtkeys (evt) & 1); // CTRL pressed?
-			};
+		list.onclick = function () {
+			var l = document.getElementById("hotcat_list");
+			if (l != null)
+				document.getElementById("hotcat_text").value = l.options[l.selectedIndex].text;
+			hotcat_text_changed();
+		};
+		list.ondblclick = function (evt) {
+			var l = document.getElementById("hotcat_list");
+			if (l != null)
+				document.getElementById("hotcat_text").value = l.options[l.selectedIndex].text;
+			// Don't call text_changed here if on upload form: hotcat_ok will remove the list
+			// anyway, so we must not ask for new suggestions since show_suggestions might
+			// raise an exception if it tried to show a no longer existing list.
+			// Lupo, 2008-01-20
+			if (!hotcat_upload) hotcat_text_changed();
+			hotcat_ok(hotcat_evtkeys (evt) & 1); // CTRL pressed?
+		};
 		list.style.display = "none" ;
 	}
-	
+
 	var text = document.createElement ( "input" ) ;
 	text.size = 40 ;
 	text.id = "hotcat_text" ;
@@ -591,7 +619,7 @@ function hotcat_ok (nocommit) {
 	var text = document.getElementById ( "hotcat_text" ) ;
 	var v = text.value || "";
 	v = v.replace(/_/g, ' ').replace(/^\s\s*/, '').replace(/\s\s*$/, ''); // Trim leading and trailing blanks
-	
+
 	// Empty category ?
 	if (!v) {
 		hotcat_cancel() ;
@@ -600,8 +628,8 @@ function hotcat_ok (nocommit) {
 
 	// Get the links and the categories of the chosen category page
 	var url = wgServer + wgScriptPath + '/api.php?action=query&titles='
-					+ encodeURIComponent ('Category:' + v)
-					+ '&prop=info|links|categories&plnamespace=14&format=json&callback=hotcat_json_resolve';
+		+ encodeURIComponent ('Category:' + v)
+		+ '&prop=info|links|categories&plnamespace=14&format=json&callback=hotcat_json_resolve';
 	var request = sajax_init_object() ;
 	if (request == null) {
 		//Oops! We don't have XMLHttp...
@@ -621,8 +649,10 @@ function hotcat_ok (nocommit) {
 				var txt = document.getElementById ('hotcat_text');
 				if (do_submit) {
 					hotcat_closeform (
-						nocommit
-						,(txt && txt.value != v) ? " (redirect \[\[:Category:" + v + "|" + v + "\]\] resolved)" : null
+						nocommit,
+						(txt && txt.value != v)
+							? " " + gLang("redirresolved", v)
+							: null
 					);
 				}
 			}
@@ -643,6 +673,7 @@ function hotcat_json_resolve (params)
 			for (var c = 0; c < cats.length; c++) {
 				var cat = cats[c]["title"];
 				if (cat) cat = cat.substring (cat.indexOf (':') + 1); // Strip namespace prefix
+				// TODO Localise
 				if (cat == 'Disambiguation') {
 					is_dab = true; break;
 				} else if (cat == 'Category_redirects' || cat == 'Category redirects') {
@@ -655,7 +686,8 @@ function hotcat_json_resolve (params)
 		var titles = new Array ();
 		for (i = 0; i < lks.length; i++) {
 			if (   lks[i]["ns"] == 14                               // Category namespace
-					&& lks[i]["title"] && lks[i]["title"].length > 0) { // Name not empty
+					&& lks[i]["title"] && lks[i]["title"].length > 0 // Name not empty
+			) {
 				// Internal link to existing thingy. Extract the page name.
 				var match = lks[i]["title"];
 				// Remove the category prefix
@@ -688,12 +720,12 @@ function hotcat_closeform (nocommit, comment)
 	if (!v                                                 // Empty
 			|| wgNamespaceNumber == 14 && v == wgTitle         // Self-reference
 			|| text.parentNode.parentNode.id != 'hotcat_add'   // Modifying, but
-				&& text.parentNode.parentNode.hotcat_name == v) //   name unchanged
-	{
+				&& text.parentNode.parentNode.hotcat_name == v //   name unchanged
+	) {
 		hotcat_cancel ();
 		return;
 	}
-	
+
 	if (hotcat_upload) {
 		hotcat_just_add (v) ; // Close the form
 		return ;
@@ -712,7 +744,7 @@ function hotcat_closeform (nocommit, comment)
 	// Make the list disappear:
 	var list = document.getElementById ( "hotcat_list" ) ;
 	if (list) list.style.display = 'none';
-		
+
 	document.location = url ;
 }
 
@@ -726,7 +758,7 @@ function hotcat_just_add ( text ) {
 	var na = document.createElement ( "a" ) ;
 	na.href = wgArticlePath.split("$1").join("Category:" + encodeURI (text)) ;
 	na.appendChild ( document.createTextNode ( text ) ) ;
-	na.setAttribute ( "title" , "Category:" + text ) ;
+	na.setAttribute ( "title" , gLang("cat") + ":" + text ) ;
 	span.appendChild ( na ) ;
 	var catline = getElementsByClassName ( document , "p" , "catlinks" ) [0] ;
 	if ( add ) hotcat_append_add_span ( catline ) ;
@@ -768,14 +800,14 @@ function hotcat_text_changed () {
 		if (exists != null) exists.style.display = "none" ;
 		return;
 	}
-	
+
 	hotcat_running = 1 ;
 	hotcat_last_v = v ;
 
 	if ( v != "" ) {
 		var url = wgServer + wgScriptPath
-						+ "/api.php?format=xml&action=query&list=allpages&apnamespace=14&apfrom="
-						+ encodeURIComponent( v ) ;
+			+ "/api.php?format=xml&action=query&list=allpages&apnamespace=14&apfrom="
+			+ encodeURIComponent( v ) ;
 		var request = sajax_init_object() ;
 		if (request == null) {
 			//Oops! We don't have XMLHttp...
@@ -788,25 +820,24 @@ function hotcat_text_changed () {
 			return;
 		}
 		request.open('GET', url, true);
-		request.onreadystatechange =
-			function () {
-				if (request.readyState == 4) {
-					var xml = request.responseXML ;
-					if ( xml == null ) return ;
-					var pages = xml.getElementsByTagName( "p" ) ; // results are *with* namespace here
-					var titles = new Array () ;
-					for ( var i = 0 ; i < pages.length ; i++ ) {
-						// Remove the namespace. No hardcoding of 'Category:', please, other Wikis may have
-						// local names ("Kategorie:" on de-WP, for instance). Also don't break on category
-						// names containing a colon
-						var s = pages[i].getAttribute("title");
-						s = s.substring (s.indexOf (':') + 1);
-						if ( s.substr ( 0 , hotcat_last_v.length ) != hotcat_last_v ) break ;
-						titles.push ( s ) ;
-					}
-					hotcat_show_suggestions ( titles ) ;
+		request.onreadystatechange = function () {
+			if (request.readyState == 4) {
+				var xml = request.responseXML ;
+				if ( xml == null ) return ;
+				var pages = xml.getElementsByTagName( "p" ) ; // results are *with* namespace here
+				var titles = new Array () ;
+				for ( var i = 0 ; i < pages.length ; i++ ) {
+					// Remove the namespace. No hardcoding of 'Category:', please, other Wikis may have
+					// local names ("Kategorie:" on de-WP, for instance). Also don't break on category
+					// names containing a colon
+					var s = pages[i].getAttribute("title");
+					s = s.substring (s.indexOf (':') + 1);
+					if ( s.substr ( 0 , hotcat_last_v.length ) != hotcat_last_v ) break ;
+					titles.push ( s ) ;
 				}
-			};
+				hotcat_show_suggestions ( titles ) ;
+			}
+		};
 		request.setRequestHeader ('Pragma', 'cache=yes');
 		request.setRequestHeader ('Cache-Control', 'no-transform');
 		request.send(null);
@@ -833,7 +864,7 @@ function hotcat_show_suggestions ( titles ) {
 		icon.src = hotcat_exists_no ;
 		return ;
 	}
-	
+
 	// Set list size to minimum of 5 and actual number of titles. Formerly was just 5.
 	// Lupo, 2008-01-20
 	list.size = (titles.length > 5 ? 5 : titles.length) ;
@@ -865,9 +896,9 @@ function hotcat_show_suggestions ( titles ) {
 		//opt.value = titles[i] ;
 		list.appendChild ( opt ) ;
 	}
-	
+
 	icon.src = hotcat_exists_yes ;
-	
+
 	var nof_titles = titles.length;
 
 	var first_title = titles.shift () ;
@@ -883,7 +914,7 @@ function hotcat_show_suggestions ( titles ) {
 	}
 
 	list.style.display = "block" ;
-	
+
 	// Put the first entry of the title list into the text field, and select the
 	// new suffix such that it'll be overwritten if the user keeps typing.
 	// ONLY do this if we have a way to select parts of the content of a text
@@ -892,19 +923,19 @@ function hotcat_show_suggestions ( titles ) {
 	// Lupo, 2008-01-20
 	// Only put first entry into the list if the user hasn't typed something
 	// conflicting yet Dschwen 2008-02-18
-	if ( ( text.setSelectionRange ||
-				text.createTextRange ||
-				typeof (text.selectionStart) != 'undefined' &&
-				typeof (text.selectionEnd) != 'undefined' ) &&
-				v == first_title.substr(0,v.length) )
-	{
+	if ( ( text.setSelectionRange
+				|| text.createTextRange
+				|| typeof (text.selectionStart) != 'undefined'
+				&& typeof (text.selectionEnd) != 'undefined' )
+			&& v == first_title.substr(0,v.length)
+	) {
 		// taking hotcat_last_v was a major annoyance,
 		// since it constantly killed text that was typed in
 		// _since_ the last AJAX request was fired! Dschwen 2008-02-18
 		var nosel = v.length ;
-	
+
 		text.value = first_title ;
-		
+
 		if (text.setSelectionRange)      // e.g. khtml
 			text.setSelectionRange (nosel, first_title.length);
 		else if (text.createTextRange) { // IE
