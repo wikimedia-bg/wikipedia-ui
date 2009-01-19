@@ -506,7 +506,7 @@ hotcat_check_action = function () {
 		} else {
 			if (t.charAt (t.length - 1) != '\n') t = t + '\n';
 			t = t + '\[\['+gLang.msg("cat")+':' + cat_add + (cat_key != null ? cat_key : "") + '\]\]\n';
-			summary.push ( glang("quickcomment", cat_add, comment) );
+			summary.push ( gLang.msg("quickcomment", cat_add, comment) );
 			var t2 = t.replace(hotcat_uncat_regex, ""); // Remove "uncat" templates
 			if (t2.length != t.length) {
 				t = t2;
