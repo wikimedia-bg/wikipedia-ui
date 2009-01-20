@@ -1,63 +1,21 @@
-var hotcat_loaded = false; // Guard against double inclusions
-var hotcat_running = 0 ;
-var hotcat_last_v = "" ;
-var hotcat_exists_yes = "http://upload.wikimedia.org/wikipedia/commons/thumb/b/be/P_yes.svg/20px-P_yes.svg.png" ;
-var hotcat_exists_no = "http://upload.wikimedia.org/wikipedia/commons/thumb/4/42/P_no.svg/20px-P_no.svg.png" ;
-var hotcat_upload = 0 ;
+/*
+	Copied from [[commons:MediaWiki:Gadget-HotCat.js]] on 2009-01-18.
+	Slightly modified by Borislav (all changes public domain)
+*/
+
+String.prototype.ucFirst = function () {
+	return this.substr(0,1).toUpperCase() + this.substr(1,this.length);
+};
+
+// the main object
+var hotcat;
+
+// leave open the possibility to overwrite it in user scripts
 var hotcat_no_autocommit = 0;
-var hotcat_old_onsubmit = null;
-var hotcat_nosuggestions = false;
-// hotcat_nosuggestions is set to true if we don't have XMLHttp! (On IE6, XMLHttp uses
-// ActiveX, and the user may deny execution.) If true, no suggestions will ever be
-// displayed, and there won't be any checking whether the category  exists.
-// Lupo, 2008-01-20
 
-var hotcat_modify_blacklist = new Array (
-"CC-" ,
-"GFDL" ,
-"PD"
-) ;
-// All redirects to Template:Uncategorized
-var hotcat_uncat_regex =
-	/\{\{\s*([Uu]ncat(egori[sz]ed( image)?)?|[Nn]ocat|[Nn]eedscategory)[^}]*\}\}/g;
-
-// declare functions as global
-var
-hotcat_remove_upload,
-hotcat_check_upload,
-hotcat_on_upload,
-hotcat,
-hotcat_append_add_span,
-hotcat_is_on_blacklist,
-hotcat_modify_span,
-hotcat_modify_existing,
-hotcat_getEvt,
-hotcat_evt2node,
-hotcat_evtkeys,
-hotcat_killEvt,
-hotcat_remove,
-hotcatGetParamValue,
-hotcat_find_category,
-hotcat_check_action,
-hotcat_clear_span,
-hotcat_create_span,
-hotcat_modify,
-hotcat_add_new,
-hotcat_button_label,
-hotcat_create_new_span,
-hotcat_ok,
-hotcat_json_resolve,
-hotcat_closeform,
-hotcat_just_add,
-hotcat_cancel,
-hotcat_text_changed,
-hotcat_show_suggestions,
-hotcat_get_state,
-hotcat_set_state;
 
 addOnloadHook( function(){
 
-// Borislav, 2009-01-19
 gLang.addMessages( {
 	"cat" : "Category",
 	"cats" : "Categories",
@@ -68,8 +26,13 @@ gLang.addMessages( {
 	"catexists" : 'Category "$1" already exists; not added.',
 	"quickcomment" : 'Quick-adding category "$1"$2',
 	"rmduncat" : "removed {" + "{uncategorized}}",
-	"using" : "using [[MediaWiki:Gadget-HotCat.js|HotCat.js]]",
-	"redirresolved" : "(redirect \[\[:Category:$1|$1\]\] resolved)"
+	"using-ht" : "using [[MediaWiki:Gadget-HotCat.js|HotCat.js]]",
+	"redirresolved" : "(redirect \[\[:Category:$1|$1\]\] resolved)",
+	"rmcat" : 'Remove category "$1"',
+	"changecat" : 'Change category "$1"',
+	"addcat" : "Add new category",
+	"okbutton" : "OK",
+	"cancelbutton" : "Cancel"
 }, "en" );
 gLang.addMessages( {
 	"cat" : "Категория",
@@ -81,12 +44,45 @@ gLang.addMessages( {
 	"catexists" : 'Категория „$1“ вече присъства в страницата и затова не беше добавена повторно.',
 	"quickcomment" : 'Бързо добавяне на [[Категория:$1]]$2',
 	"rmduncat" : "премахване на {" + "{uncategorized}}",
-	"using" : "ползвайки [[MediaWiki:Gadget-HotCat.js|HotCat.js]]",
-	"redirresolved" : "(оправено пренасочване към \[\[:Категория:$1|$1\]\])"
+	"using-ht" : "ползвайки [[MediaWiki:Gadget-HotCat.js|HotCat.js]]",
+	"redirresolved" : "(оправено пренасочване към \[\[:Категория:$1|$1\]\])",
+	"rmcat" : "Премахване на категория „$1“",
+	"changecat" : "Променяне на категория „$1“",
+	"addcat" : "Добавяне на нова категория",
+	"okbutton" : "Запис",
+	"cancelbutton" : "Отказ"
 }, "bg" );
 
 
-hotcat_remove_upload = function ( text ) {
+hotcat = {
+
+// Guard against double inclusions
+loaded : false,
+
+running : 0,
+
+last_v : "",
+
+upload : 0,
+
+// nosuggestions is set to true if we don't have XMLHttp! (On IE6, XMLHttp uses
+// ActiveX, and the user may deny execution.) If true, no suggestions will ever be
+// displayed, and there won't be any checking whether the category  exists.
+// Lupo, 2008-01-20
+nosuggestions : false,
+
+old_onsubmit : null,
+
+modify_blacklist : ["CC-", "GFDL", "PD"],
+
+// All redirects to Template:Uncategorized
+uncat_regex :
+	/\{\{\s*([Uu]ncat(egori[sz]ed( image)?)?|[Nn]ocat|[Nn]eedscategory)[^}]*\}\}/g,
+
+exists_yes : "http://upload.wikimedia.org/wikipedia/commons/thumb/b/be/P_yes.svg/20px-P_yes.svg.png",
+exists_no : "http://upload.wikimedia.org/wikipedia/commons/thumb/4/42/P_no.svg/20px-P_no.svg.png",
+
+remove_upload : function ( text ) {
 	var cats = document.getElementById ( "catlinks" ) ;
 	cats = cats.getElementsByTagName ( "span" ) ;
 	for ( var i = 0 ; i < cats.length ; i++ ) {
@@ -96,16 +92,16 @@ hotcat_remove_upload = function ( text ) {
 			break ;
 		}
 	}
-}
+},
 
-hotcat_check_upload = function () {
+check_upload : function () {
 	// Don't do anything if not "Special:Upload", or user not logged in.
 	if ( wgNamespaceNumber != -1 || wgTitle != "Upload" || wgUserName == null) return ;
 	var ip = document.getElementById ( "wpWatchthis" ) ;
 	// Go to Special:Upload, choose a local file, enter a target file name without extension,
 	// then submit: you get a page that is "Special:Upload", but that doesn't have any form!
 	if (ip == null) return;
-	hotcat_upload = 1 ;
+	hotcat.upload = 1 ;
 	var tr = ip.parentNode.parentNode ;
 	var ntr = document.createElement ( "tr" ) ;
 	var ntd = document.createElement ( "td" ) ;
@@ -154,31 +150,31 @@ hotcat_check_upload = function () {
 	// http://svn.wikimedia.org/viewvc/mediawiki/trunk/phase3/includes/SpecialUpload.php?r1=32033&r2=32190
 	if (!form) form = document.getElementById ('mw-upload-form');
 	if (form) {
-		hotcat_old_onsubmit = form.onsubmit;
-		form.onsubmit = hotcat_on_upload;
+		hotcat.old_onsubmit = form.onsubmit;
+		form.onsubmit = hotcat.on_upload;
 		tr.parentNode.insertBefore ( ntr , tr ) ; // Insert *above* "Watch this" box
 	}
-}
+},
 
-hotcat_on_upload = function () {
+on_upload : function () {
 	// First, make sure that if we have an open category input form, we close it.
 	var input = document.getElementById ('hotcat_text');
-	if (input != null) hotcat_ok ();
+	if (input != null) hotcat.ok ();
 
 	var do_submit = true;
 	// Call previous onsubmit handler, if any
-	if (hotcat_old_onsubmit) {
-		if (typeof hotcat_old_onsubmit == 'string')
-			do_submit = eval (hotcat_old_onsubmit);
-		else if (typeof hotcat_old_onsubmit == 'function')
-			do_submit = hotcat_old_onsubmit ();
+	if (hotcat.old_onsubmit) {
+		if (typeof hotcat.old_onsubmit == 'string')
+			do_submit = eval (hotcat.old_onsubmit);
+		else if (typeof hotcat.old_onsubmit == 'function')
+			do_submit = hotcat.old_onsubmit ();
 	}
 	if (!do_submit) return false;
 	// Only copy the categories if we do submit
 	var cats = document.getElementById ( "catlinks" ) ;
 	cats = cats.getElementsByTagName ( "span" ) ;
 	var eb = document.getElementById ( "wpUploadDescription" )
-					|| document.getElementById ( "wpDesc" ); // New upload form
+		|| document.getElementById ( "wpDesc" ); // New upload form
 	for ( var i = 0 ; i < cats.length ; i++ ) {
 		var t = cats[i].hotcat_name;
 		if (!t) continue ;
@@ -187,15 +183,15 @@ hotcat_on_upload = function () {
 		if (eb.value.indexOf (new_cat) < 0) eb.value += "\n" + new_cat ;
 	}
 	return true;
-}
+},
 
-hotcat = function () {
+play : function () {
 	JSconfig.registerKey('HotCatDelay', 100, gLang.msg("delay") + ':', 5);
 
-	if ( hotcat_check_action() ) return ; // Edited page, reloading anyway
-	if (hotcat_loaded) return; // Guard against double inclusions
-	hotcat_loaded = true;
-	hotcat_check_upload () ;
+	if ( hotcat.check_action() ) return ; // Edited page, reloading anyway
+	if (hotcat.loaded) return; // Guard against double inclusions
+	hotcat.loaded = true;
+	hotcat.check_upload () ;
 
 	function can_edit ()
 	{
@@ -209,8 +205,8 @@ hotcat = function () {
 				if (!container) container = document.getElementById ('topbar');
 				var lks = container.getElementsByTagName ('a');
 				for (var i = 0; i < lks.length; i++) {
-					if (   hotcatGetParamValue ('title', lks[i].href) == wgPageName
-							&& hotcatGetParamValue ('action', lks[i].href) == 'edit')
+					if (   hotcat.getParamValue ('title', lks[i].href) == wgPageName
+							&& hotcat.getParamValue ('action', lks[i].href) == 'edit')
 						return true;
 				}
 				return false;
@@ -221,12 +217,12 @@ hotcat = function () {
 		return false;
 	}
 
-	if(    (!can_edit () && !hotcat_upload)           // User has no permission to edit
+	if(    (!can_edit () && !hotcat.upload)           // User has no permission to edit
 			|| wgAction != 'view'                         // User is editing or previewing or...
-			|| wgNamespaceNumber == -1 && !hotcat_upload) // Special page other than Special:Upload
+			|| wgNamespaceNumber == -1 && !hotcat.upload) // Special page other than Special:Upload
 	return;
 
-	if (!wgIsArticle && !hotcat_upload) return;       // Diff pages...
+	if (!wgIsArticle && !hotcat.upload) return;       // Diff pages...
 	// Note that wgIsArticle is also set to true for category, talk, user, etc. pages: anything that
 	// can be edited. It is false for diff pages, special pages, and ...
 
@@ -264,41 +260,37 @@ hotcat = function () {
 	} // end if no categories
 
 	visible_cats.style.position = 'relative';
-	hotcat_modify_existing ( visible_cats ) ;
-	hotcat_append_add_span ( visible_cats ) ;
+	hotcat.modify_existing ( visible_cats ) ;
+	hotcat.append_add_span ( visible_cats ) ;
 
 	// Check for state restoration (Lupo, 2008-02-06)
-	if (   hotcat_upload
+	if (   hotcat.upload
 			&& typeof (UploadForm) != 'undefined'
 			&& typeof (UploadForm.previous_hotcat_state) != 'undefined'
 			&& UploadForm.previous_hotcat_state != null)
-		UploadForm.previous_hotcat_state = hotcat_set_state (UploadForm.previous_hotcat_state);
-}
+		UploadForm.previous_hotcat_state = hotcat.set_state (UploadForm.previous_hotcat_state);
+},
 
-hotcat_append_add_span = function ( catline ) {
+append_add_span : function ( catline ) {
 	var span_add = document.createElement ( "span" ) ;
 	if ( catline.getElementsByTagName('span')[0] )
 		catline.appendChild (document.createTextNode (" | "));
 	else if (catline.firstChild)
 		catline.appendChild (document.createTextNode (' '));
 	catline.appendChild ( span_add );
-	hotcat_create_span ( span_add );
-}
+	hotcat.create_span ( span_add );
+},
 
-String.prototype.ucFirst = function () {
-	return this.substr(0,1).toUpperCase() + this.substr(1,this.length);
-}
-
-hotcat_is_on_blacklist = function ( cat_title ) {
+is_on_blacklist : function ( cat_title ) {
 	if ( !cat_title ) return 0 ;
 	// cat_title = cat_title.split(":",2).pop() ; // Not needed anymore: we work without 'Category:'
-	for ( var i = 0 ; i < hotcat_modify_blacklist.length ; i++ ) {
-		if ( cat_title.substr ( 0 , hotcat_modify_blacklist[i].length ) == hotcat_modify_blacklist[i] ) return 1 ;
+	for ( var i = 0 ; i < hotcat.modify_blacklist.length ; i++ ) {
+		if ( cat_title.substr ( 0 , hotcat.modify_blacklist[i].length ) == hotcat.modify_blacklist[i] ) return 1 ;
 	}
 	return 0 ;
-}
+},
 
-hotcat_modify_span = function ( span , i ) {
+modify_span : function ( span , i ) {
 	//var cat_title = span.firstChild.getAttribute ( "title" ) ;
 	// This fails with MW 1.13alpha if the category is a redlink, because MW 1.13alpha appends
 	// [[MediaWiki:Red-link-title]] to the category name... it also fails if the category name
@@ -307,7 +299,7 @@ hotcat_modify_span = function ( span , i ) {
 	var cat_title = null;
 	var classes   = span.firstChild.getAttribute ('class');
 	if (classes && classes.search (/\bnew\b/) >= 0) {  // href="/w/index.php?title=...&action=edit"
-		cat_title = hotcatGetParamValue ('title', span.firstChild.href);
+		cat_title = hotcat.getParamValue ('title', span.firstChild.href);
 	} else { // href="/wiki/..."
 		var re = new RegExp (wgArticlePath.replace (/\$1/, '(.*)'));
 		var matches = re.exec (span.firstChild.href);
@@ -325,51 +317,53 @@ hotcat_modify_span = function ( span , i ) {
 	// Set the href to a dummy value to make sure we don't move if somehow the onclick handler
 	// is bypassed.
 	remove_link.href = "#catlinks";
-	remove_link.onclick = hotcat_remove;
+	remove_link.title = gLang.msg("rmcat", cat_title);
+	remove_link.onclick = hotcat.remove;
 	remove_link.appendChild ( a1 ) ;
 	span.appendChild ( sep1 ) ;
 	span.appendChild ( remove_link ) ;
 
-	if ( hotcat_is_on_blacklist ( cat_title ) ) return ;
+	if ( hotcat.is_on_blacklist ( cat_title ) ) return ;
 	var mod_id = "hotcat_modify_" + i ;
 	var sep2 = document.createTextNode ( " " ) ;
 	var a2 = document.createTextNode ( "(±)" ) ;
 	var modify_link = document.createElement ( "a" ) ;
 	modify_link.id = mod_id ;
-	modify_link.href = "javascript:hotcat_modify(\"" + mod_id + "\");" ;
+	modify_link.href = "javascript:hotcat.modify(\"" + mod_id + "\");" ;
+	modify_link.title = gLang.msg("changecat", cat_title);
 	modify_link.appendChild ( a2 ) ;
 	span.appendChild ( sep2 ) ;
 	span.appendChild ( modify_link ) ;
 	span.hotcat_name = cat_title; //Store the extracted category name in our own new property of the span DOM node
-}
+},
 
-hotcat_modify_existing = function ( catline ) {
+modify_existing : function ( catline ) {
 	var spans = catline.getElementsByTagName ( "span" ) ;
 	for ( var i = 0 ; i < spans.length ; i++ ) {
-		hotcat_modify_span ( spans[i] , i ) ;
+		hotcat.modify_span ( spans[i] , i ) ;
 	}
-}
+},
 
-hotcat_getEvt = function (evt) {
+getEvt : function (evt) {
 	return evt || window.event || window.Event; // Gecko, IE, Netscape
-}
+},
 
-hotcat_evt2node = function (evt) {
+evt2node : function (evt) {
 	var node = null;
 	try {
-		var e = hotcat_getEvt (evt);
+		var e = hotcat.getEvt (evt);
 		node = e.target;
 		if (!node) node = e.srcElement;
 	} catch (ex) {
 		node = null;
 	}
 	return node;
-}
+},
 
-hotcat_evtkeys = function (evt) {
+evtkeys : function (evt) {
 	var code = 0;
 	try {
-		var e = hotcat_getEvt (evt);
+		var e = hotcat.getEvt (evt);
 		if (typeof(e.ctrlKey) != 'undefined') { // All modern browsers
 			if (e.ctrlKey)  code |= 1;
 			if (e.shiftKey) code |= 2;
@@ -380,12 +374,12 @@ hotcat_evtkeys = function (evt) {
 	} catch (ex) {
 	}
 	return code;
-}
+},
 
-hotcat_killEvt = function (evt)
+killEvt : function (evt)
 {
 	try {
-		var e = hotcat_getEvt (evt);
+		var e = hotcat.getEvt (evt);
 		if (typeof (e.preventDefault) != 'undefined') {
 			e.preventDefault ();
 			e.stopPropagation ();
@@ -393,30 +387,30 @@ hotcat_killEvt = function (evt)
 			e.cancelBubble = true;
 	} catch (ex) {
 	}
-}
+},
 
-hotcat_remove = function (evt) {
-	var node = hotcat_evt2node (evt);
+remove : function (evt) {
+	var node = hotcat.evt2node (evt);
 	if (!node) return false;
 	// Get the category name from the original link to the category, which is at
 	// node.parentNode.firstChild (the DOM structure here is
 	// <span><a...>Category</a> <a...>(-)</a>...</span>).
 	var cat_title = node.parentNode.hotcat_name;
-	if ( hotcat_upload ) {
-		hotcat_remove_upload ( cat_title ) ;
-		hotcat_killEvt (evt);
+	if ( hotcat.upload ) {
+		hotcat.remove_upload ( cat_title ) ;
+		hotcat.killEvt (evt);
 		return false;
 	}
 	var editlk = wgServer + wgScript + '?title=' + encodeURIComponent (wgPageName)
-						+ '&action=edit';
-	if (hotcat_evtkeys (evt) & 1) // CTRL pressed?
+		+ '&action=edit';
+	if (hotcat.evtkeys (evt) & 1) // CTRL pressed?
 		editlk = editlk + '&hotcat_nocommit=1';
-	hotcat_killEvt (evt);
+	hotcat.killEvt (evt);
 	document.location = editlk + '&hotcat_removecat=' + encodeURIComponent (cat_title);
 	return false;
-}
+},
 
-hotcatGetParamValue = function(paramName, h) {
+getParamValue : function(paramName, h) {
 	if (typeof h == 'undefined' ) { h = document.location.href; }
 	var cmdRe=RegExp('[&?]'+paramName+'=([^&]*)');
 	var m=cmdRe.exec(h);
@@ -426,10 +420,10 @@ hotcatGetParamValue = function(paramName, h) {
 		} catch (someError) {}
 	}
 	return null;
-}
+},
 
 // New. Code by Lupo & Superm401, added by Lupo, 2008-02-27
-hotcat_find_category = function (wikitext, category)
+find_category : function (wikitext, category)
 {
 	var cat_name  = category.replace(/([\\\^\$\.\?\*\+\(\)])/g, "\\$1");
 	var initial   = cat_name.substr (0, 1);
@@ -447,27 +441,27 @@ hotcat_find_category = function (wikitext, category)
 		result [result.length] = {match : curr_match};
 	}
 	return result; // An array containing all matches, with positions, in result[i].match
-}
+},
 
 // Rewritten (nearly) from scratch. Lupo, 2008-02-27
-hotcat_check_action = function () {
+check_action : function () {
 	var ret = 0;
 	if (wgAction != 'edit') return ret; // Not an edit page, so not our business...
 	var summary = new Array () ;
 	var t = document.editform.wpTextbox1.value ;
 	var prevent_autocommit = 0;
 	if (   (typeof hotcat_no_autocommit != "undefined" && hotcat_no_autocommit)
-			|| hotcatGetParamValue ('hotcat_nocommit') == '1')
+			|| hotcat.getParamValue ('hotcat_nocommit') == '1')
 		prevent_autocommit = 1;
 
-	var cat_rm  = hotcatGetParamValue ('hotcat_removecat');
-	var cat_add = hotcatGetParamValue ('hotcat_newcat');
-	var comment = hotcatGetParamValue ('hotcat_comment') || "";
-	var cat_key = hotcatGetParamValue ('hotcat_sortkey');
+	var cat_rm  = hotcat.getParamValue ('hotcat_removecat');
+	var cat_add = hotcat.getParamValue ('hotcat_newcat');
+	var comment = hotcat.getParamValue ('hotcat_comment') || "";
+	var cat_key = hotcat.getParamValue ('hotcat_sortkey');
 
 	if (cat_key != null) cat_key = '|' + cat_key;
 	if (cat_rm != null && cat_rm.length > 0) {
-		var matches = hotcat_find_category (t, cat_rm);
+		var matches = hotcat.find_category (t, cat_rm);
 		if (!matches || matches.length == 0) {
 			alert ( gLang.msg("notfound", cat_rm) );
 			prevent_autocommit = 1;
@@ -499,7 +493,7 @@ hotcat_check_action = function () {
 		}
 	}
 	if (cat_add != null && cat_add.length > 0) {
-		var matches = hotcat_find_category (t, cat_add);
+		var matches = hotcat.find_category (t, cat_add);
 		if (matches && matches.length > 0) {
 			alert ( gLang.msg("catexists", cat_add) );
 			prevent_autocommit = 1;
@@ -507,7 +501,7 @@ hotcat_check_action = function () {
 			if (t.charAt (t.length - 1) != '\n') t = t + '\n';
 			t = t + '\[\['+gLang.msg("cat")+':' + cat_add + (cat_key != null ? cat_key : "") + '\]\]\n';
 			summary.push ( gLang.msg("quickcomment", cat_add, comment) );
-			var t2 = t.replace(hotcat_uncat_regex, ""); // Remove "uncat" templates
+			var t2 = t.replace(hotcat.uncat_regex, ""); // Remove "uncat" templates
 			if (t2.length != t.length) {
 				t = t2;
 				summary.push ( gLang.msg("rmduncat") ) ;
@@ -518,7 +512,7 @@ hotcat_check_action = function () {
 	if (ret) {
 		document.editform.wpTextbox1.value = t ;
 		document.editform.wpSummary.value = summary.join( "; " )
-			+ " (" + gLang.msg("using") + ")" ;
+			+ " (" + gLang.msg("using-ht") + ")" ;
 		document.editform.wpMinoredit.checked = true ;
 		if (!prevent_autocommit) {
 			// Hide the entire edit section so as not to tempt the user into editing...
@@ -530,45 +524,46 @@ hotcat_check_action = function () {
 		}
 	}
 	return ret;
-}
+},
 
-hotcat_clear_span = function ( span_add ) {
+clear_span : function ( span_add ) {
 	while ( span_add.firstChild ) span_add.removeChild ( span_add.firstChild ) ;
-}
+},
 
-hotcat_create_span = function ( span_add ) {
-	hotcat_clear_span ( span_add ) ;
+create_span : function ( span_add ) {
+	hotcat.clear_span ( span_add ) ;
 	var a_add = document.createElement ( "a" ) ;
 	var a_text = document.createTextNode ( "(+)" ) ;
 	span_add.id = "hotcat_add" ;
-	a_add.href = "javascript:hotcat_add_new()" ;
+	a_add.href = "javascript:hotcat.add_new()" ;
+	a_add.title = gLang.msg("addcat");
 	a_add.appendChild ( a_text ) ;
 	span_add.appendChild ( a_add ) ;
-}
+},
 
-hotcat_modify = function ( link_id ) {
+modify : function ( link_id ) {
 	var link = document.getElementById ( link_id ) ;
 	var span = link.parentNode ;
 	var catname = span.hotcat_name;
 
 	while ( span.firstChild.nextSibling ) span.removeChild ( span.firstChild.nextSibling ) ;
 	span.firstChild.style.display = "none" ;
-	hotcat_create_new_span ( span , catname ) ;
-	hotcat_last_v = "" ;
-	hotcat_text_changed () ; // Update icon
-}
+	hotcat.create_new_span ( span , catname ) ;
+	hotcat.last_v = "" ;
+	hotcat.text_changed () ; // Update icon
+},
 
-hotcat_add_new = function () {
+add_new : function () {
 	var span_add = document.getElementById ( "hotcat_add" ) ;
-	hotcat_clear_span ( span_add ) ;
-	hotcat_last_v = "" ;
-	hotcat_create_new_span ( span_add , "" ) ;
-}
+	hotcat.clear_span ( span_add ) ;
+	hotcat.last_v = "" ;
+	hotcat.create_new_span ( span_add , "" ) ;
+},
 
-hotcat_button_label = function (id, defaultText)
+button_label : function (id, defaultText)
 {
 	var label = null;
-	if (hotcat_upload
+	if (hotcat.upload
 			&& typeof (UFUI) != 'undefined'
 			&& typeof (UFUI.getLabel) == 'function'
 	) {
@@ -582,18 +577,18 @@ hotcat_button_label = function (id, defaultText)
 	}
 	if (label == null || !label.data) return defaultText;
 	return label.data;
-}
+},
 
-hotcat_create_new_span = function ( thespan , init_text ) {
+create_new_span : function ( thespan , init_text ) {
 	var form = document.createElement ( "form" ) ;
 	form.method = "post" ;
-	form.onsubmit = function () { hotcat_ok(); return false; } ;
+	form.onsubmit = function () { hotcat.ok(); return false; } ;
 	form.id = "hotcat_form" ;
 	form.style.display = "inline" ;
 
 	var list = null;
 
-	if (!hotcat_nosuggestions) {
+	if (!hotcat.nosuggestions) {
 		// Only do this if we may actually use XMLHttp...
 		list = document.createElement ( "select" ) ;
 		list.id = "hotcat_list" ;
@@ -601,18 +596,18 @@ hotcat_create_new_span = function ( thespan , init_text ) {
 			var l = document.getElementById("hotcat_list");
 			if (l != null)
 				document.getElementById("hotcat_text").value = l.options[l.selectedIndex].text;
-			hotcat_text_changed();
+			hotcat.text_changed();
 		};
 		list.ondblclick = function (evt) {
 			var l = document.getElementById("hotcat_list");
 			if (l != null)
 				document.getElementById("hotcat_text").value = l.options[l.selectedIndex].text;
-			// Don't call text_changed here if on upload form: hotcat_ok will remove the list
+			// Don't call text_changed here if on upload form: hotcat.ok will remove the list
 			// anyway, so we must not ask for new suggestions since show_suggestions might
 			// raise an exception if it tried to show a no longer existing list.
 			// Lupo, 2008-01-20
-			if (!hotcat_upload) hotcat_text_changed();
-			hotcat_ok(hotcat_evtkeys (evt) & 1); // CTRL pressed?
+			if (!hotcat.upload) hotcat.text_changed();
+			hotcat.ok(hotcat.evtkeys (evt) & 1); // CTRL pressed?
 		};
 		list.style.display = "none" ;
 	}
@@ -622,24 +617,24 @@ hotcat_create_new_span = function ( thespan , init_text ) {
 	text.id = "hotcat_text" ;
 	text.type = "text" ;
 	text.value = init_text ;
-	text.onkeyup = function () { window.setTimeout("hotcat_text_changed();", JSconfig.keys['HotCatDelay'] ); } ;
+	text.onkeyup = function () { window.setTimeout("hotcat.text_changed();", JSconfig.keys['HotCatDelay'] ); } ;
 
 	var exists = null;
-	if (!hotcat_nosuggestions) {
+	if (!hotcat.nosuggestions) {
 		exists = document.createElement ( "img" ) ;
 		exists.id = "hotcat_exists" ;
-		exists.src = hotcat_exists_no ;
+		exists.src = hotcat.exists_no ;
 	}
 
 	var OK = document.createElement ( "input" ) ;
 	OK.type = "button" ;
-	OK.value = hotcat_button_label ('wpOkUploadLbl', 'OK') ;
-	OK.onclick = function (evt) { hotcat_ok (hotcat_evtkeys (evt) & 1); };
+	OK.value = hotcat.button_label ('wpOkUploadLbl', gLang.msg("okbutton")) ;
+	OK.onclick = function (evt) { hotcat.ok (hotcat.evtkeys (evt) & 1); };
 
 	var cancel = document.createElement ( "input" ) ;
 	cancel.type = "button" ;
-	cancel.value = hotcat_button_label ('wpCancelUploadLbl', 'Cancel') ;
-	cancel.onclick = hotcat_cancel ;
+	cancel.value = hotcat.button_label ('wpCancelUploadLbl', gLang.msg("cancelbutton")) ;
+	cancel.onclick = hotcat.cancel ;
 
 	if (list != null) form.appendChild ( list ) ;
 	form.appendChild ( text ) ;
@@ -648,29 +643,29 @@ hotcat_create_new_span = function ( thespan , init_text ) {
 	form.appendChild ( cancel ) ;
 	thespan.appendChild ( form ) ;
 	text.focus () ;
-}
+},
 
-hotcat_ok = function (nocommit) {
+ok : function (nocommit) {
 	var text = document.getElementById ( "hotcat_text" ) ;
 	var v = text.value || "";
 	v = v.replace(/_/g, ' ').replace(/^\s\s*/, '').replace(/\s\s*$/, ''); // Trim leading and trailing blanks
 
 	// Empty category ?
 	if (!v) {
-		hotcat_cancel() ;
+		hotcat.cancel() ;
 		return ;
 	}
 
 	// Get the links and the categories of the chosen category page
 	var url = wgServer + wgScriptPath + '/api.php?action=query&titles='
 		+ encodeURIComponent ('Category:' + v)
-		+ '&prop=info|links|categories&plnamespace=14&format=json&callback=hotcat_json_resolve';
+		+ '&prop=info|links|categories&plnamespace=14&format=json&callback=hotcat.json_resolve';
 	var request = sajax_init_object() ;
 	if (request == null) {
 		//Oops! We don't have XMLHttp...
-		hotcat_nosuggestions = true;
-		hotcat_closeform (nocommit);
-		hotcat_running = 0;
+		hotcat.nosuggestions = true;
+		hotcat.closeform (nocommit);
+		hotcat.running = 0;
 		return;
 	}
 	request.open ('GET', url, true);
@@ -678,12 +673,12 @@ hotcat_ok = function (nocommit) {
 		function () {
 			if (request.readyState != 4) return;
 			if (request.status != 200) {
-				hotcat_closeform (nocommit);
+				hotcat.closeform (nocommit);
 			} else {
 				var do_submit = eval (request.responseText);
 				var txt = document.getElementById ('hotcat_text');
 				if (do_submit) {
-					hotcat_closeform (
+					hotcat.closeform (
 						nocommit,
 						(txt && txt.value != v)
 							? " " + gLang.msg("redirresolved", v)
@@ -695,9 +690,9 @@ hotcat_ok = function (nocommit) {
 	request.setRequestHeader ('Pragma', 'cache=yes');
 	request.setRequestHeader ('Cache-Control', 'no-transform');
 	request.send (null);
-}
+},
 
-hotcat_json_resolve = function (params)
+json_resolve : function (params)
 {
 	function resolve (page)
 	{
@@ -733,7 +728,7 @@ hotcat_json_resolve = function (params)
 		}
 		if (titles.length > 1) {
 			// Disambiguation page
-			hotcat_show_suggestions (titles);
+			hotcat.show_suggestions (titles);
 			return false;
 		} else if (titles.length == 1) {
 			var text = document.getElementById ("hotcat_text");
@@ -745,9 +740,9 @@ hotcat_json_resolve = function (params)
 	// We should have at most one page here
 	for (var page in params.query.pages) return resolve (params.query.pages[page]);
 	return true; // In case we have none.
-}
+},
 
-hotcat_closeform = function (nocommit, comment)
+closeform : function (nocommit, comment)
 {
 	var text = document.getElementById ( "hotcat_text" ) ;
 	var v = text.value || "";
@@ -757,16 +752,16 @@ hotcat_closeform = function (nocommit, comment)
 			|| text.parentNode.parentNode.id != 'hotcat_add'   // Modifying, but
 				&& text.parentNode.parentNode.hotcat_name == v //   name unchanged
 	) {
-		hotcat_cancel ();
+		hotcat.cancel ();
 		return;
 	}
 
-	if (hotcat_upload) {
-		hotcat_just_add (v) ; // Close the form
+	if (hotcat.upload) {
+		hotcat.just_add (v) ; // Close the form
 		return ;
 	}
 	var editlk = wgServer + wgScript + '?title=' + encodeURIComponent (wgPageName)
-						+ '&action=edit';
+		+ '&action=edit';
 	var url = editlk + '&hotcat_newcat=' + encodeURIComponent( v ) ;
 
 	// Editing existing?
@@ -781,9 +776,9 @@ hotcat_closeform = function (nocommit, comment)
 	if (list) list.style.display = 'none';
 
 	document.location = url ;
-}
+},
 
-hotcat_just_add = function ( text ) {
+just_add : function ( text ) {
 	var span = document.getElementById("hotcat_form") ;
 	while ( span.tagName != "SPAN" ) span = span.parentNode ;
 	var add = 0 ;
@@ -796,37 +791,37 @@ hotcat_just_add = function ( text ) {
 	na.setAttribute ( "title" , gLang.msg("cat") + ":" + text ) ;
 	span.appendChild ( na ) ;
 	var catline = getElementsByClassName ( document , "p" , "catlinks" ) [0] ;
-	if ( add ) hotcat_append_add_span ( catline ) ;
+	if ( add ) hotcat.append_add_span ( catline ) ;
 
 	for ( var i = 0 ; i < span.parentNode.childNodes.length ; i++ ) {
 		if ( span.parentNode.childNodes[i] != span ) continue ;
-		hotcat_modify_span ( span , i ) ;
+		hotcat.modify_span ( span , i ) ;
 		break ;
 	}
-}
+},
 
-hotcat_cancel = function () {
+cancel : function () {
 	var span = document.getElementById("hotcat_form").parentNode ;
 	if ( span.id == "hotcat_add" ) {
-		hotcat_create_span ( span ) ;
+		hotcat.create_span ( span ) ;
 	} else {
 		while ( span.firstChild.nextSibling ) span.removeChild ( span.firstChild.nextSibling ) ;
 		span.firstChild.style.display = "" ;
 		for ( var i = 0 ; i < span.parentNode.childNodes.length ; i++ ) {
 			if ( span.parentNode.childNodes[i] != span ) continue ;
-			hotcat_modify_span ( span , i ) ;
+			hotcat.modify_span ( span , i ) ;
 			break ;
 		}
 	}
-}
+},
 
-hotcat_text_changed = function () {
-	if ( hotcat_running ) return ;
+text_changed : function () {
+	if ( hotcat.running ) return ;
 	var text = document.getElementById ( "hotcat_text" ) ;
 	var v = text.value.ucFirst() ;
-	if ( hotcat_last_v == v ) return ; // Nothing's changed...
+	if ( hotcat.last_v == v ) return ; // Nothing's changed...
 
-	if (hotcat_nosuggestions) {
+	if (hotcat.nosuggestions) {
 		// On IE, XMLHttp uses ActiveX, and the user may deny execution... just make sure
 		// the list is not displayed.
 		var list = document.getElementById ('hotcat_list');
@@ -836,8 +831,8 @@ hotcat_text_changed = function () {
 		return;
 	}
 
-	hotcat_running = 1 ;
-	hotcat_last_v = v ;
+	hotcat.running = 1 ;
+	hotcat.last_v = v ;
 
 	if ( v != "" ) {
 		var url = wgServer + wgScriptPath
@@ -846,12 +841,12 @@ hotcat_text_changed = function () {
 		var request = sajax_init_object() ;
 		if (request == null) {
 			//Oops! We don't have XMLHttp...
-			hotcat_nosuggestions = true;
+			hotcat.nosuggestions = true;
 			var list = document.getElementById ('hotcat_list');
 			if (list != null) list.style.display = "none" ;
 			var exists = document.getElementById ('hotcat_exists');
 			if (exists != null) exists.style.display = "none" ;
-			hotcat_running = 0;
+			hotcat.running = 0;
 			return;
 		}
 		request.open('GET', url, true);
@@ -867,36 +862,36 @@ hotcat_text_changed = function () {
 					// names containing a colon
 					var s = pages[i].getAttribute("title");
 					s = s.substring (s.indexOf (':') + 1);
-					if ( s.substr ( 0 , hotcat_last_v.length ) != hotcat_last_v ) break ;
+					if ( s.substr ( 0 , hotcat.last_v.length ) != hotcat.last_v ) break ;
 					titles.push ( s ) ;
 				}
-				hotcat_show_suggestions ( titles ) ;
+				hotcat.show_suggestions ( titles ) ;
 			}
 		};
 		request.setRequestHeader ('Pragma', 'cache=yes');
 		request.setRequestHeader ('Cache-Control', 'no-transform');
 		request.send(null);
 	} else {
-		hotcat_show_suggestions ( new Array () ) ;
+		hotcat.show_suggestions ( new Array () ) ;
 	}
-	hotcat_running = 0 ;
-}
+	hotcat.running = 0 ;
+},
 
-hotcat_show_suggestions = function ( titles ) {
+show_suggestions : function ( titles ) {
 	var text = document.getElementById ( "hotcat_text" ) ;
 	var list = document.getElementById ( "hotcat_list" ) ;
 	var icon = document.getElementById ( "hotcat_exists" ) ;
 	// Somehow, after a double click on the selection list, we still get here in IE, but
 	// the list may no longer exist... Lupo, 2008-01-20
 	if (list == null) return;
-	if (hotcat_nosuggestions) {
+	if (hotcat.nosuggestions) {
 		list.style.display = "none" ;
 		if (icon != null) icon.style.display = "none";
 		return;
 	}
 	if ( titles.length == 0 ) {
 		list.style.display = "none" ;
-		icon.src = hotcat_exists_no ;
+		icon.src = hotcat.exists_no ;
 		return ;
 	}
 
@@ -932,7 +927,7 @@ hotcat_show_suggestions = function ( titles ) {
 		list.appendChild ( opt ) ;
 	}
 
-	icon.src = hotcat_exists_yes ;
+	icon.src = hotcat.exists_yes ;
 
 	var nof_titles = titles.length;
 
@@ -964,7 +959,7 @@ hotcat_show_suggestions = function ( titles ) {
 				&& typeof (text.selectionEnd) != 'undefined' )
 			&& v == first_title.substr(0,v.length)
 	) {
-		// taking hotcat_last_v was a major annoyance,
+		// taking hotcat.last_v was a major annoyance,
 		// since it constantly killed text that was typed in
 		// _since_ the last AJAX request was fired! Dschwen 2008-02-18
 		var nosel = v.length ;
@@ -983,9 +978,10 @@ hotcat_show_suggestions = function ( titles ) {
 			text.selectionEnd   = first_title.length;
 		}
 	}
-}
+},
 
-hotcat_get_state = function ()
+// not used
+get_state : function ()
 {
 	var cats = document.getElementById ('catlinks');
 	if (cats == null) return "";
@@ -1001,9 +997,9 @@ hotcat_get_state = function ()
 		}
 	}
 	return result;
-}
+},
 
-hotcat_set_state = function (state)
+set_state : function (state)
 {
 	var cats = state.split ('\n');
 	if (cats.length == 0) return null;
@@ -1025,12 +1021,14 @@ hotcat_set_state = function (state)
 			span.appendChild (lk);
 			parent.insertBefore (span, before);
 			if (before != null) parent.insertBefore (document.createTextNode (' | '), before);
-			hotcat_modify_span (span, n++);
+			hotcat.modify_span (span, n++);
 		}
 	}
 	return null;
 }
 
-hotcat();
+}; // hotcat
 
-});
+hotcat.play();
+
+}); // addOnloadHook
