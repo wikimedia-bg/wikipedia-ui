@@ -410,7 +410,7 @@ ol.references > li:target {
 	background-color: #DEF;
 }
 
-sup.reference:target {
+sup.reference:target, cite:target {
 	background-color: #DEF;
 }
 
