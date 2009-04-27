@@ -552,3 +552,21 @@ div.user-wpnav {
 }
 /* за редове, които не трябва да се пренасят */
 .oneline { white-space: nowrap; }
+/* These mbox-small classes must be placed after all other 
+   ambox/tmbox/ombox etc classes. "body.mediawiki" is so 
+   they override "table.ambox + table.ambox" above. */
+body.mediawiki table.mbox-small {   /* For the "small=yes" option. */
+    clear: right;
+    float: right;
+    margin: 4px 0 4px 1em;
+    width: 238px;
+    font-size: 88%;
+    line-height: 1.25em;
+}
+body.mediawiki table.mbox-small-left {   /* For the "small=left" option. */
+    margin: 4px 1em 4px 0;
+    width: 238px;
+    border-collapse: collapse;
+    font-size: 88%;
+    line-height: 1.25em;
+}
