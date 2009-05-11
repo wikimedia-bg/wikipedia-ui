@@ -580,7 +580,7 @@ table.navbox {            /* Navbox container style */
   clear: both;
   font-size: 88%;
   text-align: center;
-  padding: 0px;
+  padding: 1px;
 }
 table.navbox + table.navbox {  /* Single pixel border between adjacent navboxes */
   margin-top: -1px;            /* (doesn't work for IE6, but that's okay)       */
