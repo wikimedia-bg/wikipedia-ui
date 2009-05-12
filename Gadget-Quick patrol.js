@@ -10,7 +10,7 @@ addOnloadHook(function(){
 	$("div.patrollink a").click(function(){
 		var $link = $(this);
 		$.post(this.href, function(data){
-			$link.after("{{int:Markedaspatrolledtext}}").remove();
+			$link.after("{{MediaWiki:Markedaspatrolledtext}}").remove();
 		});
 		return false;
 	});
