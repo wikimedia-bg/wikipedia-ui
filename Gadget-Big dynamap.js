@@ -1,4 +1,4 @@
-if ( window.importScript ) {
+if ( window.importScript && !jQuery ) {
 	importScript("МедияУики:Gadget-jQuery.js");
 }
 
