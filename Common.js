@@ -1,3 +1,4 @@
+{{МедияУики:Test.js}}
 {{МедияУики:Common.js/Core.js}}
 {{МедияУики:Common.js/CoreObjects.js}}
 
