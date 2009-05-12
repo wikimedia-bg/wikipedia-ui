@@ -10,7 +10,7 @@ addOnloadHook(function(){
 	$("div.patrollink a").click(function(){
 		var $link = $(this);
 		$.post(this.href, function(data){
-			$link.after("{{MediaWiki:Markedaspatrolledtext}}").remove();
+			$link.after("Страницата беше отбелязана като проверена.").remove();
 		});
 		return false;
 	});
