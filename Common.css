@@ -589,8 +589,8 @@ table.navbox + table.navbox {  /* Single pixel border between adjacent navboxes 
 .navbox-abovebelow,
 table.navbox th {
   text-align: center;      /* Title and above/below styles */
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: 0.45em;
+  padding-right: 0.15em;
 }
 .navbox-group {            /* Group style */
   white-space: nowrap;
