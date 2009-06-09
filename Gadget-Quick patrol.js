@@ -10,7 +10,7 @@ addOnloadHook(function(){
 	$(".patrollink a").click(function(){
 		var $link = $(this).addClass("loading");
 		$.post(this.href, function(data){
-			$link.after("Страницата беше отбелязана като проверена.").remove();
+			$link.after("Версията беше отбелязана като проверена.").remove();
 		});
 		return false;
 	});
