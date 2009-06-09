@@ -8,7 +8,7 @@ if ( window.importScript && typeof jQuery == "undefined" ) {
 */
 addOnloadHook(function(){
 	$(".patrollink a").click(function(){
-		var $link = $(this);
+		var $link = $(this).addClass("loading");
 		$.post(this.href, function(data){
 			$link.after("Страницата беше отбелязана като проверена.").remove();
 		});
