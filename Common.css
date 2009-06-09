@@ -143,6 +143,10 @@ tr.even { background-color: #eceff3; }
 	padding: 0.5em;
 	border: solid thin #006699;
 }
+/* elements which are doing something... */
+.loading {
+	background: white url('/skins-1.5/common/images/spinner.gif') right center no-repeat;
+}
 
 /* Standard Navigationsleisten, aka box hiding thingy from .de.*/
 div.Boxmerge, div.NavFrame {
