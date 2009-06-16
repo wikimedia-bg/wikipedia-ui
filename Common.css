@@ -43,10 +43,10 @@ span.minor { font-weight: normal; }
 
 /* клас за архивна страница */
 .archive {
-        opacity:0.7; 
-        background-color: #fffaf0; 
-        padding: 0.2em 0.5em; 
-        border: thin dotted silver;
+	opacity:0.7;
+	background-color: #fffaf0;
+	padding: 0.2em 0.5em;
+	border: thin dotted silver;
 }
 
 /* стилове за съдържанието от началната страница - [[Шаблон:Съдържание]] */
@@ -147,7 +147,7 @@ tr.even { background-color: #eceff3; }
 .loading {
 	background: white url(/skins-1.5/common/images/spinner.gif) right center no-repeat;
 }
-/* A working element has done its job with success */
+/* A working element has done its job */
 .done:before {
 	content: url(http://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Yes_check.svg/16px-Yes_check.svg.png);
 }
@@ -388,15 +388,15 @@ table.wikitable table td, table.prettytable table td {
 }
 
 #coordinates, .coordinates {
- text-transform:none;
- margin:0;
- padding:0;
+	text-transform:none;
+	margin:0;
+	padding:0;
 }
 
 .geo-google {
- font-family:serif;
- font-weight:bold;
- line-height:1em;
+	font-family:serif;
+	font-weight:bold;
+	line-height:1em;
 }
 
 .geo-geo-dec .geo-dec, .geo-geo-dms .geo-dms {display:inline}
@@ -564,84 +564,94 @@ div.user-wpnav {
 }
 /* за редове, които не трябва да се пренасят */
 .oneline { white-space: nowrap; }
-/* These mbox-small classes must be placed after all other 
-   ambox/tmbox/ombox etc classes. "body.mediawiki" is so 
-   they override "table.ambox + table.ambox" above. */
+/*
+	These mbox-small classes must be placed after all other
+	ambox/tmbox/ombox etc classes. "body.mediawiki" is so
+	they override "table.ambox + table.ambox" above.
+*/
 body.mediawiki table.mbox-small {   /* For the "small=yes" option. */
-    clear: right;
-    float: right;
-    margin: 4px 0 4px 1em;
-    width: 238px;
-    font-size: 88%;
-    line-height: 1.25em;
+	clear: right;
+	float: right;
+	margin: 4px 0 4px 1em;
+	width: 238px;
+	font-size: 88%;
+	line-height: 1.25em;
 }
 body.mediawiki table.mbox-small-left {   /* For the "small=left" option. */
-    margin: 4px 1em 4px 0;
-    width: 238px;
-    border-collapse: collapse;
-    font-size: 88%;
-    line-height: 1.25em;
+	margin: 4px 1em 4px 0;
+	width: 238px;
+	border-collapse: collapse;
+	font-size: 88%;
+	line-height: 1.25em;
 }
 
 
 /* Default skin for navigation boxes */
 table.navbox {            /* Navbox container style */
-  border: 1px solid #aaa;
-  width: 100%; 
-  margin: auto;
-  clear: both;
-  font-size: 88%;
-  text-align: center;
-  padding: 1px;
+	border: 1px solid #aaa;
+	width: 100%;
+	margin: auto;
+	clear: both;
+	font-size: 88%;
+	text-align: center;
+	padding: 1px;
 }
 table.navbox + table.navbox {  /* Single pixel border between adjacent navboxes */
-  margin-top: -1px;            /* (doesn't work for IE6, but that's okay)       */
+	margin-top: -1px;            /* (doesn't work for IE6, but that's okay)       */
 }
 .navbox-title,
 .navbox-abovebelow,
 table.navbox th {
-  text-align: center;      /* Title and above/below styles */
-  padding-left: 0.45em;
-  padding-right: 0.15em;
+	text-align: center;      /* Title and above/below styles */
+	padding-left: 0.45em;
+	padding-right: 0.15em;
 }
 .navbox-group {            /* Group style */
-  white-space: nowrap;
-  text-align: right;
-  font-weight: bold;
-  padding-left: 1em;
-  padding-right: 1em;
+	white-space: nowrap;
+	text-align: right;
+	font-weight: bold;
+	padding-left: 1em;
+	padding-right: 1em;
 }
 .navbox, .navbox-subgroup {
-  background: #fdfdfd;     /* Background color */
+	background: #fdfdfd;     /* Background color */
 }
 .navbox-list {
-  border-color: #fdfdfd;   /* Must match background color */
+	border-color: #fdfdfd;   /* Must match background color */
 }
 .navbox-title,
 table.navbox th {
-  background: #ccccff;     /* Level 1 color */
+	background: #ccccff;     /* Level 1 color */
 }
 .navbox-abovebelow,
 .navbox-group,
 .navbox-subgroup .navbox-title {
-  background: #ddddff;     /* Level 2 color */
+	background: #ddddff;     /* Level 2 color */
 }
 .navbox-subgroup .navbox-group, .navbox-subgroup .navbox-abovebelow {
-  background: #e6e6ff;     /* Level 3 color */
+	background: #e6e6ff;     /* Level 3 color */
 }
 .navbox-even {
-  background: #f7f7f7;     /* Even row striping */
+	background: #f7f7f7;     /* Even row striping */
 }
 .navbox-odd {
-  background: transparent; /* Odd row striping */
+	background: transparent; /* Odd row striping */
 }
 
-.collapseButton {          /* 'show'/'hide' buttons created dynamically */
-    float: right;          /* by the CollapsibleTables javascript in    */
-    font-weight: normal;   /* [[MediaWiki:Common.js]]are styled here    */
-    text-align: right;     /* so they can be customised.                */
-    width: auto;
+/*
+	'show'/'hide' buttons created dynamically by the CollapsibleTables
+	javascript in [[MediaWiki:Common.js]]
+*/
+.collapseButton {
+	float: right;
+	font-weight: normal;
+	text-align: right;
+	width: auto;
 }
-.navbox .collapseButton {  /* In navboxes, the show/hide button balances */
-    width: 6em;            /* the vde links from [[Template:Tnavbar]],   */
-}                          /* so they need to be the same width.         */
+/*
+	In navboxes, the show/hide button balances the vde links
+	from [[Template:Tnavbar]], so they need to be the same width.
+*/
+.navbox .collapseButton {
+	width: 6em;
+}
