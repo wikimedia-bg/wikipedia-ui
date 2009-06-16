@@ -8,6 +8,7 @@ if ( window.importScript && typeof jQuery == "undefined" ) {
 	importScript("МедияУики:Gadget-jQuery.js");
 }
 
+
 var WebRequest = {
 	/** Get a parameter from the URL */
 	getParam: function(param)
@@ -91,12 +92,12 @@ var BunchPatroller = {
 	{
 		return $links.map(function(){
 			var m = $(this).attr("href").match(regexp);
-			return m[1];
+			return null === m ? null : m[1];
 		}).get().join(this.paramDelim);
 	},
 
 	/** Works on diff pages */
-	enablePatrol: function()
+	enable: function()
 	{
 		$bunchPatrolLinkHolder = $("#mw-diff-ntitle4");
 		if ( 0 == $bunchPatrolLinkHolder.length ) {
@@ -234,6 +235,6 @@ addOnloadHook(function(){
 		BunchPatroller.makeBunchDiffsPatrollable();
 	} else if ( "view" == wgAction ) {
 		QuickPattroler.ajaxifyLinks();
-		BunchPatroller.enablePatrol();
+		BunchPatroller.enable();
 	}
 });
