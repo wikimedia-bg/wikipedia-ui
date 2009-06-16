@@ -92,7 +92,7 @@ var BunchPatroller = {
 	{
 		return $links.map(function(){
 			var m = $(this).attr("href").match(regexp);
-			return null === m ? null : m[1];
+			return null === m ? 0 : m[1];
 		}).get().join(this.paramDelim);
 	},
 
@@ -176,10 +176,10 @@ var BunchPatroller = {
 		var $diffLink = $("#" + BunchPatroller.getDiffLinkId(rcid));
 		$diffLink.addClass( QuickPattroler.linkClassLoading );
 		$.post(BunchPatroller.apiPath, {
-			"action" : "patrol",
-			"token"  : token,
-			"rcid"   : rcid,
-			"format" : "json"
+			action : "patrol",
+			token  : token,
+			rcid   : rcid,
+			format : "json"
 		}, function(data){
 			$diffLink.removeClass( QuickPattroler.linkClassLoading );
 			if ( typeof data.error == "undefined" ) {
@@ -197,13 +197,15 @@ var BunchPatroller = {
 		return "patrol-link-" + rcid;
 	},
 
+	tokenCookie: "patrolToken",
+	tokenCookieTtl: 0.1,
+	
 	getToken: function()
 	{
-		var tokenCookie = "patrolToken";
-
-		var token = Cookie.read(tokenCookie);
+		var token = Cookie.read(this.tokenCookie);
 		if ( ! token ) {
-			Cookie.create(tokenCookie, token = this.getTokenFromApi());
+			token = this.getTokenFromApi();
+			Cookie.create(this.tokenCookie, token, this.tokenCookieTtl);
 		}
 
 		return token;
