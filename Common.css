@@ -145,7 +145,15 @@ tr.even { background-color: #eceff3; }
 }
 /* elements which are doing something... */
 .loading {
-	background: white url('/skins-1.5/common/images/spinner.gif') right center no-repeat;
+	background: white url(/skins-1.5/common/images/spinner.gif) right center no-repeat;
+}
+/* A working element has done its job with success */
+.done:before {
+	content: url(http://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Yes_check.svg/16px-Yes_check.svg.png);
+}
+/* A working element that hadn’t been so lucky */
+.not-done:before {
+	content: url(http://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Red_x.svg/16px-Red_x.svg.png);
 }
 
 /* Standard Navigationsleisten, aka box hiding thingy from .de.*/
