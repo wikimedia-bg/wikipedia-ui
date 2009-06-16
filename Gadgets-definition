@@ -28,6 +28,9 @@
 * quicklinks|quicklinks.js
 * HideFundraisingNotice|HideFundraisingNotice.css
 
+== patrol-gadgets ==
+* quickpatrol|Quick patrol.js
+
 #== library-gadgets ==
 
 #* JSL|Core.js|JSL.js
