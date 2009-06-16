@@ -61,19 +61,24 @@ var BunchPatroller = {
 	makeBunchDiffsPatrollable: function()
 	{
 		$("div.mw-changeslist-hidden").each(function(){
-			var $rcidLinks = $("a[href*=rcid]", this);
-			var rcids = BunchPatroller.getJoinedValueFromHrefs($rcidLinks, /rcid=(\d+)/);
-			var diffs = BunchPatroller.getJoinedValueFromHrefs($rcidLinks, /diff=(\d+)/);
-
-			if ( "" !== rcids ) {
-				// add our extra parameters to the href attribute of the bunch diff link
-				$("a[href*=diff]", $(this).prev()).attr("href", function(){
-					return this.href
-						+ "&" + BunchPatroller.rcidsParam + "=" + rcids
-						+ "&" + BunchPatroller.diffsParam + "=" + diffs;
-				});
-			}
+			BunchPatroller.makeBunchDiffPatrollable(this);
 		});
+	},
+
+	makeBunchDiffPatrollable: function(changeslist)
+	{
+		var $rcidLinks = $("a[href*=rcid]", changeslist);
+		var rcids = BunchPatroller.getJoinedValueFromHrefs($rcidLinks, /rcid=(\d+)/);
+		var diffs = BunchPatroller.getJoinedValueFromHrefs($rcidLinks, /diff=(\d+)/);
+
+		if ( "" !== rcids ) {
+			// add our extra parameters to the href attribute of the bunch diff link
+			$("a[href*=diff]", $(changeslist).prev()).attr("href", function(){
+				return this.href
+					+ "&" + BunchPatroller.rcidsParam + "=" + rcids
+					+ "&" + BunchPatroller.diffsParam + "=" + diffs;
+			});
+		}
 	},
 
 	getJoinedValueFromHrefs: function($links, regexp)
@@ -191,19 +196,25 @@ var BunchPatroller = {
 
 		var token = Cookie.read(tokenCookie);
 		if ( ! token ) {
-			$.ajax({
-				type:     "GET",
-				url:       this.apiPath + "?action=query&list=recentchanges"
-				           + "&rctoken=patrol&rclimit=1&format=json",
-				async:     false,
-				dataType: "json",
-				success:  function(data){
-					token = data.query.recentchanges[0].patroltoken;
-					Cookie.create(tokenCookie, token);
-				}
-			});
+			Cookie.create(tokenCookie, token = this.getTokenFromApi());
 		}
 
+		return token;
+	},
+
+	getTokenFromApi: function()
+	{
+		var token = null;
+		$.ajax({
+			type:     "GET",
+			url:       this.apiPath + "?action=query&list=recentchanges"
+						+ "&rctoken=patrol&rclimit=1&format=json",
+			async:     false,
+			dataType: "json",
+			success:  function(data){
+				token = data.query.recentchanges[0].patroltoken;
+			}
+		});
 		return token;
 	}
 
