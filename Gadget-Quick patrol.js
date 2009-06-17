@@ -108,28 +108,28 @@ var BunchPatroller = {
 		Add extra parameters to the href attribute of the bunch diff link.
 		If there is no diff link (by new pages) one is created.
 	*/
-	enhanceBunchDiffLink: function(holder, rcids, diffs)
+	enhanceBunchDiffLink: function($holder, rcids, diffs)
 	{
 		var extraParams = "&" + BunchPatroller.rcidsParam + "=" + rcids
 			+ "&" + BunchPatroller.diffsParam + "=" + diffs;
 
-		var $link = $("a[href*=diff]", holder);
+		var $link = $("a[href*=diff]", $holder);
 		if ( $link.length ) {
 			$link.attr("href", function(){
 				return this.href + extraParams;
 			});
 		} else {
 			this.addBunchDiffLinkTo(
-				$("td:eq(1)", holder), // second table cell
+				$("td:eq(1)", $holder), // second table cell
 				diffs.split(this.paramDelim).shift(), // first id
 				extraParams
 			);
 		}
 	},
 
-	addBunchDiffLinkTo: function(holder, diff, extraParams)
+	addBunchDiffLinkTo: function($holder, diff, extraParams)
 	{
-		holder.html( holder.html().replace(
+		$holder.html( $holder.html().replace(
 			new RegExp( gLang.msg("nchanges") ),
 			'<a href="' + wgScript + "?diff=" + diff + "&oldid=" + diff
 				+ extraParams + '">$&</a>') );
@@ -155,8 +155,11 @@ var BunchPatroller = {
 		this.addDiffLinks($bunchPatrolLinkHolder, rcids, diffs);
 	},
 
-	addPatrolLink: function(holder, rcids)
+	addPatrolLink: function($holder, rcids)
 	{
+		if ( $holder.children().length ) {
+			$holder.append("<br/>");
+		}
 		$('<a href="#executePatrol"/>')
 			.text( rcids.length == 1
 				? gLang.msg("markaspatrolledtext1")
@@ -166,17 +169,16 @@ var BunchPatroller = {
 				BunchPatroller.executePatrol(rcids, this);
 				return false;
 			})
-			.appendTo(holder)
-			.wrap("<div/>");
+			.appendTo($holder);
 	},
 
-	addDiffLinks: function(holder, rcids, diffs)
+	addDiffLinks: function($holder, rcids, diffs)
 	{
 		var $list = $("<ul/>");
 		$.each(diffs, function(i, diff){
 			$list.append( BunchPatroller.getDiffLink(rcids[i], diff) );
 		});
-		$list.appendTo(holder);
+		$list.appendTo($holder);
 	},
 
 	getDiffLink: function(rcid, diff)
