@@ -18,6 +18,16 @@ var WebRequest = {
 	}
 };
 
+gLang.addMessages({
+	"markaspatrolledtext1" : "Отбелязване на следната редакция като проверена",
+	"markaspatrolledtext"  : "Отбелязване на следните $1 редакции като проверени",
+	"markedaspatrolledtext1": "Редакцията беше отбелязана като проверена.",
+	"markedaspatrolledtext" : "Готово.",
+	"firstrevision"     : "Първа",
+	"recentchangespage" : "Специални:Последни промени",
+	"nchanges"          : "\\d+ промени"
+}, "bg");
+
 /**
 	Ajaxify patrol links.
 	@uses jQuery
@@ -37,7 +47,7 @@ var QuickPattroler = {
 	{
 		var $link = $(link).addClass( this.linkClassLoading );
 		$.post(link.href, function(data){
-			$link.after("Редакцията беше отбелязана като проверена.").remove();
+			$link.replaceWith( gLang.msg("markedaspatrolledtext1") );
 			QuickPattroler.gotoRcIfWanted();
 		});
 	},
@@ -45,7 +55,7 @@ var QuickPattroler = {
 	gotoRcIfWanted: function()
 	{
 		if ( typeof wgxQuickPatrolLoadRc == "boolean" && wgxQuickPatrolLoadRc ) {
-			location.href = Creator.createInternUrl("Специални:Последни промени");
+			location.href = Creator.createInternUrl( gLang.msg("recentchangespage") );
 		}
 	}
 };
@@ -76,24 +86,53 @@ var BunchPatroller = {
 	{
 		var $rcidLinks = $("a[href*=rcid]", changeslist);
 		var rcids = BunchPatroller.getJoinedValueFromHrefs($rcidLinks, /rcid=(\d+)/);
-		var diffs = BunchPatroller.getJoinedValueFromHrefs($rcidLinks, /diff=(\d+)/);
-
 		if ( "" !== rcids ) {
-			// add our extra parameters to the href attribute of the bunch diff link
-			$("a[href*=diff]", $(changeslist).prev()).attr("href", function(){
-				return this.href
-					+ "&" + BunchPatroller.rcidsParam + "=" + rcids
-					+ "&" + BunchPatroller.diffsParam + "=" + diffs;
-			});
+			var diffs = BunchPatroller.getJoinedValueFromHrefs($rcidLinks, /diff=(\d+)/, /oldid=(\d+)/);
+			this.enhanceBunchDiffLink($(changeslist).prev(), rcids, diffs);
 		}
 	},
 
-	getJoinedValueFromHrefs: function($links, regexp)
+	getJoinedValueFromHrefs: function($links, regexp, regexpAlt)
 	{
 		return $links.map(function(){
 			var m = $(this).attr("href").match(regexp);
+			if ( null === m && typeof regexpAlt == "object" ) {
+				// test the fallback regexp
+				m = $(this).attr("href").match(regexpAlt);
+			}
 			return null === m ? 0 : m[1];
 		}).get().join(this.paramDelim);
+	},
+
+	/* 
+		Add extra parameters to the href attribute of the bunch diff link.
+		If there is no diff link (by new pages) one is created.
+	*/
+	enhanceBunchDiffLink: function(holder, rcids, diffs)
+	{
+		var extraParams = "&" + BunchPatroller.rcidsParam + "=" + rcids
+			+ "&" + BunchPatroller.diffsParam + "=" + diffs;
+
+		var $link = $("a[href*=diff]", holder);
+		if ( $link.length ) {
+			$link.attr("href", function(){
+				return this.href + extraParams;
+			});
+		} else {
+			this.addBunchDiffLinkTo(
+				$("td:eq(1)", holder), // second table cell
+				diffs.split(this.paramDelim).shift(), // first id
+				extraParams
+			);
+		}
+	},
+
+	addBunchDiffLinkTo: function(holder, diff, extraParams)
+	{
+		holder.html( holder.html().replace(
+			new RegExp( gLang.msg("nchanges") ),
+			'<a href="' + wgScript + "?diff=" + diff + "&oldid=" + diff
+				+ extraParams + '">$&</a>') );
 	},
 
 	/** Works on diff pages */
@@ -119,30 +158,38 @@ var BunchPatroller = {
 	addPatrolLink: function(holder, rcids)
 	{
 		$('<a href="#executePatrol"/>')
-			.text("Отбелязване на "
-				+ (rcids.length == 1
-					? "следната редакция като проверена"
-					: "следните "+ rcids.length +" редакции като проверени")
-			)
+			.text( rcids.length == 1
+				? gLang.msg("markaspatrolledtext1")
+				: gLang.msg("markaspatrolledtext", rcids.length) )
 			.click(function(){
 				$(this).addClass( QuickPattroler.linkClassLoading );
 				BunchPatroller.executePatrol(rcids, this);
 				return false;
 			})
-			.appendTo(holder);
+			.appendTo(holder)
+			.wrap("<div/>");
 	},
 
 	addDiffLinks: function(holder, rcids, diffs)
 	{
 		var $list = $("<ul/>");
 		$.each(diffs, function(i, diff){
-			$list.append('<li><a'
-				+ ' id="' + BunchPatroller.getDiffLinkId(rcids[i]) + '"'
-				+ ' href="' + wgScript + '?oldid=prev&diff=' + diff + '&rcid=' + rcids[i] + '"'
-				+ '>' + diff +'</a></li>'
-			);
+			$list.append( BunchPatroller.getDiffLink(rcids[i], diff) );
 		});
 		$list.appendTo(holder);
+	},
+
+	getDiffLink: function(rcid, diff)
+	{
+		return '<li><a'
+			+ ' id="' + BunchPatroller.getDiffLinkId(rcid) + '"'
+			+ ' href="' + wgScript + '?oldid=prev&diff=' + diff + '&rcid=' + rcid + '"'
+			+ '>' + diff +'</a></li>';
+	},
+
+	getDiffLinkId: function(rcid)
+	{
+		return "patrol-link-" + rcid;
 	},
 
 	executePatrol: function(rcids, motherLink)
@@ -154,7 +201,7 @@ var BunchPatroller = {
 		});
 
 		this.executeOnPatrolDone(function() {
-			$(motherLink).remove();
+			$(motherLink).replaceWith( gLang.msg("markedaspatrolledtext") );
 			QuickPattroler.gotoRcIfWanted();
 		}, rcids);
 	},
@@ -192,14 +239,9 @@ var BunchPatroller = {
 		}, "json");
 	},
 
-	getDiffLinkId: function(rcid)
-	{
-		return "patrol-link-" + rcid;
-	},
-
 	tokenCookie: "patrolToken",
-	tokenCookieTtl: 0.1,
-	
+	tokenCookieTtl: 0.1, // days
+
 	getToken: function()
 	{
 		var token = Cookie.read(this.tokenCookie);
