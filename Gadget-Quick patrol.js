@@ -23,7 +23,6 @@ gLang.addMessages({
 	"markaspatrolledtext"  : "Отбелязване на следните $1 редакции като проверени",
 	"markedaspatrolledtext1": "Редакцията беше отбелязана като проверена.",
 	"markedaspatrolledtext" : "Готово.",
-	"firstrevision"     : "Първа",
 	"recentchangespage" : "Специални:Последни промени",
 	"nchanges"          : "\\d+ промени"
 }, "bg");
@@ -74,6 +73,12 @@ var BunchPatroller = {
 	diffLinkClassDone: "done",
 	diffLinkClassNotDone: "not-done",
 
+	/* track number of patrolled edits */
+	numEditsPatrolled: 0,
+
+	/* error codes returned from API */
+	errors: [],
+
 	/** Works on Special:Recentchanges */
 	makeBunchDiffsPatrollable: function()
 	{
@@ -104,7 +109,7 @@ var BunchPatroller = {
 		}).get().join(this.paramDelim);
 	},
 
-	/* 
+	/**
 		Add extra parameters to the href attribute of the bunch diff link.
 		If there is no diff link (by new pages) one is created.
 	*/
@@ -149,13 +154,13 @@ var BunchPatroller = {
 		}
 
 		var rcids = rcidsRaw.split(this.paramDelim);
-		this.addPatrolLink($bunchPatrolLinkHolder, rcids);
+		this.addPatrolLinkTo($bunchPatrolLinkHolder, rcids);
 
 		var diffs = WebRequest.getParam(this.diffsParam).split(this.paramDelim);
-		this.addDiffLinks($bunchPatrolLinkHolder, rcids, diffs);
+		this.addDiffLinksTo($bunchPatrolLinkHolder, rcids, diffs);
 	},
 
-	addPatrolLink: function($holder, rcids)
+	addPatrolLinkTo: function($holder, rcids)
 	{
 		if ( $holder.children().length ) {
 			$holder.append("<br/>");
@@ -172,7 +177,7 @@ var BunchPatroller = {
 			.appendTo($holder);
 	},
 
-	addDiffLinks: function($holder, rcids, diffs)
+	addDiffLinksTo: function($holder, rcids, diffs)
 	{
 		var $list = $("<ul/>");
 		$.each(diffs, function(i, diff){
@@ -185,13 +190,14 @@ var BunchPatroller = {
 	{
 		return '<li><a'
 			+ ' id="' + BunchPatroller.getDiffLinkId(rcid) + '"'
+			+ ' class="diff-link"'
 			+ ' href="' + wgScript + '?oldid=prev&diff=' + diff + '&rcid=' + rcid + '"'
 			+ '>' + diff +'</a></li>';
 	},
 
 	getDiffLinkId: function(rcid)
 	{
-		return "patrol-link-" + rcid;
+		return "diff-link-" + rcid;
 	},
 
 	executePatrol: function(rcids, motherLink)
@@ -203,23 +209,34 @@ var BunchPatroller = {
 		});
 
 		this.executeOnPatrolDone(function() {
+			if ( BunchPatroller.checkForBadToken() ) {
+				BunchPatroller.restartPatrol(rcids, motherLink);
+				return;
+			}
 			$(motherLink).replaceWith( gLang.msg("markedaspatrolledtext") );
 			QuickPattroler.gotoRcIfWanted();
 		}, rcids);
+	},
+
+	restartPatrol: function(rcids, motherLink)
+	{
+		this.errors = [];
+		this.numEditsPatrolled = 0;
+		$(".diff-link").removeClass(BunchPatroller.diffLinkClassNotDone);
+		BunchPatroller.clearToken().executePatrol(rcids, motherLink);
 	},
 
 	intervalId: 0,
 	executeOnPatrolDone: function(callback, rcids)
 	{
 		this.intervalId = setInterval(function(){
-			if ( BunchPatroller.numPatrolsProcessed >= rcids.length ) {
+			if ( BunchPatroller.numEditsPatrolled >= rcids.length ) {
 				clearInterval(BunchPatroller.intervalId);
 				callback();
 			}
 		}, 200);
 	},
 
-	numPatrolsProcessed: 0,
 	executePatrolOne: function(token, rcid)
 	{
 		var $diffLink = $("#" + BunchPatroller.getDiffLinkId(rcid));
@@ -234,22 +251,32 @@ var BunchPatroller = {
 			if ( typeof data.error == "undefined" ) {
 				$diffLink.addClass(BunchPatroller.diffLinkClassDone);
 			} else {
-				$diffLink.addClass(BunchPatroller.diffLinkClassNotDone)
-					.attr("title", data.error.info);
+				$diffLink.addClass(BunchPatroller.diffLinkClassNotDone);
+				BunchPatroller.handleError(data.error, $diffLink);
 			}
-			BunchPatroller.numPatrolsProcessed++;
+			BunchPatroller.numEditsPatrolled++;
 		}, "json");
 	},
 
+	handleError: function(error, $diffLink)
+	{
+		this.errors.push(error.code);
+		$diffLink.attr("title", error.info);
+	},
+
+	checkForBadToken: function()
+	{
+		return inArray("badtoken", this.errors);
+	},
+
 	tokenCookie: "patrolToken",
-	tokenCookieTtl: 0.1, // days
 
 	getToken: function()
 	{
 		var token = Cookie.read(this.tokenCookie);
 		if ( ! token ) {
 			token = this.getTokenFromApi();
-			Cookie.create(this.tokenCookie, token, this.tokenCookieTtl);
+			Cookie.create(this.tokenCookie, token);
 		}
 
 		return token;
@@ -269,6 +296,12 @@ var BunchPatroller = {
 			}
 		});
 		return token;
+	},
+	
+	clearToken: function()
+	{
+		Cookie.erase(this.tokenCookie);
+		return this;
 	}
 
 };
