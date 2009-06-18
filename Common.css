@@ -664,3 +664,14 @@ table.navbox th {
 .navbox .collapseButton {
 	width: 6em;
 }
+
+/* Accessibility experiment: make diff changes not just colour-based */ 
+.diffchange {
+    font-weight: bold;
+    background-color: inherit;
+}
+td.diff-addedline, td.diff-deletedline, td.diff-context {
+    vertical-align: top;
+    font-size: 85%;
+    color: inherit;
+}
