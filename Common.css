@@ -14,6 +14,15 @@ table { background-color: inherit; }
 sub {vertical-align: baseline; font-size: 0.8em; position: relative; top: 0.4em }
 sup {vertical-align: baseline; font-size: 0.8em; position: relative; top: -0.4em }
 
+/* Текста под кутията за редактиране */
+#editpage-copywarn {
+	margin: .8em 0;
+	padding: 0.2em;
+	border-bottm: thick solid gold;
+	font-style: italic;
+	text-align: center;
+}
+
 /* бутона „Предварителен преглед“ */
 #wpPreview { font-weight: bold; }
 
