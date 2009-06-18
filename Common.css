@@ -109,28 +109,6 @@ table.toccolours tr.hrow th { background-color: #e0e6e9; }
 tr.odd { background-color: inherit; }
 tr.even { background-color: #eceff3; }
 
-.portal-box {
-	border: thin dotted #003366;
-	padding: 0.5em;
-	margin-bottom: 0.5em;
-}
-.portal-box h2 {
-	color: white;
-	background-color: #005588;
-	border: 0;
-	padding: 0.3em 0.5em 0.2em 1em;
-	font-size: 1.2em;
-}
-.portal-box .editsection, .portal-box .editsection a {
-	color: white;
-}
-
-.template-wrapper {
-	background: #fcfcec;
-	padding: .5em;
-	border: thin dashed gray;
-}
-
 /* [[МедияУики:Monobook.js|поздравително съобщение]] за всеки невлязъл потребител */
 #externMessage {
 	text-align: center;
@@ -508,15 +486,6 @@ table.ambox.ambox-mini {                 /* small floating box variant */
 	width: 25%;
 }
 
-/* псевдозаглавия за хронологични подстраници */
-.h1-transclusion {
-	padding-top: .5em;
-	padding-bottom: .17em;
-	border-bottom: 1px solid #aaa;
-}
-.h1-transclusion { font-size: 170%; }
-.h1-transclusion .editsection { font-size: 53%; }
-
 li.FA {
 	list-style-image: url("http://upload.wikimedia.org/wikipedia/en/d/d4/Monobook-bullet-star.png");
 }
@@ -554,6 +523,7 @@ div.user-block {
 .simplelist li:after { content: "\00A0\2022 "; /* circle */ }
 .simplelist li:last-child:after { content: ""; }
 
+/* елемент, обграждащ цялото съдържание на помощна страница */
 .yaw {
 	border: 1px solid #A3B1BF;
 	padding: 1em 1em .2em 1em;
@@ -573,6 +543,7 @@ div.user-wpnav {
 }
 /* за редове, които не трябва да се пренасят */
 .oneline { white-space: nowrap; }
+
 /*
 	These mbox-small classes must be placed after all other
 	ambox/tmbox/ombox etc classes. "body.mediawiki" is so
