@@ -47,7 +47,7 @@ var showQuickLink = (function() {
 			e : Creator.createElement('div', {
 				'id' : 'myquicklinks',
 				'class' : 'messagebox',
-				'style' : 'position: absolute; top: 3em; left: 3em; z-index: 10; overflow: auto; width: 90%; padding: 1em'
+				'style' : 'position: absolute; top: 3em; left: 5%; z-index: 10; overflow: auto; width: 90%; padding: 1em'
 			}),
 			show : function() {
 				this.e.style.display = '';
