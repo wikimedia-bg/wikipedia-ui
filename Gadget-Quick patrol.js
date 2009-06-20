@@ -70,6 +70,7 @@ var BunchPatroller = {
 	rcidsParam: "rcids",
 	diffsParam: "diffs",
 	paramDelim: ",",
+	bunckDiffLinkClass: "bunch-duff-link",
 	diffLinkClassDone: "done",
 	diffLinkClassNotDone: "not-done",
 
@@ -122,7 +123,7 @@ var BunchPatroller = {
 		if ( $link.length ) {
 			$link.attr("href", function(){
 				return this.href + extraParams;
-			});
+			}).addClass( BunchPatroller.bunckDiffLinkClass );
 		} else {
 			this.addBunchDiffLinkTo(
 				$("td:eq(1)", $holder), // second table cell
@@ -136,8 +137,8 @@ var BunchPatroller = {
 	{
 		$holder.html( $holder.html().replace(
 			new RegExp( gLang.msg("nchanges") ),
-			'<a href="' + wgScript + "?diff=" + diff + "&oldid=" + diff
-				+ extraParams + '">$&</a>') );
+			'<a href="' + wgScript + "?diff=" + diff + "&oldid=" + diff + extraParams
+				+ '" class="' + BunchPatroller.bunckDiffLinkClass + '">$&</a>') );
 	},
 
 	/** Works on diff pages */
@@ -297,7 +298,7 @@ var BunchPatroller = {
 		});
 		return token;
 	},
-	
+
 	clearToken: function()
 	{
 		Cookie.erase(this.tokenCookie);
@@ -309,7 +310,7 @@ var BunchPatroller = {
 // prepare for fight
 addOnloadHook(function(){
 	if ( wgCanonicalSpecialPageName
-			&& wgCanonicalSpecialPageName.indexOf("Recentchanges") === 0
+			&& /^(Recentchanges|Watchlist)/.test(wgCanonicalSpecialPageName)
 	) {
 		BunchPatroller.makeBunchDiffsPatrollable();
 	} else if ( "view" == wgAction ) {
