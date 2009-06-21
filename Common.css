@@ -135,6 +135,11 @@ tr.even { background-color: #eceff3; }
 .working {
 	background: white url(/skins-1.5/common/images/spinner.gif) right center no-repeat;
 }
+/* contents are currently loaded */
+.loading {
+	min-height: 2.5em;
+	background: url(http://upload.wikimedia.org/wikipedia/commons/3/32/Loader3.gif) no-repeat center;
+}
 /* A working element has done its job */
 .done:before {
 	content: url(http://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Yes_check.svg/16px-Yes_check.svg.png);
