@@ -34,16 +34,16 @@ table.nagore tbody { vertical-align:top; }
 
 #siteNotice { padding: 0.3em; text-align: center; margin-bottom: 0.5em; }
 
-/* клас за текста, отбелязващ нова страница в последните промени [[МедияУики:Newpageletter]] */
+/* текста, отбелязващ нова страница в последните промени [[МедияУики:Newpageletter]] */
 .newpage { color: black; background-color: yellow; }
 
-/* клас за препратки, които не се виждат като подчертани */
+/* препратки, които не се виждат като подчертани */
 .noulinks a, .nounderlines a { text-decoration: none; }
 
-/* клас за текста, отбелязващ малките промени [[МедияУики:Minoreditletter]] */
+/* текста, отбелязващ малките промени [[МедияУики:Minoreditletter]] */
 span.minor { font-weight: normal; }
 
-/* клас за изпъкване */
+/* изпъкващи елементи */
 .hilite {
 	color: black;
 	background-color: #fff6e6;
@@ -51,7 +51,7 @@ span.minor { font-weight: normal; }
 	border: thin dotted silver;
 }
 
-/* клас за архивна страница */
+/* архивна страница */
 .archive {
 	opacity:0.7;
 	background-color: #fffaf0;
@@ -59,7 +59,7 @@ span.minor { font-weight: normal; }
 	border: thin dotted silver;
 }
 
-/* стилове за съдържанието от началната страница - [[Шаблон:Съдържание]] */
+/* за съдържанието от началната страница - [[Шаблон:Съдържание]] */
 #mainpage-toc h3 {
 	font-size: 110%;
 	margin-bottom: 0;
@@ -71,9 +71,7 @@ span.minor { font-weight: normal; }
 
 .buttonlinks a {
 	color: black;
-	background-color: #ccddee;
-	background-image: url('http://upload.wikimedia.org/wikipedia/commons/c/c6/Blending_blue_button_background.png');
-	background-repeat: repeat-x;
+	background: #cde url(http://upload.wikimedia.org/wikipedia/commons/c/c6/Blending_blue_button_background.png) repeat-x;
 	font-weight: bold;
 	font-size: 0.9em;
 	text-decoration: none;
@@ -81,7 +79,7 @@ span.minor { font-weight: normal; }
 	padding: 0.1em;
 }
 .buttonlinks a:hover, .buttonlinks a:active {
-	background-color: #bbccdd;
+	background-color: #bcd;
 	border-style: inset;
 }
 
@@ -104,11 +102,6 @@ span.minor { font-weight: normal; }
 
 /* центриране на описанията на миникартинките и при галериите */
 div.thumb div div.thumbcaption, div.gallerytext { text-align: center; }
-
-table.toccolours caption { font-weight: bold; }
-table.toccolours tr.hrow th { background-color: #e0e6e9; }
-tr.odd { background-color: inherit; }
-tr.even { background-color: #eceff3; }
 
 /* [[МедияУики:Monobook.js|поздравително съобщение]] за всеки невлязъл потребител */
 #externMessage {
@@ -194,17 +187,6 @@ a.NavToggle {
 .plainlinksneverexpand a.external.text:after { display: none !important; }
 .plainlinksneverexpand a.external.autonumber:after { display: none !important; }
 
-.prettytable, .prettytable table {
-	border: thin solid #aaa;
-	border-collapse: collapse;
-	font-size: 95%;
-	margin: 1em 0;
-	background: #f9f9f9;
-}
-.prettytable table { margin: 0; }
-.prettytable td, table.prettytable th { border: thin solid #aaa; padding: 0.3em; }
-.prettytable th { background-color: #ddd; }
-
 .IPA {
 	font-family: Chrysanthi Unicode, Doulos SIL, Gentium, GentiumAlt, Code2000, TITUS Cyberbit Basic, DejaVu Sans, Bitstream Vera Sans, Bitstream Cyberbit, Arial Unicode MS, Lucida Sans Unicode, Hiragino Kaku Gothic Pro, Matrix Unicode;
 	font-family /**/:inherit;
@@ -217,8 +199,6 @@ a.NavToggle {
 	font-family: Athena, Gentium, Palatino Linotype, Arial Unicode MS, Lucida Sans Unicode, Lucida Grande, Code2000;
 	font-family /**/:inherit;
 }
-
-/*</pre>*/
 
 /* Messagebox templates */
 .messagebox {
@@ -243,7 +223,7 @@ a.NavToggle {
 	background-color: #f8eaba;
 }
 
-/* Infobox template style */
+/* Infobox template */
 .infobox {
 	border: 1px solid #aaaaaa;
 	background-color: #f9f9f9;
@@ -279,7 +259,7 @@ a.NavToggle {
 	font-size: 90%;
 }
 
-/* styles for bordered infobox with merged rows */
+/* bordered infobox with merged rows */
 .infobox.bordered .mergedtoprow td,
 .infobox.bordered .mergedtoprow th {
 	border: 0;
@@ -294,7 +274,7 @@ a.NavToggle {
 }
 
 
-/* styles for geography infoboxes, e.g. countries, national subdivisions, cities, etc. */
+/* geography infoboxes, e.g. countries, national subdivisions, cities, etc. */
 .infobox.geography {
 	border: 1px solid #ccd2d9;
 	text-align: left;
@@ -333,6 +313,11 @@ a.NavToggle {
 	padding: 0 0 0 0;
 }
 
+table.toccolours caption { font-weight: bold; }
+table.toccolours tr.hrow th { background-color: #e0e6e9; }
+tr.odd { background-color: inherit; }
+tr.even { background-color: #eceff3; }
+
 /* wikitable/prettytable class for skinning normal tables */
 table.wikitable, table.prettytable {
 	margin: 1em 1em 1em 0;
@@ -340,24 +325,20 @@ table.wikitable, table.prettytable {
 	border: 1px #aaaaaa solid;
 	border-collapse: collapse;
 }
-
 table.wikitable th, table.wikitable td,
 table.prettytable th, table.prettytable td {
 	border: 1px #aaaaaa solid;
 	padding: 0.2em;
 }
-
 table.wikitable th, table.prettytable th {
 	background: #f2f2f2;
 	text-align: center;
 }
-
 table.wikitable caption, table.prettytable caption {
 	margin-left: inherit;
 	margin-right: inherit;
 	font-weight: bold;
 }
-
 table.wikitable table th, table.prettytable table th,
 table.wikitable table td, table.prettytable table td {
 	border: none;
@@ -399,12 +380,8 @@ table.wikitable table td, table.prettytable table td {
 
 .references { font-size: 85%;}
 
-/* VALIDATOR NOTICE: the following is correct, but the W3C validator doesn't accept it */
-/* -moz-* is a vendor-specific extension (CSS 2.1 4.1.2.1) */
-/* column-count is from the CSS3 module "CSS Multi-column Layout" */
-/* Please ignore any validator errors caused by these two lines */
 .references-2column {
-	-moz-column-count:2;
+	-moz-column-count:2; /* -moz-* is a vendor-specific extension (CSS 2.1 4.1.2.1) */
 	column-count:2;
 }
 
@@ -419,7 +396,7 @@ sup.reference:target, cite:target {
 	background-color: #DEF;
 }
 
-/* Style for "notices" */
+/* "notices" */
 .notice {
 	margin: 1em;
 	padding: 0.2em;
@@ -444,7 +421,7 @@ sup.reference:target, cite:target {
 	color: #8B0000; /* darkred */
 }
 
-/* Article message box template styles */
+/* Article message box template */
 table.ambox {
 	margin: 0 10%;                    /* Will not overlap with other elements */
 	border-collapse: collapse;
@@ -573,7 +550,8 @@ body.mediawiki table.mbox-small-left {   /* For the "small=left" option. */
 
 
 /* Default skin for navigation boxes */
-table.navbox {            /* Navbox container style */
+/* Navbox container */
+table.navbox {
 	border: 1px solid #aaa;
 	width: 100%;
 	margin: auto;
@@ -582,17 +560,19 @@ table.navbox {            /* Navbox container style */
 	text-align: center;
 	padding: 1px;
 }
-table.navbox + table.navbox {  /* Single pixel border between adjacent navboxes */
-	margin-top: -1px;            /* (doesn't work for IE6, but that's okay)       */
+/* Single pixel border between adjacent navboxes */
+table.navbox + table.navbox {
+	margin-top: -1px;
 }
+/* Title and above/below */
 .navbox-title,
 .navbox-abovebelow,
 table.navbox th {
-	text-align: center;      /* Title and above/below styles */
+	text-align: center;
 	padding-left: 0.45em;
 	padding-right: 0.15em;
 }
-.navbox-group {            /* Group style */
+.navbox-group {
 	white-space: nowrap;
 	text-align: right;
 	font-weight: bold;
@@ -600,29 +580,27 @@ table.navbox th {
 	padding-right: 1em;
 }
 .navbox, .navbox-subgroup {
-	background: #fdfdfd;     /* Background color */
+	background: #fdfdfd;
 }
 .navbox-list {
-	border-color: #fdfdfd;   /* Must match background color */
+	border-color: #fdfdfd;	/* Must match background color */
 }
 .navbox-title,
 table.navbox th {
-	background: #ccccff;     /* Level 1 color */
+	background: #ccccff;	/* Level 1 color */
 }
 .navbox-abovebelow,
 .navbox-group,
 .navbox-subgroup .navbox-title {
-	background: #ddddff;     /* Level 2 color */
+	background: #ddddff;	/* Level 2 color */
 }
 .navbox-subgroup .navbox-group, .navbox-subgroup .navbox-abovebelow {
-	background: #e6e6ff;     /* Level 3 color */
+	background: #e6e6ff;	/* Level 3 color */
 }
-.navbox-even {
-	background: #f7f7f7;     /* Even row striping */
-}
-.navbox-odd {
-	background: transparent; /* Odd row striping */
-}
+/* Even row */
+.navbox-even { background: #f7f7f7 }
+/* Odd row */
+.navbox-odd { background: transparent }
 
 /*
 	'show'/'hide' buttons created dynamically by the CollapsibleTables
@@ -642,13 +620,12 @@ table.navbox th {
 	width: 6em;
 }
 
-/* Accessibility experiment: make diff changes not just colour-based */ 
+/* Accessibility experiment: make diff changes not just colour-based */
 .diffchange {
-    font-weight: bold;
-    background-color: inherit;
+	font-weight: bold;
+	background-color: inherit;
 }
 td.diff-addedline, td.diff-deletedline, td.diff-context {
-    vertical-align: top;
-    font-size: 85%;
-    color: inherit;
+	vertical-align: top;
+	color: inherit;
 }
