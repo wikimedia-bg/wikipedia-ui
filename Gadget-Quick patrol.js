@@ -33,7 +33,7 @@ gLang.addMessages({
 	@uses jQuery
 */
 var QuickPattroler = {
-	linkClassLoading: "loading",
+	linkClassWorking: "working",
 
 	ajaxifyLinks: function()
 	{
@@ -45,7 +45,7 @@ var QuickPattroler = {
 
 	executePatrol: function(link)
 	{
-		var $link = $(link).addClass( this.linkClassLoading );
+		var $link = $(link).addClass( this.linkClassWorking );
 		$.post(link.href, function(data){
 			$link.replaceWith( gLang.msg("markedaspatrolledtext1") );
 			QuickPattroler.gotoRcIfWanted();
@@ -75,6 +75,7 @@ var BunchPatroller = {
 	diffLinkClass: "duff-link",
 	diffLinkClassDone: "done",
 	diffLinkClassNotDone: "not-done",
+	loadingClass: "loading",
 
 	/* track number of patrolled edits */
 	numEditsPatrolled: 0,
@@ -175,7 +176,7 @@ var BunchPatroller = {
 				? gLang.msg("markaspatrolledtext1")
 				: gLang.msg("markaspatrolledtext", rcids.length) )
 			.click(function(){
-				$(this).addClass( QuickPattroler.linkClassLoading );
+				$(this).addClass( QuickPattroler.linkClassWorking );
 				BunchPatroller.executePatrol(rcids, this);
 				return false;
 			})
@@ -209,10 +210,10 @@ var BunchPatroller = {
 
 	loadDiffContentFor: function(link, $holder)
 	{
-		var $out = $("<div/>").appendTo($holder).before("<hr/>");
+		var $out = $("<div/>").appendTo($holder).addClass(this.loadingClass).before("<hr/>");
 
 		$.get(link.href + "&diffonly=1&action=render", function(data){
-			$out.html(data);
+			$out.html(data).removeClass( BunchPatroller.loadingClass );
 		});
 	},
 
@@ -270,14 +271,14 @@ var BunchPatroller = {
 	executePatrolOne: function(token, rcid)
 	{
 		var $diffLink = $("#" + BunchPatroller.getDiffLinkId(rcid));
-		$diffLink.addClass( QuickPattroler.linkClassLoading );
+		$diffLink.addClass( QuickPattroler.linkClassWorking );
 		$.post(BunchPatroller.apiPath, {
 			action : "patrol",
 			token  : token,
 			rcid   : rcid,
 			format : "json"
 		}, function(data){
-			$diffLink.removeClass( QuickPattroler.linkClassLoading );
+			$diffLink.removeClass( QuickPattroler.linkClassWorking );
 			if ( data.error ) {
 				$diffLink.addClass(BunchPatroller.diffLinkClassNotDone);
 				BunchPatroller.handleError(data.error, $diffLink);
