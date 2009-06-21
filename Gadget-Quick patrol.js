@@ -23,6 +23,7 @@ gLang.addMessages({
 	"markaspatrolledtext"  : "Отбелязване на следните $1 редакции като проверени",
 	"markedaspatrolledtext1": "Редакцията беше отбелязана като проверена.",
 	"markedaspatrolledtext" : "Готово.",
+	"showalldiffs"      : "Показване на всички междинни редакции",
 	"recentchangespage" : "Специални:Последни промени",
 	"nchanges"          : "\\d+ промени"
 }, "bg");
@@ -53,7 +54,7 @@ var QuickPattroler = {
 
 	gotoRcIfWanted: function()
 	{
-		if ( typeof wgxQuickPatrolLoadRc == "boolean" && wgxQuickPatrolLoadRc ) {
+		if ( window.wgxQuickPatrolLoadRc && wgxQuickPatrolLoadRc ) {
 			location.href = Creator.createInternUrl( gLang.msg("recentchangespage") );
 		}
 	}
@@ -70,7 +71,8 @@ var BunchPatroller = {
 	rcidsParam: "rcids",
 	diffsParam: "diffs",
 	paramDelim: ",",
-	bunckDiffLinkClass: "bunch-duff-link",
+	bunchDiffLinkClass: "bunch-duff-link",
+	diffLinkClass: "duff-link",
 	diffLinkClassDone: "done",
 	diffLinkClassNotDone: "not-done",
 
@@ -123,7 +125,7 @@ var BunchPatroller = {
 		if ( $link.length ) {
 			$link.attr("href", function(){
 				return this.href + extraParams;
-			}).addClass( BunchPatroller.bunckDiffLinkClass );
+			}).addClass( BunchPatroller.bunchDiffLinkClass );
 		} else {
 			this.addBunchDiffLinkTo(
 				$("td:eq(1)", $holder), // second table cell
@@ -138,7 +140,7 @@ var BunchPatroller = {
 		$holder.html( $holder.html().replace(
 			new RegExp( gLang.msg("nchanges") ),
 			'<a href="' + wgScript + "?diff=" + diff + "&oldid=" + diff + extraParams
-				+ '" class="' + BunchPatroller.bunckDiffLinkClass + '">$&</a>') );
+				+ '" class="' + BunchPatroller.bunchDiffLinkClass + '">$&</a>') );
 	},
 
 	/** Works on diff pages */
@@ -159,6 +161,8 @@ var BunchPatroller = {
 
 		var diffs = WebRequest.getParam(this.diffsParam).split(this.paramDelim);
 		this.addDiffLinksTo($bunchPatrolLinkHolder, rcids, diffs);
+
+		this.addShowAllDiffsLinkTo($bunchPatrolLinkHolder);
 	},
 
 	addPatrolLinkTo: function($holder, rcids)
@@ -187,11 +191,34 @@ var BunchPatroller = {
 		$list.appendTo($holder);
 	},
 
+	addShowAllDiffsLinkTo: function($holder)
+	{
+		$('<a href="#alldiffs"/>')
+			.text( gLang.msg("showalldiffs") )
+			.click(function(){
+				$all = $('<div id="alldiffs"/>').insertAfter( $holder.parents(".diff") );
+
+				$("." + BunchPatroller.diffLinkClass, $holder).each(function(){
+					BunchPatroller.loadDiffContentFor(this, $all);
+				});
+			})
+			.appendTo($holder);
+	},
+
+	loadDiffContentFor: function(link, $holder)
+	{
+		var $out = $("<div/>").appendTo($holder).before("<hr/>");
+
+		$.get(link.href + "&diffonly=1&action=render", function(data){
+			$out.html(data);
+		});
+	},
+
 	getDiffLink: function(rcid, diff)
 	{
 		return '<li><a'
-			+ ' id="' + BunchPatroller.getDiffLinkId(rcid) + '"'
-			+ ' class="diff-link"'
+			+ ' id="' + this.getDiffLinkId(rcid) + '"'
+			+ ' class="' + this.diffLinkClass + '"'
 			+ ' href="' + wgScript + '?oldid=prev&diff=' + diff + '&rcid=' + rcid + '"'
 			+ '>' + diff +'</a></li>';
 	},
@@ -223,7 +250,7 @@ var BunchPatroller = {
 	{
 		this.errors = [];
 		this.numEditsPatrolled = 0;
-		$(".diff-link").removeClass(BunchPatroller.diffLinkClassNotDone);
+		$("." + this.diffLinkClass).removeClass(BunchPatroller.diffLinkClassNotDone);
 		BunchPatroller.clearToken().executePatrol(rcids, motherLink);
 	},
 
