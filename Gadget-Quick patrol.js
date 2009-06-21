@@ -201,6 +201,8 @@ var BunchPatroller = {
 				$("." + BunchPatroller.diffLinkClass, $holder).each(function(){
 					BunchPatroller.loadDiffContentFor(this, $all);
 				});
+
+				$(this).remove();
 			})
 			.appendTo($holder);
 	},
