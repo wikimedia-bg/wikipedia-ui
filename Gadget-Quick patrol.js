@@ -23,7 +23,7 @@ gLang.addMessages({
 	"markaspatrolledtext"  : "Отбелязване на следните $1 редакции като проверени",
 	"markedaspatrolledtext1": "Редакцията беше отбелязана като проверена.",
 	"markedaspatrolledtext" : "Готово.",
-	"showalldiffs"      : "Показване на всички междинни редакции",
+	"showalldiffs"      : "Показване на редакциите",
 	"recentchangespage" : "Специални:Последни промени",
 	"nchanges"          : "\\d+ промени"
 }, "bg");
