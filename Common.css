@@ -132,7 +132,7 @@ tr.even { background-color: #eceff3; }
 	border: solid thin #006699;
 }
 /* elements which are doing something... */
-.loading {
+.working {
 	background: white url(/skins-1.5/common/images/spinner.gif) right center no-repeat;
 }
 /* A working element has done its job */
