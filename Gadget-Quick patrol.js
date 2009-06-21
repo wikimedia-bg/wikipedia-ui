@@ -37,7 +37,7 @@ var QuickPattroler = {
 
 	ajaxifyLinks: function()
 	{
-		$(".patrollink a").click(function(){
+		$(".patrollink a").live("click", function(){
 			QuickPattroler.executePatrol(this);
 			return false;
 		});
@@ -278,11 +278,11 @@ var BunchPatroller = {
 			format : "json"
 		}, function(data){
 			$diffLink.removeClass( QuickPattroler.linkClassLoading );
-			if ( typeof data.error == "undefined" ) {
-				$diffLink.addClass(BunchPatroller.diffLinkClassDone);
-			} else {
+			if ( data.error ) {
 				$diffLink.addClass(BunchPatroller.diffLinkClassNotDone);
 				BunchPatroller.handleError(data.error, $diffLink);
+			} else {
+				$diffLink.addClass(BunchPatroller.diffLinkClassDone);
 			}
 			BunchPatroller.numEditsPatrolled++;
 		}, "json");
