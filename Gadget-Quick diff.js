@@ -30,6 +30,11 @@ var QuickDiff = {
 	{
 		this.prepareViewer();
 		this.viewWindow.css("top", $link.offset().top).html(content).show();
+
+		if ( window.BunchPatroller ) {
+			WebRequest.setRequestUrl($link[0].href);
+			BunchPatroller.enable();
+		}
 	},
 
 	viewWindow: null,
@@ -59,7 +64,7 @@ var QuickDiff = {
 
 // prepare for fight
 addOnloadHook(function(){
-	if ( /^(Recentchanges|Watchlist)/.test(wgCanonicalSpecialPageName)
+	if ( /^(Recentchanges|Watchlist|Contributions)/.test(wgCanonicalSpecialPageName)
 			|| "history" == wgAction
 	) {
 		QuickDiff.enable();
