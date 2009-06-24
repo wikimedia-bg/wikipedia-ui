@@ -10,11 +10,23 @@ if ( window.importScript && ! window.jQuery ) {
 
 
 var WebRequest = {
-	/** Get a parameter from the URL */
+	/** Get a parameter from the requested URL */
 	getParam: function(param)
 	{
-		var m = location.href.match( new RegExp("[?&]" + param + "=([^&#]*)") );
+		var m = this.getRequestUrl().match( new RegExp("[?&]" + param + "=([^&#]*)") );
 		return null === m ? null : m[1];
+	},
+	
+	requestUrl: null,
+
+	getRequestUrl: function()
+	{
+		return this.requestUrl || location.href;
+	},
+	
+	setRequestUrl: function(url)
+	{
+		this.requestUrl = url;
 	}
 };
 
