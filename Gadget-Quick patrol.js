@@ -4,7 +4,7 @@
 	License: Public domain
 */
 
-if ( window.importScript && typeof jQuery == "undefined" ) {
+if ( window.importScript && ! window.jQuery ) {
 	importScript("МедияУики:Gadget-jQuery.js");
 }
 
@@ -35,7 +35,7 @@ gLang.addMessages({
 var QuickPattroler = {
 	linkClassWorking: "working",
 
-	ajaxifyLinks: function()
+	enable: function()
 	{
 		$(".patrollink a").live("click", function(){
 			QuickPattroler.executePatrol(this);
@@ -75,7 +75,7 @@ var BunchPatroller = {
 	diffLinkClass: "duff-link",
 	diffLinkClassDone: "done",
 	diffLinkClassNotDone: "not-done",
-	loadingClass: "loading",
+	classLoading: "loading",
 
 	/* track number of patrolled edits */
 	numEditsPatrolled: 0,
@@ -210,10 +210,10 @@ var BunchPatroller = {
 
 	loadDiffContentFor: function(link, $holder)
 	{
-		var $out = $("<div/>").appendTo($holder).addClass(this.loadingClass).before("<hr/>");
+		var $out = $("<div/>").appendTo($holder).addClass(this.classLoading).before("<hr/>");
 
 		$.get(link.href + "&diffonly=1&action=render", function(data){
-			$out.html(data).removeClass( BunchPatroller.loadingClass );
+			$out.html(data).removeClass( BunchPatroller.classLoading );
 		});
 	},
 
@@ -339,12 +339,10 @@ var BunchPatroller = {
 
 // prepare for fight
 addOnloadHook(function(){
-	if ( wgCanonicalSpecialPageName
-			&& /^(Recentchanges|Watchlist)/.test(wgCanonicalSpecialPageName)
-	) {
+	if ( /^(Recentchanges|Watchlist)/.test(wgCanonicalSpecialPageName) ) {
 		BunchPatroller.makeBunchDiffsPatrollable();
 	} else if ( "view" == wgAction ) {
-		QuickPattroler.ajaxifyLinks();
+		QuickPattroler.enable();
 		BunchPatroller.enable();
 	}
 });
