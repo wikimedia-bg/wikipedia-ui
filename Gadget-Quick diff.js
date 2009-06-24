@@ -48,15 +48,17 @@ var QuickDiff = {
 		importStylesheetURI(stylepath + "/common/diff.css");
 
 		this.viewWindow = $('<div id="quickdiff"/>')
-			.css({
-				position: "absolute",
-				top: 0,
-				border: "medium outset silver"
-			})
+			.css({ position: "absolute", top: 0 })
 			.dblclick(function(){
 				$(this).hide();
 			})
 			.appendTo("#content");
+		
+		appendCSS('#quickdiff {'
+			+ '	border: medium outset silver;'
+			+ '	background-color: white;'
+			+ '}'
+		);
 
 		if ( window.QuickPattroler ) QuickPattroler.enable();
 	}
