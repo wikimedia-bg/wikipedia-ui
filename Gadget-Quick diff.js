@@ -25,13 +25,13 @@ var QuickDiff = {
 			return false;
 		});
 	},
-	
+
 	viewDiff: function(content, top)
 	{
 		this.prepareViewer();
 		this.viewWindow.css("top", top).html(content).show();
 	},
-	
+
 	viewWindow: null,
 
 	prepareViewer: function()
@@ -42,7 +42,7 @@ var QuickDiff = {
 
 		importStylesheetURI(stylepath + "/common/diff.css");
 
-		this.viewWindow = $("<div/>")
+		this.viewWindow = $('<div id="quickdiff"/>')
 			.css({
 				position: "absolute",
 				top: 0,
@@ -52,6 +52,9 @@ var QuickDiff = {
 				$(this).hide();
 			})
 			.appendTo("#content");
+		if ( window.QuickPattroler ) {
+			QuickPattroler.enable();
+		}
 	}
 };
 
