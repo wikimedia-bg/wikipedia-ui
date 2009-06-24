@@ -60,7 +60,9 @@ var QuickDiff = {
 
 // prepare for fight
 addOnloadHook(function(){
-	if ( /^(Recentchanges|Watchlist)/.test(wgCanonicalSpecialPageName) ) {
+	if ( /^(Recentchanges|Watchlist)/.test(wgCanonicalSpecialPageName)
+			|| "history" == wgAction
+	) {
 		QuickDiff.enable();
 	}
 });
