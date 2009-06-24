@@ -16,11 +16,11 @@ var QuickDiff = {
 
 	enable: function()
 	{
-		$("a[href*=diff]").click(function(){
+		$("a[href*=diff=]").click(function(){
 			var $link = $(this).addClass("working");
 			$.get(this.href + "&diffonly=1&action=render", function(data){
 				QuickDiff.viewDiff(data, $link);
-				$link.addClass("done").removeClass("working");
+				$link.removeClass("working").addClass("done");
 			});
 			return false;
 		});
@@ -28,39 +28,61 @@ var QuickDiff = {
 
 	viewDiff: function(content, $link)
 	{
-		this.prepareViewer();
-		this.viewWindow.css("top", $link.offset().top).html(content).show();
-
-		if ( window.BunchPatroller ) {
-			WebRequest.setRequestUrl($link[0].href);
-			BunchPatroller.enable();
-		}
+		this.getViewWindow().css("top", $link.offset().top).html(content).show();
+		this.enableBunchPatroller($link);
 	},
 
 	viewWindow: null,
 
-	prepareViewer: function()
+	getViewWindow: function()
 	{
-		if ( null !== this.viewWindow ) {
-			return;
+		if ( null === this.viewWindow ) {
+			this.prepareViewWindow();
 		}
+		
+		return this.viewWindow;
+	},
+
+	prepareViewWindow: function()
+	{
+		this.viewWindow = this.buildViewWindow();
 
 		importStylesheetURI(stylepath + "/common/diff.css");
-
-		this.viewWindow = $('<div id="quickdiff"/>')
-			.css({ position: "absolute", top: 0 })
+		this.addCss();
+		
+		this.enableQuickPatroller();
+	},
+	
+	buildViewWindow: function()
+	{
+		return $('<div id="quickdiff"/>')
+			.css({ position: "absolute" })
 			.dblclick(function(){
 				$(this).hide();
 			})
 			.appendTo("#content");
-		
+	},
+	
+	addCss: function()
+	{
 		appendCSS('#quickdiff {'
 			+ '	border: medium outset silver;'
 			+ '	background-color: white;'
 			+ '}'
 		);
-
+	},
+	
+	enableQuickPatroller: function()
+	{
 		if ( window.QuickPattroler ) QuickPattroler.enable();
+	},
+	
+	enableBunchPatroller: function($link)
+	{
+		if ( window.BunchPatroller ) {
+			WebRequest.setRequestUrl($link[0].href);
+			BunchPatroller.enable();
+		}
 	}
 };
 
