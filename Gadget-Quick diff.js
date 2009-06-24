@@ -19,17 +19,17 @@ var QuickDiff = {
 		$("a[href*=diff]").click(function(){
 			var $link = $(this).addClass("working");
 			$.get(this.href + "&diffonly=1&action=render", function(data){
-				QuickDiff.viewDiff(data, $link.offset().top);
-				$link.removeClass("working");
+				QuickDiff.viewDiff(data, $link);
+				$link.addClass("done").removeClass("working");
 			});
 			return false;
 		});
 	},
 
-	viewDiff: function(content, top)
+	viewDiff: function(content, $link)
 	{
 		this.prepareViewer();
-		this.viewWindow.css("top", top).html(content).show();
+		this.viewWindow.css("top", $link.offset().top).html(content).show();
 	},
 
 	viewWindow: null,
@@ -52,9 +52,8 @@ var QuickDiff = {
 				$(this).hide();
 			})
 			.appendTo("#content");
-		if ( window.QuickPattroler ) {
-			QuickPattroler.enable();
-		}
+
+		if ( window.QuickPattroler ) QuickPattroler.enable();
 	}
 };
 
