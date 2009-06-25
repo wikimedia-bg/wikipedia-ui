@@ -3,7 +3,7 @@
 a { text-decoration: underline; }
 a:hover { text-decoration: none; }
 .portlet a, .ns-special a { text-decoration: none; }
-.portlet a:hover { text-decoration: underline; }
+.portlet a:hover, .ns-special a:hover { text-decoration: underline; }
 
 #siteSub { display: inline; font-weight: normal; font-size: 0.95em; }
 .page-Начална_страница #siteSub { display: none; }
