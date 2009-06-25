@@ -16,9 +16,11 @@ var QuickDiff = {
 
 	enable: function()
 	{
-		$("a[href*=diff=]").click(function(){
+		$("a[href*=diff=]").click(function(event){
 			var $link = $(this).addClass("working");
-			$.get(this.href + "&diffonly=1&action=render", function(data){
+			var href = this.href + "&action=render"
+				+ ( event.ctrlKey ? "" : "&diffonly=1" );
+			$.get(href, function(data){
 				QuickDiff.viewDiff(data, $link);
 				$link.removeClass("working").addClass("done");
 			});
@@ -39,7 +41,7 @@ var QuickDiff = {
 		if ( null === this.viewWindow ) {
 			this.prepareViewWindow();
 		}
-		
+
 		return this.viewWindow;
 	},
 
@@ -49,10 +51,10 @@ var QuickDiff = {
 
 		importStylesheetURI(stylepath + "/common/diff.css");
 		this.addCss();
-		
+
 		this.enableQuickPatroller();
 	},
-	
+
 	buildViewWindow: function()
 	{
 		return $('<div id="quickdiff"/>')
@@ -62,7 +64,7 @@ var QuickDiff = {
 			})
 			.appendTo("#content");
 	},
-	
+
 	addCss: function()
 	{
 		appendCSS('#quickdiff {'
@@ -71,12 +73,12 @@ var QuickDiff = {
 			+ '}'
 		);
 	},
-	
+
 	enableQuickPatroller: function()
 	{
 		if ( window.QuickPattroler ) QuickPattroler.enable();
 	},
-	
+
 	enableBunchPatroller: function($link)
 	{
 		if ( window.BunchPatroller ) {
