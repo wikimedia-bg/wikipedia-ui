@@ -459,6 +459,7 @@ table.ambox-style {
 table.ambox-merge {
 	border-left: 10px solid #9932cc;     /* Purple */
 }
+table.ambox-stub,
 table.ambox-protection {
 	border-left: 10px solid #bba;        /* Gray */
 }
