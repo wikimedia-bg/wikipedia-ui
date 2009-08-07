@@ -21,7 +21,8 @@ var showQuickLink = (function() {
 		'myskin' : 'pt-userpage',
 		'chick' : 'siteSub',
 		'simple' : 'pt-userpage',
-		'modern' : 'pt-userpage'
+		'modern' : 'pt-userpage',
+		'vector' : 'pt-userpage'
 	};
 	var plus = '+', minus = '&minus;', wait = '…';
 	var link, container = null;
