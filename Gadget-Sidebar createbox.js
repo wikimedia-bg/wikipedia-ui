@@ -14,7 +14,7 @@ gLang.addMessages({
 
 addOnloadHook(function(){
 	var psearch = document.getElementById("p-search");
-	if ( ! psearch ) {
+	if ( ! psearch || skin != "monobook" ) {
 		return;
 	}
 
