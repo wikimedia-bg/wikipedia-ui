@@ -6,7 +6,7 @@ a:hover { text-decoration: none; }
 .portlet a:hover, .ns-special a:hover { text-decoration: underline; }
 
 #siteSub { display: inline; font-weight: normal; font-size: 0.95em; }
-.page-Начална_страница #siteSub { display: none; }
+.page-Начална_страница #firstHeading, .page-Начална_страница #siteSub { display: none }
 
 .ns-0 #siteSub:after {
 	content: ' (можете да редактирате и подобрите тази статия веднага)';
@@ -27,6 +27,15 @@ a:hover { text-decoration: none; }
 	 border: thin solid silver;
 	 -moz-border-radius-topleft: .5em;
 	 -moz-border-radius-topright: .5em;
+}
+
+/* търсачката */
+#p-search .pBody {
+	padding-right: 0;
+	padding-left: 0;
+}
+input.searchButton, #searchGoButton {
+	padding: 0;
 }
 
 .force-underlined-links a { text-decoration: underline; }
