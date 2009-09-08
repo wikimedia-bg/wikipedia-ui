@@ -28,6 +28,6 @@ addOnloadHook(function(){
 	]));
 	var box = Creator.createElement('div', {'class' : 'pBody'}, form);
 	var portlet = Creator.createElement( 'div',
-		{'class' : 'portlet', 'id' : 'p-cn'}, [header, box] );
+		{'class' : 'portlet', 'id' : 'p-create'}, [header, box] );
 	psearch.parentNode.insertBefore(portlet, psearch.nextSibling);
 });
