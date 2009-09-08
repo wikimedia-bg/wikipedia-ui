@@ -630,3 +630,6 @@ td.diff-addedline, td.diff-deletedline, td.diff-context {
 	vertical-align: top;
 	color: inherit;
 }
+
+/* create box in the sidebar */
+#p-create .pBody { text-align: center }
