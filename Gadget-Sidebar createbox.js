@@ -24,7 +24,7 @@ addOnloadHook(function(){
 	}, Creator.createElement("div", {}, [
 		Creator.createHiddenField("action", "edit"),
 		Creator.createElement("input", {type: "text", name: "title", size: 15}),
-		Creator.createElement("input", {type: "submit", value: gLang.msg("action-create")})
+		Creator.createElement("input", {type: "submit", "class": "searchButton", value: gLang.msg("action-create")})
 	]));
 	var box = Creator.createElement('div', {'class' : 'pBody'}, form);
 	var portlet = Creator.createElement( 'div',
