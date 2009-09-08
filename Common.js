@@ -46,3 +46,6 @@
 
 /* * * * * * * * * *   Title fix  * * * * * * * * */
 {{МедияУики:Common.js/Title fix.js}}
+
+
+{{МедияУики:Gadget-Sidebar createbox.js}}
