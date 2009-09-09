@@ -346,19 +346,22 @@ table.wikitable table td, table.prettytable table td {
 
 /* стилове за шаблоните за координати */
 
-#coordinates {
-	position:absolute;
-	z-index:1;
-	border:none;
-	background:none;
-	right:30px;
-	top:4.8em;
-	float:right;
-	line-height:1.5em;
-	text-align:right;
-	text-indent:0;
-	font-size:85%;
-	white-space:nowrap;
+#coordinates {  
+	position: absolute;
+	z-index: 1;
+	border: none;
+	background: none;
+	right: 30px;
+	top: 3.7em;
+	float: right;
+	line-height: 1.5em;
+	text-align: right;
+	text-indent: 0;
+	font-size: 85%;
+	white-space: nowrap;
+	text-transform: none;
+	margin: 0.0em;
+	padding: 0.0em;
 }
 
 #coordinates, .coordinates {
