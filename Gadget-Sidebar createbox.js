@@ -20,14 +20,16 @@ addOnloadHook(function(){
 
 	var header = Creator.createElement('h5', {}, gLang.msg("p-createnew"));
 	var form = Creator.createElement('form', {
-		action : wgScript
+		action : wgScript, id: "createform"
 	}, Creator.createElement("div", {}, [
 		Creator.createHiddenField("action", "edit"),
-		Creator.createElement("input", {type: "text", name: "title", size: 15}),
+		Creator.createElement("input", {type: "text", name: "title", id: "createPageInput"}),
 		Creator.createElement("input", {type: "submit", "class": "searchButton", value: gLang.msg("action-create")})
 	]));
 	var box = Creator.createElement('div', {'class' : 'pBody'}, form);
 	var portlet = Creator.createElement( 'div',
 		{'class' : 'portlet', 'id' : 'p-create'}, [header, box] );
 	psearch.parentNode.insertBefore(portlet, psearch.nextSibling);
+
+	os_enableSuggestionsOn("createPageInput", "createform");
 });
