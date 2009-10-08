@@ -637,3 +637,18 @@ td.diff-addedline, td.diff-deletedline, td.diff-context {
 /* create box in the sidebar */
 #p-create .pBody { text-align: center }
 #createPageInput { width: 10.9em; font-size: 95% }
+
+
+/* Styling for Template:Quote */
+blockquote.templatequote { 
+     margin-top: 0; 
+}
+blockquote.templatequote div.templatequotecite { 
+    line-height: 1em;
+    text-align: left;
+    padding-left: 2em;
+    margin-top: 0;
+}
+blockquote.templatequote div.templatequotecite cite {
+    font-size: 85%;
+}
