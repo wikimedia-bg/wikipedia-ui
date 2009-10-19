@@ -424,53 +424,87 @@ sup.reference:target, cite:target {
 	color: #8B0000; /* darkred */
 }
 
-/* Article message box template */
+/* Cell sizes for ambox/tmbox/imbox/cmbox/ombox/fmbox/dmbox message boxes */
+th.mbox-text, td.mbox-text {     /* The message body cell(s) */
+    border: none; 
+    padding: 0.25em 0.9em;       /* 0.9em left/right */
+    width: 100%;    /* Make all mboxes the same width regardless of text length */
+}
+td.mbox-image {                  /* The left image cell */
+    border: none; 
+    padding: 2px 0 2px 0.9em;    /* 0.9em left, 0px right */
+    text-align: center; 
+}
+td.mbox-imageright {             /* The right image cell */
+    border: none;
+    padding: 2px 0.9em 2px 0;    /* 0px left, 0.9em right */
+    text-align: center; 
+}
+td.mbox-empty-cell {         /* An empty narrow cell */
+    border: none;
+    padding: 0px;
+    width: 1px;
+}
+
+/* Article message box styles */
 table.ambox {
-	margin: 0 10%;                    /* Will not overlap with other elements */
-	border-collapse: collapse;
-	background: #fbfbfb;
-	border: 1px solid #aaa;
-	border-left: 10px solid #1e90ff;  /* Default "notice" blue */
+    margin: 0px 10%;   /* 10% = Will not overlap with other elements */
+    border: 1px solid #aaa; 
+    border-left: 10px solid #1e90ff;    /* Default "notice" blue */
+    background: #fbfbfb; 
 }
-/* The message body cell(s) */
-table.ambox th.ambox-text, table.ambox td.ambox-text {
-	padding: 0.25em 0.5em;            /* 0.5em left/right */
-	width: 100%;                      /* Make all templates the same width regardless of text size */
+table.ambox + table.ambox {   /* Single border between stacked boxes. */
+    margin-top: -1px;
 }
-table.ambox td.ambox-image {          /* The left image cell */
-	padding: 2px 0px 2px 0.5em;       /* 0.5em left, 0px right */
-	text-align: center;
+.ambox th.mbox-text, 
+.ambox td.mbox-text {            /* The message body cell(s) */
+    padding: 0.25em 0.5em;       /* 0.5em left/right */
 }
-table.ambox td.ambox-imageright {     /* The right image cell */
-	padding: 2px 4px 2px 0px;         /* 0px left, 4px right */
-	text-align: center;
+.ambox td.mbox-image {           /* The left image cell */
+    padding: 2px 0 2px 0.5em;    /* 0.5em left, 0px right */
 }
+.ambox td.mbox-imageright {      /* The right image cell */
+    padding: 2px 0.5em 2px 0;    /* 0px left, 0.5em right */
+}
+ 
 table.ambox-notice {
-	border-left: 10px solid #1e90ff;     /* Blue */
-/* border-right: 10px solid #1e90ff; */  /* If you want two blue bars */
+    border-left: 10px solid #1e90ff;    /* Blue */
 }
 table.ambox-delete,
 table.ambox-serious {
-	border-left: 10px solid #b22222;     /* Red */
+    border-left: 10px solid #b22222;    /* Red */
 }
 table.ambox-content {
-	border-left: 10px solid #f28500;     /* Orange */
+    border-left: 10px solid #f28500;    /* Orange */
 }
 table.ambox-style {
-	border-left: 10px solid #f4c430;     /* Yellow */
+    border-left: 10px solid #f4c430;    /* Yellow */
 }
+table.ambox-move,
 table.ambox-merge {
-	border-left: 10px solid #9932cc;     /* Purple */
+    border-left: 10px solid #9932cc;    /* Purple */
 }
 table.ambox-stub,
 table.ambox-protection {
-	border-left: 10px solid #bba;        /* Gray */
+    border-left: 10px solid #bba;       /* Gray-gold */
 }
-table.ambox.ambox-mini {                 /* small floating box variant */
-	float: right;
-	clear: right;
-	margin: 0 0 0 1em;
-	width: 25%;
+
+table.fmbox {
+    clear: both;
+    margin: 0.2em 0;
+    width: 100%;
+    border: 1px solid #aaa;
+    background: #f9f9f9;     /* Default "system" gray */
+}
+table.fmbox-system {
+    background: #f9f9f9;
+}
+table.fmbox-warning {
+    border: 1px solid #bb7070;  /* Dark pink */
+    background: #ffdbdb;        /* Pink */
+}
+table.fmbox-editnotice {
+    background: transparent;
 }
 
 li.FA {
