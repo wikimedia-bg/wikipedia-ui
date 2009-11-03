@@ -707,8 +707,7 @@ blockquote.templatequote div.templatequotecite cite {
 }
  
 .pictoinfobox-map {
- background: url("http://upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png");
- no-repeat top right;
+ background: url("http://upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png") no-repeat top right;
  height:45px;
  vertical-align:middle;
  text-align:center;
