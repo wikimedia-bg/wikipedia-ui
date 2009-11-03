@@ -706,4 +706,14 @@ blockquote.templatequote div.templatequotecite cite {
  text-align:left;
 }
  
-.pictoinfobox-map {background: url("http://upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png")           no-repeat top right;}
+.pictoinfobox-map {
+ background: url("http://upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png");
+ no-repeat top right;
+ height:45px;
+ vertical-align:middle;
+ text-align:center;
+ font-size:150%; 
+ font-weight:bolder;
+ line-height:1.2em;
+ color:#000
+}
