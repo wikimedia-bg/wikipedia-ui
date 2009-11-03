@@ -635,7 +635,6 @@ table.navbox th {
 .navbox-subgroup .navbox-group, .navbox-subgroup .navbox-abovebelow {
 	background: #e6e6ff;	/* Level 3 color */
 }
-.pictoinfobox-map {background: url("http://upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png")           no-repeat top right;}
 /* Even row */
 .navbox-even { background: #f7f7f7 }
 /* Odd row */
@@ -687,3 +686,24 @@ blockquote.templatequote div.templatequotecite {
 blockquote.templatequote div.templatequotecite cite {
     font-size: 85%;
 }
+/* Infobox v_2 */
+
+.infobox_v2 { /* monobookocentré debut */
+ background: #f9f9f9;
+ color: #000;
+ font-size:90%;
+ line-height:1.1em; 
+ float:right;
+ clear:right;
+ margin:0 0 .5em 1em; /* haut droite bas gauche */
+ width:300px;
+ border: 1px solid #aaa;
+ padding: 0.1em;
+}
+ 
+.infobox_v2 th {
+ vertical-align:top;
+ text-align:left;
+}
+ 
+.pictoinfobox-map {background: url("http://upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png")           no-repeat top right;}
