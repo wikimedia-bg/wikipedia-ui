@@ -16,14 +16,14 @@ var WebRequest = {
 		var m = this.getRequestUrl().match( new RegExp("[?&]" + param + "=([^&#]*)") );
 		return null === m ? null : m[1];
 	},
-	
+
 	requestUrl: null,
 
 	getRequestUrl: function()
 	{
 		return this.requestUrl || location.href;
 	},
-	
+
 	setRequestUrl: function(url)
 	{
 		this.requestUrl = url;
@@ -49,7 +49,7 @@ var QuickPattroler = {
 
 	enable: function()
 	{
-		$(".patrollink a").live("click", function(){
+		jQuery(".patrollink a").live("click", function(){
 			QuickPattroler.executePatrol(this);
 			return false;
 		});
@@ -57,7 +57,7 @@ var QuickPattroler = {
 
 	executePatrol: function(link)
 	{
-		var $link = $(link).addClass( this.linkClassWorking );
+		var $link = jQuery(link).addClass( this.linkClassWorking );
 		$.post(link.href, function(data){
 			$link.replaceWith( gLang.msg("markedaspatrolledtext1") );
 			QuickPattroler.gotoRcIfWanted();
@@ -98,28 +98,28 @@ var BunchPatroller = {
 	/** Works on Special:Recentchanges */
 	makeBunchDiffsPatrollable: function()
 	{
-		$("div.mw-changeslist-hidden").each(function(){
+		jQuery("div.mw-changeslist-hidden").each(function(){
 			BunchPatroller.makeBunchDiffPatrollable(this);
 		});
 	},
 
 	makeBunchDiffPatrollable: function(changeslist)
 	{
-		var $rcidLinks = $("a[href*=rcid]", changeslist);
+		var $rcidLinks = jQuery("a[href*=rcid]", changeslist);
 		var rcids = BunchPatroller.getJoinedValueFromHrefs($rcidLinks, /rcid=(\d+)/);
 		if ( "" !== rcids ) {
 			var diffs = BunchPatroller.getJoinedValueFromHrefs($rcidLinks, /diff=(\d+)/, /oldid=(\d+)/);
-			this.enhanceBunchDiffLink($(changeslist).prev(), rcids, diffs);
+			this.enhanceBunchDiffLink(jQuery(changeslist).prev(), rcids, diffs);
 		}
 	},
 
 	getJoinedValueFromHrefs: function($links, regexp, regexpAlt)
 	{
 		return $links.map(function(){
-			var m = $(this).attr("href").match(regexp);
+			var m = jQuery(this).attr("href").match(regexp);
 			if ( null === m && typeof regexpAlt == "object" ) {
 				// test the fallback regexp
-				m = $(this).attr("href").match(regexpAlt);
+				m = jQuery(this).attr("href").match(regexpAlt);
 			}
 			return null === m ? 0 : m[1];
 		}).get().join(this.paramDelim);
@@ -134,14 +134,14 @@ var BunchPatroller = {
 		var extraParams = "&" + BunchPatroller.rcidsParam + "=" + rcids
 			+ "&" + BunchPatroller.diffsParam + "=" + diffs;
 
-		var $link = $("a[href*=diff]", $holder);
+		var $link = jQuery("a[href*=diff]", $holder);
 		if ( $link.length ) {
 			$link.attr("href", function(){
 				return this.href + extraParams;
 			}).addClass( BunchPatroller.bunchDiffLinkClass );
 		} else {
 			this.addBunchDiffLinkTo(
-				$("td:eq(1)", $holder), // second table cell
+				jQuery("td:eq(1)", $holder), // second table cell
 				diffs.split(this.paramDelim).shift(), // first id
 				extraParams
 			);
@@ -159,7 +159,7 @@ var BunchPatroller = {
 	/** Works on diff pages */
 	enable: function()
 	{
-		$bunchPatrolLinkHolder = $("#mw-diff-ntitle4");
+		$bunchPatrolLinkHolder = jQuery("#mw-diff-ntitle4");
 		if ( 0 == $bunchPatrolLinkHolder.length ) {
 			return; // not a diff page, get out of here
 		}
@@ -183,12 +183,12 @@ var BunchPatroller = {
 		if ( $holder.children().length ) {
 			$holder.append("<br/>");
 		}
-		$('<a href="#executePatrol"/>')
+		jQuery('<a href="#executePatrol"/>')
 			.text( rcids.length == 1
 				? gLang.msg("markaspatrolledtext1")
 				: gLang.msg("markaspatrolledtext", rcids.length) )
 			.click(function(){
-				$(this).addClass( QuickPattroler.linkClassWorking );
+				jQuery(this).addClass( QuickPattroler.linkClassWorking );
 				BunchPatroller.executePatrol(rcids, this);
 				return false;
 			})
@@ -197,7 +197,7 @@ var BunchPatroller = {
 
 	addDiffLinksTo: function($holder, rcids, diffs)
 	{
-		var $list = $("<ul/>");
+		var $list = jQuery("<ul/>");
 		$.each(diffs, function(i, diff){
 			$list.append( BunchPatroller.getDiffLink(rcids[i], diff) );
 		});
@@ -206,23 +206,23 @@ var BunchPatroller = {
 
 	addShowAllDiffsLinkTo: function($holder)
 	{
-		$('<a href="#alldiffs"/>')
+		jQuery('<a href="#alldiffs"/>')
 			.text( gLang.msg("showalldiffs") )
 			.click(function(){
-				$all = $('<div id="alldiffs"/>').insertAfter( $holder.parents(".diff") );
+				$all = jQuery('<div id="alldiffs"/>').insertAfter( $holder.parents(".diff") );
 
-				$("." + BunchPatroller.diffLinkClass, $holder).each(function(){
+				jQuery("." + BunchPatroller.diffLinkClass, $holder).each(function(){
 					BunchPatroller.loadDiffContentFor(this, $all);
 				});
 
-				$(this).remove();
+				jQuery(this).remove();
 			})
 			.appendTo($holder);
 	},
 
 	loadDiffContentFor: function(link, $holder)
 	{
-		var $out = $("<div/>").appendTo($holder).addClass(this.classLoading).before("<hr/>");
+		var $out = jQuery("<div/>").appendTo($holder).addClass(this.classLoading).before("<hr/>");
 
 		$.get(link.href + "&diffonly=1&action=render", function(data){
 			$out.html(data).removeClass( BunchPatroller.classLoading );
@@ -256,7 +256,7 @@ var BunchPatroller = {
 				BunchPatroller.restartPatrol(rcids, motherLink);
 				return;
 			}
-			$(motherLink).replaceWith( gLang.msg("markedaspatrolledtext") );
+			jQuery(motherLink).replaceWith( gLang.msg("markedaspatrolledtext") );
 			QuickPattroler.gotoRcIfWanted();
 		}, rcids);
 	},
@@ -265,7 +265,7 @@ var BunchPatroller = {
 	{
 		this.errors = [];
 		this.numEditsPatrolled = 0;
-		$("." + this.diffLinkClass).removeClass(BunchPatroller.diffLinkClassNotDone);
+		jQuery("." + this.diffLinkClass).removeClass(BunchPatroller.diffLinkClassNotDone);
 		BunchPatroller.clearToken().executePatrol(rcids, motherLink);
 	},
 
@@ -282,7 +282,7 @@ var BunchPatroller = {
 
 	executePatrolOne: function(token, rcid)
 	{
-		var $diffLink = $("#" + BunchPatroller.getDiffLinkId(rcid));
+		var $diffLink = jQuery("#" + BunchPatroller.getDiffLinkId(rcid));
 		$diffLink.addClass( QuickPattroler.linkClassWorking );
 		$.post(BunchPatroller.apiPath, {
 			action : "patrol",
