@@ -16,8 +16,8 @@ var QuickDiff = {
 
 	enable: function()
 	{
-		$("a[href*=diff=]").click(function(event){
-			var $link = $(this).addClass("working");
+		jQuery("a[href*=diff=]").click(function(event){
+			var $link = jQuery(this).addClass("working");
 			var href = this.href + "&action=render"
 				+ ( event.ctrlKey ? "" : "&diffonly=1" );
 			$.get(href, function(data){
@@ -57,10 +57,10 @@ var QuickDiff = {
 
 	buildViewWindow: function()
 	{
-		return $('<div id="quickdiff"/>')
+		return jQuery('<div id="quickdiff"/>')
 			.css({ position: "absolute" })
 			.dblclick(function(){
-				$(this).hide();
+				jQuery(this).hide();
 			})
 			.appendTo("#content");
 	},
