@@ -20,7 +20,7 @@ var QuickDiff = {
 			var $link = jQuery(this).addClass("working");
 			var href = this.href + "&action=render"
 				+ ( event.ctrlKey ? "" : "&diffonly=1" );
-			$.get(href, function(data){
+			jQuery.get(href, function(data){
 				QuickDiff.viewDiff(data, $link);
 				$link.removeClass("working").addClass("done");
 			});
