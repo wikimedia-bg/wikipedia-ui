@@ -58,7 +58,7 @@ var QuickPattroler = {
 	executePatrol: function(link)
 	{
 		var $link = jQuery(link).addClass( this.linkClassWorking );
-		$.post(link.href, function(data){
+		jQuery.post(link.href, function(data){
 			$link.replaceWith( gLang.msg("markedaspatrolledtext1") );
 			QuickPattroler.gotoRcIfWanted();
 		});
@@ -198,7 +198,7 @@ var BunchPatroller = {
 	addDiffLinksTo: function($holder, rcids, diffs)
 	{
 		var $list = jQuery("<ul/>");
-		$.each(diffs, function(i, diff){
+		jQuery.each(diffs, function(i, diff){
 			$list.append( BunchPatroller.getDiffLink(rcids[i], diff) );
 		});
 		$list.appendTo($holder);
@@ -224,7 +224,7 @@ var BunchPatroller = {
 	{
 		var $out = jQuery("<div/>").appendTo($holder).addClass(this.classLoading).before("<hr/>");
 
-		$.get(link.href + "&diffonly=1&action=render", function(data){
+		jQuery.get(link.href + "&diffonly=1&action=render", function(data){
 			$out.html(data).removeClass( BunchPatroller.classLoading );
 		});
 	},
@@ -247,7 +247,7 @@ var BunchPatroller = {
 	{
 		var token = this.getToken();
 
-		$.each(rcids, function(i, rcid){
+		jQuery.each(rcids, function(i, rcid){
 			BunchPatroller.executePatrolOne(token, rcid);
 		});
 
@@ -284,7 +284,7 @@ var BunchPatroller = {
 	{
 		var $diffLink = jQuery("#" + BunchPatroller.getDiffLinkId(rcid));
 		$diffLink.addClass( QuickPattroler.linkClassWorking );
-		$.post(BunchPatroller.apiPath, {
+		jQuery.post(BunchPatroller.apiPath, {
 			action : "patrol",
 			token  : token,
 			rcid   : rcid,
@@ -328,7 +328,7 @@ var BunchPatroller = {
 	getTokenFromApi: function()
 	{
 		var token = null;
-		$.ajax({
+		jQuery.ajax({
 			type:     "GET",
 			url:       this.apiPath + "?action=query&list=recentchanges"
 						+ "&rctoken=patrol&rclimit=1&format=json",
