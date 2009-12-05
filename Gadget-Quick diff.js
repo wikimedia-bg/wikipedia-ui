@@ -2,6 +2,7 @@
 	Enhance recent changes diff links.
 	Author: Borislav Manolov
 	License: Public domain
+	Documentation: [[МедияУики:Gadget-Quick diff.js/doc]]
 */
 
 if ( window.importScript && ! window.jQuery ) {
