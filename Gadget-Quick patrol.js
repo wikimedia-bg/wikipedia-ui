@@ -2,6 +2,7 @@
 	Enhance recent changes patrol.
 	Author: Borislav Manolov
 	License: Public domain
+	Documentation: [[МедияУики:Gadget-Quick patrol.js/doc]]
 */
 
 if ( window.importScript && ! window.jQuery ) {
