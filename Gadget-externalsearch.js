@@ -1,4 +1,8 @@
 importOuterScript("MediaWiki:Gadget-externalsearch.js", "en");
 if (wgCanonicalNamespace == "Special" && wgCanonicalSpecialPageName == "Search") {
-	addOnloadHook("SpecialSearchEnhanced");
+	jQuery(function(){
+		if (window.SpecialSearchEnhanced) {
+			SpecialSearchEnhanced();
+		}
+	});
 }
