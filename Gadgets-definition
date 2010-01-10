@@ -9,6 +9,7 @@
 * exlinks|Core.js|exlinks.js
 * lum|lum.js
 * Big dynamap|jQuery.js|Big dynamap.js
+* ExternalSearch|externalsearch.js
 
 == editing-gadgets ==
 
@@ -17,12 +18,13 @@
 * HotCat|Core.js|HotCat.js
 * Advisor|Advisor.js
 * EditGuard|EditGuard.js
+* LongEditSummaries|LongEditSummaries.js
 
 == interface-gadgets ==
 
 #* removeAccessKeys|Core.js|removeAccessKeys.js
 * UTCLiveClock|Core.js|UTCLiveClock.js
-#* Blackskin|Core.js|Blackskin.css
+* Blackskin|Core.js|Blackskin.css
 * purgetab|purgetab.js
 * cats-on-top|cats-on-top.js
 * quicklinks|quicklinks.js
