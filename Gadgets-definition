@@ -9,7 +9,7 @@
 * exlinks|Core.js|exlinks.js
 * lum|lum.js
 * Big dynamap|jQuery.js|Big dynamap.js
-* ExternalSearch|externalsearch.js
+* ExternalSearch|Core.js|externalsearch.js
 
 == editing-gadgets ==
 
@@ -18,7 +18,7 @@
 * HotCat|Core.js|HotCat.js
 * Advisor|Advisor.js
 * EditGuard|EditGuard.js
-* LongEditSummaries|LongEditSummaries.js
+* LongEditSummaries|Core.js|LongEditSummaries.js
 
 == interface-gadgets ==
 
