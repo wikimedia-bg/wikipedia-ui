@@ -36,11 +36,11 @@ function SpecialSearchEnhanced() {
     }
     selectBox.appendChild(createOption('Уикипедия на български', wgScriptPath + '/index.php', 'search', 'title', 'Special:Search'));
     selectBox.appendChild(createOption('Уикипедия на английски', 'http://en.wikipedia.org/w/index.php', 'search', 'title', 'Special:Search'));
-    selectBox.appendChild(createOption('Google', 'http://www.google.com/search', 'q', 'sitesearch', 'en.wikipedia.org'));
-    selectBox.appendChild(createOption('Yahoo', 'http://search.yahoo.com/search', 'p', 'vs', 'en.wikipedia.org'));
-    selectBox.appendChild(createOption('Bing', 'http://www.bing.com/search', 'q', 'q1', 'site:http://en.wikipedia.org'));
-    selectBox.appendChild(createOption('Wikiwix', 'http://www.wikiwix.com/', 'action', 'lang', 'en'));
-    selectBox.appendChild(createOption('Exalead', 'http://www.exalead.com/wikipedia/results', 'q', 'language', 'en'));
+    selectBox.appendChild(createOption('Google', 'http://www.google.com/search', 'q', 'sitesearch', 'bg.wikipedia.org'));
+    selectBox.appendChild(createOption('Yahoo', 'http://search.yahoo.com/search', 'p', 'vs', 'bg.wikipedia.org'));
+    selectBox.appendChild(createOption('Bing', 'http://www.bing.com/search', 'q', 'q1', 'site:http://bg.wikipedia.org'));
+    selectBox.appendChild(createOption('Wikiwix', 'http://www.wikiwix.com/', 'action', 'lang', 'bg'));
+    selectBox.appendChild(createOption('Exalead', 'http://www.exalead.com/wikipedia/results', 'q', 'language', 'bg'));
     searchBox.style.marginLeft = '0px';
     if (document.getElementById('loadStatus')) {
         var lStat = document.getElementById('loadStatus');
