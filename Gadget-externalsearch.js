@@ -34,7 +34,8 @@ function SpecialSearchEnhanced() {
         searchForm.title.value = optSelected[3];
         searchForm.title.name = optSelected[2];
     }
-    selectBox.appendChild(createOption('English Wikipedia', wgScriptPath + '/index.php', 'search', 'title', 'Special:Search'));
+    selectBox.appendChild(createOption('Уикипедия на български', wgScriptPath + '/index.php', 'search', 'title', 'Special:Search'));
+    selectBox.appendChild(createOption('Уикипедия на английски', 'http://en.wikipedia.org/w/index.php', 'search', 'title', 'Special:Search'));
     selectBox.appendChild(createOption('Google', 'http://www.google.com/search', 'q', 'sitesearch', 'en.wikipedia.org'));
     selectBox.appendChild(createOption('Yahoo', 'http://search.yahoo.com/search', 'p', 'vs', 'en.wikipedia.org'));
     selectBox.appendChild(createOption('Bing', 'http://www.bing.com/search', 'q', 'q1', 'site:http://en.wikipedia.org'));
