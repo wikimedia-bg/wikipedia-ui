@@ -1,2 +1,3 @@
 /* bugfix: take back foreign featured articles marker */
 #panel div.portal div.body ul li.FA { overflow: visible; }
+#coordinates { top: 0em;}
