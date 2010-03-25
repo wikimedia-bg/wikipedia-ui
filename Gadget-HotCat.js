@@ -17,7 +17,7 @@ var hotcat_no_autocommit = 0;
 addOnloadHook( function(){
 
 gLang.addMessages( {
-	"cat" : "Category",
+	"cat" : "Категория",
 	"cats" : "Categories",
 	"delay" : "HotCat autocompletion delay (ms)",
 	"notfound" : 'Category "$1" not found; maybe it is in a template?',
