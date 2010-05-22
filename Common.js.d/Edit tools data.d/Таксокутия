@@ -1,14 +1,19 @@
-<nowiki>{{Таксо_начало_животно | >>|<< }}
-    {{Таксо_картинка2 |  |  }}
-    {{Таксо_класификация_начало}}
-        {{Таксон |царство|  |  }}
-        {{Таксон |тип|  |  }}
-        {{Таксон |клас|  |  }}
-        {{Таксон |разред|  |  }}
-        {{Таксон |семейство|  |  }}
-        {{Таксон |род|  |  }}
-        {{Таксон |вид|  |  }}
-    {{Таксо_класификация_край}}
-    {{Таксо_научно_наименование2 |  |  }}
-{{Таксо_край}}
-</nowiki>
+<nowiki>{{Taxobox
+| name = 
+| image = 
+| image_caption = 
+| regnum = 
+| regnum-bg = 
+| divisio = 
+| divisio-bg = 
+| classis = 
+| classis-bg = 
+| ordo = 
+| familia = 
+| familia-bg = 
+| genus = 
+| genus-bg = 
+| genus_authority = 
+| subdivision_ranks = 
+| subdivision = 
+}}</nowiki>
