@@ -628,9 +628,9 @@ function Projectlinks() {
 	}
 	// and navbox
 	var plheader = Creator.createElement('h5', {}, gLang.msg("tb-inother"));
-	var plbox = Creator.createElement('div', {'class' : 'pBody'}, pllist);
+	var plbox = Creator.createElement('div', {'class' : 'pBody body'}, pllist);
 	var portlet = Creator.createElement( 'div',
-		{'class' : 'portlet', 'id' : 'p-sl'}, [plheader, plbox] );
+		{'class' : 'portlet portal persistent', 'id' : 'p-sl'}, [plheader, plbox] );
 	ptb.parentNode.insertBefore(portlet, ptb.nextSibling);
 }
 
