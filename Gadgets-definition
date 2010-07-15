@@ -8,7 +8,7 @@
 * Navigation_popups|Core.js|popups.js|navpop.css
 * exlinks|Core.js|exlinks.js
 * lum|lum.js
-* Big dynamap|jQuery.js|Big dynamap.js
+* Big dynamap|Big dynamap.js
 * ExternalSearch|Core.js|externalsearch.js
 
 == editing-gadgets ==
@@ -31,7 +31,7 @@
 * HideFundraisingNotice|HideFundraisingNotice.css
 
 == patrol-gadgets ==
-* Quick patrol|jQuery.js|Quick patrol.js
+* Quick patrol|Quick patrol.js
 
 #== library-gadgets ==
 
