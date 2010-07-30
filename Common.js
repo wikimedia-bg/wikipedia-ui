@@ -94,10 +94,18 @@ function showElementsByClassName(className) {
 }
 
 
-/** Checks if an element belongs to a given CSS class */
-function hasClass(elem, className) {
-	return elem.className.indexOf( className ) != -1;
-}
+/* Test if an element has a certain class **************************************
+ *
+ * Description: Uses regular expressions and caching for better performance.
+ * Maintainers: [[:en:User:Mike Dillon]], [[:en:User:R. Koot]], [[:en:User:SG]]
+ */
+var hasClass = (function () {
+    var reCache = {};
+    return function (element, className) {
+        return (reCache[className] ? reCache[className] : (reCache[className] = new RegExp("(?:\\s|^)" + className + "(?:\\s|$)"))).test(element.className);
+    };
+})();
+
 var Creator = {
 	createOptgroup: function(label, data) {
 		var g = document.createElement("optgroup");
