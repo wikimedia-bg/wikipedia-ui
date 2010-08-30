@@ -1,14 +1,6 @@
 /* bugfix: take back foreign featured articles marker */
-#panel div.portal div.body ul li.FA { overflow: visible; }
-#coordinates { top: -4em;}
-
-#mw-panel div.portal div.body ul li.FA {
-background:url("http://upload.wikimedia.org/wikipedia/commons/d/d4/Monobook-bullet-star.png") no-repeat scroll 0 0 transparent;
-margin-left:-10px;
-padding-left:10px;
-}
+#mw-panel div.portal div.body ul li.FA,
 #mw-panel div.portal div.body ul li.GA {
-background:url("http://upload.wikimedia.org/wikipedia/commons/4/42/Monobook-bullet-ga.png") no-repeat scroll 0 0 transparent;
-margin-left:-10px;
-padding-left:10px;
+  overflow: visible;
 }
+#coordinates { top: -4em }
