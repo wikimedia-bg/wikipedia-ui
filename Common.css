@@ -510,6 +510,9 @@ table.fmbox-editnotice {
 li.FA {
 	list-style-image: url("http://upload.wikimedia.org/wikipedia/commons/d/d4/Monobook-bullet-star.png");
 }
+li.GA {
+	list-style-image: url("http://upload.wikimedia.org/wikipedia/commons/4/42/Monobook-bullet-ga.png");
+}
 
 div.hilited, span.hilited {
 	color: white;
