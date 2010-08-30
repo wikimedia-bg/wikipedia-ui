@@ -1427,7 +1427,7 @@ function LinkFA() {
 		if ( document.getElementById( InterwikiLinks[i].className + "-fa" ) ) {
 			InterwikiLinks[i].className += " FA";
 			InterwikiLinks[i].title = gLang.msg("fa-linktitle");
-		} else if ( document.getElementById( InterwikiLinks[i].className + "-ga" ) {
+		} else if ( document.getElementById( InterwikiLinks[i].className + "-ga" ) ) {
 			InterwikiLinks[i].className += " GA";
 			InterwikiLinks[i].title = "Тази статия на друг език е определена за добра.";
 		}
