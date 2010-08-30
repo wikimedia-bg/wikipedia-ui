@@ -1423,10 +1423,13 @@ function LinkFA() {
 	var langBody = document.getElementById("p-lang");
 	if ( !langBody ) { return; }
 	var InterwikiLinks = langBody.getElementsByTagName("li");
-	for ( var i = 0; i < InterwikiLinks.length; i++ ) {
+	for ( var i = 0, l = InterwikiLinks.length; i < l; i++ ) {
 		if ( document.getElementById( InterwikiLinks[i].className + "-fa" ) ) {
-			InterwikiLinks[i].className += " FA"
+			InterwikiLinks[i].className += " FA";
 			InterwikiLinks[i].title = gLang.msg("fa-linktitle");
+		} else if ( document.getElementById( InterwikiLinks[i].className + "-ga" ) {
+			InterwikiLinks[i].className += " GA";
+			InterwikiLinks[i].title = "Тази статия на друг език е определена за добра.";
 		}
 	}
 }
