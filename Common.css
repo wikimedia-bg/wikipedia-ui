@@ -719,3 +719,15 @@ blockquote.templatequote div.templatequotecite cite {
  line-height:1.2em;
  color:#000
 }
+
+/* Стил за Шаблон:Основна */
+.details {
+margin:0 0 .7em 2em;
+border:solid #E7E7E7;
+border-width:1px 0;
+text-align:left;
+font-size:95%;
+background:#FDFDFD url(http://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Searchtool.svg/15px-Searchtool.svg.png) no-repeat left center;
+padding:1px 4px 1px 24px;
+overflow:hidden;
+}
