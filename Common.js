@@ -1721,16 +1721,14 @@ function attachMemorizer(form) {
 	if ( mainpage == "" ) {
 		mainpage = wgPageName;
 	}
-	// remember parent page
-	Creator.appendChildTo(form, Creator.createHiddenField("mainpage", mainpage));
 	form.title.value = "";
-	form.onsubmit = function() {
+	jQuery(form).bind("submit", function() {
 		if ( this.title.value.trim() == "" ) {
 			alert( gLang.msg("ta-emptyfield") );
 			return false;
 		}
 		var subpage = this.title.value;
-		var prefix = this.mainpage.value + "/";
+		var prefix = mainpage + "/";
 		var prefindex = subpage.indexOf(prefix);
 		if ( prefindex == 0 ) { // the prefix is already there, remove it
 			subpage = subpage.substr(prefix.length);
@@ -1740,10 +1738,10 @@ function attachMemorizer(form) {
 		// allow summary prefilling by new section
 		Creator.appendChildTo(this, Creator.createHiddenField("preloadtitle", subpage));
 		Memory.memorize("transcludeSubpage",
-			[this.mainpage.value, subpage],
+			[mainpage, subpage],
 			fullpage.replace(/ /g, "_"), "view");
 		return true;
-	}
+	});
 }
 
 function transcludeSubpage(mainpage, subpage) {
