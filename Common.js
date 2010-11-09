@@ -177,7 +177,7 @@ var Creator = {
 	appendChildTo: function(parent, child) {
 		if ( typeof(child) == "string" ) {
 			parent.appendChild( document.createTextNode(child) );
-		} else if ( child instanceof HTMLElement ) {
+		} else if ( child.nodeType && child.nodeType === 1 ) {
 			parent.appendChild(child);
 		}
 		return parent;
