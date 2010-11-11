@@ -1,13 +1,11 @@
 /**
-	Simple quick links viewer
-	@uses Mwbot ([[Потребител:Borislav/mwbot.js]])
-	@uses Creator
-
-	License: Public domain
-	Author: Borislav Manolov
+* Simple quick links viewer
+* @uses jQuery
+* @uses Creator
+*
+* License: Public domain
+* Author: Borislav Manolov
 */
-
-importScript('Потребител:Borislav/mwbot.js');
 
 var showQuickLink = (function() {
 	var quickPage = 'Бързи връзки';
@@ -31,7 +29,7 @@ var showQuickLink = (function() {
 	function showContainer(content) {
 		if ( container === null ) {
 			container = createContainer();
-			document.getElementsByTagName('body')[0].appendChild(container.e);
+			jQuery('body').append(container.e);
 		}
 		container.set('<div class="editsection" style="float:right">[<a href="'
 			+ Creator.createInternUrl(page, 'edit')
@@ -77,15 +75,6 @@ var showQuickLink = (function() {
 		return c;
 	}
 
-	function showFullContainer(bot) {
-		showContainer(bot.page_content);
-		loaded = true;
-	}
-
-	function showEmptyContainer(bot) {
-		showContainer('Бързите връзки не можаха да бъдат заредени.');
-	}
-
 
 	return (function() {
 		if ( typeof parents[skin] == "undefined" ) {
@@ -105,10 +94,10 @@ var showQuickLink = (function() {
 				return false;
 			}
 			link.innerHTML = wait;
-			var bot = new Mwbot();
-			bot.register_hook('on_fetch', showFullContainer);
-			bot.register_hook('on_fetch_fail', showEmptyContainer);
-			bot.fetchHtml(page);
+			jQuery.get(wgScript, {"title": page.replace(/ /g, "_"), "action": "render"}, function(content){
+				showContainer(content);
+				loaded = true;
+			});
 			return false;
 		};
 
@@ -116,10 +105,10 @@ var showQuickLink = (function() {
 			{'style' : 'z-index: 11'},
 			[' (', link, ')']);
 		p.appendChild(c);
-		document.getElementsByTagName("body")[0].onclick = function() {
+		jQuery("body").bind("click", function() {
 			// hide container by clicking anywhere in the document
 			if (container) container.hide();
-		};
+		});
 	});
 
 })();
