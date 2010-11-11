@@ -1666,11 +1666,6 @@ addOnloadHook( createCollapseButtons );
 
 importScript('Потребител:Borislav/mwbot.js');
 
-var taConfig = {
-	"mwbot debug" : false
-}
-
-
 var Memory = {
 	memoryTtl: 1,
 	allowedActions: ["transcludeSubpage"],
@@ -1749,10 +1744,9 @@ function transcludeSubpage(mainpage, subpage) {
 		return;
 	}
 	var bot = new Mwbot();
-	bot.debug = taConfig["mwbot debug"];
-	bot.register_hook('do_edit', function(bot) {
+	bot.edit(mainpage, function(bot) {
 		var fullpage = mainpage + "/" + subpage;
-		bot.append_page_content("{"+"{" + fullpage + "}}");
+		bot.append_page_content("\n{"+"{" + fullpage + "}}");
 		bot.set_edit_summary( gLang.msg("ta-summary", fullpage) );
 
 		// put a summary notice on a possible base page
@@ -1760,8 +1754,7 @@ function transcludeSubpage(mainpage, subpage) {
 		if ( false && slashPos != -1 /*&& document.getElementById("bot-editbase")*/ ) {
 			var basepage = mainpage.substr(0, slashPos);
 			var bot2 = new Mwbot();
-			bot2.debug = taConfig["mwbot debug"];
-			bot2.register_hook('do_edit', function(bot) {
+			bot2.edit(basepage, function(bot) {
 				var s = "<!"+"-- dummy edit (\\d+) -->";
 				var m = new RegExp(s).exec(bot.page_content);
 				if ( m ) {
@@ -1772,10 +1765,8 @@ function transcludeSubpage(mainpage, subpage) {
 				}
 				bot.set_edit_summary( gLang.msg("ta-bpsummary", fullpage) );
 			});
-			bot2.edit(basepage);
 		}
 	});
-	bot.edit(mainpage);
 }
 
 addOnloadHook(function() {
