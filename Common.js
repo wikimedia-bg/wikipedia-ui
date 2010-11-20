@@ -1495,7 +1495,8 @@ function createNavBarToggleButton()
 		NavToggle.setAttribute('id', 'NavToggle' + indexNavBar);
 		NavToggle.setAttribute('href', 'javascript:toggleNavBar(' + indexNavBar + ');');
 
-                if (hasClass( NavFrame, "collapsed" )) {
+                var isCollapsed = hasClass( NavFrame, "collapsed" );
+                if (isCollapsed) {
                     for (var NavChild = NavFrame.firstChild; NavChild != null; NavChild = NavChild.nextSibling) {
                         if ( hasClass( NavChild, 'NavPic' ) || hasClass( NavChild, 'NavContent' ) ) {
                             NavChild.style.display = 'none';
@@ -1504,7 +1505,7 @@ function createNavBarToggleButton()
                 }
 
 		var NavToggleText = document.createTextNode(
-			getNavBarLinkText(false, hasClass(NavFrame, "slim")) );
+			getNavBarLinkText(isCollapsed, hasClass(NavFrame, "slim")) );
 		NavToggle.appendChild(NavToggleText);
 
 		// if there is no content div, create one
