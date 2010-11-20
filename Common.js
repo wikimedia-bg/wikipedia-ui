@@ -1495,6 +1495,14 @@ function createNavBarToggleButton()
 		NavToggle.setAttribute('id', 'NavToggle' + indexNavBar);
 		NavToggle.setAttribute('href', 'javascript:toggleNavBar(' + indexNavBar + ');');
 
+                if (hasClass( NavFrame, "collapsed" )) {
+                    for (var NavChild = NavFrame.firstChild; NavChild != null; NavChild = NavChild.nextSibling) {
+                        if ( hasClass( NavChild, 'NavPic' ) || hasClass( NavChild, 'NavContent' ) ) {
+                            NavChild.style.display = 'none';
+                        }
+                    }
+                }
+
 		var NavToggleText = document.createTextNode(
 			getNavBarLinkText(false, hasClass(NavFrame, "slim")) );
 		NavToggle.appendChild(NavToggleText);
