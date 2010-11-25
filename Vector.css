@@ -22,3 +22,5 @@ div.topicon {
     display: inherit;
     font-style: italic;
 }
+
+.page-Начална_страница #firstHeading, .page-Начална_страница #siteSub { display: none }
