@@ -10,17 +10,22 @@
 	padding-left: 11px;
 }
 
+/* Fix the position of {{Coor title d}} and similar geo templates. */
 #coordinates { top: -4em }
-
+ 
+/* Fix the position of the featured (FA) and good (GA) articles' icon.
+   Note: !important _is_ important! ;) */
 div.topicon {
     margin-right: 0 !important;
     right: -0.5em !important;
     top: -2em !important;
 }
  
+/* Display the "from Wikipedia" note beneath each article's title... */
 #siteSub {
     display: inherit;
     font-style: italic;
 }
 
+/* ... but still have it hidden on the Main Page. */
 .page-Начална_страница #firstHeading, .page-Начална_страница #siteSub { display: none }
