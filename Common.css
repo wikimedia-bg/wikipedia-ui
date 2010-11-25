@@ -731,3 +731,11 @@ background:#FDFDFD url(http://upload.wikimedia.org/wikipedia/commons/thumb/6/61/
 padding:1px 4px 1px 24px;
 overflow:hidden;
 }
+
+/* Dashed border and grey background for GeSHi */
+div.mw-geshi {
+    padding: 1em; 
+    margin: 1em 0; 
+    border: 1px dashed #2f6fab;
+    background-color: #f9f9f9;
+}
