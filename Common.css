@@ -739,8 +739,3 @@ div.mw-geshi {
     border: 1px dashed #2f6fab;
     background-color: #f9f9f9;
 }
-
-/* Temporary logo for Christmas and New Year holidays */
-#p-logo a, #p-logo a:hover {
-    background: url("http://upload.wikimedia.org/wikipedia/commons/a/ae/Wiki-xmas.png") 35% 50% no-repeat !important;
-}
