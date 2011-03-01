@@ -12,7 +12,7 @@
 
 /* Fix the position of {{Coor title d}} and similar geo templates. */
 #coordinates { top: -4em }
-
+ 
 /* Fix the position of the featured (FA) and good (GA) articles' icon.
    Note: !important _is_ important! ;) */
 div.topicon {
@@ -20,7 +20,7 @@ div.topicon {
     right: -0.5em !important;
     top: -2em !important;
 }
-
+ 
 /* Display the "from Wikipedia" note beneath each article's title... */
 #siteSub {
     display: inherit;
@@ -30,7 +30,7 @@ div.topicon {
 /* ... but still have it hidden on the Main Page. */
 .page-Начална_страница #firstHeading, .page-Начална_страница #siteSub { display: none }
 
-/* Temporary logo for martenitsa */
+/* Temporary logo for 1 mart */
 #p-logo a, #p-logo a:hover {
     background: url("http://upload.wikimedia.org/wikipedia/commons/a/ae/Wiki-0.png") 35% 50% no-repeat !important;
 }
