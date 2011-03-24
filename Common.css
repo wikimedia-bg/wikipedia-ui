@@ -313,6 +313,7 @@ a.NavToggle {
 	padding: 0 0 0 0;
 }
 
+table.toccolours th, table.toccolours td { border: 1px #aaaaaa solid; }
 table.toccolours caption { font-weight: bold; }
 table.toccolours tr.hrow th { background-color: #e0e6e9; }
 tr.odd { background-color: inherit; }
