@@ -739,3 +739,8 @@ div.mw-geshi {
     border: 1px dashed #2f6fab;
     background-color: #f9f9f9;
 }
+
+/* Неща, видими само при печат (URL на източници, ...) */
+.printonly {
+    display: none;
+}
