@@ -29,3 +29,8 @@ div.topicon {
 
 /* ... but still have it hidden on the Main Page. */
 .page-Начална_страница #firstHeading, .page-Начална_страница #siteSub { display: none }
+
+/* Temporary logo for Velikden */
+#p-logo a, #p-logo a:hover {
+    background: url("http://upload.wikimedia.org/wikipedia/commons/2/26/Wiki-velikden.png") 35% 50% no-repeat !important;
+}
