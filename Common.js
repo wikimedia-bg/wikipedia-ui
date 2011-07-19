@@ -1501,6 +1501,7 @@ function createNavBarToggleButton()
                     for (var NavChild = NavFrame.firstChild; NavChild != null; NavChild = NavChild.nextSibling) {
                         if ( hasClass( NavChild, 'NavPic' ) || hasClass( NavChild, 'NavContent' ) ) {
                             NavChild.style.display = 'none';
+                            skipFrames[indexNavBar] = true;
                         }
                     }
                 }
