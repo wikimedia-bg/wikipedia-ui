@@ -344,6 +344,27 @@ table.wikitable table td, table.prettytable table td {
 	border: none;
 }
 
+/* wikitable2 class for skinning normal tables with borders */
+table.wikitable2 {
+	margin: 1em 1em 1em 0;
+	background: #f9f9f9;
+	border: 1px #aaaaaa solid;
+	border-collapse: collapse;
+}
+table.wikitable2 th, table.wikitable2 td {
+	border: 1px #aaaaaa solid;
+	padding: 0.2em;
+}
+table.wikitable2 th {
+	background: #f2f2f2;
+	text-align: center;
+}
+table.wikitable2 caption {
+	margin-left: inherit;
+	margin-right: inherit;
+	font-weight: bold;
+}
+
 /* стилове за шаблоните за координати */
 
 #coordinates {  
