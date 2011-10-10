@@ -50,7 +50,7 @@ var QuickDiff = {
 	{
 		this.viewWindow = this.buildViewWindow();
 
-		importStylesheetURI(stylepath + "/common/diff.css");
+		mw.loader.load("mediawiki.action.history.diff", "text/css");
 		this.addCss();
 
 		this.enableQuickPatroller();
