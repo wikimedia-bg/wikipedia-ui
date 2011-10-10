@@ -17,7 +17,7 @@ var QuickDiff = {
 
 	enable: function()
 	{
-		jQuery("a[href*=diff=]").click(function(event){
+		jQuery('a[href*="diff="]').click(function(event){
 			var $link = jQuery(this).addClass("working");
 			var href = this.href + "&action=render"
 				+ ( event.ctrlKey ? "" : "&diffonly=1" );
