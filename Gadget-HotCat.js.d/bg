@@ -12,7 +12,7 @@ if (typeof (HotCat) != 'undefined') {
   HotCat.messagesusing          = "ползвайки [[MediaWiki:Gadget-HotCat.js|HotCat.js]]";
   HotCat.messages.multi_change  = '$1 категории';
   HotCat.messages.commit        = "Запис";
-  HotCat.messages.ok            = "Запис"; // OK
+  HotCat.messages.ok            = "Готово"; // OK
   HotCat.messages.cancel        = "Отказ";
   HotCat.messages.multi_error   = "Текстът на страницата не можа да бъде зареден и промените ви не могат да бъдат съхранени.";
 
