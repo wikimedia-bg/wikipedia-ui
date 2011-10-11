@@ -1,0 +1,27 @@
+//<source lang="javascript">
+// Localizations of a few HotCat user interface texts.
+if (typeof (HotCat) != 'undefined') {
+  HotCat.messages.commit      = "Запис";
+  HotCat.messages.ok          = "Добре";
+  HotCat.messages.cancel      = "Отказ";
+  HotCat.messages.multi_error = "Текстът на страницата не можа да бъде зареден и промените ви не могат да бъдат съхранени.";
+
+  HotCat.categories  = "Категории";
+
+  HotCat.engine_names.searchindex = "Търсене"; // Search index
+  HotCat.engine_names.pagelist    = 'Списък на страници';
+  HotCat.engine_names.combined    = 'Комбинирано търсене';
+  HotCat.engine_names.subcat      = 'Подкатегории';
+  HotCat.engine_names.parentcat   = 'Родителски категории';
+
+  HotCat.tooltips.change = "Промяна";
+  HotCat.tooltips.remove = "Премахване";
+  HotCat.tooltips.add = "Добавяне на категория";
+  HotCat.tooltips.restore = "Отмяна на промените";
+  HotCat.tooltips.undo = "Отмяна на промените";
+  HotCat.tooltips.down = "Отваряне и показване на подкатегориите";
+  HotCat.tooltips.up = "Отваряне и показване на родителските подкатегории";
+
+  HotCat.multi_tooltip = "Промяна на няколко категории";
+}
+//</source>
