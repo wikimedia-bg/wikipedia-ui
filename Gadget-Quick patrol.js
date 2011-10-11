@@ -99,18 +99,18 @@ var BunchPatroller = {
 	/** Works on Special:Recentchanges */
 	makeBunchDiffsPatrollable: function()
 	{
-		jQuery("div.mw-changeslist-hidden").each(function(){
+		jQuery(".mw-collapsible").each(function(){
 			BunchPatroller.makeBunchDiffPatrollable(this);
 		});
 	},
 
 	makeBunchDiffPatrollable: function(changeslist)
 	{
-		var $rcidLinks = jQuery("a[href*=rcid]", changeslist);
+		var $rcidLinks = jQuery('tr:gt(0) a[href*="rcid"]', changeslist);
 		var rcids = BunchPatroller.getJoinedValueFromHrefs($rcidLinks, /rcid=(\d+)/);
 		if ( "" !== rcids ) {
 			var diffs = BunchPatroller.getJoinedValueFromHrefs($rcidLinks, /diff=(\d+)/, /oldid=(\d+)/);
-			this.enhanceBunchDiffLink(jQuery(changeslist).prev(), rcids, diffs);
+			this.enhanceBunchDiffLink(jQuery("tr:eq(0)", changeslist), rcids, diffs);
 		}
 	},
 
@@ -135,7 +135,7 @@ var BunchPatroller = {
 		var extraParams = "&" + BunchPatroller.rcidsParam + "=" + rcids
 			+ "&" + BunchPatroller.diffsParam + "=" + diffs;
 
-		var $link = jQuery("a[href*=diff]", $holder);
+		var $link = jQuery('a[href*="diff"]', $holder);
 		if ( $link.length ) {
 			$link.attr("href", function(){
 				return this.href + extraParams;
