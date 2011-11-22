@@ -780,3 +780,95 @@ div.mw-geshi {
 .toclimit-7 .toclevel-6 ul {
     display: none;
 }
+
+/* 
+ * Style for horizontal lists (separator following item)
+ */
+.skin-monobook .hlist dl,
+.skin-modern .hlist dl,
+.skin-vector .hlist dl {
+    line-height: 1.5em;
+}
+.hlist dl,
+.hlist ol,
+.hlist ul {
+    margin: 0;
+    margin-bottom: 0 !important;
+    padding: 0;
+}
+.hlist dd,
+.hlist dt,
+.hlist li { 
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+/* Display nested lists inline */
+.hlist dl dl,
+.hlist ol ol,
+.hlist ul ul {
+    display: inline;
+}
+/* Generate interpuncts */
+.hlist dd:after,
+.hlist dt:after,
+.hlist li:after {
+    content: " ·";
+    font-weight: bold;
+}
+.hlist dd:last-child:after,
+.hlist dt:last-child:after,
+.hlist li:last-child:after {
+    content: none;
+}
+/* for IE 8 */
+.hlist dd.nopunct:after,
+.hlist dt.nopunct:after,
+.hlist li.nopunct:after {
+    content: none;
+}
+/* Add parens around nested lists */
+.hlist dl dl:before,
+.hlist ol ol:before,
+.hlist ul ul:before {
+    content: "(";
+}
+.hlist dl dl:after,
+.hlist ol ol:after,
+.hlist ul ul:after {
+    content: ")";
+}
+/* Put numbers in ordered lists */
+.hlist.hnum ol li {
+    counter-increment: level1;
+}
+.hlist.hnum ol li:before {
+    content: counter(level1) " ";
+}
+.hlist.hnum ol ol li {
+    counter-increment: level2;
+}
+.hlist.hnum ol ol li:before {
+    content: counter(level2) " ";
+}
+/* Adjust padding in navboxes */
+.navbox .hlist dl,
+.navbox .hlist ol,
+.navbox .hlist ul {
+    padding: 0.125em;
+}
+/* Nowrap list items in navboxes */
+.navbox .hlist dd,
+.navbox .hlist dt,
+.navbox .hlist li {
+    white-space: nowrap;
+    /* IE < 8 no-wraps entire list, so disable it */
+    white-space: normal !ie;
+}
+/* But allow parent list items to be wrapped */
+.navbox .hlist dd dl,
+.navbox .hlist dt dl,
+.navbox .hlist li ol,
+.navbox .hlist li ul {
+    white-space: normal;
+}
