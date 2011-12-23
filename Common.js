@@ -1989,3 +1989,8 @@ function openStreetMapToggle () {
 }
 
 addOnloadHook(openStreetMapInit);
+
+// While '10,000th article on Macedonia' logo is active, also rewrite the link to point at [[Портал:Македония]].
+addOnloadHook(function(){
+    document.getElementById('p-logo').childNodes[0].href = '/wiki/Портал:Македония';
+});
