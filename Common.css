@@ -367,7 +367,7 @@ table.wikitable2 caption {
 
 /* стилове за шаблоните за координати */
 
-#coordinates {  
+#coordinates {
 	position: absolute;
 	z-index: 1;
 	border: none;
@@ -447,19 +447,19 @@ sup.reference:target, cite:target {
 
 /* Cell sizes for ambox/tmbox/imbox/cmbox/ombox/fmbox/dmbox message boxes */
 th.mbox-text, td.mbox-text {     /* The message body cell(s) */
-    border: none; 
+    border: none;
     padding: 0.25em 0.9em;       /* 0.9em left/right */
     width: 100%;    /* Make all mboxes the same width regardless of text length */
 }
 td.mbox-image {                  /* The left image cell */
-    border: none; 
+    border: none;
     padding: 2px 0 2px 0.9em;    /* 0.9em left, 0px right */
-    text-align: center; 
+    text-align: center;
 }
 td.mbox-imageright {             /* The right image cell */
     border: none;
     padding: 2px 0.9em 2px 0;    /* 0px left, 0.9em right */
-    text-align: center; 
+    text-align: center;
 }
 td.mbox-empty-cell {         /* An empty narrow cell */
     border: none;
@@ -470,14 +470,14 @@ td.mbox-empty-cell {         /* An empty narrow cell */
 /* Article message box styles */
 table.ambox {
     margin: 0px 10%;   /* 10% = Will not overlap with other elements */
-    border: 1px solid #aaa; 
+    border: 1px solid #aaa;
     border-left: 10px solid #1e90ff;    /* Default "notice" blue */
-    background: #fbfbfb; 
+    background: #fbfbfb;
 }
 table.ambox + table.ambox {   /* Single border between stacked boxes. */
     margin-top: -1px;
 }
-.ambox th.mbox-text, 
+.ambox th.mbox-text,
 .ambox td.mbox-text {            /* The message body cell(s) */
     padding: 0.25em 0.5em;       /* 0.5em left/right */
 }
@@ -487,7 +487,7 @@ table.ambox + table.ambox {   /* Single border between stacked boxes. */
 .ambox td.mbox-imageright {      /* The right image cell */
     padding: 2px 0.5em 2px 0;    /* 0px left, 0.5em right */
 }
- 
+
 table.ambox-notice {
     border-left: 10px solid #1e90ff;    /* Blue */
 }
@@ -698,10 +698,10 @@ td.diff-addedline, td.diff-deletedline, td.diff-context {
 
 
 /* Styling for Template:Quote */
-blockquote.templatequote { 
-     margin-top: 0; 
+blockquote.templatequote {
+     margin-top: 0;
 }
-blockquote.templatequote div.templatequotecite { 
+blockquote.templatequote div.templatequotecite {
     line-height: 1em;
     text-align: left;
     padding-left: 2em;
@@ -716,7 +716,7 @@ blockquote.templatequote div.templatequotecite cite {
  background: #f9f9f9;
  color: #000;
  font-size:90%;
- line-height:1.1em; 
+ line-height:1.1em;
  float:right;
  clear:right;
  margin:0 0 .5em 1em; /* haut droite bas gauche */
@@ -724,18 +724,18 @@ blockquote.templatequote div.templatequotecite cite {
  border: 1px solid #aaa;
  padding: 0.1em;
 }
- 
+
 .infobox_v2 th {
  vertical-align:middle;
  text-align:left;
 }
- 
+
 .pictoinfobox-map {
  background: url("http://upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png") no-repeat top right;
  height:45px;
  vertical-align:middle;
  text-align:center;
- font-size:150%; 
+ font-size:150%;
  font-weight:bolder;
  line-height:1.2em;
  color:#000
@@ -755,8 +755,8 @@ overflow:hidden;
 
 /* Dashed border and grey background for GeSHi */
 div.mw-geshi {
-    padding: 1em; 
-    margin: 1em 0; 
+    padding: 1em;
+    margin: 1em 0;
     border: 1px dashed #2f6fab;
     background-color: #f9f9f9;
 }
@@ -781,7 +781,7 @@ div.mw-geshi {
     display: none;
 }
 
-/* 
+/*
  * Style for horizontal lists (separator following item)
  */
 .skin-monobook .hlist dl,
@@ -798,7 +798,7 @@ div.mw-geshi {
 }
 .hlist dd,
 .hlist dt,
-.hlist li { 
+.hlist li {
     display: inline;
     margin: 0;
     padding: 0;
@@ -871,8 +871,4 @@ div.mw-geshi {
 .navbox .hlist li ol,
 .navbox .hlist li ul {
     white-space: normal;
-}
-/* Temporary logo for Christmas and New Year holidays */
-#p-logo a, #p-logo a:hover {
-    background: url("http://upload.wikimedia.org/wikipedia/commons/a/ae/Wiki-xmas.png") 35% 50% no-repeat !important;
 }
