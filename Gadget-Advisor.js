@@ -2,9 +2,7 @@
 // копирана тук от Потребител:Cameltrader/Advisor.js
 // виж http://en.wikipedia.org/wiki/User:Cameltrader/Advisor.js/Description
 
-document.write('<script type="text/javascript" src="'
-             + 'http://en.wikipedia.org/w/index.php?title=User:Cameltrader/Advisor.js'
-             + '&action=raw&ctype=text/javascript&dontcountme=s"></script>');
+mw.loader.load('//en.wikipedia.org/w/index.php?title=User:Cameltrader/Advisor.js&action=raw&ctype=text/javascript');
 
 
 var ct = ct || {};
