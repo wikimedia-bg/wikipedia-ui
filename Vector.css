@@ -1,11 +1,11 @@
 /* foreign featured articles marker */
 #mw-panel div.portal div.body ul li.FA {
-	background: url("http://upload.wikimedia.org/wikipedia/commons/d/d4/Monobook-bullet-star.png") no-repeat scroll 0 20% transparent;
+	background: url("//upload.wikimedia.org/wikipedia/commons/d/d4/Monobook-bullet-star.png") no-repeat scroll 0 20% transparent;
 	margin-left: -11px;
 	padding-left: 11px;
 }
 #mw-panel div.portal div.body ul li.GA {
-	background: url("http://upload.wikimedia.org/wikipedia/commons/4/42/Monobook-bullet-ga.png") no-repeat scroll 0 20% transparent;
+	background: url("//upload.wikimedia.org/wikipedia/commons/4/42/Monobook-bullet-ga.png") no-repeat scroll 0 20% transparent;
 	margin-left: -11px;
 	padding-left: 11px;
 }
