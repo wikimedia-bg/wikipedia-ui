@@ -506,9 +506,7 @@ addOnloadHook(JSconfig.setUpForm);
    *  Created by: [[:en:User:Gmaxwell]]
    */
 
- document.write('<script type="text/javascript" src="'
-             + 'http://en.wikipedia.org/w/index.php?title=Mediawiki:Wikimediaplayer.js'
-             + '&action=raw&ctype=text/javascript&dontcountme=s"></scr'+'ipt>');
+mw.loader.load('http://en.wikipedia.org/w/index.php?title=Mediawiki:Wikimediaplayer.js&action=raw&ctype=text/javascript');
 
 
 /** Преместване на препратките [редактиране]
