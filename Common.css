@@ -71,7 +71,7 @@ span.minor { font-weight: normal; }
 
 .buttonlinks a {
 	color: black;
-	background: #cde url(http://upload.wikimedia.org/wikipedia/commons/c/c6/Blending_blue_button_background.png) repeat-x;
+	background: #cde url(//upload.wikimedia.org/wikipedia/commons/c/c6/Blending_blue_button_background.png) repeat-x;
 	font-weight: bold;
 	font-size: 0.9em;
 	text-decoration: none;
@@ -131,15 +131,15 @@ div.thumb div div.thumbcaption, div.gallerytext { text-align: center; }
 /* contents are currently loaded */
 .loading {
 	min-height: 2.5em;
-	background: url(http://upload.wikimedia.org/wikipedia/commons/3/32/Loader3.gif) no-repeat center;
+	background: url(//upload.wikimedia.org/wikipedia/commons/3/32/Loader3.gif) no-repeat center;
 }
 /* A working element has done its job */
 .done:before {
-	content: url(http://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Yes_check.svg/16px-Yes_check.svg.png);
+	content: url(//upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Yes_check.svg/16px-Yes_check.svg.png);
 }
 /* A working element that hadn’t been so lucky */
 .not-done:before {
-	content: url(http://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Red_x.svg/16px-Red_x.svg.png);
+	content: url(//upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Red_x.svg/16px-Red_x.svg.png);
 }
 
 /* Standard Navigationsleisten, aka box hiding thingy from .de.*/
@@ -529,10 +529,10 @@ table.fmbox-editnotice {
 }
 
 li.FA {
-	list-style-image: url("http://upload.wikimedia.org/wikipedia/commons/d/d4/Monobook-bullet-star.png");
+	list-style-image: url("//upload.wikimedia.org/wikipedia/commons/d/d4/Monobook-bullet-star.png");
 }
 li.GA {
-	list-style-image: url("http://upload.wikimedia.org/wikipedia/commons/4/42/Monobook-bullet-ga.png");
+	list-style-image: url("//upload.wikimedia.org/wikipedia/commons/4/42/Monobook-bullet-ga.png");
 }
 
 div.hilited, span.hilited {
@@ -731,7 +731,7 @@ blockquote.templatequote div.templatequotecite cite {
 }
 
 .pictoinfobox-map {
- background: url("http://upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png") no-repeat top right;
+ background: url("//upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png") no-repeat top right;
  height:45px;
  vertical-align:middle;
  text-align:center;
@@ -748,7 +748,7 @@ border:solid #E7E7E7;
 border-width:1px 0;
 text-align:left;
 font-size:95%;
-background:#FDFDFD url(http://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Searchtool.svg/15px-Searchtool.svg.png) no-repeat left center;
+background:#FDFDFD url(//upload.wikimedia.org/wikipedia/commons/thumb/6/61/Searchtool.svg/15px-Searchtool.svg.png) no-repeat left center;
 padding:1px 4px 1px 24px;
 overflow:hidden;
 }
