@@ -872,19 +872,3 @@ div.mw-geshi {
 .navbox .hlist li ul {
     white-space: normal;
 }
-
-/* Put the big X in the top-right (ltr) or top-left (rtl) corner */
-#cn-close-box {
-position: absolute;
-z-index: 51;
-top: 5px;
-}
-body.ltr #cn-close-box {
-right: 5px;
-}
-body.rtl #cn-close-box {
-left: 5px;
-}
-#cn-close-box img {
-display: block;
-}
