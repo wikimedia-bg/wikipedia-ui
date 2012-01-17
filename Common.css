@@ -204,7 +204,7 @@ a.NavToggle {
 .messagebox {
 	border: 1px solid #aaaaaa;
 	background-color: #f9f9f9;
-	width: 80%;
+	width: 100%;
 	margin: 0 auto 1em auto;
 	padding: .2em .5em;
 }
