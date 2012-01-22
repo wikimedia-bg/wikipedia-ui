@@ -1987,12 +1987,3 @@ function openStreetMapToggle () {
 }
 
 addOnloadHook(openStreetMapInit);
-
-// Crudely widen the sitenotice message to 100% page width and hide the dismiss link.
-// NB: This one is better left commented out when not specifically needed.
-addOnloadHook(function(){
-    var siteNoticeText = document.getElementById('mw-dismissable-notice').childNodes[0].childNodes[0].childNodes[0];
-    var siteNoticeDismiss = document.getElementById('mw-dismissable-notice').childNodes[0].childNodes[0].childNodes[2];
-    siteNoticeDismiss.setAttribute('style', 'display:none;');
-    siteNoticeText.setAttribute('width', '100%');
-});
