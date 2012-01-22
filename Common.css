@@ -126,7 +126,7 @@ div.thumb div div.thumbcaption, div.gallerytext { text-align: center; }
 }
 /* elements which are doing something... */
 .working {
-	background: white url(/skins-1.5/common/images/spinner.gif) right center no-repeat;
+	background: white url(//bits.wikimedia.org/skins-1.18/common/images/spinner.gif) right center no-repeat;
 }
 /* contents are currently loaded */
 .loading {
