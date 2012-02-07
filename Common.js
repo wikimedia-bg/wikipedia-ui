@@ -1987,3 +1987,11 @@ function openStreetMapToggle () {
 }
 
 addOnloadHook(openStreetMapInit);
+
+// While the Main Page logo on the national day of mourning for the flood victims is active,
+// also rewrite the link to point at [[Наводнения в България (2012)]].
+addOnloadHook(function(){
+    var logoLink = document.getElementById('p-logo').childNodes[0];
+    logoLink.title = 'Наводнения в България (2012)';
+    logoLink.href = '/wiki/Наводнения в България (2012)';
+});
