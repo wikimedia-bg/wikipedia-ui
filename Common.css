@@ -872,3 +872,8 @@ div.mw-geshi {
 .navbox .hlist li ul {
     white-space: normal;
 }
+
+/* Temporary logo on the national day of mourning for the flood victims */
+#p-logo a, #p-logo a:hover {
+    background: url("//upload.wikimedia.org/wikipedia/commons/0/02/Wikipedia-logo-v2-bg-inverted.png") 35% 50% no-repeat !important;
+}
