@@ -1992,6 +1992,6 @@ addOnloadHook(openStreetMapInit);
 // also rewrite the link to point at [[Наводнения в България (2012)]].
 addOnloadHook(function(){
     var logoLink = document.getElementById('p-logo').childNodes[0];
-    logoLink.title = 'Наводнения в България (2012)';
-    logoLink.href = '/wiki/Наводнения в България (2012)';
+    logoLink.title = 'Наводнение на село Бисер';
+    logoLink.href = '/wiki/Наводнение на село Бисер';
 });
