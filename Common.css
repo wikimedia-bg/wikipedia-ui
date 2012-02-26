@@ -873,7 +873,18 @@ div.mw-geshi {
     white-space: normal;
 }
 
+.infobox_v2 .title {
+ height:45px;
+ vertical-align:middle;
+ text-align:center;
+ font-size:150%; 
+ font-weight:bolder;
+ line-height:1.2em;
+ color:#000
+}
+
 /* graphiques transparents d'entêtes des infobox V2 */
+
 .title.defaut       {}
  
 .title.cinema           {background: url("//upload.wikimedia.org/wikipedia/commons/e/ea/Picto_infobox_cinema.png")                 no-repeat top right;}
