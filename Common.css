@@ -885,6 +885,6 @@ div.mw-geshi {
 
 /* graphiques transparents d'entêtes des infobox V2 */
 
-.title.defaut       {}
+.title.defaut {}
  
-.title.cinema           {background: url("//upload.wikimedia.org/wikipedia/commons/e/ea/Picto_infobox_cinema.png")                 no-repeat top right;}
+.title.cinema {background: url(//upload.wikimedia.org/wikipedia/commons/e/ea/Picto_infobox_cinema.png) no-repeat top right;}
