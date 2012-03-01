@@ -1,18 +1,18 @@
 /**
-	Enhance recent changes diff links.
-	Author: Borislav Manolov
-	License: Public domain
-	Documentation: [[МедияУики:Gadget-Quick diff.js/doc]]
-*/
+ * Enhance recent changes diff links.
+ * Author: Borislav Manolov
+ * License: Public domain
+ * Documentation: [[МедияУики:Gadget-Quick diff.js/doc]]
+ */
+
 
 if ( window.importScript && ! window.jQuery ) {
 	importScript("МедияУики:Gadget-jQuery.js");
 }
 
-
 /**
-	@uses jQuery
-*/
+ * @uses jQuery
+ */
 var QuickDiff = {
 
 	enable: function()
@@ -31,7 +31,9 @@ var QuickDiff = {
 
 	viewDiff: function(content, $link)
 	{
-		this.getViewWindow().css("top", $link.offset().top).html(content).show();
+		this.getViewWindow().css("top", $link.offset().top)
+			.find("#quickdiff-content").html(content)
+			.end().show();
 		this.enableBunchPatroller($link);
 	},
 
@@ -58,20 +60,35 @@ var QuickDiff = {
 
 	buildViewWindow: function()
 	{
-		return jQuery('<div id="quickdiff"/>')
-			.css({ position: "absolute" })
+		var $win = jQuery('<div id="quickdiff"><div id="quickdiff-close"/><div id="quickdiff-content"/></div>')
 			.dblclick(function(){
 				jQuery(this).hide();
 			})
 			.appendTo("#content");
+		$win.find("#quickdiff-close").click(function(){
+			$win.hide();
+		});
+
+		return $win;
 	},
 
 	addCss: function()
 	{
-		appendCSS('#quickdiff {'
-			+ '	border: medium outset silver;'
-			+ '	background-color: white;'
-			+ '}'
+		appendCSS('
+			'#quickdiff {\
+				position: absolute;\
+				border: medium outset silver;\
+				background-color: white;\
+			}\
+			#quickdiff-close {\
+				position: absolute;\
+				top: 0;\
+				left: 0;\
+				width: 30px;\
+				height: 30px;\
+				background: url(http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Fileclose.png/32px-Fileclose.png) no-repeat center center;\
+				cursor: pointer;\
+			}'
 		);
 	},
 
