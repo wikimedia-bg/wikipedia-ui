@@ -74,7 +74,7 @@ var QuickDiff = {
 
 	addCss: function()
 	{
-		appendCSS('
+		appendCSS(
 			'#quickdiff {\
 				position: absolute;\
 				border: medium outset silver;\
