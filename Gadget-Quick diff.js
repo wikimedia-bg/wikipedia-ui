@@ -83,10 +83,10 @@ var QuickDiff = {
 			#quickdiff-close {\
 				position: absolute;\
 				top: 0;\
-				left: 0;\
-				width: 30px;\
-				height: 30px;\
-				background: url(http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Fileclose.png/32px-Fileclose.png) no-repeat center center;\
+				right: 0;\
+				width: 20px;\
+				height: 20px;\
+				background: url(http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Fileclose.png/16px-Fileclose.png) no-repeat center center;\
 				cursor: pointer;\
 			}'
 		);
