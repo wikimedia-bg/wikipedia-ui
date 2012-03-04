@@ -10,6 +10,8 @@ if ( window.importScript && ! window.jQuery ) {
 	importScript("МедияУики:Gadget-jQuery.js");
 }
 
+var KEY_ESC = 27;
+
 /**
  * @uses jQuery
  */
@@ -60,13 +62,13 @@ var QuickDiff = {
 
 	buildViewWindow: function()
 	{
-		var $win = jQuery('<div id="quickdiff"><div id="quickdiff-close"/><div id="quickdiff-content"/></div>')
-			.dblclick(function(){
-				jQuery(this).hide();
-			})
-			.appendTo("#content");
-		$win.find("#quickdiff-close").click(function(){
+		var $win = jQuery('<div id="quickdiff"><div id="quickdiff-close"/><div id="quickdiff-content"/></div>');
+		var closeWin = function(){
 			$win.hide();
+		});
+		$win.dblclick(closeWin).appendTo("#content").find("#quickdiff-close").click(closeWin);
+		$(document).keyup(function(e) {
+			if (e.keyCode == KEY_ESC) { closeWin() }
 		});
 
 		return $win;
