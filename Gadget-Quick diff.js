@@ -33,7 +33,7 @@ var QuickDiff = {
 
 	viewDiff: function(content, $link)
 	{
-		this.getViewWindow().css("top", $link.offset().top)
+		this.getViewWindow().css("top", $link.position().top + 30)
 			.find("#quickdiff-content").html(content)
 			.end().show();
 		this.enableBunchPatroller($link);
