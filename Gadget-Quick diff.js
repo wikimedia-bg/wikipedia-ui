@@ -66,7 +66,7 @@ var QuickDiff = {
 		var closeWin = function(){
 			$win.hide();
 		};
-		$win.dblclick(closeWin).appendTo("#content").find("#quickdiff-close").click(closeWin);
+		$win.dblclick(closeWin).appendTo("#bodyContent").find("#quickdiff-close").click(closeWin);
 		$(document).keyup(function(e) {
 			if (e.keyCode == KEY_ESC) { closeWin() }
 		});
@@ -79,6 +79,7 @@ var QuickDiff = {
 		appendCSS(
 			'#quickdiff {\
 				position: absolute;\
+				width: 100%;\
 				border: medium outset silver;\
 				background-color: white;\
 			}\
