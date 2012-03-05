@@ -80,7 +80,8 @@ var QuickDiff = {
 			'#quickdiff {\
 				position: absolute;\
 				width: 100%;\
-				border: medium outset silver;\
+				border: thin outset silver;\
+				box-shadow: 0 0 30px #888888;\
 				background-color: white;\
 			}\
 			#quickdiff-close {\
