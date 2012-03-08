@@ -1987,3 +1987,10 @@ function openStreetMapToggle () {
 }
 
 addOnloadHook(openStreetMapInit);
+
+// Докато е активно временното лого за 8 март, нека неговият линк сочи към [[Международен ден на жената]].
+addOnloadHook(function(){
+    var logoLink = document.getElementById('p-logo').childNodes[0];
+    logoLink.title = 'Международен ден на жената';
+    logoLink.href = '/wiki/Международен ден на жената';
+});
