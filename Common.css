@@ -877,7 +877,7 @@ div.mw-geshi {
  height:45px;
  vertical-align:middle;
  text-align:center;
- font-size:150%; 
+ font-size:150%;
  font-weight:bolder;
  line-height:1.2em;
  color:#000
@@ -886,12 +886,5 @@ div.mw-geshi {
 /* graphiques transparents d'entêtes des infobox V2 */
 
 .title.defaut {}
- 
-.title.cinema {background: url(//upload.wikimedia.org/wikipedia/commons/e/ea/Picto_infobox_cinema.png) no-repeat top right;}
 
-/* 
-Temporary logo for 1 mart
-*/
-#p-logo a, #p-logo a:hover {
-    background: url("//upload.wikimedia.org/wikipedia/commons/4/4d/Wiki-0.png") 35% 50% no-repeat !important;
-}
+.title.cinema {background: url(//upload.wikimedia.org/wikipedia/commons/e/ea/Picto_infobox_cinema.png) no-repeat top right;}
