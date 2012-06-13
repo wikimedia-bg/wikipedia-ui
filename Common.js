@@ -1997,3 +1997,14 @@ addOnloadHook(openStreetMapInit);
 //    logoLink.title = 'Текст в popup'; // <-- поставете между апострофите текста, който искате да излиза в popup при посочване
 //    logoLink.href = '/wiki/Име на страницата'; // <-- поставете името на страницата между апострофите, но запазете /wiki/ отпред
 //});
+
+// Преименуване на етикета "Статия" за началната страница
+if (wgPageName == 'Начална_страница' || wgPageName == 'Беседа:Начална_страница') {
+    $(function () {
+        var nstab = document.getElementById('ca-nstab-main');
+        if (nstab && wgUserLanguage=='bg') {
+            while (nstab.firstChild) { nstab = nstab.firstChild; }
+            nstab.nodeValue = 'Начална страница';
+        }
+    });
+}
