@@ -682,16 +682,6 @@ table.navbox th {
 	width: 6em;
 }
 
-/* Accessibility experiment: make diff changes not just colour-based */
-.diffchange {
-	font-weight: bold;
-	background-color: inherit;
-}
-td.diff-addedline, td.diff-deletedline, td.diff-context {
-	vertical-align: top;
-	color: inherit;
-}
-
 /* create box in the sidebar */
 #p-create .pBody { text-align: center }
 #createPageInput { width: 10.9em; font-size: 95% }
