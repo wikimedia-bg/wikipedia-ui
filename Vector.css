@@ -1,18 +1,24 @@
 /* foreign featured articles marker */
+/* 
+commented out on 2012-09-03 by Borislav
+if it works, the rules can be safely removed
+*/
+/*
 #mw-panel div.portal div.body ul li.FA {
-	background: url("//upload.wikimedia.org/wikipedia/commons/d/d4/Monobook-bullet-star.png") no-repeat scroll 0 20% transparent;
+	background: url("http://upload.wikimedia.org/wikipedia/commons/d/d4/Monobook-bullet-star.png") no-repeat scroll 0 20% transparent;
 	margin-left: -11px;
 	padding-left: 11px;
 }
 #mw-panel div.portal div.body ul li.GA {
-	background: url("//upload.wikimedia.org/wikipedia/commons/4/42/Monobook-bullet-ga.png") no-repeat scroll 0 20% transparent;
+	background: url("http://upload.wikimedia.org/wikipedia/commons/4/42/Monobook-bullet-ga.png") no-repeat scroll 0 20% transparent;
 	margin-left: -11px;
 	padding-left: 11px;
 }
+*/
 
 /* Fix the position of {{Coor title d}} and similar geo templates. */
 #coordinates { top: -4em }
-
+ 
 /* Fix the position of the featured (FA) and good (GA) articles' icon.
    Note: !important _is_ important! ;) */
 div.topicon {
@@ -20,7 +26,7 @@ div.topicon {
     right: -0.5em !important;
     top: -2em !important;
 }
-
+ 
 /* Display the "from Wikipedia" note beneath each article's title... */
 #siteSub {
     display: inherit;
