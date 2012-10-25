@@ -879,7 +879,3 @@ div.mw-geshi {
 
 .title.cinema {background: url(//upload.wikimedia.org/wikipedia/commons/e/ea/Picto_infobox_cinema.png) no-repeat top right;}
 .title.map    {background: url("//upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png")  no-repeat top right;}
-
-/* Скриване на част от заглавията в съдържанието - за класификации на организми и други подобни */
-
-.toctext .hiddenintoc { visibility:hidden; }
