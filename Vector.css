@@ -35,8 +35,3 @@ div.topicon {
 
 /* ... but still have it hidden on the Main Page. */
 .page-Начална_страница #firstHeading, .page-Начална_страница #siteSub { display: none }
-
-/* Temporary logo for Christmas and New Year holidays */
-#p-logo a, #p-logo a:hover {
-    background: url("//upload.wikimedia.org/wikipedia/commons/a/ae/Wiki-xmas.png") 35% 50% no-repeat !important;
-}
