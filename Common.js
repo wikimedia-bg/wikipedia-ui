@@ -1914,7 +1914,7 @@ addOnloadHook(function(){
 		{'class' : 'portlet', 'id' : 'p-create'}, [header, box] );
 	psearch.parentNode.insertBefore(portlet, psearch.nextSibling);
 
-	os_enableSuggestionsOn("createPageInput", "createform");
+	// TODO enableSuggestionsOn "#createPageInput"
 });
 
 
