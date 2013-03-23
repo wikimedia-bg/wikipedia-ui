@@ -879,10 +879,3 @@ div.mw-geshi {
 
 .title.cinema {background: url(//upload.wikimedia.org/wikipedia/commons/e/ea/Picto_infobox_cinema.png) no-repeat top right;}
 .title.map    {background: url("//upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png")  no-repeat top right;}
-
-/* 
-Temporary logo for 1 mart
-*/
-#p-logo a, #p-logo a:hover {
-    background: url("//upload.wikimedia.org/wikipedia/commons/4/4d/Wiki-0.png") 35% 50% no-repeat !important;
-}
