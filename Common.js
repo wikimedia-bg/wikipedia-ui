@@ -1922,71 +1922,96 @@ addOnloadHook(function(){
 // Verwendung von OpenStreetMap in Wikipedia.
 // (c) 2008 by Magnus Manske
 // Released under GPL
-
-function openStreetMapInit () {
-  var c = document.getElementById ( 'coordinates' ) ;
-  if ( !c ) return ;
-
-  var a = c.getElementsByTagName ( 'a' ) ;
+//mediawiki.util is used by openStreetMapToggle
+mw.loader.using( [ 'mediawiki.util' ], function() { $( function() {
+  var c = $( '#coordinates' );
+  if ( !c.length ) {
+   return;
+  }
+ 
+  var a = c.find( 'a' );
   var geohack = false;
-  for ( var i = 0 ; i < a.length ; i++ ) {
-    var h = a[i].href ;
-    if ( !h.match(/geohack/) ) continue ;
-    geohack = true ;
-    break ;
+  for (var i = 0; i < a.length; i++) {
+    var h = a[i].href;
+    if (!h.match(/geohack/)) continue;
+    if (h.match(/skyhack/)) continue;
+    if (h.match(/_globe:/)) continue; // no OSM for moon, mars, etc
+    geohack = true;
+    break;
   }
-  if ( !geohack ) return ;
-
-  var na = document.createElement ( 'a' ) ;
-  na.href = '#' ;
-  na.onclick = openStreetMapToggle ;
-  na.appendChild ( document.createTextNode ( '⇓' ) ) ;
-  c.appendChild ( document.createTextNode ( ' (' ) ) ;
-  c.appendChild ( na ) ;
-  c.appendChild ( document.createTextNode ( ')   ' ) ) ;
-}
-
-function openStreetMapToggle () {
-  var c = document.getElementById ( 'coordinates' ) ;
-  if ( !c ) return ;
-  var cs = document.getElementById ( 'contentSub' ) ;
-  var osm = document.getElementById ( 'openstreetmap' ) ;
-
-  if ( cs && osm ) {
-    if ( osm.style.display == 'none' ) {
-      osm.style.display = 'block' ;
-    } else {
-      osm.style.display = 'none' ;
-    }
-    return false ;
+  if ( !geohack ) {
+   return;
   }
-
-  var found_link = false ;
-  var a = c.getElementsByTagName ( 'a' ) ;
+ 
+  var separator = $( document.createElement( 'span' ) );
+  separator.text( ' | ' );
+  separator.attr( 'class', 'noprint coordinates-separator' );
+  c.append( separator );
+  var img = $( document.createElement( 'img' ) );
+  img.attr( {
+   'src': '//upload.wikimedia.org/wikipedia/commons/thumb/c/c9/OpenStreetMapLogo.png/17px-OpenStreetMapLogo.png',
+   'width': '17px',
+   'height': '17px'
+  } );
+  var a = $( document.createElement( 'a' ) );
+  a.attr( {
+   'href': '#',
+   'title': 'Показване на координатите на карта от OpenStreetMap',
+   'class': 'noprint osm-icon-coordinates'
+  } );
+  a.click( openStreetMapToggle );
+  a.append( img );
+  c.append( a );
+})});
+// The function to toggle
+function openStreetMapToggle() {
+  var c = $( '#coordinates' );
+  if ( !c.length) {
+   return;
+  }
+  var cs = $( '#contentSub' );
+  var osm = $( '#openstreetmap' );
+ 
+  if ( cs.length && osm.length ) {
+   if ( osm.css( 'display' ) === 'none' ) {
+    osm.css( 'display', 'block' );
+   } else {
+    osm.css( 'display', 'none' );
+   }
+   return false;
+  }
+ 
+  var found_link = false;
+  var a = c.find( 'a' );
   var h;
-  for ( var i = 0 ; i < a.length ; i++ ) {
-    h = a[i].href ;
-    if ( !h.match(/geohack/) ) continue ;
-    found_link = true ;
-    break ;
+  for (var i = 0; i < a.length; i++) {
+   h = a[i].href;
+   if (!h.match(/geohack/)) continue;
+   found_link = true;
+   break;
   }
-  if ( !found_link ) return ; // No geohack link found
-
-  h = h.split('params=')[1] ;
-  
-  var i = document.createElement ( 'iframe' ) ;
-  var url = 'http://toolserver.org/~kolossos/openlayers/kml-on-ol.php?lang=' + wgUserLanguage + '&params=' + h ;
-
-  i.id = 'openstreetmap' ;
-  i.style.width = '100%' ;
-  i.style.height = '350px' ;
-  i.style.clear = 'both' ;
-  i.src = url ;
-  cs.appendChild ( i ) ;
-  return false ;
+  if ( !found_link ) {
+   return; // No geohack link found
+  }
+ 
+  h = h.split('params=')[1];
+ 
+  var url = '//toolserver.org/~kolossos/openlayers/kml-on-ol.php?lang=bg&uselang='
+          + mw.util.rawurlencode( mw.config.get( 'wgUserLanguage' ) )
+          + '&params=' + h
+          + '&title=' + mw.util.wikiUrlencode( mw.config.get( 'wgTitle' ) );
+ 
+  var iframe = $( document.createElement( 'iframe' ) );
+  iframe.attr( 'id', 'openstreetmap' );
+  iframe.css({
+   'width': '100%',
+   'height': '350px',
+   'clear': 'both'
+  });
+  iframe.attr( 'src', url );
+  cs.append( iframe );
+  return false;
 }
-
-addOnloadHook(openStreetMapInit);
 
 // Използвайте този код, за да пренасочите връзката от логото на Уикипедия
 // към определена страница в енциклопедията. За целта разкоментирайте кода
