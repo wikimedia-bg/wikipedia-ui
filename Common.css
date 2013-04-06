@@ -873,6 +873,16 @@ div.mw-geshi {
  color:#000
 }
 
+/* Pie chart test: Transparent borders */
+.transborder {
+    border: solid transparent;
+}
+* html .transborder {  /* IE6 */
+    border: solid #000001;
+    filter: chroma(color=#000001);
+}
+
+
 /* graphiques transparents d'entêtes des infobox V2 */
 
 .title.defaut {}
