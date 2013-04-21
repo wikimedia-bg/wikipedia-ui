@@ -890,3 +890,40 @@ div.mw-geshi {
 .title.cinema {background: url(//upload.wikimedia.org/wikipedia/commons/e/ea/Picto_infobox_cinema.png) no-repeat top right;}
 .title.map    {background: url("//upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png")  no-repeat top right;}
 .title.tv     {background: url("//upload.wikimedia.org/wikipedia/commons/a/a6/Picto_infobox_TV-T%26PC.png") no-repeat top right;}
+
+/* Géolocalisation dynamique */
+/* Стилове за Шаблон:ПК група */
+ 
+.NavContent .img_toggle {
+  zoom: 1; /* be kind to IE7 */
+  clear: both; /* be kind to IE7 */
+}
+ 
+.img_toggle,
+.img_toggle * {
+ margin: 0 auto !important;
+ padding: 0 !important;
+}
+ 
+.img_toggle .a_toggle {
+  display: block;
+  text-align: center !important;
+  font-size: 0.95em;
+}
+ 
+.img_toggle .geobox {
+  position: relative
+}
+ 
+.img_toggle .geobox +.geobox {
+  border-top: 5px solid #aaa
+}
+ 
+.img_toggle .geopoint {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  font-size: 1px;
+  border: 1px solid #000;
+  background: #F00;
+}
