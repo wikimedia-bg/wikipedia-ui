@@ -2038,16 +2038,13 @@ if (wgPageName == 'Начална_страница' || wgPageName == 'Бесед
  * Script pour alterner entre plusieurs cartes de géolocalisation
  * Функции за замяна на картите в Шаблон:ПК група
  */
- 
-if(( mw.config.get('wgAction')=="view" || mw.config.get('wgAction')=="purge" || mw.config.get('wgAction')=="submit")) addOnloadHook(GeoBox_Init);
- 
 function GeoBox_Init(Element){
      if(!Element) Element = document.body;
-     var cont = getElementsByClass('img_toggle', Element, 'div');
+     var cont = getElementsByClassName(Element, 'div', 'img_toggle');
      if(cont.length==0) return;
      for (var i = 0,m=cont.length; i < m ; i++) {
           cont[i].id = 'img_toggle_' + i;
-          var Boxes = getElementsByClass('geobox',cont[i]);
+          var Boxes = getElementsByClassName(cont[i], 'div', 'geobox');
           var ToggleLinksDiv = document.createElement('ul');
           ToggleLinksDiv.id = 'geoboxToggleLinks_' + i;
           for(var a=0,l=Boxes.length;a<l;a++){
@@ -2084,7 +2081,7 @@ function GeoBox_Toggle(link){
      var Geobox = document.getElementById('geobox_' + ImgToggleIndex + "_" + GeoBoxIndex);
      var Link = document.getElementById('geoboxToggle_' + ImgToggleIndex + "_" + GeoBoxIndex);
      if( (!ImageToggle) || (!Links) || (!Geobox) || (!Link) ) return;
-     var AllGeoboxes = getElementsByClass('geobox',ImageToggle);
+     var AllGeoboxes = getElementsByClassName(ImageToggle, 'div', 'geobox');
      for(var a=0,l=AllGeoboxes.length;a<l;a++){
           if(AllGeoboxes[a] == Geobox){
                AllGeoboxes[a].style.display = "";
@@ -2100,4 +2097,8 @@ function GeoBox_Toggle(link){
                AllToggleLinks[a].parentNode.style.display = "";
           }
      }
+}
+
+if ($.inArray(mw.config.get('wgAction'), ["view", "purge", "submit"]) !== -1) {
+	addOnloadHook(GeoBox_Init);
 }
