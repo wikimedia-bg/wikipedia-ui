@@ -931,7 +931,7 @@ div.mw-geshi {
 .img_toggle ul {
   list-style: none;
   padding:0;
-  margin:0;
+  margin:0 0 0 2px;
 }
 
 .img_toggle ul li {
