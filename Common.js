@@ -2044,12 +2044,12 @@ function GeoBox_Init(Element){
      if(cont.length==0) return;
      for (var i = 0,m=cont.length; i < m ; i++) {
           cont[i].id = 'img_toggle_' + i;
-          var Boxes = getElementsByClassName(cont[i], 'div', 'geobox');
+          var Boxes = getElementsByClassName(cont[i], 'div', 'location-map');
           var ToggleLinksDiv = document.createElement('ul');
           ToggleLinksDiv.id = 'geoboxToggleLinks_' + i;
           for(var a=0,l=Boxes.length;a<l;a++){
                var ThisBox = Boxes[a];
-               ThisBox.id = 'geobox_' + i + "_" + a;
+               ThisBox.id = 'location-map_' + i + "_" + a;
                ThisBox.style.borderTop='0';
                var ThisAlt = ThisBox.getElementsByTagName('img')[0].alt
                var toggle = document.createElement('a');
@@ -2078,10 +2078,10 @@ function GeoBox_Toggle(link){
      var GeoBoxIndex = link.id.replace(/.*_/g, "");
      var ImageToggle = document.getElementById('img_toggle_' + ImgToggleIndex);
      var Links = document.getElementById('geoboxToggleLinks_' + ImgToggleIndex);
-     var Geobox = document.getElementById('geobox_' + ImgToggleIndex + "_" + GeoBoxIndex);
+     var Geobox = document.getElementById('location-map_' + ImgToggleIndex + "_" + GeoBoxIndex);
      var Link = document.getElementById('geoboxToggle_' + ImgToggleIndex + "_" + GeoBoxIndex);
      if( (!ImageToggle) || (!Links) || (!Geobox) || (!Link) ) return;
-     var AllGeoboxes = getElementsByClassName(ImageToggle, 'div', 'geobox');
+     var AllGeoboxes = getElementsByClassName(ImageToggle, 'div', 'location-map');
      for(var a=0,l=AllGeoboxes.length;a<l;a++){
           if(AllGeoboxes[a] == Geobox){
                AllGeoboxes[a].style.display = "";
