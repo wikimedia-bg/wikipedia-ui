@@ -931,7 +931,7 @@ div.mw-geshi {
 .img_toggle ul {
   list-style: none;
   padding:0 !important;
-  margin:0 0 0 2px !important;
+  margin:0 0 0 5px !important;
 }
 
 .img_toggle ul li {
@@ -947,4 +947,5 @@ div.mw-geshi {
   padding: 0 5px !important;
   font-size: 85%;
   text-decoration: none;
+  color: black;
 }
