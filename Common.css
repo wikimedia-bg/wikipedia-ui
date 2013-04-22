@@ -930,21 +930,21 @@ div.mw-geshi {
 
 .img_toggle ul {
   list-style: none;
-  padding:0;
-  margin:0 0 0 2px;
+  padding:0 !important;
+  margin:0 0 0 2px !important;
 }
 
 .img_toggle ul li {
   float: left;
   border: 1px solid #aaa;
   border-top-width: 0;
-  margin: 0 2px 0 0;
+  margin: 0 2px 0 0 !important;
   position: relative;
   background: #F9F9F9;
 }
 
 .img_toggle ul li a {
-  padding: 0 5px;
+  padding: 0 5px !important;
   font-size: 85%;
   text-decoration: none;
 }
