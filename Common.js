@@ -2064,9 +2064,10 @@ function GeoBox_Init(Element){
                Li.appendChild(toggle);
                ToggleLinksDiv.appendChild(Li);
                if(a==(l-1)){
-                    Li.style.display = "none";
+                    Li.style.bottom = "1px";
                }else{
                     ThisBox.style.display = "none";
+                    Li.style.bottom = "";
                }
           }
           cont[i].appendChild(ToggleLinksDiv);
@@ -2092,9 +2093,9 @@ function GeoBox_Toggle(link){
      var AllToggleLinks = Links.getElementsByTagName('a');
      for(var a=0,l=AllToggleLinks.length;a<l;a++){
           if(AllToggleLinks[a] == Link){
-               AllToggleLinks[a].parentNode.style.display = "none";
+               AllToggleLinks[a].parentNode.style.bottom = "1px";
           }else{
-               AllToggleLinks[a].parentNode.style.display = "";
+               AllToggleLinks[a].parentNode.style.bottom = "";
           }
      }
 }
