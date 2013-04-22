@@ -938,8 +938,13 @@ div.mw-geshi {
   float: left;
   border: 1px solid #aaa;
   border-top-width: 0;
-  margin: 0 1px 0 0;
-  padding: 0 5px;
+  margin: 0 2px 0 0;
   position: relative;
   background: #F9F9F9;
+}
+
+.img_toggle ul li a {
+  padding: 0 5px;
+  font-size: 85%;
+  text-decoration: none;
 }
