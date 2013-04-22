@@ -2063,7 +2063,7 @@ function GeoBox_Init(Element){
                var Li = document.createElement('li');
                Li.appendChild(toggle);
                ToggleLinksDiv.appendChild(Li);
-               if(a==(l-1)){
+               if(a==0){
                     Li.style.bottom = "1px";
                }else{
                     ThisBox.style.display = "none";
