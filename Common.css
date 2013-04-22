@@ -893,32 +893,32 @@ div.mw-geshi {
 
 /* Géolocalisation dynamique */
 /* Стилове за Шаблон:ПК група */
- 
+
 .NavContent .img_toggle {
   zoom: 1; /* be kind to IE7 */
   clear: both; /* be kind to IE7 */
 }
- 
+
 .img_toggle,
 .img_toggle * {
  margin: 0 auto !important;
  padding: 0 !important;
 }
- 
+
 .img_toggle .a_toggle {
   display: block;
   text-align: center !important;
   font-size: 0.95em;
 }
- 
+
 .img_toggle .geobox {
   position: relative
 }
- 
+
 .img_toggle .geobox +.geobox {
   border-top: 5px solid #aaa
 }
- 
+
 .img_toggle .geopoint {
   position: absolute;
   width: 5px;
@@ -926,4 +926,20 @@ div.mw-geshi {
   font-size: 1px;
   border: 1px solid #000;
   background: #F00;
+}
+
+.img_toggle ul {
+  list-style: none;
+  padding:0;
+  margin:0;
+}
+
+.img_toggle ul li {
+  float: left;
+  border: 1px solid #aaa;
+  border-top-width: 0;
+  margin: 0 1px 0 0;
+  padding: 0 5px;
+  position: relative;
+  background: #F9F9F9;
 }
