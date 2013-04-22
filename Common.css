@@ -911,11 +911,11 @@ div.mw-geshi {
   font-size: 0.95em;
 }
 
-.img_toggle .geobox {
+.img_toggle .location-map {
   position: relative
 }
 
-.img_toggle .geobox +.geobox {
+.img_toggle .location-map +.location-map {
   border-top: 5px solid #aaa
 }
 
