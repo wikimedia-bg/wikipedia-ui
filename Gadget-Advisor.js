@@ -388,11 +388,11 @@ ct.rules.push(function (s) {
 		var number = m[1]; // може да е оградено с [[ и ]]
 		var spacing = m[2] || '';
 		var unit = m[3];
-		if ((spacing !== ' ') && (spacing !== '&nbsp;')) {
+		if (spacing !== ' ') {
 			b.push({
 					start: m.start,
 					end: m.end,
-					replacement: number + '&nbsp;' + unit,
+					replacement: number + '\u00a0' + unit,
 					name: 'число+' + unit,
 					description: 'год.→г.',
 					help: 'Между число и „' + unit + '“ трябва да се оставя един интервал, '
