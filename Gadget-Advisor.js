@@ -141,7 +141,7 @@ ct.rules.push(function (s) {
 		b.push({
 				start: m.start + 1,
 				end: m.end - 1,
-				replacement: '&nbsp;\u2014 ', // U+2014 is an mdash
+				replacement: '\u00a0\u2014 ', // U+2014 is an mdash
 				name: 'дълго тире',
 				description: 'Смени с дълго тире (em dash)',
 				help: 'В изречение, късо тире оградено с интервали, почти сигурно трябва да е дълго тире (em dash).'
