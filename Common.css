@@ -890,7 +890,7 @@ div.mw-geshi {
 .title.cinema     {background: url(//upload.wikimedia.org/wikipedia/commons/e/ea/Picto_infobox_cinema.png) no-repeat top right;}
 .title.map        {background: url("//upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png")  no-repeat top right;}
 .title.tv         {background: url("//upload.wikimedia.org/wikipedia/commons/a/a6/Picto_infobox_TV-T%26PC.png") no-repeat top right;}
-.title.volleyball {background: url("//upload.wikimedia.org/wikipedia/commons/c/ca/Volleyball_(indoor)_pictogram.svg") no-repeat top right;}
+.title.volleyball {background: url("//upload.wikimedia.org/wikipedia/commons/c/ca/Volleyball_(indoor)_pictogram.svg") no-repeat top right; background-size: auto 45px;}
 
 /* Géolocalisation dynamique */
 /* Стилове за Шаблон:ПК група */
