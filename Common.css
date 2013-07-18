@@ -955,3 +955,8 @@ div.mw-geshi {
   text-decoration: none;
   color: black;
 }
+
+/* Temporary logo for 150000 */
+#p-logo a, #p-logo a:hover {
+    background: url("//upload.wikimedia.org/wikipedia/commons/c/c0/Wikipedia_logo_v2_bg_150_000_v3.png") 35% 50% no-repeat !important;
+}
