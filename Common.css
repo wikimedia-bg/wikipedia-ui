@@ -751,6 +751,17 @@ div.mw-geshi {
     background-color: #f9f9f9;
 }
 
+/* Fix so <syntaxhighlight> tags and .css and .js pages get normal text size.
+   [[Bugzilla:26204]]. See also [[Wikipedia:Typography#The monospace 'bug']] */
+div.mw-geshi div,
+div.mw-geshi div pre,
+span.mw-geshi,
+pre.source-css,
+pre.source-javascript,
+pre.source-lua {
+    font-family: monospace, Courier !important;
+}
+
 /* Неща, видими само при печат (URL на източници, ...) */
 .printonly {
     display: none;
