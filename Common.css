@@ -909,6 +909,62 @@ pre.source-lua {
 .title.tv         {background: url("//upload.wikimedia.org/wikipedia/commons/a/a6/Picto_infobox_TV-T%26PC.png") no-repeat top right;}
 .title.volleyball {background: url("//upload.wikimedia.org/wikipedia/commons/c/ca/Volleyball_(indoor)_pictogram.svg") no-repeat top right; background-size: auto 45px;}
 
+/* пиктограми за влагане в заглавки на шаблони */
+.title.animal      {background: url("//upload.wikimedia.org/wikipedia/commons/5/54/Picto_infobox_animal.png") no-repeat top right;}
+.title.art         {background: url("//upload.wikimedia.org/wikipedia/commons/d/de/Crystal_Clear_app_k_less_color.png") no-repeat top right;} 
+.title.automobil   {background: url("//upload.wikimedia.org/wikipedia/commons/9/99/Picto_infobox_automobil.png") no-repeat top right;} 
+.title.avio        {background: url("//upload.wikimedia.org/wikipedia/commons/f/ff/Picto_infobox_aircraft.png") no-repeat top right;}
+.title.virus       {background: url("//upload.wikimedia.org/wikipedia/commons/d/dc/Picto_infobox_virus.png") no-repeat top right;}
+.title.basketbol   {background: url("//upload.wikimedia.org/wikipedia/commons/1/16/Picto_infobox_baschet.png") no-repeat top right;}
+.title.beer        {background: url("//upload.wikimedia.org/wikipedia/commons/0/04/Picto_infobox_beer.png") no-repeat top right;}
+.title.military    {background: url("//upload.wikimedia.org/wikipedia/commons/0/03/Picto_infobox_military.png") no-repeat top right;}
+.title.bio         {background: url("//upload.wikimedia.org/wikipedia/commons/4/48/Picto_infobox_character.png") no-repeat top right;}
+.title.box         {background: url("//upload.wikimedia.org/wikipedia/commons/a/a2/Picto_infobox_box.png") no-repeat top right;}
+.title.detective   {background: url("//upload.wikimedia.org/wikipedia/commons/c/c1/Picto_infobox_detective.png") no-repeat top right;}
+.title.fungus      {background: url("//upload.wikimedia.org/wikipedia/commons/7/79/Picto_infobox_fungus.png") no-repeat top right;}
+.title.bridge      {background: url("//upload.wikimedia.org/wikipedia/commons/8/87/Picto_infobox_bridge.png") no-repeat top right;}
+.title.antenna     {background: url("//upload.wikimedia.org/wikipedia/commons/a/a2/Picto_infobox_antenna.png") no-repeat top right;}
+.title.astronaut   {background: url("//upload.wikimedia.org/wikipedia/commons/0/0a/Picto_infobox_astronaut.png") no-repeat top right;}
+.title.formula1    {background: url("//upload.wikimedia.org/wikipedia/commons/d/da/Picto_infobox_race.png") no-repeat top right;} 
+.title.egipt       {background: url("//upload.wikimedia.org/wikipedia/commons/c/cc/Picto_infobox_ancient_Egypt.png") no-repeat top right;} 
+.title.cardinal    {background: url("//upload.wikimedia.org/wikipedia/commons/b/b3/Picto_infobox_bishop.png") no-repeat  top right;}
+.title.physic      {background: url("//upload.wikimedia.org/wikipedia/commons/d/d1/Picto_infobox_physics.png") no-repeat  top right;}
+.title.olympic     {background: url("//upload.wikimedia.org/wikipedia/commons/8/8e/Picto_infobox_Olympic.png") no-repeat top right;}
+.title.computer    {background: url("//upload.wikimedia.org/wikipedia/commons/d/d1/Picto_infobox_pc.png") no-repeat top right;}
+.title.firma       {background: url("//upload.wikimedia.org/wikipedia/commons/f/ff/Picto_infobox_enterprise.png") no-repeat top right;}
+.title.game        {background: url("//upload.wikimedia.org/wikipedia/commons/0/07/Picto_infobox_game.png") no-repeat top right;}
+.title.sex         {background: url("//upload.wikimedia.org/wikipedia/commons/8/82/Picto_infobox_manwoman.png") no-repeat top right;}
+.title.plant       {background: url("//upload.wikimedia.org/wikipedia/commons/0/0b/Picto_infobox_plant.png") no-repeat top right;}
+.title.project     {background: url("//upload.wikimedia.org/wikipedia/commons/c/cb/Picto_infobox_tools.png") no-repeat top right;}
+.title.romana      {background: url("//upload.wikimedia.org/wikipedia/commons/2/2e/Picto_infobox_Roman_millitary_banner.png") no-repeat top right;}
+.title.scifi       {background: url("//upload.wikimedia.org/wikipedia/commons/e/ed/Picto_infobox_fliyingsaucer.png") no-repeat top right;}
+.title.software    {background: url("//upload.wikimedia.org/wikipedia/commons/f/fe/Picto_infobox_software.png") no-repeat top right;}
+.title.road        {background: url("//upload.wikimedia.org/wikipedia/commons/b/b4/Picto_infobox_road.png") no-repeat top right;}
+.title.teatr       {background: url("//upload.wikimedia.org/wikipedia/commons/3/37/Picto_infobox_masks.png") no-repeat top right;}
+.title.tenis       {background: url("//upload.wikimedia.org/wikipedia/commons/d/dc/Picto_infobox_tenis.png") no-repeat top right;}
+.title.universitet {background: url("//upload.wikimedia.org/wikipedia/commons/6/66/Picto_infobox_universit%C3%A9.png") no-repeat top right;}
+.title.europe      {background: url("//upload.wikimedia.org/wikipedia/commons/c/c0/Picto_Infobox_Europe.png") no-repeat top right;}
+.title.wrestling   {background: url("//upload.wikimedia.org/wikipedia/commons/0/04/Picto_infobox_wrestling.png") no-repeat top right;}
+.title.newspaper   {background: url("//upload.wikimedia.org/wikipedia/commons/d/d6/Picto_infobox_newspaper.png") no-repeat top right;}
+.title.museum      {background: url("//upload.wikimedia.org/wikipedia/commons/a/ac/Infobox_museum_pictogram.png") no-repeat top right;}
+.title.castle      {background: url("//upload.wikimedia.org/wikipedia/commons/5/5c/Picto_infobox_chateau.png") no-repeat top right;}
+.title.vine        {background: url("//upload.wikimedia.org/wikipedia/commons/6/66/Picto_info_grape.png") no-repeat top right;}
+.title.food        {background: url("//upload.wikimedia.org/wikipedia/commons/a/aa/Picto_infobox_mets.png") no-repeat top right;}
+.title.cosmos      {background: url("//upload.wikimedia.org/wikipedia/commons/9/94/Picto_infobox_shuttle.png") no-repeat top right;}
+.title.default     {background: url("//upload.wikimedia.org/wikipedia/commons/2/24/Picto_infobox_default.png") no-repeat top right;}
+
+/* допълнителни пиктограми за влагане в заглавки на шаблони (има и още в другите Уикипедии) */
+.title.athlet      {background: url("//upload.wikimedia.org/wikipedia/commons/9/99/Picto_Infobox_Athletisme.png") no-repeat top right;}
+.title.baseball    {background: url("//upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Baseball_pictogram.svg/35px-Baseball_pictogram.svg.png") no-repeat top right;}
+.title.scienc      {background: url("//upload.wikimedia.org/wikipedia/commons/5/57/Picto_Info_sciences_exactes.png") no-repeat top right;}
+.title.deportation {background: url("//upload.wikimedia.org/wikipedia/commons/e/e0/Picto_Infobox_deportation.png") no-repeat top right;}
+.title.diplomat    {background: url("//upload.wikimedia.org/wikipedia/commons/e/e0/Picto_infobox_ambassade.png") no-repeat top right;}
+.title.gymnastic   {background: url("//upload.wikimedia.org/wikipedia/commons/thumb/1/12/Gymnastics_%28artistic%29_pictogram.svg/35px-Gymnastics_%28artistic%29_pictogram.svg.png") no-repeat top right;}
+.title.figura      {background: url("//upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Monument_istoric.svg/40px-Monument_istoric.svg.png") no-repeat top right;}
+.title.samourai    {background: url("//upload.wikimedia.org/wikipedia/commons/8/81/Picto_infobox_samourai.png") no-repeat top right;}
+.title.filatelist  {background: url("//upload.wikimedia.org/wikipedia/commons/b/b3/Picto_infobox_Stamps.png") no-repeat top right;}
+
+
 /* Géolocalisation dynamique */
 /* Стилове за Шаблон:ПК група */
 
