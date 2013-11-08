@@ -1434,8 +1434,7 @@ function LinkFA() {
 	}
 }
 
-addOnloadHook(LinkFA);
-
+mw.hook( 'wikipage.content' ).add( LinkFA );
 
 /* * * * * * * * * *   Dynamic Navigation Bars   * * * * * * * * * */
 
