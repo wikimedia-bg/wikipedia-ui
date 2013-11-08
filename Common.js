@@ -1546,92 +1546,6 @@ function getNavBarLinkText(toShow, isSlim) {
 
 // addOnloadHook(createNavBarToggleButton);
 
-/** Collapsible tables *********************************************************
- *
- *  Description: Allows tables to be collapsed, showing only the header. See
- *               [[:en:Wikipedia:NavFrame]].
- *  Maintainers: [[:en:User:R. Koot]]
- */
-
-var autoCollapse = 2;
-var collapseCaption = NavBarHide;
-var expandCaption = NavBarShow;
-
-function collapseTable( tableIndex )
-{
-	var Button = document.getElementById( "collapseButton" + tableIndex );
-	var Table = document.getElementById( "collapsibleTable" + tableIndex );
-
-	if ( !Table || !Button ) {
-		return;
-	}
-
-	var Rows = Table.rows;
-
-	if ( Button.firstChild.data == collapseCaption ) {
-		for ( var i = 1; i < Rows.length; i++ ) {
-			Rows[i].style.display = "none";
-		}
-		Button.firstChild.data = expandCaption;
-	} else {
-		for ( var i = 1; i < Rows.length; i++ ) {
-			Rows[i].style.display = Rows[0].style.display;
-		}
-		Button.firstChild.data = collapseCaption;
-	}
-}
-
-function createCollapseButtons()
-{
-	var tableIndex = 0;
-	var NavigationBoxes = new Object();
-	var Tables = document.getElementsByTagName( "table" );
-
-	for ( var i = 0; i < Tables.length; i++ ) {
-		if ( hasClass( Tables[i], "collapsible" ) ) {
-
-			/* only add button and increment count if there is a header row to work with */
-			var HeaderRow = Tables[i].getElementsByTagName( "tr" )[0];
-			if (!HeaderRow) continue;
-			var Header = HeaderRow.getElementsByTagName( "th" )[0];
-			if (!Header) continue;
-
-			NavigationBoxes[ tableIndex ] = Tables[i];
-			Tables[i].setAttribute( "id", "collapsibleTable" + tableIndex );
-
-			var Button     = document.createElement( "span" );
-			var ButtonLink = document.createElement( "a" );
-			var ButtonText = document.createTextNode( collapseCaption );
-
-			Button.style.styleFloat = "right";
-			Button.style.cssFloat = "right";
-			Button.style.fontWeight = "normal";
-			Button.style.textAlign = "right";
-			Button.style.width = "6em";
-
-			ButtonLink.style.color = Header.style.color;
-			ButtonLink.setAttribute( "id", "collapseButton" + tableIndex );
-			ButtonLink.setAttribute( "href", "javascript:collapseTable(" + tableIndex + ");" );
-			ButtonLink.appendChild( ButtonText );
-
-			/* Button.appendChild( document.createTextNode( "[" ) ); */
-			Button.appendChild( ButtonLink );
-			/* Button.appendChild( document.createTextNode( "]" ) ); */
-
-			Header.insertBefore( Button, Header.childNodes[0] );
-			tableIndex++;
-		}
-	}
-
-	for ( var i = 0;  i < tableIndex; i++ ) {
-		if ( hasClass( NavigationBoxes[i], "collapsed" ) || ( tableIndex >= autoCollapse && hasClass( NavigationBoxes[i], "autocollapse" ) ) ) {
-			collapseTable( i );
-		}
-	}
-}
-
-addOnloadHook( createCollapseButtons );
-
 /* * * * * * * * * *   Mwbot stuff   * * * * * * * * * */
 
 /**
@@ -2164,9 +2078,107 @@ function LinkFA() {
         }
     }
 }
- 
+
 mw.hook( 'wikipage.content' ).add( LinkFA );
- 
+
+/**
+ * Скриваеми таблици **********************************************************
+ *
+ * Описание: Позволява скриването на таблици като само заглавието остава
+ *           видимо.  Вижте [[:en:Wikipedia:NavFrame]].
+ * Поддържа се от: [[:en:User:R. Koot]]
+ */
+
+var autoCollapse = 2;
+var collapseCaption = 'Скриване';
+var expandCaption = 'Показване';
+
+window.collapseTable = function ( tableIndex ) {
+    var Button = document.getElementById( 'collapseButton' + tableIndex );
+    var Table = document.getElementById( 'collapsibleTable' + tableIndex );
+
+    if ( !Table || !Button ) {
+        return false;
+    }
+
+    var Rows = Table.rows;
+    var i;
+
+    if ( Button.firstChild.data === collapseCaption ) {
+        for ( i = 1; i < Rows.length; i++ ) {
+            Rows[i].style.display = 'none';
+        }
+        Button.firstChild.data = expandCaption;
+    } else {
+        for ( i = 1; i < Rows.length; i++ ) {
+            Rows[i].style.display = Rows[0].style.display;
+        }
+        Button.firstChild.data = collapseCaption;
+    }
+};
+
+function createCollapseButtons() {
+    var tableIndex = 0;
+    var NavigationBoxes = {};
+    var Tables = document.getElementsByTagName( 'table' );
+    var i;
+
+    function handleButtonLink( index, e ) {
+        window.collapseTable( index );
+        e.preventDefault();
+    }
+
+    for ( i = 0; i < Tables.length; i++ ) {
+        if ( $( Tables[i] ).hasClass( 'collapsible' ) ) {
+
+            /* само ако има заглавен ред се добавя бутон и се увеличава брояча */
+            var HeaderRow = Tables[i].getElementsByTagName( 'tr' )[0];
+            if ( !HeaderRow ) continue;
+            var Header = HeaderRow.getElementsByTagName( 'th' )[0];
+            if ( !Header ) continue;
+
+            NavigationBoxes[ tableIndex ] = Tables[i];
+            Tables[i].setAttribute( 'id', 'collapsibleTable' + tableIndex );
+
+            var Button     = document.createElement( 'span' );
+            var ButtonLink = document.createElement( 'a' );
+            var ButtonText = document.createTextNode( collapseCaption );
+
+            Button.className = 'collapseButton';  /* Стиловете са описани в Common.css */
+
+            ButtonLink.style.color = Header.style.color;
+            ButtonLink.setAttribute( 'id', 'collapseButton' + tableIndex );
+            ButtonLink.setAttribute( 'href', '#' );
+            $( ButtonLink ).on( 'click', $.proxy( handleButtonLink, ButtonLink, tableIndex ) );
+            ButtonLink.appendChild( ButtonText );
+
+            Button.appendChild( document.createTextNode( '[' ) );
+            Button.appendChild( ButtonLink );
+            Button.appendChild( document.createTextNode( ']' ) );
+
+            Header.insertBefore( Button, Header.firstChild );
+            tableIndex++;
+        }
+    }
+
+    for ( i = 0;  i < tableIndex; i++ ) {
+        if ( $( NavigationBoxes[i] ).hasClass( 'collapsed' ) || ( tableIndex >= autoCollapse && $( NavigationBoxes[i] ).hasClass( 'autocollapse' ) ) ) {
+            window.collapseTable( i );
+        }
+        else if ( $( NavigationBoxes[i] ).hasClass ( 'innercollapse' ) ) {
+            var element = NavigationBoxes[i];
+            while ((element = element.parentNode)) {
+                if ( $( element ).hasClass( 'outercollapse' ) ) {
+                    window.collapseTable ( i );
+                    break;
+                }
+            }
+        }
+    }
+}
+
+mw.hook( 'wikipage.content' ).add( createCollapseButtons );
+
 /* Край на mw.loader.using callback */
 } );
 /* НЕ ДОБАВЯЙТЕ КОМАНДИ ПОД ТОЗИ РЕД */
