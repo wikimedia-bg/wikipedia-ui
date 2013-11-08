@@ -2106,3 +2106,44 @@ function GeoBox_Toggle(link){
 if ($.inArray(mw.config.get('wgAction'), ["view", "purge", "submit"]) !== -1) {
 	addOnloadHook(GeoBox_Init);
 }
+
+
+
+
+/**
+ * Слагайте колкото се може по-малко команди в МедияУики:Common.js, понеже те се
+ * изпълняват безусловно от всички потребители за всяка страница.  По възможност
+ * създавайте джаджи, които са включени по подразбиране вместо да добавяте код
+ * тук, защото джаджите са оптимизирани ResourceLoader модули, има възможност да
+ * им бъдат добавяни зависимости и т.н.
+ *
+ * Понеже Common.js не е джаджа, няма къде да бъдат описани нужните зависимости.
+ * Затова се използва mw.loader.using callback, в който се описва и изпълнява
+ * всичко.  В повечето случаи зависимостите вече ще са заредени (или в момента
+ * ще се зареждат) от браузъра и callback-ът няма да бъде забавен.  Дори в
+ * случай, че някоя зависимост още не е свалена и изпълнена, callback-ът ще се
+ * погрижи това да се случи преди да започне изпълнението си.
+ */
+/*global mw, $, importStylesheet, importScript */
+/*jshint curly:false eqnull:true, strict:false, browser:true, */
+
+mw.loader.using( ['mediawiki.util', 'mediawiki.notify', 'jquery.client'], function () {
+/* Начало на mw.loader.using callback */
+
+/**
+ * Промени по Начална страница
+ *
+ * Описание: Добавяне на допълнителна препратка в края на списъка с езици, водеща до пълния списък с езикови версии на Уикипедия.
+ * Поддържа се от: [[:en:User:AzaToth]], [[:en:User:R. Koot]], [[:en:User:Alex Smotrov]]
+ */
+
+if ( mw.config.get( 'wgPageName' ) === 'Начална_страница' || mw.config.get( 'wgPageName' ) === 'Беседа:Начална_страница' ) {
+    $( document ).ready( function () {
+        mw.util.addPortletLink( 'p-lang', '//meta.wikimedia.org/wiki/List_of_Wikipedias',
+            'Пълен списък', 'interwiki-completelist', 'Пълен списък с Уикипедия на всички езици (страницата е на английски)' );
+    } );
+}
+
+/* Край на mw.loader.using callback */
+} );
+/* НЕ ДОБАВЯЙТЕ КОМАНДИ ПОД ТОЗИ РЕД */
