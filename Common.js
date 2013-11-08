@@ -1407,34 +1407,6 @@ function zamena_5ko() {
 	}
 }
 
-
-/* * * * * * * * * *   Featured article marker   * * * * * * * * * */
-
-/** Interwiki links to featured articles ***************************************
-*
-*  Description: Highlights interwiki links to featured articles (or
-*               equivalents) by changing the bullet before the interwiki link
-*               into a star.
-*  Maintainers: [[:en:User:R. Koot]]
-*  Slightly modified by [[:bg:User:Borislav]]
-*/
-function LinkFA() {
-	var langBody = document.getElementById("p-lang");
-	if ( !langBody ) { return; }
-	var InterwikiLinks = langBody.getElementsByTagName("li");
-	for ( var i = 0, l = InterwikiLinks.length; i < l; i++ ) {
-		if ( document.getElementById( InterwikiLinks[i].className + "-fa" ) ) {
-			InterwikiLinks[i].className += " FA";
-			InterwikiLinks[i].title = gLang.msg("fa-linktitle");
-		} else if ( document.getElementById( InterwikiLinks[i].className + "-ga" ) ) {
-			InterwikiLinks[i].className += " GA";
-			InterwikiLinks[i].title = "Тази статия на друг език е определена за добра.";
-		}
-	}
-}
-
-mw.hook( 'wikipage.content' ).add( LinkFA );
-
 /* * * * * * * * * *   Dynamic Navigation Bars   * * * * * * * * * */
 
 var NavBarHide = "Скриване";
@@ -2170,6 +2142,31 @@ mw.log.deprecate( window, 'hasClass', function ( element, className ) {
     return $( element ).hasClass( className );
 }, 'Използвайте jQuery.hasClass() вместо това' );
 
+/**
+ * Междууики връзки към избрани статии ****************************************
+ *
+ * Описание: Указва междуезиковите препратки към избраните статии на други езици
+ *              чрез звездичка вместо точка пред тях.
+ * Поддържа се от: [[:en:User:R. Koot]]
+ */
+function LinkFA() {
+    if ( document.getElementById( 'p-lang' ) ) {
+        var InterwikiLinks = document.getElementById( 'p-lang' ).getElementsByTagName( 'li' );
+ 
+        for ( var i = 0; i < InterwikiLinks.length; i++ ) {
+            if ( document.getElementById( InterwikiLinks[i].className + '-fa' ) ) {
+                InterwikiLinks[i].className += ' FA';
+                InterwikiLinks[i].title = 'Тази статия на друг език е избрана.';
+            } else if ( document.getElementById( InterwikiLinks[i].className + '-ga' ) ) {
+                InterwikiLinks[i].className += ' GA';
+                InterwikiLinks[i].title = 'Тази статия на друг език е определена за добра.';
+            }
+        }
+    }
+}
+ 
+mw.hook( 'wikipage.content' ).add( LinkFA );
+ 
 /* Край на mw.loader.using callback */
 } );
 /* НЕ ДОБАВЯЙТЕ КОМАНДИ ПОД ТОЗИ РЕД */
