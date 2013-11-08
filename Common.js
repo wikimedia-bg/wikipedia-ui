@@ -2156,10 +2156,10 @@ function LinkFA() {
         for ( var i = 0; i < InterwikiLinks.length; i++ ) {
             if ( document.getElementById( InterwikiLinks[i].className + '-fa' ) ) {
                 InterwikiLinks[i].className += ' FA';
-                InterwikiLinks[i].title = 'Тази статия на друг език е избрана.';
+                InterwikiLinks[i].title = 'Тази статия на друг език е избрана';
             } else if ( document.getElementById( InterwikiLinks[i].className + '-ga' ) ) {
                 InterwikiLinks[i].className += ' GA';
-                InterwikiLinks[i].title = 'Тази статия на друг език е определена за добра.';
+                InterwikiLinks[i].title = 'Тази статия на друг език е определена за добра';
             }
         }
     }
