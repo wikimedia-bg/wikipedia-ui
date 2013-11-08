@@ -1574,7 +1574,7 @@ function getNavBarLinkText(toShow, isSlim) {
 		: ( isSlim ? NavBarHideSlim : NavBarHide );
 }
 
-addOnloadHook(createNavBarToggleButton);
+// addOnloadHook(createNavBarToggleButton);
 
 /** Collapsible tables *********************************************************
  *
