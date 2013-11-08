@@ -671,6 +671,7 @@ table.navbox th {
 .collapseButton {
 	float: right;
 	font-weight: normal;
+	margin-left: 0.5em;
 	text-align: right;
 	width: auto;
 }
@@ -680,6 +681,14 @@ table.navbox th {
 */
 .navbox .collapseButton {
 	width: 6em;
+}
+/* Styling for JQuery makeCollapsible, matching that of collapseButton */
+.mw-collapsible-toggle {
+    font-weight: normal;
+    text-align: right;
+}
+.navbox .mw-collapsible-toggle {
+    width: 6em;
 }
 
 /* create box in the sidebar */
