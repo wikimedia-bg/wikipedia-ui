@@ -2143,6 +2143,32 @@ if ( mw.config.get( 'wgPageName' ) === 'Начална_страница' || mw.c
             'Пълен списък', 'interwiki-completelist', 'Пълен списък с Уикипедия на всички езици (страницата е на английски)' );
     } );
 }
+/**
+ * Пренасочване на addPortletLink към mw.util 
+ *
+ * @deprecated: Използвайте mw.util.addPortletLink.
+ */
+mw.log.deprecate( window, 'addPortletLink', function () {
+    return mw.util.addPortletLink.apply( mw.util, arguments );
+}, 'Използвайте mw.util.addPortletLink() вместо това' );
+ 
+/**
+ * Взимане на URL параметър от текущото URL
+ *
+ * @deprecated: Използвайте mw.util.getParamValue с правилно escape-ване
+ */
+mw.log.deprecate( window, 'getURLParamValue', function () {
+    return mw.util.getParamValue.apply( mw.util, arguments );
+}, 'Use mw.util.getParamValue() instead' );
+ 
+/** 
+ * Проверка дали даден елемент има даден клас
+ *
+ * @deprecated:  Използвайте $(element).hasClass() вместо това.
+ */
+mw.log.deprecate( window, 'hasClass', function ( element, className ) {
+    return $( element ).hasClass( className );
+}, 'Използвайте jQuery.hasClass() вместо това' );
 
 /* Край на mw.loader.using callback */
 } );
