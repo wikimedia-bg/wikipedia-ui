@@ -519,31 +519,6 @@ addOnloadHook(JSconfig.setUpForm);
 mw.loader.load('//en.wikipedia.org/w/index.php?title=Mediawiki:Wikimediaplayer.js&action=raw&ctype=text/javascript');
 
 
-/** Преместване на препратките [редактиране]
-* Copyright 2006, Marc Mongenet. Licence GPL et GFDL.
-* The function looks for <span class="editsection">, and moves them
-* to the end of their parent.
-* var oldEditsectionLinks=true disables the function.
-*/
-
-function setModifySectionStyle() {
-	try {
-		if ( typeof oldEditsectionLinks != 'undefined' && oldEditsectionLinks ) return;
-		var spans = document.getElementsByTagName("span");
-		for (var s = 0, len = spans.length; s < len; ++s) {
-			var span = spans[s];
-			if (span.className == "editsection") {
-				span.style.cssFloat = span.style.styleFloat = "none";
-				span.parentNode.appendChild(document.createTextNode(" "));
-				span.parentNode.appendChild(span);
-			}
-		}
-	} catch (e) { /* something went wrong */ }
-}
-
-addOnloadHook(setModifySectionStyle);
-
-
 /* * * * * * * * * *   Toolbox add-ons   * * * * * * * * * */
 
 /***** subPagesLink ********
