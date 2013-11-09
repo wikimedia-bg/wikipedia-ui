@@ -4,17 +4,8 @@
  * License: Public domain
  * Documentation: [[МедияУики:Gadget-Quick diff.js/doc]]
  */
-
-
-if ( window.importScript && ! window.jQuery ) {
-	importScript("МедияУики:Gadget-jQuery.js");
-}
-
 var KEY_ESC = 27;
 
-/**
- * @uses jQuery
- */
 var QuickDiff = {
 
 	enable: function()
@@ -90,7 +81,7 @@ var QuickDiff = {
 				right: 0;\
 				width: 20px;\
 				height: 20px;\
-				background: url(http://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Fileclose.png/16px-Fileclose.png) no-repeat center center;\
+				background: url(//upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Fileclose.png/16px-Fileclose.png) no-repeat center center;\
 				cursor: pointer;\
 			}'
 		);
@@ -98,7 +89,9 @@ var QuickDiff = {
 
 	enableQuickPatroller: function()
 	{
-		if ( window.QuickPattroler ) QuickPattroler.enable();
+		if ( window.QuickPattroler ) {
+			QuickPattroler.enable();
+		}
 	},
 
 	enableBunchPatroller: function($link)
@@ -111,9 +104,9 @@ var QuickDiff = {
 };
 
 // prepare for fight
-addOnloadHook(function(){
-	if ( /^(Recentchanges|Watchlist|Contributions)/.test(wgCanonicalSpecialPageName)
-			|| "history" == wgAction
+mw.hook('wikipage.content').add(function(){
+	if ( /^(Recentchanges|Watchlist|Contributions)/.test(mw.config.get('wgCanonicalSpecialPageName'))
+			|| mw.config.get('wgAction') === "history"
 	) {
 		QuickDiff.enable();
 	}
