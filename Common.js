@@ -512,13 +512,13 @@ function Projectlinks() {
 
 	// create list
 	var pllist = $('<ul>');
-	elements.each(function() {
-		$('<li>', { html: this }).appendTo(pllist);
+	$.each(elements, function(i, element) {
+		$('<li>', { html: element }).appendTo(pllist);
 	});
 	// and navbox
-	var plheader = $('<h5>', {text: gLang.msg("tb-inother")});
-	var plbox = $('<div>', {'class': 'pBody body', html: pllist});
-	var portlet = $('<div>', {'class': 'portlet portal persistent', id: 'p-sl'}).append(plheader, plbox);
+	var plheader = $('<h3>', {text: gLang.msg("tb-inother")});
+	var plbox = $('<div>', {'class': 'body', html: pllist}).show();
+	var portlet = $('<div>', {'class': 'portal', id: 'p-sl'}).append(plheader, plbox);
 	ptb.after(portlet);
 }
 
