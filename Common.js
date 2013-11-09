@@ -1608,10 +1608,7 @@ function GeoBox_Init() {
 		var cssItemHidden = { bottom: "0", color: "#444" };
 		$container.find('.location-map').each(function(idx) {
 			var ThisBox = this;
-			ThisBox.style.borderTop = '0';
-			var toggle = $('<a>', {
-				text: ThisBox.findgetElementsByTagName('img')[0].alt
-			}).on('click', function() {
+			var toggle = $('<a href="#">'+ThisBox.getElementsByTagName('img')[0].alt+'</a>').on('click', function() {
 				$container.find('.location-map').hide();
 				$(ThisBox).show();
 				$ToggleLinksDiv.find('li').css(cssItemHidden);
@@ -1622,6 +1619,7 @@ function GeoBox_Init() {
 			if (idx == 0) {
 				$li.css(cssItemShown);
 			} else {
+				ThisBox.style.borderTop = '0';
 				$(ThisBox).hide();
 				$li.css(cssItemHidden);
 			}
