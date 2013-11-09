@@ -301,7 +301,7 @@ if ( ! inArray( wgUserLanguage, mainLangs ) ) {
 }
 
 // add messages on load
-addOnloadHook( function() {
+mw.hook('wikipage.content').add( function() {
 	if ( typeof _lang_messages[ wgUserLanguage ] == "object" ) {
 		gLang.addMessages( _lang_messages[ wgUserLanguage ], wgUserLanguage );
 	}
@@ -507,7 +507,7 @@ var JSconfig =
 }
  
 JSconfig.readCookies();
-addOnloadHook(JSconfig.setUpForm);
+mw.hook('wikipage.content').add(JSconfig.setUpForm);
 
 
  /** MediaWiki media player *******************************************************
@@ -546,7 +546,7 @@ var subPagesLink =
 		}
 	}
 }
-addOnloadHook( function() {
+mw.hook('wikipage.content').add( function() {
 	JSconfig.registerKey('subPagesLink', true, gLang.msg("tb-subpages-settings"), 9);
 	subPagesLink.install();
 
@@ -625,7 +625,7 @@ function Projectlinks() {
 	ptb.parentNode.insertBefore(portlet, ptb.nextSibling);
 }
 
-addOnloadHook(Projectlinks);
+mw.hook('wikipage.content').add(Projectlinks);
 
 
 /**
@@ -656,7 +656,7 @@ function externMessage() {
 	}
 }
 
-addOnloadHook(externMessage);
+mw.hook('wikipage.content').add(externMessage);
 
 
 /* * * * * * * * * *   Edit tools functions   * * * * * * * * * */
@@ -692,12 +692,11 @@ var customInsButtons = {
 };
 
 // cleanup by articles
-if ( "" == wgCanonicalNamespace && "edit" == wgAction ) {
-	delete customInsButtons['b14'];
-	delete customInsButtons['b15'];
-	hookEvent("load", function() {
-		var sig = document.getElementById('mw-editbutton-signature');
-		if (sig) sig.style.display = "none";
+if (mw.config.get('wgCanonicalNamespace') === '' && mw.config.get('wgAction') === "edit") {
+	mw.loader.using("mediawiki.action.edit", function() {
+		delete customInsButtons['b14'];
+		delete customInsButtons['b15'];
+		$('#mw-editbutton-signature').hide();
 	});
 }
 
@@ -1017,7 +1016,7 @@ function putToolbar(rightNow) {
 	if ( typeof rightNow != "undefined" && rightNow ) {
 		putIt();
 	} else {
-		addOnloadHook(putIt);
+		mw.hook('wikipage.content').add(putIt);
 	}
 	return toolbar;
 }
@@ -1529,7 +1528,7 @@ function getNavBarLinkText(toShow, isSlim) {
 		: ( isSlim ? NavBarHideSlim : NavBarHide );
 }
 
-// addOnloadHook(createNavBarToggleButton);
+// mw.hook('wikipage.content').add(createNavBarToggleButton);
 
 /* * * * * * * * * *   Mwbot stuff   * * * * * * * * * */
 
@@ -1648,7 +1647,7 @@ function transcludeSubpage(mainpage, subpage) {
 	});
 }
 
-addOnloadHook(function() {
+mw.hook('wikipage.content').add(function() {
 	attachMemorizers();
 	hideElementsByClassName("done-by-script");
 	showElementsByClassName("showme");
@@ -1676,7 +1675,7 @@ addOnloadHook(function() {
  
 if (wgIsArticle) //prevents the "Editing " prefix from disappearing during preview
 {
-    addOnloadHook(function()
+    mw.hook('wikipage.content').add(function()
     {
         var realTitle = document.getElementById("RealTitle")
  
@@ -1848,7 +1847,7 @@ function openStreetMapToggle() {
 // към определена страница в енциклопедията. За целта разкоментирайте кода
 // по-долу (премахнете двойните наклонени черти в началото на всеки ред) и
 // поставете името на съответната страница в посоченото място.
-//addOnloadHook(function(){
+//mw.hook('wikipage.content').add(function(){
 //    var logoLink = document.getElementById('p-logo').childNodes[0];
 //    logoLink.title = 'Текст в popup'; // <-- поставете между апострофите текста, който искате да излиза в popup при посочване
 //    logoLink.href = '/wiki/Име на страницата'; // <-- поставете името на страницата между апострофите, но запазете /wiki/ отпред
