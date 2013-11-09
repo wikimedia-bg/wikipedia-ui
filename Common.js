@@ -788,26 +788,31 @@ function setupCustomEditTools() {
 
 	if ( !toolbar.length ) { 
 		if ( ! $("#editform").length ) {
+			mw.log("setupCustomEditTools: no editform");
 			return;
 		}
 		// check for the enhanced toolbar
 		if ( $(document).find(".toolbar").length ) {
 			toolbar = putToolbar(true);
 		} else {
+			mw.log("setupCustomEditTools: no toolbar");
 			return;
 		}
 	}
 	toolbar.addClass("buttonlinks");
 	if ( showMenus ) {
+		mw.log("setupCustomEditTools: showing menus");
 		// drop-down menus inserting text put direct in the javascript
 		appendDropDownMenus(toolbar, tplVarBaseName, insertIntoWikiText);
 		// drop-down menus inserting content from wiki pages
 		appendDropDownMenus(toolbar, atplVarBaseName, loadPage);
 	}
 	if ( showButtons ) {
+		mw.log("setupCustomEditTools: showing buttons");
 		appendCustomButtons(toolbar);
 		appendExtraChars(toolbar);
 	}
+	mw.log("setupCustomEditTools: done");
 }
 
 mw.hook( 'wikipage.content' ).add( setupCustomEditTools );
