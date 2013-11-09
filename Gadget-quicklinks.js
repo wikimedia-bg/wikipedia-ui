@@ -7,7 +7,7 @@
 * Author: Borislav Manolov
 */
 
-mw.hook('wikipage.content').add(function() {
+$(function() {
 	var quickPage = 'Бързи връзки';
 	var page = 'User:' + wgUserName +'/' + quickPage;
 	var parents = {
