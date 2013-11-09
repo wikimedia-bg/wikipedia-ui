@@ -502,7 +502,7 @@ function Projectlinks() {
 	var elements = [];
 	wrappers.each(function() {
 		var link = $(this).find('a:first').clone();
-		elements.push(link.text(getProjectName(link.href)));
+		elements.push(link.text(getProjectName(link[0].href)));
 	});
 
 	// sort alphabetically
