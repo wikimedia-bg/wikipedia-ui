@@ -784,19 +784,10 @@ function addChars() {
 
 /** add some buttons and drop-down menus */
 function setupCustomEditTools() {
-	var toolbar = $("#toolbar");
-
-	if ( !toolbar.length ) { 
-		if ( ! $("#editform").length ) {
-			return;
-		}
-		// check for the enhanced toolbar
-		if ( $(document).find(".toolbar").length ) {
-			toolbar = putToolbar(true);
-		} else {
-			return;
-		}
+	if ( !$("#editform").length ) {
+		return;
 	}
+	var toolbar = putToolbar(true);
 	toolbar.addClass("buttonlinks");
 	if ( showMenus ) {
 		// drop-down menus inserting text put direct in the javascript
@@ -808,7 +799,6 @@ function setupCustomEditTools() {
 		appendCustomButtons(toolbar);
 		appendExtraChars(toolbar);
 	}
-	console.log && console.log(toolbar);
 }
 
 mw.hook( 'wikipage.content' ).add( setupCustomEditTools );
@@ -922,7 +912,7 @@ function appendOptions(box, opts) {
 	put in your script page, e.g. User:Your_Name/monobook.js
 */
 function putToolbar(rightNow) {
-	var toolbar = $('<div>', {id: "toolbar"});
+	var toolbar = $('<div>', {'class': 'custom-toolbar'});
 	var putIt = function() {
 		$("#editform").before(toolbar);
 	};
