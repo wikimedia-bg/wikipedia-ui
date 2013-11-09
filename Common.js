@@ -2000,7 +2000,7 @@ function GeoBox_Toggle(link){
 }
 
 if ($.inArray(mw.config.get('wgAction'), ["view", "purge", "submit"]) !== -1) {
-	addOnloadHook(GeoBox_Init);
+	mw.hook( 'wikipage.content' ).add( GeoBox_Init );
 }
 
 
