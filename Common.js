@@ -501,7 +501,7 @@ function Projectlinks() {
 	// get projectlinks
 	var elements = [];
 	wrappers.each(function() {
-		elements[i] = $(this).find('a:first').clone().text(getProjectName(url.href));
+		elements.push($(this).find('a:first').clone().text(getProjectName(url.href)));
 	});
 
 	// sort alphabetically
