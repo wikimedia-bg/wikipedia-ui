@@ -47,15 +47,6 @@ function inArray(val, arr) {
 	return false;
 }
 
-/**
- * getElementsByClass : rechercher les éléments de la page dont le paramètre "class" est celui recherché
- */
-function getElementsByClass(searchClass, node, tag) {
-  if (node == null) node = document;
-  if (tag == null) tag = '*';
-  return $.makeArray( $(node).find(tag+'.'+searchClass) );
-}
-
 
 // from http://www.quirksmode.org/js/cookies.html
 // escape(), unescape() methods added
@@ -1609,76 +1600,39 @@ if (wgPageName == 'Начална_страница' || wgPageName == 'Бесед
  * Script pour alterner entre plusieurs cartes de géolocalisation
  * Функции за замяна на картите в Шаблон:ПК група
  */
-function GeoBox_Init(Element){
-     if(!Element) Element = document.body;
-     var cont = getElementsByClass('img_toggle', Element, 'div');
-     if(cont.length==0) return;
-     for (var i = 0,m=cont.length; i < m ; i++) {
-          cont[i].id = 'img_toggle_' + i;
-          var Boxes = getElementsByClass('location-map',cont[i]);
-          var ToggleLinksDiv = document.createElement('ul');
-          ToggleLinksDiv.id = 'geoboxToggleLinks_' + i;
-          for(var a=0,l=Boxes.length;a<l;a++){
-               var ThisBox = Boxes[a];
-               ThisBox.id = 'location-map_' + i + "_" + a;
-               ThisBox.style.borderTop='0';
-               var ThisAlt = ThisBox.getElementsByTagName('img')[0].alt
-               var toggle = document.createElement('a');
-               toggle.id = 'geoboxToggle_' + i + "_" + a;
-               toggle.appendChild(document.createTextNode(ThisAlt));
-               toggle.href='javascript:;';
-               toggle.onclick = function(){
-                    GeoBox_Toggle(this);
-                    return false;
-               }
-               var Li = document.createElement('li');
-               Li.appendChild(toggle);
-               ToggleLinksDiv.appendChild(Li);
-               if(a==0){
-                    Li.style.bottom = "1px";
-                    Li.style.color = "black";
-               }else{
-                    ThisBox.style.display = "none";
-                    Li.style.bottom = "";
-                    Li.style.color = "#444";
-               }
-          }
-          cont[i].appendChild(ToggleLinksDiv);
-     }
-}
- 
-function GeoBox_Toggle(link){
-     var ImgToggleIndex = link.id.split('geoboxToggle_').join('').replace(/_.*/g, "");
-     var GeoBoxIndex = link.id.replace(/.*_/g, "");
-     var ImageToggle = document.getElementById('img_toggle_' + ImgToggleIndex);
-     var Links = document.getElementById('geoboxToggleLinks_' + ImgToggleIndex);
-     var Geobox = document.getElementById('location-map_' + ImgToggleIndex + "_" + GeoBoxIndex);
-     var Link = document.getElementById('geoboxToggle_' + ImgToggleIndex + "_" + GeoBoxIndex);
-     if( (!ImageToggle) || (!Links) || (!Geobox) || (!Link) ) return;
-     var AllGeoboxes = getElementsByClass('location-map',ImageToggle);
-     for(var a=0,l=AllGeoboxes.length;a<l;a++){
-          if(AllGeoboxes[a] == Geobox){
-               AllGeoboxes[a].style.display = "";
-          }else{
-               AllGeoboxes[a].style.display = "none";
-          }
-     }
-     var AllToggleLinks = Links.getElementsByTagName('a');
-     for(var a=0,l=AllToggleLinks.length;a<l;a++){
-          if(AllToggleLinks[a] == Link){
-               AllToggleLinks[a].parentNode.style.bottom = "1px";
-               AllToggleLinks[a].parentNode.style.color = "#black";
-          }else{
-               AllToggleLinks[a].parentNode.style.bottom = "";
-               AllToggleLinks[a].parentNode.style.color = "#444";
-          }
-     }
+function GeoBox_Init() {
+	$('.img_toggle').each(function() {
+		var $container = $(this);
+		var $ToggleLinksDiv = $('<ul>');
+		var cssItemShown = { bottom: "1px", color: "black" };
+		var cssItemHidden = { bottom: "0", color: "#444" };
+		$container.find('.location-map').each(function(idx) {
+			var ThisBox = this;
+			ThisBox.style.borderTop = '0';
+			var toggle = $('<a>', {
+				text: ThisBox.findgetElementsByTagName('img')[0].alt
+			}).on('click', function() {
+				$container.find('.location-map').hide();
+				$(ThisBox).show();
+				$ToggleLinksDiv.find('li').css(cssItemHidden);
+				$(this).parent().css(cssItemShown);
+				return false;
+			});
+			var $li = $('<li>').append(toggle).appendTo($ToggleLinksDiv);
+			if (idx == 0) {
+				$li.css(cssItemShown);
+			} else {
+				$(ThisBox).hide();
+				$li.css(cssItemHidden);
+			}
+		});
+		$container.append($ToggleLinksDiv);
+	});
 }
 
 if ($.inArray(mw.config.get('wgAction'), ["view", "purge", "submit"]) !== -1) {
 	mw.hook( 'wikipage.content' ).add( GeoBox_Init );
 }
-
 
 
 
