@@ -669,8 +669,7 @@ var customMiscButtons = {
 	"#" : ["obrabotka(false)", "#", "Преобразуване на някои знаци"],
 	"$" : ["obrabotka(true)", "$", "Преобразуване на числа към БДС"],
 	// допълнителните знаци
-	"ch" : ["addChars(); $('#"+charsElemId+"').toggle();", "Още…",
-		"Виртуална клавиатура"]
+	"ch" : ["toggleChars()", "Още…", "Виртуална клавиатура"]
 };
 
 /* * *   Drop down menus for template insertion   * * */
@@ -816,6 +815,11 @@ function addChars() {
 	}
 	$('#'+charsElemId).html(cont);
 	existChars = true;
+}
+
+function toggleChars() {
+	addChars();
+	$('#'+charsElemId).toggle();
 }
 
 /* * *   Extra buttons for text insertion   * * */
