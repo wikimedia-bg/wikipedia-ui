@@ -24,17 +24,6 @@ DEFAULT_USER_LANGUAGE = "bg",
 FALLBACK_USER_LANGUAGE = "en";
 
 /**
-	Here users can apply display settings for navigation frames by class name.
-	Examples:
-		// frames with the class “user-bigbadframe” should be hidden by default
-		myElementsDisplay["bigbadframe"] = false;
-
-		// frames with the class “user-important” should be visible by default
-		myElementsDisplay["important"] = true;
-*/
-var myElementsDisplay = {};
-
-/**
 	Replaces the scope in a function with the object’s one.
 	Based on definition from the Prototype framework (http://prototype.conio.net/).
 */
@@ -43,23 +32,6 @@ Function.prototype.bind = function(object) {
 	return function() {
 		return __method.apply(object, arguments);
 	}
-}
-
-/** Trim leading chars (or white-spaces) */
-String.prototype.ltrim = function(chars) {
-	var s = typeof chars == "undefined" ? "\s" : chars;
-	return this.replace(new RegExp("^[" + s + "]+", "g"), "");
-}
-
-/** Trim ending chars (or white-spaces) */
-String.prototype.rtrim = function(chars) {
-	var s = typeof chars == "undefined" ? "\s" : chars;
-	return this.replace(new RegExp("[" + s + "]+$", "g"), "");
-}
-
-/** Trim leading and ending white-spaces */
-String.prototype.trim = function() {
-	return this.ltrim().rtrim();
 }
 
 /** Checks if a value exists in an array */
@@ -83,38 +55,6 @@ function getElementsByClass(searchClass, node, tag) {
   if (tag == null) tag = '*';
   return $.makeArray( $(node).find(tag+'.'+searchClass) );
 }
-
-
-/** Set display mode for all elements with a given class name */
-function setElementsDisplayByClassName(className, display) {
-	var els = getElementsByClass(className, document);
-	for (var i = 0; i < els.length; i++) {
-		els[i].style.display = display;
-	}
-}
-
-/** Hide all elements with a given class name */
-function hideElementsByClassName(className) {
-	setElementsDisplayByClassName(className, "none");
-}
-
-/** Show all elements with a given class name */
-function showElementsByClassName(className) {
-	setElementsDisplayByClassName(className, "");
-}
-
-
-/* Test if an element has a certain class **************************************
- *
- * Description: Uses regular expressions and caching for better performance.
- * Maintainers: [[:en:User:Mike Dillon]], [[:en:User:R. Koot]], [[:en:User:SG]]
- */
-var hasClass = (function () {
-    var reCache = {};
-    return function (element, className) {
-        return (reCache[className] ? reCache[className] : (reCache[className] = new RegExp("(?:\\s|^)" + className + "(?:\\s|$)"))).test(element.className);
-    };
-})();
 
 
 // from http://www.quirksmode.org/js/cookies.html
@@ -1384,25 +1324,19 @@ var Memory = {
 
 
 function attachMemorizers() {
-	var wrappers = getElementsByClass("mwbot", document, "div");
-	for (var wi = 0; wi < wrappers.length; wi++) {
-		var forms = wrappers[wi].getElementsByTagName("form");
-		for (var fi = 0; fi < forms.length; fi++) {
-			if ( forms[fi].name == "createbox" ) {
-				attachMemorizer( forms[fi] );
-			}
-		}
-	}
+	$('.mwbot').find('form[name="createbox"]').each(function() {
+		attachMemorizer(this);
+	});
 }
 
 function attachMemorizer(form) {
-	var mainpage = form.title.value.rtrim("/");
+	var mainpage = form.title.value.replace(/\/+$/g, '');
 	if ( mainpage == "" ) {
 		mainpage = wgPageName;
 	}
 	form.title.value = "";
 	jQuery(form).submit(function() {
-		if ( this.title.value.trim() == "" ) {
+		if ( $.trim(this.title.value) == "" ) {
 			alert( gLang.msg("ta-emptyfield") );
 			return false;
 		}
@@ -1424,7 +1358,7 @@ function attachMemorizer(form) {
 }
 
 function transcludeSubpage(mainpage, subpage) {
-	if ( mainpage.trim() == "" || subpage.trim() == "" ) {
+	if ( $.trim(mainpage) == "" || $.trim(subpage) == "" ) {
 		return;
 	}
 	var bot = new Mwbot();
@@ -1455,8 +1389,8 @@ function transcludeSubpage(mainpage, subpage) {
 
 mw.hook('wikipage.content').add(function() {
 	attachMemorizers();
-	hideElementsByClassName("done-by-script");
-	showElementsByClassName("showme");
+	$(".done-by-script").hide();
+	$(".showme").show();
 	Memory.executeCurrentAction();
 });
 
