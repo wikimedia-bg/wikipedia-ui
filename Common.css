@@ -69,18 +69,26 @@ span.minor { font-weight: normal; }
 	margin-bottom: 0;
 }
 
+.custom-toolbar {
+	margin-bottom: 0.3em;
+	line-height: 1.6em;
+}
+.custom-toolbar select {
+	font-size: 0.8em;
+	margin-right: 0.5em;
+}
 .buttonlinks a {
-	color: black;
-	background: #cde url(//upload.wikimedia.org/wikipedia/commons/c/c6/Blending_blue_button_background.png) repeat-x;
-	font-weight: bold;
+	color: #333333;
+	background-color: #E0EEF7;
+	background: linear-gradient(to bottom, #F4F9FB, #E0EEF7);
 	font-size: 0.9em;
 	text-decoration: none;
-	border: thin #006699 outset;
+	border: 1px solid #e0e0e0;
 	padding: 0.1em;
 }
 .buttonlinks a:hover, .buttonlinks a:active {
-	background-color: #bcd;
-	border-style: inset;
+	color: #000000;
+	border-color: #c0c0c0;
 }
 
 #navbox ul li {
