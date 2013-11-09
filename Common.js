@@ -75,6 +75,16 @@ function inArray(val, arr) {
 	return false;
 }
 
+/**
+ * getElementsByClass : rechercher les éléments de la page dont le paramètre "class" est celui recherché
+ */
+function getElementsByClass(searchClass, node, tag) {
+  if (node == null) node = document;
+  if (tag == null) tag = '*';
+  return $.makeArray( $(node).find(tag+'.'+searchClass) );
+}
+
+
 /** Set display mode for all elements with a given class name */
 function setElementsDisplayByClassName(className, display) {
 	var els = getElementsByClassName(document, "*", className);
@@ -1925,11 +1935,11 @@ if (wgPageName == 'Начална_страница' || wgPageName == 'Бесед
  */
 function GeoBox_Init(Element){
      if(!Element) Element = document.body;
-     var cont = getElementsByClassName(Element, 'div', 'img_toggle');
+     var cont = getElementsByClass('img_toogle', Element, 'div');
      if(cont.length==0) return;
      for (var i = 0,m=cont.length; i < m ; i++) {
           cont[i].id = 'img_toggle_' + i;
-          var Boxes = getElementsByClassName(cont[i], 'div', 'location-map');
+          var Boxes = getElementsByClass('location-map',cont[i]);
           var ToggleLinksDiv = document.createElement('ul');
           ToggleLinksDiv.id = 'geoboxToggleLinks_' + i;
           for(var a=0,l=Boxes.length;a<l;a++){
@@ -1969,7 +1979,7 @@ function GeoBox_Toggle(link){
      var Geobox = document.getElementById('location-map_' + ImgToggleIndex + "_" + GeoBoxIndex);
      var Link = document.getElementById('geoboxToggle_' + ImgToggleIndex + "_" + GeoBoxIndex);
      if( (!ImageToggle) || (!Links) || (!Geobox) || (!Link) ) return;
-     var AllGeoboxes = getElementsByClassName(ImageToggle, 'div', 'location-map');
+     var AllGeoboxes = getElementsByClass('location-map',ImageToggle);
      for(var a=0,l=AllGeoboxes.length;a<l;a++){
           if(AllGeoboxes[a] == Geobox){
                AllGeoboxes[a].style.display = "";
