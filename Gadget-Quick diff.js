@@ -97,7 +97,7 @@ var QuickDiff = {
 	enableBunchPatroller: function($link)
 	{
 		if ( window.BunchPatroller ) {
-			WebRequest.setRequestUrl($link[0].href);
+			//WebRequest.setRequestUrl($link[0].href); // TODO check if needed
 			BunchPatroller.enable();
 		}
 	}
