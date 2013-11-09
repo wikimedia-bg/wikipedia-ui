@@ -1,35 +1,9 @@
 /**
-	Enhance recent changes patrol.
-	Author: Borislav Manolov
-	License: Public domain
-	Documentation: [[МедияУики:Gadget-Quick patrol.js/doc]]
-*/
-
-if ( window.importScript && ! window.jQuery ) {
-	importScript("МедияУики:Gadget-jQuery.js");
-}
-
-
-var WebRequest = {
-	/** Get a parameter from the requested URL */
-	getParam: function(param)
-	{
-		var m = this.getRequestUrl().match( new RegExp("[?&]" + param + "=([^&#]*)") );
-		return null === m ? null : m[1];
-	},
-
-	requestUrl: null,
-
-	getRequestUrl: function()
-	{
-		return this.requestUrl || location.href;
-	},
-
-	setRequestUrl: function(url)
-	{
-		this.requestUrl = url;
-	}
-};
+ * Enhance recent changes patrol.
+ * Author: Borislav Manolov
+ * License: Public domain
+ * Documentation: [[МедияУики:Gadget-Quick patrol.js/doc]]
+ */
 
 gLang.addMessages({
 	"markaspatrolledtext1" : "Отбелязване на следната редакция като проверена",
@@ -42,9 +16,8 @@ gLang.addMessages({
 }, "bg");
 
 /**
-	Ajaxify patrol links.
-	@uses jQuery
-*/
+ * Ajaxify patrol links
+ */
 var QuickPattroler = {
 	linkClassWorking: "working",
 
@@ -68,16 +41,15 @@ var QuickPattroler = {
 	gotoRcIfWanted: function()
 	{
 		if ( window.wgxQuickPatrolLoadRc && wgxQuickPatrolLoadRc ) {
-			location.href = Creator.createInternUrl( gLang.msg("recentchangespage") );
+			location.href = mw.util.wikiGetlink( gLang.msg("recentchangespage") );
 		}
 	}
 };
 
 /**
-	Enable bunch patrolling when multiple edits are reviewed at once
-	thru the enhanced recent changes
-	@uses jQuery
-*/
+ * Enable bunch patrolling when multiple edits are reviewed at once
+ * thru the enhanced recent changes
+ */
 var BunchPatroller = {
 
 	apiPath: wgScriptPath + "/api.php",
@@ -165,7 +137,7 @@ var BunchPatroller = {
 			return; // not a diff page, get out of here
 		}
 
-		var rcidsRaw = WebRequest.getParam(this.rcidsParam);
+		var rcidsRaw = mw.util.getParamValue(this.rcidsParam);
 		if ( ! rcidsRaw ) {
 			return; // no rcids to patrol
 		}
@@ -173,7 +145,7 @@ var BunchPatroller = {
 		var rcids = rcidsRaw.split(this.paramDelim);
 		this.addPatrolLinkTo($bunchPatrolLinkHolder, rcids);
 
-		var diffs = WebRequest.getParam(this.diffsParam).split(this.paramDelim);
+		var diffs = mw.util.getParamValue(this.diffsParam).split(this.paramDelim);
 		this.addDiffLinksTo($bunchPatrolLinkHolder, rcids, diffs);
 
 		this.addShowAllDiffsLinkTo($bunchPatrolLinkHolder);
@@ -351,10 +323,10 @@ var BunchPatroller = {
 };
 
 // prepare for fight
-addOnloadHook(function(){
-	if ( /^(Recentchanges|Watchlist)/.test(wgCanonicalSpecialPageName) ) {
+mw.hook('wikipage.content').add(function(){
+	if ( /^(Recentchanges|Watchlist)/.test(mw.config.get('wgCanonicalSpecialPageName')) ) {
 		BunchPatroller.makeBunchDiffsPatrollable();
-	} else if ( "view" == wgAction ) {
+	} else if ( mw.config.get('wgAction') === "view" ) {
 		QuickPattroler.enable();
 		BunchPatroller.enable();
 	}
