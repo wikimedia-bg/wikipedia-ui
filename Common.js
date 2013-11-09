@@ -1935,7 +1935,7 @@ if (wgPageName == 'Начална_страница' || wgPageName == 'Бесед
  */
 function GeoBox_Init(Element){
      if(!Element) Element = document.body;
-     var cont = getElementsByClass('img_toogle', Element, 'div');
+     var cont = getElementsByClass('img_toggle', Element, 'div');
      if(cont.length==0) return;
      for (var i = 0,m=cont.length; i < m ; i++) {
           cont[i].id = 'img_toggle_' + i;
@@ -2000,7 +2000,7 @@ function GeoBox_Toggle(link){
 }
 
 if ($.inArray(mw.config.get('wgAction'), ["view", "purge", "submit"]) !== -1) {
-	mw.hook( 'wikipage.content' ).add( GeoBox_Init );
+	addOnloadHook(GeoBox_Init);
 }
 
 
