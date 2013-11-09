@@ -130,14 +130,14 @@ var BunchPatroller = {
 	},
 
 	/** Works on diff pages */
-	enable: function()
+	enable: function(url)
 	{
 		$bunchPatrolLinkHolder = jQuery("#mw-diff-ntitle4");
 		if ( 0 == $bunchPatrolLinkHolder.length ) {
 			return; // not a diff page, get out of here
 		}
 
-		var rcidsRaw = mw.util.getParamValue(this.rcidsParam);
+		var rcidsRaw = mw.util.getParamValue(this.rcidsParam, url);
 		if ( ! rcidsRaw ) {
 			return; // no rcids to patrol
 		}
@@ -145,7 +145,7 @@ var BunchPatroller = {
 		var rcids = rcidsRaw.split(this.paramDelim);
 		this.addPatrolLinkTo($bunchPatrolLinkHolder, rcids);
 
-		var diffs = mw.util.getParamValue(this.diffsParam).split(this.paramDelim);
+		var diffs = mw.util.getParamValue(this.diffsParam, url).split(this.paramDelim);
 		this.addDiffLinksTo($bunchPatrolLinkHolder, rcids, diffs);
 
 		this.addShowAllDiffsLinkTo($bunchPatrolLinkHolder);
