@@ -1,15 +1,10 @@
 /**
-* Simple quick links viewer
-* @uses jQuery
-* @uses Creator
-*
-* License: Public domain
-* Author: Borislav Manolov
-*/
-
-$(function() {
-	var quickPage = 'Бързи връзки';
-	var page = 'User:' + wgUserName +'/' + quickPage;
+ * Simple quick links viewer
+ *
+ * License: Public domain
+ * Author: Borislav Manolov
+ */
+mw.hook('wikipage.content').add(function() {
 	var parents = {
 		// skin : parent element ID
 		'standard' : 'searchform',
@@ -22,89 +17,83 @@ $(function() {
 		'modern' : 'pt-userpage',
 		'vector' : 'pt-userpage'
 	};
+	if ( !parents[mw.user.options.get('skin')] ) {
+		return; // unsupported skin
+	}
+	var p = $("#"+parents[mw.user.options.get('skin')]);
+	if ( !p.length ) {
+		alert('В текущия документ не съществува елемент с ID „'+p+'“. Контролерът на бързите връзки не може да бъде зареден.');
+		return;
+	}
+
+	var quickPage = 'Бързи връзки';
+	var page = 'User:' + mw.config.get('wgUserName') +'/' + quickPage;
 	var plus = '+', minus = '&minus;', wait = '…';
-	var link, container = null;
+	var container = null;
 	var loaded = false;
+	var link = $('<a>', {
+		href: mw.util.wikiGetlink(page),
+		text: plus,
+		title: 'Показване на бързите връзки'
+	});
 
 	function showContainer(content) {
 		if ( container === null ) {
 			container = createContainer();
-			jQuery('body').append(container.e);
+			$(document.body).append(container.e);
 		}
 		container.set('<div class="editsection" style="float:right">[<a href="'
-			+ Creator.createInternUrl(page, 'edit')
+			+ mw.config.get('wgScript') + '?' + $.param({ action: 'edit', title: page })
 			+ '" title="Редактиране на страницата с бързите връзки">'
 			+ 'редактиране</a>]</div>');
 		container.add( content.indexOf('emptypage') != -1
 			? '<em>Страницата ви с бързи връзки е празна.</em>'
 			: content);
-		link.innerHTML = minus;
+		link.html(minus);
 	}
 
 	function createContainer() {
-		var c = {
-			e : Creator.createElement('div', {
-				'id' : 'myquicklinks',
-				'class' : 'messagebox',
-				'style' : 'position: absolute; top: 3em; left: 5%; z-index: 10; overflow: auto; width: 90%; padding: 1em'
-			}),
+		return {
+			e : $('<div id="myquicklinks" class="messagebox" style="position: absolute; top: 3em; left: 5%; z-index: 10; overflow: auto; width: 90%; padding: 1em"/>')
+				.on('click', function(event) { 
+					event.stopPropagation();
+				}),
 			show : function() {
-				this.e.style.display = '';
-				link.innerHTML = minus;
+				this.e.show();
+				link.html(minus);
 			},
 			hide : function() {
-				this.e.style.display = 'none';
-				link.innerHTML = plus;
+				this.e.hide();
+				link.html(plus);
 			},
 			toggle : function() {
-				this.isHidden() ? this.show() : this.hide();
-				this.isJustToggled = true;
+				this.e.is(':visible') ? this.hide() : this.show();
 			},
-			isJustToggled : false,
 			set : function(content) {
-				this.e.innerHTML = content;
+				this.e.html(content);
 			},
 			add : function(content) {
-				this.e.innerHTML += content;
-			},
-			isHidden : function() {
-				return this.e.style.display == 'none';
+				this.e.html(this.e.html() + content);
 			}
 		};
-		c.e.onclick = function(event) { event.stopPropagation(); };
-		return c;
 	}
 
-
-	if ( typeof parents[skin] == "undefined" ) {
-		return; // unsupported skin
-	}
-	var p = document.getElementById(parents[skin]);
-	if ( !p ) {
-		alert('В текущия документ не съществува елемент с ID „'+p+'“. Контролерът на бързите връзки не може да бъде зареден.');
-		return;
-	}
-	link = Creator.createAnchor( Creator.createInternUrl(page),
-		plus, 'Показване на бързите връзки');
-	link.onclick = function(event) {
+	link.on("click", function(event) {
 		event.stopPropagation();
 		if ( loaded ) {
 			container.toggle();
 			return false;
 		}
-		link.innerHTML = wait;
-		jQuery.get(wgScript, {"title": page.replace(/ /g, "_"), "action": "render"}, function(content){
+		link.html(wait);
+		$.get(mw.config.get('wgScript'), {"title": page.replace(/ /g, "_"), "action": "render"}, function(content){
 			showContainer(content);
 			loaded = true;
 		});
 		return false;
-	};
+	});
 
-	var c = Creator.createElement('span',
-		{'style' : 'z-index: 11'},
-		[' (', link, ')']);
-	p.appendChild(c);
-	jQuery("body").bind("click", function() {
+	$('<span style="z-index: 11"/>').append(' (', link, ')').appendTo(p);
+	$(document.body).on("click", function() {
 		// hide container by clicking anywhere in the document
 		if (container) container.hide();
 	});
