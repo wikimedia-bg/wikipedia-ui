@@ -116,83 +116,6 @@ var hasClass = (function () {
     };
 })();
 
-var Creator = {
-	createOptgroup: function(label, data) {
-		var g = document.createElement("optgroup");
-		g.label = label;
-		for (var i in data) {
-			g.appendChild( Creator.createOption(data[i], i) );
-		}
-		return g;
-	},
-
-	createOption: function(val, text) {
-		var o = document.createElement("option");
-		o.value = val;
-		o.appendChild( document.createTextNode(text) );
-		return o;
-	},
-
-	createAnchor: function(url, text, title) {
-		var attrs = { "href" : url, "title" : title };
-		return Creator.createElement("a", attrs, text);
-	},
-
-	createHiddenField: function(name, value) {
-		var attrs = { "type" : "hidden", "name" : name, "value" : value };
-		return Creator.createElement("input", attrs);
-	},
-
-	createTextarea: function(id, name, value, rows, cols) {
-		var attrs = { "id" : id, "name" : name || id,
-			"rows" : rows || 3, "cols" :  cols || 40 };
-		return Creator.createElement("textarea", attrs, value || "");
-	},
-
-	createElement: function(node, attrs, content) {
-		var e = document.createElement(node);
-		for (var attr in attrs) {
-			e.setAttribute(attr, attrs[attr]);
-		}
-		if (content instanceof Array) {
-			Creator.appendChildrenTo(e, content);
-		} else {
-			Creator.appendChildTo(e, content);
-		}
-		return e;
-	},
-
-	createInternUrl: function(page, action, args) {
-		page = encodeURI(page.replace(/ /g, "_"));
-		if ( typeof(action) == "undefined" || action === null ) {
-			return wgArticlePath.replace("$1", page);
-		}
-		var url = wgScript + "?title="+ page +"&action="+ action;
-		if ( typeof(args) == "undefined" || args === null ) {
-			return url;
-		}
-		for (var arg in args) {
-			url += "&" + arg + "=" + args[arg];
-		}
-		return url;
-	},
-
-	appendChildrenTo: function(parent, children) {
-		for (var i = 0; i < children.length; i++) {
-			parent = Creator.appendChildTo(parent, children[i]);
-		}
-		return parent;
-	},
-
-	appendChildTo: function(parent, child) {
-		if ( typeof(child) == "string" ) {
-			parent.appendChild( document.createTextNode(child) );
-		} else if ( typeof(child) == "object" && child.nodeType && child.nodeType === 1 ) {
-			parent.appendChild(child);
-		}
-		return parent;
-	}
-};
 
 // from http://www.quirksmode.org/js/cookies.html
 // escape(), unescape() methods added
@@ -567,16 +490,15 @@ mw.hook('wikipage.content').add( function() {
 * (copied from [[en:wikt:MediaWiki:Monobook.js]] and modified)
 */
 function Projectlinks() {
-	var ptb = document.getElementById("p-tb");
-	if ( ! ptb ) {
+	var ptb = $("#p-tb");
+	if ( ! ptb.length ) {
 		return; // no toolbox, no place to go, asta la vista
 	}
 
-	var wrappers = getElementsByClass('interProject', document);
+	var wrappers = $('.interProject');
 	if ( wrappers.length == 0 ) {
 		return;
 	}
-	var elements = [];
 
 	var projects = {
 		"wiktionary" : gLang.msg("wiktionary"),
@@ -596,33 +518,29 @@ function Projectlinks() {
 			}
 		}
 		return "";
-	};
+	}
 
 	// get projectlinks
-	for (var i = 0; i < wrappers.length; i++) {
-		var url = wrappers[i].getElementsByTagName('a')[0].cloneNode(true);
-		url.innerHTML = getProjectName(url.href);
-		elements[i] = url;
-	}
+	var elements = [];
+	wrappers.each(function() {
+		elements[i] = $(this).find('a:first').clone().text(getProjectName(url.href));
+	});
 
 	// sort alphabetically
-	function sortbylabel(a, b) {
-		return (a.innerHTML < b.innerHTML) ? -1 : 1;
-	}
-	elements.sort(sortbylabel);
+	elements.sort(function(a, b) {
+		return (a.text() < b.text()) ? -1 : 1;
+	});
 
 	// create list
-	var pllist = document.createElement('ul');
-	for (var i = 0; i < elements.length; i++) {
-		var plitem = Creator.createElement('li', {}, elements[i]);
-		pllist.appendChild(plitem);
-	}
+	var pllist = $('<ul>');
+	elements.each(function() {
+		$('<li>', { html: this }).appendTo(pllist);
+	});
 	// and navbox
-	var plheader = Creator.createElement('h5', {}, gLang.msg("tb-inother"));
-	var plbox = Creator.createElement('div', {'class' : 'pBody body'}, pllist);
-	var portlet = Creator.createElement( 'div',
-		{'class' : 'portlet portal persistent', 'id' : 'p-sl'}, [plheader, plbox] );
-	ptb.parentNode.insertBefore(portlet, ptb.nextSibling);
+	var plheader = $('<h5>', {text: gLang.msg("tb-inother")});
+	var plbox = $('<div>', {'class': 'pBody body', html: pllist});
+	var portlet = $('<div>', {'class': 'portlet portal persistent', id: 'p-sl'}).append(plheader, plbox);
+	ptb.after(portlet);
 }
 
 mw.hook('wikipage.content').add(Projectlinks);
@@ -713,7 +631,7 @@ var customMiscButtons = {
 	"#" : ["obrabotka(false)", "#", "Преобразуване на някои знаци"],
 	"$" : ["obrabotka(true)", "$", "Преобразуване на числа към БДС"],
 	// допълнителните знаци
-	"ch" : ["addChars(); toggleElemDisplay('"+charsElemId+"');", "Още…",
+	"ch" : ["addChars(); $('#"+charsElemId+"').toggle();", "Още…",
 		"Виртуална клавиатура"]
 };
 
@@ -858,7 +776,7 @@ function addChars() {
 		}
 		if (i != len-1) { cont += '<br/>'; }
 	}
-	document.getElementById(charsElemId).innerHTML = cont;
+	$('#'+charsElemId).html(cont);
 	existChars = true;
 }
 
@@ -866,20 +784,20 @@ function addChars() {
 
 /** add some buttons and drop-down menus */
 function setupCustomEditTools() {
-	var toolbar = document.getElementById("toolbar");
+	var toolbar = $("#toolbar");
 
-	if ( !toolbar ) { 
-		if ( ! document.getElementById("editform") ) {
+	if ( !toolbar.length ) { 
+		if ( ! $("#editform").length ) {
 			return;
 		}
 		// check for the enhanced toolbar
-		if ( getElementsByClass("toolbar", document, "div").length ) {
+		if ( $(document).find(".toolbar").length ) {
 			toolbar = putToolbar(true);
 		} else {
 			return;
 		}
 	}
-	toolbar.className += " buttonlinks";
+	toolbar.addClass("buttonlinks");
 	if ( showMenus ) {
 		// drop-down menus inserting text put direct in the javascript
 		appendDropDownMenus(toolbar, tplVarBaseName, insertIntoWikiText);
@@ -915,40 +833,38 @@ function rmCustomButtons(allButtons, rmButtons) {
 }
 
 function appendCustomButtons(parent) {
-	var buts = document.createElement("div");
-	buts.id = "custombuttons";
+	var buts = $('<div>', { id: "custombuttons" });
 	for (var i in customInsButtons) {
 		var el = customInsButtons[i];
 		var title = el[4];
 		if ( title.charAt(0) == "+" ) {
 			title = gLang.msg("et-addpref") + title.substr(1);
 		}
-		appendCustomButton(buts,
-			{"href": "javascript:insertTags('"+el[0] +"','"+el[2]+"','"+ el[1]+"')",
-			"title": title, "innerHTML": el[3]});
+		appendCustomButton(buts, {
+			href: "javascript:insertTags('"+el[0] +"','"+el[2]+"','"+ el[1]+"')",
+			title: title,
+			html: el[3]
+		});
 	}
 	for (var i in customMiscButtons) {
 		var el = customMiscButtons[i];
-		appendCustomButton(buts, {"href":"javascript:"+el[0], "title":el[2], "innerHTML":el[1]});
+		appendCustomButton(buts, {
+			href: "javascript:"+el[0],
+			title: el[2],
+			html: el[1]
+		});
 	}
-	parent.appendChild(buts);
+	parent.append(buts);
 }
 
 function appendCustomButton(box, item) {
-	var b = document.createElement("a");
-	for (var attr in item) { b[attr] = item[attr]; }
-	box.appendChild(b);
-	box.appendChild( document.createTextNode(" ") );
+	box.append($('<a>', item), ' ');
 }
 
 function appendExtraChars(parent) {
-	if ( typeof(charsElemId) == "undefined" ) {
-		return;
+	if (window.charsElemId) {
+		$('<div>', { id: charsElemId, style: 'display: none' }).appendTo(parent);
 	}
-	var chbox = document.createElement("div");
-	chbox.id = charsElemId;
-	chbox.style.display = "none";
-	parent.appendChild(chbox);
 }
 
 function appendDropDownMenus(parent, tplVarBaseName, callback) {
@@ -962,21 +878,20 @@ function appendDropDownMenus(parent, tplVarBaseName, callback) {
 
 /** generates a drop-down menu */
 function appendDropDownMenu(parent, content, callback, id) {
-	var box = document.createElement("select");
-	box.id = id;
-	box.title = gLang.msg("et-ddmenutitle");
-	box.onchange = function() {
+	var box = $('<select>', {
+		id: id,
+		title: gLang.msg("et-ddmenutitle")
+	}).on('change', function() {
 		if (this.value != "-") {
 			callback(this.value);
 			this.selectedIndex = 0;
 		}
 		return;
-	};
+	});
 	if ( appendOptions(box, content) > 1 ) {
-		parent.appendChild(box);
+		parent.append(box);
 	}
 }
-
 
 function appendOptions(box, opts) {
 	var count = 0;
@@ -984,20 +899,18 @@ function appendOptions(box, opts) {
 		if (opts[i] == "") {
 			continue; // skip emtpy entries
 		}
-		var child = typeof(opts[i]) == "object"
-			? Creator.createOptgroup(i, opts[i])
-			: Creator.createOption(opts[i], i);
-		box.appendChild(child);
+		if (typeof opts[i] == "object") {
+			var g = $('<optgroup>', {label: i});
+			for (var k in opts[i]) {
+				$('<option>', { value: opts[i][k], text: k }).appendTo(g);
+			}
+			box.append(g);
+		} else {
+			$('<option>', { value: opts[i], text: i }).appendTo(box);
+		}
 		count++;
 	}
 	return count;
-}
-
-
-/** show/hide an element */
-function toggleElemDisplay(elemId) {
-	var elem = document.getElementById(elemId);
-	elem.style.display = elem.style.display == 'none' ? '' : 'none';
 }
 
 /**
@@ -1008,12 +921,11 @@ function toggleElemDisplay(elemId) {
 	put in your script page, e.g. User:Your_Name/monobook.js
 */
 function putToolbar(rightNow) {
-	var toolbar = Creator.createElement("div", {"id" : "toolbar"});
+	var toolbar = $('<div>', {id: "toolbar"});
 	var putIt = function() {
-		var editform = document.getElementById("editform");
-		editform.parentNode.insertBefore(toolbar, editform);
+		$("#editform").before(toolbar);
 	};
-	if ( typeof rightNow != "undefined" && rightNow ) {
+	if ( window.rightNow ) {
 		putIt();
 	} else {
 		mw.hook('wikipage.content').add(putIt);
@@ -1391,157 +1303,18 @@ function zamena_5ko() {
 	}
 }
 
-/* * * * * * * * * *   Dynamic Navigation Bars   * * * * * * * * * */
-
-var NavBarHide = "Скриване";
-var NavBarShow = "Показване";
-var NavBarHideSlim = "−";
-var NavBarShowSlim = "+";
-var displayStyles = new Object();
-displayStyles[NavBarHide] = displayStyles[NavBarHideSlim] = "block";
-displayStyles[NavBarShow] = displayStyles[NavBarShowSlim] = "none";
-
-// set up max count of Navigation Bars on page,
-// if there are more, all will be hidden
-// 0 — all bars will be hidden
-// 1 — on pages with more than 1 bar all bars will be hidden
-var NavBarShowDefault = 1;
-
-
-// shows and hides content and picture (if available) of navigation bars
-// @param	indexNavBar	the index of navigation bar to be toggled
-function toggleNavBar(indexNavBar)
-{
-	var NavToggle = document.getElementById("NavToggle" + indexNavBar);
-	var NavFrame = document.getElementById("NavFrame" + indexNavBar);
-
-	if (!NavFrame || !NavToggle) { return; }
-
-	var isSlim = hasClass(NavFrame, "slim");
-	NavToggle.firstChild.data = getNavBarLinkText(
-		NavToggle.firstChild.data == getNavBarLinkText(false, isSlim),
-		isSlim);
-	var display = displayStyles[ NavToggle.firstChild.data ];
-	for (var NavChild = NavFrame.firstChild;
-			NavChild != null;
-			NavChild = NavChild.nextSibling) {
-		if (NavChild.nodeName == "#text") { continue; }
-		if ( hasClass(NavChild, 'NavPic') || hasClass(NavChild, 'NavContent') ) {
-			NavChild.style.display = display;
-		}
-	}
-}
-
-// adds show/hide-button to navigation bars
-function createNavBarToggleButton()
-{
-	var indexNavBar = 0;
-	var skipFrames = []; // these should be skipped in the hiding process
-	// iterate over all < div >-elements
-	var divs = document.getElementsByTagName("div");
-	for (var i=0; i < divs.length; i++) {
-		var NavFrame = divs[i];
-		if ( ! hasClass(NavFrame, "NavFrame") ) { continue; }
-		// if found a navigation bar
-		indexNavBar++;
-		var NavToggle = document.createElement("a");
-		NavToggle.className = 'NavToggle';
-		NavToggle.setAttribute('id', 'NavToggle' + indexNavBar);
-		NavToggle.setAttribute('href', 'javascript:toggleNavBar(' + indexNavBar + ');');
-
-                var isCollapsed = hasClass( NavFrame, "collapsed" );
-                if (isCollapsed) {
-                    for (var NavChild = NavFrame.firstChild; NavChild != null; NavChild = NavChild.nextSibling) {
-                        if ( hasClass( NavChild, 'NavPic' ) || hasClass( NavChild, 'NavContent' ) ) {
-                            NavChild.style.display = 'none';
-                            skipFrames[indexNavBar] = true;
-                        }
-                    }
-                }
-
-		var NavToggleText = document.createTextNode(
-			getNavBarLinkText(isCollapsed, hasClass(NavFrame, "slim")) );
-		NavToggle.appendChild(NavToggleText);
-
-		// if there is no content div, create one
-		var contents = getElementsByClass("NavContent", NavFrame);
-		if ( contents.length == 0 ) {
-			var content = Creator.createElement("div", {"class" : "NavContent"});
-			// move all frame children in it
-			var skipped = 0;
-			while (NavFrame.childNodes.length > skipped) {
-				var ch = NavFrame.childNodes[skipped];
-				if ( ch.nodeName != "#text" && hasClass(ch, "NavHead") ) {
-					alert(indexNavBar + ": " + ch.className);
-					skipped++;
-					continue;
-				}
-				content.appendChild( ch );
-			}
-			NavFrame.appendChild( content );
-		}
-
-		// Find the NavHead and attach the toggle link
-		var heads = getElementsByClass("NavHead", NavFrame);
-		if ( heads.length ) {
-			heads[0].appendChild(NavToggle);
-		} else {
-			var head = Creator.createElement("div", {"class" : "NavHead"}, NavToggle);
-			NavFrame.insertBefore(head, NavFrame.firstChild);
-		}
-
-		NavFrame.setAttribute('id', 'NavFrame' + indexNavBar);
-
-		if ( hasClass(NavFrame, "important") ) {
-			// important frame, do not hide it
-			skipFrames[indexNavBar] = true;
-		}
-		var hidden = false;
-		if ( hasClass(NavFrame, "unimportant") ) {
-			// unimportant frame, hide it
-			toggleNavBar(indexNavBar);
-			hidden = true;
-			skipFrames[indexNavBar] = true;
-		}
-		// apply user display settings if this frame is controlable by users
-		var userClass = NavFrame.className.match( /user-([\w-]+)/ );
-		if ( userClass != null
-				&& typeof myElementsDisplay[ userClass[1] ] != "undefined" ) {
-			if ( myElementsDisplay[ userClass[1] ] == false && !hidden ) {
-				toggleNavBar(indexNavBar);
-			}
-			skipFrames[indexNavBar] = true;
-		}
-	}
-	// if more Navigation Bars found than Default: hide all
-	if (NavBarShowDefault < indexNavBar) {
-		for (var i = 1; i <= indexNavBar; i++) {
-			if ( skipFrames[i] ) continue;
-			toggleNavBar(i);
-		}
-	}
-}
-
-function getNavBarLinkText(toShow, isSlim) {
-	return toShow
-		? ( isSlim ? NavBarShowSlim : NavBarShow )
-		: ( isSlim ? NavBarHideSlim : NavBarHide );
-}
-
-// mw.hook('wikipage.content').add(createNavBarToggleButton);
 
 /* * * * * * * * * *   Mwbot stuff   * * * * * * * * * */
 
 /**
-	Extends the functionality of an inputbox in a div.mwbot element.
-	Appends { { MAINPAGE/SUBPAGE } } to MAINPAGE upon creation of MAINPAGE/SUBPAGE
-
-	Uses the class Mwbot ([[Потребител:Borislav/mwbot.js]]).
-
-	License: GNU GPL 2 or later / GNU FDL
-	Author: [[:bg:User:Borislav|Borislav Manolov]]
-*/
-
+ * Extends the functionality of an inputbox in a div.mwbot element.
+ * Appends { { MAINPAGE/SUBPAGE } } to MAINPAGE upon creation of MAINPAGE/SUBPAGE
+ *
+ * Uses the class Mwbot ([[Потребител:Borislav/mwbot.js]]).
+ *
+ * License: GNU GPL 2 or later / GNU FDL
+ * Author: [[:bg:User:Borislav|Borislav Manolov]]
+ */
 importScript('Потребител:Borislav/mwbot.js');
 
 var Memory = {
@@ -1595,7 +1368,7 @@ function attachMemorizer(form) {
 		mainpage = wgPageName;
 	}
 	form.title.value = "";
-	jQuery(form).bind("submit", function() {
+	jQuery(form).submit(function() {
 		if ( this.title.value.trim() == "" ) {
 			alert( gLang.msg("ta-emptyfield") );
 			return false;
@@ -1609,7 +1382,7 @@ function attachMemorizer(form) {
 		var fullpage = prefix + subpage;
 		this.title.value = fullpage;
 		// allow summary prefilling by new section
-		Creator.appendChildTo(this, Creator.createHiddenField("preloadtitle", subpage));
+		$('<input>', {type: 'hidden', name: "preloadtitle", value: subpage }).appendTo(this);
 		Memory.memorize("transcludeSubpage",
 			[mainpage, subpage],
 			fullpage.replace(/ /g, "_"), "view");
