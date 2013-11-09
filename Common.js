@@ -87,7 +87,7 @@ function getElementsByClass(searchClass, node, tag) {
 
 /** Set display mode for all elements with a given class name */
 function setElementsDisplayByClassName(className, display) {
-	var els = getElementsByClassName(document, "*", className);
+	var els = getElementsByClass(className, document);
 	for (var i = 0; i < els.length; i++) {
 		els[i].style.display = display;
 	}
@@ -572,7 +572,7 @@ function Projectlinks() {
 		return; // no toolbox, no place to go, asta la vista
 	}
 
-	var wrappers = getElementsByClassName(document, "*", 'interProject');
+	var wrappers = getElementsByClass('interProject', document);
 	if ( wrappers.length == 0 ) {
 		return;
 	}
@@ -874,7 +874,7 @@ function setupCustomEditTools() {
 			return;
 		}
 		// check for the enhanced toolbar
-		if ( getElementsByClassName(document, "div", "toolbar").length ) {
+		if ( getElementsByClass("toolbar", document, "div").length ) {
 			toolbar = putToolbar(true);
 		} else {
 			return;
@@ -1465,7 +1465,7 @@ function createNavBarToggleButton()
 		NavToggle.appendChild(NavToggleText);
 
 		// if there is no content div, create one
-		var contents = getElementsByClassName(NavFrame, "*", "NavContent");
+		var contents = getElementsByClass("NavContent", NavFrame);
 		if ( contents.length == 0 ) {
 			var content = Creator.createElement("div", {"class" : "NavContent"});
 			// move all frame children in it
@@ -1483,7 +1483,7 @@ function createNavBarToggleButton()
 		}
 
 		// Find the NavHead and attach the toggle link
-		var heads = getElementsByClassName(NavFrame, "*", "NavHead");
+		var heads = getElementsByClass("NavHead", NavFrame);
 		if ( heads.length ) {
 			heads[0].appendChild(NavToggle);
 		} else {
@@ -1579,7 +1579,7 @@ var Memory = {
 
 
 function attachMemorizers() {
-	var wrappers = getElementsByClassName(document, "div", "mwbot");
+	var wrappers = getElementsByClass("mwbot", document, "div");
 	for (var wi = 0; wi < wrappers.length; wi++) {
 		var forms = wrappers[wi].getElementsByTagName("form");
 		for (var fi = 0; fi < forms.length; fi++) {
