@@ -166,12 +166,12 @@ var _debug_lang = false;
 
 function MessageLanguage() {
 	this.lang = DEFAULT_USER_LANGUAGE;
-	this.messages = new Object();
+	this.messages = {};
 	this.prefix = "";
 
 	this.addMessages = function(messages, code, prefix) {
 		if ( typeof this.messages[code] == "undefined" ) {
-			this.messages[code] = new Object();
+			this.messages[code] = {};
 		}
 		var p = typeof prefix == "string" ? prefix : "";
 		for (var key in messages) {
@@ -194,7 +194,7 @@ function MessageLanguage() {
 		key = this.prefix + key;
 		var msg = this.messages[this.lang] && this.messages[this.lang][key];
 		if ( typeof msg == "undefined" ) {
-			if ( _debug_lang ) alert(key + " го няма на "+this.lang);
+			if ( _debug_lang ) console.log(key + " го няма на "+this.lang);
 			msg = this.messages[FALLBACK_USER_LANGUAGE]
 				&& this.messages[FALLBACK_USER_LANGUAGE][key];
 		}
@@ -208,7 +208,7 @@ function MessageLanguage() {
 	};
 
 	this.importMessages = function(lang) {
-		importScript("MediaWiki:Messages/" + lang + ".js");
+		importScript("МедияУики:Messages/" + lang + ".js");
 	};
 }
 
