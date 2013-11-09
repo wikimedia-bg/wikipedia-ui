@@ -76,39 +76,36 @@ mw.hook('wikipage.content').add(function() {
 	}
 
 
-	return (function() {
-		if ( typeof parents[skin] == "undefined" ) {
-			return; // unsupported skin
-		}
-		var p = document.getElementById(parents[skin]);
-		if ( !p ) {
-			alert('В текущия документ не съществува елемент с ID „'+p+'“. Контролерът на бързите връзки не може да бъде зареден.');
-			return;
-		}
-		link = Creator.createAnchor( Creator.createInternUrl(page),
-			plus, 'Показване на бързите връзки');
-		link.onclick = function(event) {
-			event.stopPropagation();
-			if ( loaded ) {
-				container.toggle();
-				return false;
-			}
-			link.innerHTML = wait;
-			jQuery.get(wgScript, {"title": page.replace(/ /g, "_"), "action": "render"}, function(content){
-				showContainer(content);
-				loaded = true;
-			});
+	if ( typeof parents[skin] == "undefined" ) {
+		return; // unsupported skin
+	}
+	var p = document.getElementById(parents[skin]);
+	if ( !p ) {
+		alert('В текущия документ не съществува елемент с ID „'+p+'“. Контролерът на бързите връзки не може да бъде зареден.');
+		return;
+	}
+	link = Creator.createAnchor( Creator.createInternUrl(page),
+		plus, 'Показване на бързите връзки');
+	link.onclick = function(event) {
+		event.stopPropagation();
+		if ( loaded ) {
+			container.toggle();
 			return false;
-		};
-
-		var c = Creator.createElement('span',
-			{'style' : 'z-index: 11'},
-			[' (', link, ')']);
-		p.appendChild(c);
-		jQuery("body").bind("click", function() {
-			// hide container by clicking anywhere in the document
-			if (container) container.hide();
+		}
+		link.innerHTML = wait;
+		jQuery.get(wgScript, {"title": page.replace(/ /g, "_"), "action": "render"}, function(content){
+			showContainer(content);
+			loaded = true;
 		});
-	});
+		return false;
+	};
 
+	var c = Creator.createElement('span',
+		{'style' : 'z-index: 11'},
+		[' (', link, ')']);
+	p.appendChild(c);
+	jQuery("body").bind("click", function() {
+		// hide container by clicking anywhere in the document
+		if (container) container.hide();
+	});
 });
