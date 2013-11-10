@@ -775,7 +775,7 @@ function setupCustomEditTools() {
 	}
 }
 
-mw.hook( 'wikipage.content' ).add( setupCustomEditTools );
+$( setupCustomEditTools );
 
 function setCustomInsButton(code, left, middle, right, shownText, title) {
 	customInsButtons[code] = [left, middle, right, shownText, title];
