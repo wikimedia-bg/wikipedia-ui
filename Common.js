@@ -432,7 +432,7 @@ var subPagesLink =
 		if ( document.getElementById("p-tb")
 				&& ! inArray( wgNamespaceNumber, subPagesLink.wo_ns) )
 		{
-			addPortletLink( 'p-tb',
+			mw.util.addPortletLink( 'p-tb',
 				mw.util.wikiGetlink('Special:Prefixindex/' + wgPageName +'/'),
 				gLang.msg("tb-subpages"), 't-subpages' );
 		}
@@ -443,7 +443,7 @@ mw.hook('wikipage.content').add( function() {
 	subPagesLink.install();
 
 	if ( inArray("sysop", wgUserGroups) && wgCanonicalNamespace.indexOf("User") === 0 ) {
-		addPortletLink( 'p-tb',
+		mw.util.addPortletLink( 'p-tb',
 			mw.util.wikiGetlink('Специални:Потребителски права/' + wgTitle),
 			"Управление на правата", 't-userrights' );
 	}
