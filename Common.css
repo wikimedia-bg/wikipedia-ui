@@ -70,6 +70,7 @@ span.minor { font-weight: normal; }
 }
 
 .custom-toolbar {
+	clear: both;
 	margin-bottom: 0.2em;
 	line-height: 1.9em;
 }
