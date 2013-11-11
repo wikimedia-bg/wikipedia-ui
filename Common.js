@@ -104,27 +104,27 @@ _lang_messages["bg"] = {
 	"wikiversity": "Уикиверситет",
 	"wikispecies": "Уикивидове",
 	"commons": "Общомедия",
-	
+
 	// Edit tools
 	"et-addchar": "Вмъкване на знака „$1“",
 	"et-addpref": "Вмъкване на ",
 	"et-ddmenutitle": "Оттук можете да вмъкнете празен шаблон",
 	"et-ajaxerror": "Неуспешна връзка: $1 $2\nСтраница: $3\nАдрес: $4",
 	"et-tplloading": "Шаблонът се зарежда…",
-	
+
 	// Featured article marker
 	"fa-linktitle" : "Тази статия на друг език е избрана.",
-	
+
 	// Transclusion tool
 	"ta-emptyfield" : "Не сте въвели име за подстраницата.",
 	"ta-summary" : "Вграждане на [[$1]]",
 	"ta-bpsummary" : "Нова тема: [[$1]]",
-	
+
 	// Toolbox add-ons
 	"tb-subpages": "Подстраници",
 	"tb-subpages-settings": "Показване на препратка към подстраниците в кутията с инструменти:",
 	"tb-inother": "В други проекти",
-	
+
 	"":""
 };
 
@@ -250,19 +250,19 @@ function removeEvent( obj, type, fn )
  * specific script features from [[MediaWiki:Common.js]] and
  * [[MediaWiki:Monobook.js]]
  * This framework adds config options (saved as cookies) to [[Special:Preferences]]
- * For a more permanent change you can override the default settings in your 
+ * For a more permanent change you can override the default settings in your
  * [[Special:Mypage/monobook.js]]
  * for Example: JSconfig.keys[loadAutoInformationTemplate] = false;
  *
  *  Maintainer: [[meta:User:Dschwen]]
  */
- 
+
 var JSconfig =
 {
  prefix : 'jsconfig_',
  keys : {},
  meta : {},
- 
+
  //
  // Register a new configuration item
  //  * name          : String, internal name
@@ -284,29 +284,29 @@ var JSconfig =
  //
  registerKey : function( name, default_value, description, prefpage )
  {
-  if( typeof(JSconfig.keys[name]) == 'undefined' ) 
+  if( typeof(JSconfig.keys[name]) == 'undefined' )
    JSconfig.keys[name] = default_value;
   else {
- 
-   // all cookies are read as strings, 
+
+   // all cookies are read as strings,
    // convert to the type of the default value
    switch( typeof(default_value) )
    {
     case 'boolean' : JSconfig.keys[name] = ( JSconfig.keys[name] == 'true' ); break;
     case 'number'  : JSconfig.keys[name] = JSconfig.keys[name]/1; break;
    }
- 
+
   }
- 
+
   JSconfig.meta[name] = { 'description' : description, 'page' : prefpage || 0, 'default_value' : default_value };
  },
- 
+
  readCookies : function()
  {
   var cookies = document.cookie.split("; ");
   var p =JSconfig.prefix.length;
   var i;
- 
+
   for( var key in cookies )
   {
    if( cookies[key].substring(0,p) == JSconfig.prefix )
@@ -317,20 +317,20 @@ var JSconfig =
    }
   }
  },
- 
+
  writeCookies : function()
  {
   for( var key in JSconfig.keys )
    document.cookie = JSconfig.prefix + key + '=' + JSconfig.keys[key] + '; path=/; expires=Thu, 2 Aug 2009 10:10:10 UTC';
  },
- 
+
  evaluateForm : function()
  {
   var w_ctrl,wt;
   //alert('about to save JSconfig');
   for( var key in JSconfig.meta ) {
    w_ctrl = document.getElementById( JSconfig.prefix + key )
-   if( w_ctrl ) 
+   if( w_ctrl )
    {
     wt = typeof( JSconfig.meta[key].default_value );
     switch( wt ) {
@@ -339,17 +339,17 @@ var JSconfig =
     }
    }
   }
- 
+
   JSconfig.writeCookies();
   return true;
  },
- 
+
  setUpForm : function()
- { 
+ {
   var prefChild = document.getElementById('preferences');
   if( !prefChild ) return;
   prefChild = prefChild.childNodes;
- 
+
   //
   // make a list of all preferences sections
   //
@@ -357,47 +357,47 @@ var JSconfig =
   var len = prefChild.length;
   for( var key = 0; key < len; key++ ) {
    if( prefChild[key].tagName &&
-       prefChild[key].tagName.toLowerCase() == 'fieldset' ) 
+       prefChild[key].tagName.toLowerCase() == 'fieldset' )
     tabs.push(prefChild[key]);
   }
- 
+
   //
   // Create Widgets for all registered config keys
   //
   var w_div, w_label, w_ctrl, wt;
   for( var key in JSconfig.meta ) {
    w_div = document.createElement( 'DIV' );
- 
+
    w_label = document.createElement( 'LABEL' );
    w_label.appendChild( document.createTextNode( JSconfig.meta[key].description ) )
    w_label.htmlFor = JSconfig.prefix + key;
- 
+
    wt = typeof( JSconfig.meta[key].default_value );
- 
+
    w_ctrl = document.createElement( 'INPUT' );
    w_ctrl.id = JSconfig.prefix + key;
- 
+
    // before insertion into the DOM tree
    switch( wt ) {
     case 'boolean' : w_ctrl.type = 'checkbox'; break;
     case 'string'  : w_ctrl.type = 'text'; break;
    }
- 
+
    w_div.appendChild( w_label );
    w_div.appendChild( w_ctrl );
    tabs[JSconfig.meta[key].page].appendChild( w_div );
- 
+
    // after insertion into the DOM tree
    switch( wt ) {
     case 'boolean' : w_ctrl.defaultChecked = w_ctrl.checked = JSconfig.keys[key]; break;
     case 'string' : w_ctrl.defaultValue = w_ctrl.value = JSconfig.keys[key]; break;
    }
- 
+
   }
   addEvent(document.getElementById('preferences').parentNode, 'submit', JSconfig.evaluateForm );
  }
 }
- 
+
 JSconfig.readCookies();
 mw.hook('wikipage.content').add(JSconfig.setUpForm);
 
@@ -631,7 +631,7 @@ var atpl1 = {
 	"Книга инфо" : atplb + "Книга инфо",
 	"Писател" : atplb + "Писател",
 	"Музикален албум" : atplb + "Музикален албум",
-        "Музикален изпълнител" : atplb + "Музикален изпълнител", 
+        "Музикален изпълнител" : atplb + "Музикален изпълнител",
 	"Филм" : atplb + "Филм",
 	"Актьор" : atplb + "Актьор",
 	"Футболен отбор" : atplb + "Футболен отбор",
@@ -668,7 +668,7 @@ var atpl2 = {
 	},
 	"Шаблони за беседи" : {
 		"Добре дошли" : atplb + "Добре дошли",
-		"Добре дошли нерег" : atplb + "Добре дошли нерег",		
+		"Добре дошли нерег" : atplb + "Добре дошли нерег",
 		"Неподписано" : atplb + "Неподписано",
 		"Предварителен преглед" : atplb + "П-преглед",
 		"Забележка-вандал" : atplb + "П-вандал1",
@@ -775,7 +775,18 @@ function setupCustomEditTools() {
 	}
 }
 
-$( setupCustomEditTools );
+mw.hook( 'wikipage.content' ).add( function() {
+	var runSetupOnUserReady = function() {
+		if ( mw.loader.getState('user') === 'ready' ) {
+			setupCustomEditTools();
+		} else {
+			setTimeout(runSetupOnUserReady, 200);
+			mw.log("set timeout for runSetupOnUserReady");
+		}
+	};
+	runSetupOnUserReady();
+} );
+
 
 function setCustomInsButton(code, left, middle, right, shownText, title) {
 	customInsButtons[code] = [left, middle, right, shownText, title];
@@ -1399,18 +1410,18 @@ mw.hook('wikipage.content').add(function() {
  *               "NZR W<sup>B</sup> class", but [[C#]] is not an equivalent wikilink,
  *               so [[C Sharp]] doesn't have its main title changed.
  *
- *               The function looks for a banner like this: 
+ *               The function looks for a banner like this:
  *               <div id="RealTitleBanner"> ... <span id="RealTitle">title</span> ... </div>
  *               An element with id=DisableRealTitle disables the function.
  *  Maintainers: Remember_the_dot
  */
- 
+
 if (wgIsArticle) //prevents the "Editing " prefix from disappearing during preview
 {
     mw.hook('wikipage.content').add(function()
     {
         var realTitle = document.getElementById("RealTitle")
- 
+
         if (realTitle)
         {
             //normalizes a title or a namespace name (but not both)
@@ -1419,7 +1430,7 @@ if (wgIsArticle) //prevents the "Editing " prefix from disappearing during previ
             {
                 return title.replace(/^_+/, "").replace(/_+$/, "").replace(/[\s_]+/g, "_")
             }
- 
+
             if (realTitle.textContent) //everyone but IE
             {
                 var realTitleText = realTitle.textContent
@@ -1428,12 +1439,12 @@ if (wgIsArticle) //prevents the "Editing " prefix from disappearing during previ
             {
                 var realTitleText = realTitle.innerText
             }
- 
+
             var normalizedRealTitle
             var normalizedPageTitle
             var indexOfColon = realTitleText.indexOf(":")
             var normalizedNamespaceName = normalizeTitle(realTitleText.substring(0, indexOfColon)).toLowerCase()
- 
+
             //make namespace prefix lowercase and uppercase the first letter of the title
             if (indexOfColon == -1 || wgCanonicalNamespace.toLowerCase() != normalizedNamespaceName) //no namespace prefix - either no colon or a nonsensical namespace prefix (for example, "Foo" in "Foo: The Story of My Life")
             {
@@ -1444,7 +1455,7 @@ if (wgIsArticle) //prevents the "Editing " prefix from disappearing during previ
             else //using a namespace prefix
             {
                 var normalizedRealPageTitle = normalizeTitle(realTitleText.substring(indexOfColon + 1))
- 
+
                 normalizedRealTitle = normalizedNamespaceName
                 if (normalizedNamespaceName != "") //namespace 0 is a special case where the leading colon should never be shown
                 {
@@ -1453,28 +1464,28 @@ if (wgIsArticle) //prevents the "Editing " prefix from disappearing during previ
                 normalizedRealTitle += normalizedRealPageTitle.charAt(0).toUpperCase() + normalizedRealPageTitle.substring(1)
                 normalizedPageTitle = wgPageName.substring(0, wgPageName.indexOf(":") + 1).toLowerCase() + wgPageName.substring(wgPageName.indexOf(":") + 1)
             }
- 
+
             if (normalizedRealTitle == normalizedPageTitle) //normalized titles match, so we can do full replacement
             {
                 var h1 = document.getElementsByTagName("h1")[0]
- 
+
                 //remove all child nodes, including text
-                while (h1.firstChild) 
+                while (h1.firstChild)
                 {
                     h1.removeChild(h1.firstChild)
                 }
- 
+
                 //populate with nodes of real title
                 while (realTitle.firstChild) //the children are moved to a new parent element
                 {
                     h1.appendChild(realTitle.firstChild)
                 }
- 
+
                 //delete the real title banner since the problem is solved
                 var realTitleBanner = document.getElementById("RealTitleBanner")
                 realTitleBanner.parentNode.removeChild(realTitleBanner)
             }
- 
+
             //no matter what, correct the page title
             document.title = realTitleText + " - Wikipedia, the free encyclopedia"
         }
@@ -1490,7 +1501,7 @@ mw.loader.using( [ 'mediawiki.util' ], function() { $( function() {
   if ( !c.length ) {
    return;
   }
- 
+
   var a = c.find( 'a' );
   var geohack = false;
   for (var i = 0; i < a.length; i++) {
@@ -1504,7 +1515,7 @@ mw.loader.using( [ 'mediawiki.util' ], function() { $( function() {
   if ( !geohack ) {
    return;
   }
- 
+
   var separator = $( document.createElement( 'span' ) );
   separator.text( ' | ' );
   separator.attr( 'class', 'noprint coordinates-separator' );
@@ -1533,7 +1544,7 @@ function openStreetMapToggle() {
   }
   var cs = $( '#contentSub' );
   var osm = $( '#openstreetmap' );
- 
+
   if ( cs.length && osm.length ) {
    if ( osm.css( 'display' ) === 'none' ) {
     osm.css( 'display', 'block' );
@@ -1542,7 +1553,7 @@ function openStreetMapToggle() {
    }
    return false;
   }
- 
+
   var found_link = false;
   var a = c.find( 'a' );
   var h;
@@ -1555,14 +1566,14 @@ function openStreetMapToggle() {
   if ( !found_link ) {
    return; // No geohack link found
   }
- 
+
   h = h.split('params=')[1];
- 
+
   var url = '//toolserver.org/~kolossos/openlayers/kml-on-ol.php?lang=bg&uselang='
           + mw.util.rawurlencode( mw.config.get( 'wgUserLanguage' ) )
           + '&params=' + h
           + '&title=' + mw.util.wikiUrlencode( mw.config.get( 'wgTitle' ) );
- 
+
   var iframe = $( document.createElement( 'iframe' ) );
   iframe.attr( 'id', 'openstreetmap' );
   iframe.css({
@@ -1668,14 +1679,14 @@ if ( mw.config.get( 'wgPageName' ) === 'Начална_страница' || mw.c
     } );
 }
 /**
- * Пренасочване на addPortletLink към mw.util 
+ * Пренасочване на addPortletLink към mw.util
  *
  * @deprecated: Използвайте mw.util.addPortletLink.
  */
 mw.log.deprecate( window, 'addPortletLink', function () {
     return mw.util.addPortletLink.apply( mw.util, arguments );
 }, 'Използвайте mw.util.addPortletLink() вместо това' );
- 
+
 /**
  * Взимане на URL параметър от текущото URL
  *
@@ -1684,8 +1695,8 @@ mw.log.deprecate( window, 'addPortletLink', function () {
 mw.log.deprecate( window, 'getURLParamValue', function () {
     return mw.util.getParamValue.apply( mw.util, arguments );
 }, 'Use mw.util.getParamValue() instead' );
- 
-/** 
+
+/**
  * Проверка дали даден елемент има даден клас
  *
  * @deprecated:  Използвайте $(element).hasClass() вместо това.
@@ -1704,7 +1715,7 @@ mw.log.deprecate( window, 'hasClass', function ( element, className ) {
 function LinkFA() {
     if ( document.getElementById( 'p-lang' ) ) {
         var InterwikiLinks = document.getElementById( 'p-lang' ).getElementsByTagName( 'li' );
- 
+
         for ( var i = 0; i < InterwikiLinks.length; i++ ) {
             if ( document.getElementById( InterwikiLinks[i].className + '-fa' ) ) {
                 InterwikiLinks[i].className += ' FA';
