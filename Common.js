@@ -571,14 +571,9 @@ function setupCustomEditTools() {
 }
 
 mw.hook( 'wikipage.content' ).add( function() {
-	var runSetupOnUserReady = function() {
-		if ( mw.loader.getState('user') === 'ready' ) {
-			setupCustomEditTools();
-		} else {
-			setTimeout(runSetupOnUserReady, 200);
-		}
-	};
-	runSetupOnUserReady();
+	mw.loader.using("user", function(){
+		setupCustomEditTools();
+	});
 } );
 
 
