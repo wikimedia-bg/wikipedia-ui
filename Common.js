@@ -206,202 +206,6 @@ mw.hook('wikipage.content').add( function() {
 });
 
 
-/** Attach (or remove) an Event to a specific object **********
- * Cross-browser event attachment (John Resig)
- * http://www.quirksmode.org/blog/archives/2005/10/_and_the_winner_1.html
- *
- * obj  : DOM tree object to attach the event to
- * type : String, event type ("click", "mouseover", "submit", etc.)
- * fn   : Function to be called when the event is triggered (the ''this''
- *        keyword points to ''obj'' inside ''fn'' when the event is triggered)
- *
- * Local Maintainer: [[meta:User:Dschwen]]
- */
-
-function addEvent( obj, type, fn )
-{
- if (obj.addEventListener)
-  obj.addEventListener( type, fn, false );
- else if (obj.attachEvent)
- {
-  obj["e"+type+fn] = fn;
-  obj[type+fn] = function() { obj["e"+type+fn]( window.event ); }
-  obj.attachEvent( "on"+type, obj[type+fn] );
- }
-}
-
-function removeEvent( obj, type, fn )
-{
- if (obj.removeEventListener)
-  obj.removeEventListener( type, fn, false );
- else if (obj.detachEvent)
- {
-  obj.detachEvent( "on"+type, obj[type+fn] );
-  obj[type+fn] = null;
-  obj["e"+type+fn] = null;
- }
-}
-
-
-/** JSconfig ************
- * (copied from [[meta:MediaWiki:Common.js]])
- *
- * Global configuration options to enable/disable and configure
- * specific script features from [[MediaWiki:Common.js]] and
- * [[MediaWiki:Monobook.js]]
- * This framework adds config options (saved as cookies) to [[Special:Preferences]]
- * For a more permanent change you can override the default settings in your
- * [[Special:Mypage/monobook.js]]
- * for Example: JSconfig.keys[loadAutoInformationTemplate] = false;
- *
- *  Maintainer: [[meta:User:Dschwen]]
- */
-
-var JSconfig =
-{
- prefix : 'jsconfig_',
- keys : {},
- meta : {},
-
- //
- // Register a new configuration item
- //  * name          : String, internal name
- //  * default_value : String or Boolean (type determines configuration widget)
- //  * description   : String, text appearing next to the widget in the preferences
- //  * prefpage      : Integer (optional), section in the preferences to insert the widget:
- //                     0 : User profile
- //                     1 : Skin
- //                     2 : Math
- //                     3 : Files
- //                     4 : Date and time
- //                     5 : Editing
- //                     6 : Recent changes
- //                     7 : Watchlist
- //                     8 : Search
- //                     9 : Misc
- //
- // Access keys through JSconfig.keys[name]
- //
- registerKey : function( name, default_value, description, prefpage )
- {
-  if( typeof(JSconfig.keys[name]) == 'undefined' )
-   JSconfig.keys[name] = default_value;
-  else {
-
-   // all cookies are read as strings,
-   // convert to the type of the default value
-   switch( typeof(default_value) )
-   {
-    case 'boolean' : JSconfig.keys[name] = ( JSconfig.keys[name] == 'true' ); break;
-    case 'number'  : JSconfig.keys[name] = JSconfig.keys[name]/1; break;
-   }
-
-  }
-
-  JSconfig.meta[name] = { 'description' : description, 'page' : prefpage || 0, 'default_value' : default_value };
- },
-
- readCookies : function()
- {
-  var cookies = document.cookie.split("; ");
-  var p =JSconfig.prefix.length;
-  var i;
-
-  for( var key in cookies )
-  {
-   if( cookies[key].substring(0,p) == JSconfig.prefix )
-   {
-    i = cookies[key].indexOf('=');
-    //alert( cookies[key] + ',' + key + ',' + cookies[key].substring(p,i) );
-    JSconfig.keys[cookies[key].substring(p,i)] = cookies[key].substring(i+1);
-   }
-  }
- },
-
- writeCookies : function()
- {
-  for( var key in JSconfig.keys )
-   document.cookie = JSconfig.prefix + key + '=' + JSconfig.keys[key] + '; path=/; expires=Thu, 2 Aug 2009 10:10:10 UTC';
- },
-
- evaluateForm : function()
- {
-  var w_ctrl,wt;
-  //alert('about to save JSconfig');
-  for( var key in JSconfig.meta ) {
-   w_ctrl = document.getElementById( JSconfig.prefix + key )
-   if( w_ctrl )
-   {
-    wt = typeof( JSconfig.meta[key].default_value );
-    switch( wt ) {
-     case 'boolean' : JSconfig.keys[key] = w_ctrl.checked; break;
-     case 'string' : JSconfig.keys[key] = w_ctrl.value; break;
-    }
-   }
-  }
-
-  JSconfig.writeCookies();
-  return true;
- },
-
- setUpForm : function()
- {
-  var prefChild = document.getElementById('preferences');
-  if( !prefChild ) return;
-  prefChild = prefChild.childNodes;
-
-  //
-  // make a list of all preferences sections
-  //
-  var tabs = new Array;
-  var len = prefChild.length;
-  for( var key = 0; key < len; key++ ) {
-   if( prefChild[key].tagName &&
-       prefChild[key].tagName.toLowerCase() == 'fieldset' )
-    tabs.push(prefChild[key]);
-  }
-
-  //
-  // Create Widgets for all registered config keys
-  //
-  var w_div, w_label, w_ctrl, wt;
-  for( var key in JSconfig.meta ) {
-   w_div = document.createElement( 'DIV' );
-
-   w_label = document.createElement( 'LABEL' );
-   w_label.appendChild( document.createTextNode( JSconfig.meta[key].description ) )
-   w_label.htmlFor = JSconfig.prefix + key;
-
-   wt = typeof( JSconfig.meta[key].default_value );
-
-   w_ctrl = document.createElement( 'INPUT' );
-   w_ctrl.id = JSconfig.prefix + key;
-
-   // before insertion into the DOM tree
-   switch( wt ) {
-    case 'boolean' : w_ctrl.type = 'checkbox'; break;
-    case 'string'  : w_ctrl.type = 'text'; break;
-   }
-
-   w_div.appendChild( w_label );
-   w_div.appendChild( w_ctrl );
-   tabs[JSconfig.meta[key].page].appendChild( w_div );
-
-   // after insertion into the DOM tree
-   switch( wt ) {
-    case 'boolean' : w_ctrl.defaultChecked = w_ctrl.checked = JSconfig.keys[key]; break;
-    case 'string' : w_ctrl.defaultValue = w_ctrl.value = JSconfig.keys[key]; break;
-   }
-
-  }
-  addEvent(document.getElementById('preferences').parentNode, 'submit', JSconfig.evaluateForm );
- }
-}
-
-JSconfig.readCookies();
-mw.hook('wikipage.content').add(JSconfig.setUpForm);
-
-
  /** MediaWiki media player *******************************************************
    *
    *  Description: A Java player for in-browser playback of media files.
@@ -416,19 +220,11 @@ mw.loader.load('//en.wikipedia.org/w/index.php?title=Mediawiki:Wikimediaplayer.j
 /***** subPagesLink ********
  * Adds a link to subpages of current page
  * (copied from [[commons:MediaWiki:Common.js]] and slightly modified)
- *
- * JSconfig items: bool JSconfig.subPagesLink
- * 	(true=enabled (default), false=disabled)
- ****/
-var subPagesLink =
-{
+ */
+var subPagesLink = {
 	wo_ns : [NS_MEDIA, NS_SPECIAL, NS_IMAGE, NS_CATEGORY],
 
-	install: function()
-	{
-		// honor user configuration
-		if( !JSconfig.keys['subPagesLink'] ) return;
-
+	install: function() {
 		if ( document.getElementById("p-tb")
 				&& ! inArray( wgNamespaceNumber, subPagesLink.wo_ns) )
 		{
@@ -439,7 +235,6 @@ var subPagesLink =
 	}
 }
 mw.hook('wikipage.content').add( function() {
-	JSconfig.registerKey('subPagesLink', true, gLang.msg("tb-subpages-settings"), 9);
 	subPagesLink.install();
 
 	if ( inArray("sysop", wgUserGroups) && wgCanonicalNamespace.indexOf("User") === 0 ) {
@@ -781,7 +576,6 @@ mw.hook( 'wikipage.content' ).add( function() {
 			setupCustomEditTools();
 		} else {
 			setTimeout(runSetupOnUserReady, 200);
-			mw.log("set timeout for runSetupOnUserReady");
 		}
 	};
 	runSetupOnUserReady();
