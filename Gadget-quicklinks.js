@@ -4,7 +4,7 @@
  * License: Public domain
  * Author: Borislav Manolov
  */
-mw.hook('wikipage.content').add(function() {
+$(function() {
 	var parents = {
 		// skin : parent element ID
 		'standard' : 'searchform',
