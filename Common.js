@@ -311,35 +311,20 @@ function Projectlinks() {
 mw.hook('wikipage.content').add(Projectlinks);
 
 
-/**
-	чрез тази функция се показва поздравително съобщение на всеки НЕвлязъл потребител, ако:
-		— страницата НЕ е защитена
-		— страницата Е от основното именно пространство, т.е. Е статия
-		— има препращач
-		— препращачът НЕ съдържа wikipedia.org (например идва от Гугъл)
-	взета е от [[:de:MediaWiki:Monobook.js]], с малки промени
-*/
-function externMessage() {
-	if (
-		((self.location.href + "").indexOf("/wiki/") != -1) &&  // дали потребителят вече не редактира
-		(document.getElementById("pt-login")) &&  // дали потребителят НЕ е влязъл
-		(document.getElementById("ca-edit")) &&   // дали страницата НЕ е защитена
-		(document.getElementsByTagName("body")[0].className == "ns-0") &&   // дали страницата Е статия
-		(document.referrer != "") &&             // дали ИМА препращач
-		(document.referrer.search(/wikipedia\.org/) == -1) // дали препращачът НЕ съдържа wikipedia.org
-		)
-	{
-		var externMessage = document.createElement("div");
-		externMessage.setAttribute('id','externMessage');
-		// Съобщението, показвано на потребителите
-		externMessage.innerHTML = '<b>Добре дошли</b> в Уикипедия! Можете не само да четете тази статия, но също така и да я <b><a href="/wiki/%D0%A3%D0%B8%D0%BA%D0%B8%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F:%D0%92%D1%8A%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5" title="Повече информация за редактирането на статии в Уикипедия">редактирате и подобрите</a></b>.';
-		document.getElementById("bodyContent").insertBefore(
-		externMessage, document.getElementById("contentSub")
-		);
+// поздравително съобщение за нерегистрираните потребители
+$(function() {
+	var shouldSeeWelcomeMsg = mw.config.get("wgAction") == "view" // преглед на страница
+		&& mw.config.get("wgUserName") === null // нерегистриран потребител
+		&& mw.config.get("wgCanonicalNamespace") === "" // основно именно пространство = статия
+		&& mw.config.get("wgRestrictionEdit") === [] // няма защита
+		&& mw.config.get("wgIsProbablyEditable") === true // може да се редактира
+		&& (document.referrer != "") && // има препращач
+		&& (/bg\.wikipedia\.org/.test(document.referrer) === false) // идва извън Уикипедия
+		;
+	if (shouldSeeWelcomeMsg) {
+		mw.util.$content.prepend('<div class="custom-usermessage"><b>Добре дошли</b> в Уикипедия! Можете не само да четете тази статия, но също така и да я <b><a href="/wiki/%D0%A3%D0%B8%D0%BA%D0%B8%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F:%D0%92%D1%8A%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5" title="Повече информация за редактирането на статии в Уикипедия">редактирате и подобрите</a></b>.</div>');
 	}
-}
-
-$(externMessage);
+});
 
 
 /* * * * * * * * * *   Edit tools functions   * * * * * * * * * */
