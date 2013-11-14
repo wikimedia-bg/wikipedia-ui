@@ -103,7 +103,7 @@ var QuickDiff = {
 };
 
 // prepare for fight
-mw.hook('wikipage.content').add(function(){
+$(function(){
 	if ( /^(Recentchanges|Watchlist|Contributions)/.test(mw.config.get('wgCanonicalSpecialPageName'))
 			|| mw.config.get('wgAction') === "history"
 	) {
