@@ -193,7 +193,7 @@ if ( ! inArray( wgUserLanguage, mainLangs ) ) {
 }
 
 // add messages on load
-mw.hook('wikipage.content').add( function() {
+$( function() {
 	if ( typeof _lang_messages[ wgUserLanguage ] == "object" ) {
 		gLang.addMessages( _lang_messages[ wgUserLanguage ], wgUserLanguage );
 	}
@@ -234,7 +234,7 @@ var subPagesLink = {
 		}
 	}
 }
-mw.hook('wikipage.content').add( function() {
+$( function() {
 	subPagesLink.install();
 
 	if ( inArray("sysop", wgUserGroups) && wgCanonicalNamespace.indexOf("User") === 0 ) {
@@ -339,7 +339,7 @@ function externMessage() {
 	}
 }
 
-mw.hook('wikipage.content').add(externMessage);
+$(externMessage);
 
 
 /* * * * * * * * * *   Edit tools functions   * * * * * * * * * */
@@ -693,7 +693,7 @@ function putToolbar(rightNow) {
 	if ( window.rightNow ) {
 		putIt();
 	} else {
-		mw.hook('wikipage.content').add(putIt);
+		$(putIt);
 	}
 	return toolbar;
 }
@@ -1179,7 +1179,7 @@ function transcludeSubpage(mainpage, subpage) {
 	});
 }
 
-mw.hook('wikipage.content').add(function() {
+$(function() {
 	attachMemorizers();
 	$(".done-by-script").hide();
 	$(".showme").show();
