@@ -570,11 +570,11 @@ function setupCustomEditTools() {
 	}
 }
 
-mw.hook( 'wikipage.content' ).add( function() {
+$(function() {
 	mw.loader.using("user", function(){
 		setupCustomEditTools();
 	});
-} );
+});
 
 
 function setCustomInsButton(code, left, middle, right, shownText, title) {
