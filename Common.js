@@ -318,7 +318,7 @@ $(function() {
 		&& mw.config.get("wgCanonicalNamespace") === "" // основно именно пространство = статия
 		&& mw.config.get("wgRestrictionEdit") === [] // няма защита
 		&& mw.config.get("wgIsProbablyEditable") === true // може да се редактира
-		&& (document.referrer != "") && // има препращач
+		&& (document.referrer != "") // има препращач
 		&& (/bg\.wikipedia\.org/.test(document.referrer) === false) // идва извън Уикипедия
 		;
 	if (shouldSeeWelcomeMsg) {
