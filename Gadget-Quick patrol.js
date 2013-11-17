@@ -41,7 +41,7 @@ var QuickPattroler = {
 	gotoRcIfWanted: function()
 	{
 		if ( window.wgxQuickPatrolLoadRc && wgxQuickPatrolLoadRc ) {
-			location.href = mw.util.wikiGetlink( gLang.msg("recentchangespage") );
+			location.href = mw.util.getUrl( gLang.msg("recentchangespage") );
 		}
 	}
 };
@@ -282,7 +282,7 @@ var BunchPatroller = {
 
 	checkForBadToken: function()
 	{
-		return inArray("badtoken", this.errors);
+		return $.inArray("badtoken", this.errors) !== -1;
 	},
 
 	tokenCookie: "patrolToken",
