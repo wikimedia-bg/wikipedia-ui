@@ -289,10 +289,10 @@ var BunchPatroller = {
 
 	getToken: function()
 	{
-		var token = Cookie.read(this.tokenCookie);
+		var token = $.cookie(this.tokenCookie);
 		if ( ! token ) {
 			token = this.getTokenFromApi();
-			Cookie.create(this.tokenCookie, token);
+			$.cookie(this.tokenCookie, token);
 		}
 
 		return token;
@@ -316,7 +316,7 @@ var BunchPatroller = {
 
 	clearToken: function()
 	{
-		Cookie.erase(this.tokenCookie);
+		$.cookie(this.tokenCookie, null);
 		return this;
 	}
 
