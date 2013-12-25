@@ -817,11 +817,11 @@ function openStreetMapToggle() {
 // към определена страница в енциклопедията. За целта разкоментирайте кода
 // по-долу (премахнете двойните наклонени черти в началото на всеки ред) и
 // поставете името на съответната страница в посоченото място.
-//mw.hook('wikipage.content').add(function(){
-//    var logoLink = document.getElementById('p-logo').childNodes[0];
+mw.hook('wikipage.content').add(function(){
+    var logoLink = document.getElementById('p-logo').childNodes[0];
 //    logoLink.title = 'Текст в popup'; // <-- поставете между апострофите текста, който искате да излиза в popup при посочване
 //    logoLink.href = '/wiki/Име на страницата'; // <-- поставете името на страницата между апострофите, но запазете /wiki/ отпред
-//});
+});
 
 // Преименуване на етикета "Статия" за началната страница
 if (wgPageName == 'Начална_страница' || wgPageName == 'Беседа:Начална_страница') {
