@@ -1042,7 +1042,6 @@ pre.source-lua {
   color: black;
 }
 
-/* Temporary logo for Christmas and New Year holidays */
-#p-logo a, #p-logo a:hover {
+#p-logo a {
     background: url("//upload.wikimedia.org/wikipedia/commons/a/ae/Wiki-xmas.png") 35% 50% no-repeat !important;
 }
