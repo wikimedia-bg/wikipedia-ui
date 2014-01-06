@@ -1021,7 +1021,9 @@ pre.source-lua {
 }
 
 .img_toggle ul {
-  list-style: none;
+  list-style-type: none !important;
+  list-style-image: none !important;
+  list-style-position: outside !important;
   padding:0 !important;
   margin:0 0 0 5px !important;
 }
