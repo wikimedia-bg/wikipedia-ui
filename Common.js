@@ -796,10 +796,11 @@ function openStreetMapToggle() {
 
   h = h.split('params=')[1];
 
-  var url = '//toolserver.org/~kolossos/openlayers/kml-on-ol.php?lang=bg&uselang='
-          + mw.util.rawurlencode( mw.config.get( 'wgUserLanguage' ) )
+  var url = '//toolserver.org/~kolossos/openlayers/kml-on-ol.php?'
+          + 'lang=' + mw.config.get('wgUserLanguage')
           + '&params=' + h
-          + '&title=' + mw.util.wikiUrlencode( mw.config.get( 'wgTitle' ) );
+          + '&title=' + mw.util.wikiUrlencode( mw.config.get( 'wgTitle' ) )
+          + ( window.location.protocol == 'https:' ? '&secure=1' : '' ) ;
 
   var iframe = $( document.createElement( 'iframe' ) );
   iframe.attr( 'id', 'openstreetmap' );
