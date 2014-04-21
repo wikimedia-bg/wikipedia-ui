@@ -1048,3 +1048,8 @@ pre.source-lua {
   text-decoration: none;
   color: black;
 }
+
+/* Temporary logo for Velikden */
+#p-logo a, #p-logo a:hover {
+    background: url("//upload.wikimedia.org/wikipedia/commons/2/26/Wiki-velikden.png") 35% 50% no-repeat !important;
+}
