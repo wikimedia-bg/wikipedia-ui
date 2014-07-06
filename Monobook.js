@@ -12,7 +12,7 @@ gLang.addMessages({
 	"action-create" : "Create"
 }, "en");
 
-addOnloadHook(function(){
+$(document).ready(function(){
 	var psearch = document.getElementById("p-search");
 	if ( ! psearch) {
 		return;
