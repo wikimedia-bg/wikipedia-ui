@@ -141,22 +141,22 @@ function MessageLanguage() {
 var gLang = new MessageLanguage();
 
 // import message files
-if (wgUserLanguage !== "bg") {
-	gLang.setLanguage( wgUserLanguage );
+if (mw.config.get('wgUserLanguage') !== "bg") {
+	gLang.setLanguage( mw.config.get('wgUserLanguage') );
 }
 
 var mainLangs = [ DEFAULT_USER_LANGUAGE, FALLBACK_USER_LANGUAGE ];
-if ( $.inArray( wgUserLanguage, mainLangs ) == -1 ) {
+if ( $.inArray( mw.config.get('wgUserLanguage'), mainLangs ) == -1 ) {
 	gLang.importMessages( FALLBACK_USER_LANGUAGE );
 }
 
 // add messages on load
 $( function() {
-	if ( typeof _lang_messages[ wgUserLanguage ] == "object" ) {
-		gLang.addMessages( _lang_messages[ wgUserLanguage ], wgUserLanguage );
+	if ( typeof _lang_messages[ mw.config.get('wgUserLanguage') ] == "object" ) {
+		gLang.addMessages( _lang_messages[ mw.config.get('wgUserLanguage') ], mw.config.get('wgUserLanguage') );
 	}
 	if ( typeof _lang_messages[ FALLBACK_USER_LANGUAGE ] == "object" ) {
-		if ( $.inArray( wgUserLanguage, mainLangs ) == -1 ) {
+		if ( $.inArray( mw.config.get('wgUserLanguage'), mainLangs ) == -1 ) {
 			gLang.addMessages( _lang_messages[ FALLBACK_USER_LANGUAGE ],
 				FALLBACK_USER_LANGUAGE );
 		}
@@ -354,7 +354,7 @@ var tpl1 = {
 	"Сортиране по ключ" : "{"+"{СОРТКАТ:>>|<<}}",
 	"Категория" : "["+"[Категория:>>|<<]]",
 	"Мъниче" : "{"+"{мъниче>>|<<}}",
-	"Към пояснение" : "{"+"{към пояснение|"+ wgTitle +"|>>|<<"+ wgTitle +" (пояснение)}}"
+	"Към пояснение" : "{"+"{към пояснение|"+ mw.config.get('wgTitle') +"|>>|<<"+ mw.config.get('wgTitle') +" (пояснение)}}"
 };
 
 var atplb = "МедияУики:Common.js/Edit tools data/";
@@ -643,7 +643,7 @@ $(function() {
  *  Maintainers: Remember_the_dot
  */
 
-if (wgIsArticle) //prevents the "Editing " prefix from disappearing during preview
+if (mw.config.get('wgIsArticle')) //prevents the "Editing " prefix from disappearing during preview
 {
     mw.hook('wikipage.content').add(function()
     {
@@ -673,11 +673,11 @@ if (wgIsArticle) //prevents the "Editing " prefix from disappearing during previ
             var normalizedNamespaceName = normalizeTitle(realTitleText.substring(0, indexOfColon)).toLowerCase()
 
             //make namespace prefix lowercase and uppercase the first letter of the title
-            if (indexOfColon == -1 || wgCanonicalNamespace.toLowerCase() != normalizedNamespaceName) //no namespace prefix - either no colon or a nonsensical namespace prefix (for example, "Foo" in "Foo: The Story of My Life")
+            if (indexOfColon == -1 || mw.config.get('wgCanonicalNamespace').toLowerCase() != normalizedNamespaceName) //no namespace prefix - either no colon or a nonsensical namespace prefix (for example, "Foo" in "Foo: The Story of My Life")
             {
                 normalizedRealTitle = normalizeTitle(realTitleText)
                 normalizedRealTitle = normalizedRealTitle.charAt(0).toUpperCase() + normalizedRealTitle.substring(1)
-                normalizedPageTitle = wgPageName.charAt(0).toUpperCase() + wgPageName.substring(1)
+                normalizedPageTitle = mw.config.get('wgPageName').charAt(0).toUpperCase() + mw.config.get('wgPageName').substring(1)
             }
             else //using a namespace prefix
             {
@@ -689,7 +689,7 @@ if (wgIsArticle) //prevents the "Editing " prefix from disappearing during previ
                     normalizedRealTitle += ":"
                 }
                 normalizedRealTitle += normalizedRealPageTitle.charAt(0).toUpperCase() + normalizedRealPageTitle.substring(1)
-                normalizedPageTitle = wgPageName.substring(0, wgPageName.indexOf(":") + 1).toLowerCase() + wgPageName.substring(wgPageName.indexOf(":") + 1)
+                normalizedPageTitle = mw.config.get('wgPageName').substring(0, mw.config.get('wgPageName').indexOf(":") + 1).toLowerCase() + mw.config.get('wgPageName').substring(mw.config.get('wgPageName').indexOf(":") + 1)
             }
 
             if (normalizedRealTitle == normalizedPageTitle) //normalized titles match, so we can do full replacement
@@ -825,10 +825,10 @@ function openStreetMapToggle() {
 //});
 
 // Преименуване на етикета "Статия" за началната страница
-if (wgPageName == 'Начална_страница' || wgPageName == 'Беседа:Начална_страница') {
+if (mw.config.get('wgPageName') == 'Начална_страница' || mw.config.get('wgPageName') == 'Беседа:Начална_страница') {
     $(function () {
         var nstab = document.getElementById('ca-nstab-main');
-        if (nstab && wgUserLanguage=='bg') {
+        if (nstab && mw.config.get('wgUserLanguage')=='bg') {
             while (nstab.firstChild) { nstab = nstab.firstChild; }
             nstab.nodeValue = 'Начална страница';
         }
@@ -924,16 +924,6 @@ mw.log.deprecate( window, 'getURLParamValue', function () {
     return mw.util.getParamValue.apply( mw.util, arguments );
 }, 'Use mw.util.getParamValue() instead' );
 
-/**
- * Проверка дали даден елемент има даден клас
- *
- * @deprecated:  Използвайте $(element).hasClass() вместо това.
- */
-mw.log.deprecate( window, 'hasClass', function ( element, className ) {
-    return $( element ).hasClass( className );
-}, 'Използвайте jQuery.hasClass() вместо това' );
-
-/**
  * Междууики връзки към избрани статии ****************************************
  *
  * Описание: Указва междуезиковите препратки към избраните статии на други езици
