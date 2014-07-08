@@ -1,8 +1,3 @@
-/**
-	Add a start new page input box to the sidebar.
-	Author: Borislav Manolov
-	License: Public domain
-*/
 gLang.addMessages({
 	"p-createnew" : "Нова страница",
 	"action-create" : "Създаване"
@@ -13,21 +8,20 @@ gLang.addMessages({
 }, "en");
 
 $(document).ready(function(){
-	var psearch = document.getElementById("p-search");
-	if ( ! psearch) {
+	var psearch = $("#p-search");
+	if (!psearch.length) {
 		return;
 	}
 
-	var header = Creator.createElement('h5', {}, gLang.msg("p-createnew"));
-	var form = Creator.createElement('form', {
-		action : wgScript, id: "createform"
-	}, Creator.createElement("div", {}, [
-		Creator.createHiddenField("action", "edit"),
-		Creator.createElement("input", {type: "text", name: "title", id: "createPageInput"}),
-		Creator.createElement("input", {type: "submit", "class": "searchButton", value: gLang.msg("action-create")})
-	]));
-	var box = Creator.createElement('div', {'class' : 'pBody'}, form);
-	var portlet = Creator.createElement( 'div',
-		{'class' : 'portlet', 'id' : 'p-create'}, [header, box] );
-	psearch.parentNode.insertBefore(portlet, psearch.nextSibling);
+	var header = $('<h3>', {text: gLang.msg("p-createnew")});
+	var form = $('<form>', {
+		action: wgScript,
+		id: "createform",
+		html: '<input type="hidden" name="action" value="edit">'
+			+ '<input type="text" name="title" id="createPageInput">'
+			+ '<input type="submit" class="searchButton" value="'+gLang.msg("action-create")+'">'
+	});
+	var box = $('<div>', {'class': 'pBody', html: form});
+	var portlet = $('<div>', {'class': 'portlet', 'id': 'p-create'}).append(header, box);
+	psearch.after(portlet);
 });
