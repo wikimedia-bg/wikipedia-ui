@@ -936,10 +936,10 @@ function LinkFA() {
 
         for ( var i = 0; i < InterwikiLinks.length; i++ ) {
             var className = InterwikiLinks[i].className.match(/interwiki-[-\w]+/);
-            if ( document.getElementById( className + '-fa' ) ) {
+            if ( document.getElementById( className + '-fa' ) && InterwikiLinks[i].className.indexOf( 'badge-featuredarticle' ) === -1 ) {
                 InterwikiLinks[i].className += ' FA';
                 InterwikiLinks[i].title = 'Тази статия на друг език е избрана';
-            } else if ( document.getElementById( className + '-ga' ) ) {
+            } else if ( document.getElementById( className + '-ga' ) && InterwikiLinks[i].className.indexOf( 'badge-goodarticle' ) === -1 ) {
                 InterwikiLinks[i].className += ' GA';
                 InterwikiLinks[i].title = 'Тази статия на друг език е определена за добра';
             }
