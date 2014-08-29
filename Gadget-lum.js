@@ -6,7 +6,7 @@
 	Author: Borislav Manolov
 */
 
-addOnloadHook(function() {
+$(function() {
 	var sharedRepoKey = "wikipedia/commons/";
 	var prefix = "LOCAL — ";
 
