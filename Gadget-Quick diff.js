@@ -67,7 +67,7 @@ var QuickDiff = {
 
 	addCss: function()
 	{
-		mw.util.addCSS(
+		appendCSS(
 			'#quickdiff {\
 				position: absolute;\
 				width: 100%;\
