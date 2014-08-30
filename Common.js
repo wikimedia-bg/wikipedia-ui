@@ -759,10 +759,7 @@ mw.loader.using( [ 'mediawiki.util' ], function() { $( function() {
    'title': 'Показване на координатите на карта от OpenStreetMap',
    'class': 'noprint osm-icon-coordinates'
   } );
-  a.click( openStreetMapToggle );
-  a.append( img );
-  c.append( a );
-})});
+
 // The function to toggle
 function openStreetMapToggle() {
   var c = $( '#coordinates' );
@@ -813,6 +810,10 @@ function openStreetMapToggle() {
   cs.append( iframe );
   return false;
 }
+  a.click( openStreetMapToggle );
+  a.append( img );
+  c.append( a );
+})});
 
 // Използвайте този код, за да пренасочите връзката от логото на Уикипедия
 // към определена страница в енциклопедията. За целта разкоментирайте кода
