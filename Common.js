@@ -521,23 +521,23 @@ if (mw.ext.isAction(['edit', 'submit'])) {
 importScript('Потребител:Borislav/mwbot.js');
 
 var Memory = {
-	memoryTtl: 1,
+	memoryTtl: 86400, // last this many seconds
 	allowedActions: ["transcludeSubpage"],
 	delim1: "::",
 	delim2: ";;",
 
 	memorize: function(jsAction, jsArgs, mwPage, mwAction) {
-		$.cookie(
+		mw.cookie.set(
 			Memory.getCookieName(mwPage, mwAction),
 			jsAction + Memory.delim1 + jsArgs.join(Memory.delim2),
-			{ expires: Memory.memoryTtl });
+			new Date(Date.now() + Memory.memoryTtl*1000));
 	},
 
 	executeCurrentAction: function() {
 		var cookieName = Memory.getCookieName(mw.config.get('wgPageName'), mw.config.get('wgAction'));
-		var rawData = $.cookie(cookieName);
+		var rawData = mw.cookie.get(cookieName);
 		if (rawData) {
-			$.cookie(cookieName, null);
+			mw.cookie.set(cookieName, null);
 			var p = rawData.split(Memory.delim1);
 			if ( $.inArray(p[0], Memory.allowedActions) !== -1 ) {
 				eval(p[0] + '("'
@@ -617,7 +617,7 @@ function transcludeSubpage(mainpage, subpage) {
 	});
 }
 
-$(function() {
+mw.loader.using(["mediawiki.cookie"]).done(function() {
 	attachMemorizers();
 	$(".done-by-script").hide();
 	$(".showme").show();
