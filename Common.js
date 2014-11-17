@@ -617,11 +617,13 @@ function transcludeSubpage(mainpage, subpage) {
 	});
 }
 
-mw.loader.using(["mediawiki.cookie"]).done(function() {
-	attachMemorizers();
-	$(".done-by-script").hide();
-	$(".showme").show();
-	Memory.executeCurrentAction();
+$(function() {
+	mw.loader.using(["mediawiki.cookie"]).done(function() {
+		attachMemorizers();
+		$(".done-by-script").hide();
+		$(".showme").show();
+		Memory.executeCurrentAction();
+	});
 });
 
 /* * * * * * * * * *   Title fix  * * * * * * * * */
