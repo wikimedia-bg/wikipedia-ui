@@ -405,7 +405,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /(\d)(&nbsp;)?( *км)([^{letter}])/g;
+    var re = /(\d+)(&nbsp;)?( *км)([^{letter}])/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     for (var i = 0; i < a.length; i++) {
