@@ -185,7 +185,7 @@ var subPagesLink = {
 	install: function() {
 		if ( document.getElementById("p-tb") && !mw.ext.isNs(subPagesLink.wo_ns) ) {
 			mw.util.addPortletLink( 'p-tb',
-				mw.util.wikiGetlink('Special:Prefixindex/' + mw.config.get('wgPageName') +'/'),
+				mw.util.getUrl('Special:Prefixindex/' + mw.config.get('wgPageName') +'/'),
 				gLang.msg("tb-subpages"), 't-subpages' );
 		}
 	}
@@ -195,7 +195,7 @@ $( function() {
 
 	if ( $.inArray("sysop", mw.config.get('wgUserGroups')) !== -1 && mw.config.get('wgCanonicalNamespace').indexOf("User") === 0 ) {
 		mw.util.addPortletLink( 'p-tb',
-			mw.util.wikiGetlink('Специални:Потребителски права/' + mw.config.get('wgTitle')),
+			mw.util.getUrl('Специални:Потребителски права/' + mw.config.get('wgTitle')),
 			"Управление на правата", 't-userrights' );
 	}
 });
