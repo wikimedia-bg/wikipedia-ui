@@ -23,7 +23,7 @@ var QuickPattroler = {
 
 	enable: function()
 	{
-		jQuery(".patrollink a").on("click", function(){
+		jQuery("body").on("click", ".patrollink a", function(){
 			QuickPattroler.executePatrol(this);
 			return false;
 		});
