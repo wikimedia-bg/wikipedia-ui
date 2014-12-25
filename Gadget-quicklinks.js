@@ -32,7 +32,7 @@ $(function() {
 	var container = null;
 	var loaded = false;
 	var link = $('<a>', {
-		href: mw.util.wikiGetlink(page),
+		href: mw.util.getUrl(page),
 		text: plus,
 		title: 'Показване на бързите връзки'
 	});
