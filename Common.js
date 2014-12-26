@@ -1,5 +1,5 @@
 /** Namespace constants */
-mw.ns = {
+mw.ns = mw.ns || {
 	MEDIA          : -2,
 	SPECIAL        : -1,
 	MAIN           : 0,
@@ -76,7 +76,7 @@ _lang_messages["bg"] = {
 
 	// Transclusion tool
 	"ta-emptyfield" : "Не сте въвели име за подстраницата.",
-	"ta-summary" : "Вграждане на [[$1]]",
+	"ta-summary" : "Автоматично вграждане на [[$1]]",
 	"ta-bpsummary" : "Нова тема: [[$1]]",
 
 	// Toolbox add-ons
@@ -507,19 +507,10 @@ if (mw.ext.isAction(['edit', 'submit'])) {
 }
 
 
-/* * * * * * * * * *   Mwbot stuff   * * * * * * * * * */
-
 /**
  * Extends the functionality of an inputbox in a div.mwbot element.
  * Appends { { MAINPAGE/SUBPAGE } } to MAINPAGE upon creation of MAINPAGE/SUBPAGE
- *
- * Uses the class Mwbot ([[Потребител:Borislav/mwbot.js]]).
- *
- * License: GNU GPL 2 or later / GNU FDL
- * Author: [[:bg:User:Borislav|Borislav Manolov]]
  */
-importScript('Потребител:Borislav/mwbot.js');
-
 var Memory = {
 	memoryTtl: 86400, // last this many seconds
 	allowedActions: ["transcludeSubpage"],
@@ -591,39 +582,21 @@ function transcludeSubpage(mainpage, subpage) {
 	if ( $.trim(mainpage) == "" || $.trim(subpage) == "" ) {
 		return;
 	}
-	var bot = new Mwbot();
-	bot.edit(mainpage, function(bot) {
-		var fullpage = mainpage + "/" + subpage;
-		bot.append_page_content("\n{"+"{" + fullpage + "}}");
-		bot.set_edit_summary( gLang.msg("ta-summary", fullpage) );
-
-		// put a summary notice on a possible base page
-		var slashPos = mainpage.indexOf("/");
-		if ( false && slashPos != -1 /*&& document.getElementById("bot-editbase")*/ ) {
-			var basepage = mainpage.substr(0, slashPos);
-			var bot2 = new Mwbot();
-			bot2.edit(basepage, function(bot) {
-				var s = "<!"+"-- dummy edit (\\d+) -->";
-				var m = new RegExp(s).exec(bot.page_content);
-				if ( m ) {
-					bot.replace_page_content(m[0],
-						s.replace("(\\d+)", parseInt(m[1]) + 1) );
-				} else {
-					bot.append_page_content("\n" + s.replace("(\\d+)", 1));
-				}
-				bot.set_edit_summary( gLang.msg("ta-bpsummary", fullpage) );
-			});
-		}
+	var api = new mw.Api();
+	var fullpage = mainpage + "/" + subpage;
+	api.postWithToken("edit", {
+		action: "edit",
+		title: mainpage,
+		summary: gLang.msg("ta-summary", fullpage),
+		appendtext: "\n{"+"{" + fullpage + "}}"
 	});
 }
 
-$(function() {
-	mw.loader.using(["mediawiki.cookie"]).done(function() {
-		attachMemorizers();
-		$(".done-by-script").hide();
-		$(".showme").show();
-		Memory.executeCurrentAction();
-	});
+mw.loader.using(["mediawiki.cookie"]).done(function() {
+	attachMemorizers();
+	$(".done-by-script").hide();
+	$(".showme").show();
+	Memory.executeCurrentAction();
 });
 
 /* * * * * * * * * *   Title fix  * * * * * * * * */
