@@ -18,7 +18,7 @@ gLang.addMessages({
 /**
  * Ajaxify patrol links
  */
-window.QuickPatroller = {
+var QuickPatroller = {
 	linkClassWorking: "working",
 
 	enable: function() {
@@ -47,7 +47,7 @@ window.QuickPatroller = {
  * Enable bulk patrolling when multiple edits are reviewed at once
  * thru the enhanced recent changes
  */
-window.BulkPatroller = {
+var BulkPatroller = {
 
 	revidsParam: "patrol-revids",
 	diffsParam: "diffs",
@@ -198,17 +198,15 @@ window.BulkPatroller = {
 	},
 
 	executePatrol: function(revids, motherLink) {
-		var api = new mw.Api();
-		api.getToken("patrol").done(function(token) {
-			$.each(revids, function(i, revid) {
-				BulkPatroller.executePatrolOne(token, revid);
-			});
-	
-			BulkPatroller.executeOnPatrolDone(function() {
-				$(motherLink).replaceWith(gLang.msg("markedaspatrolledtext"));
-				QuickPatroller.gotoRcIfWanted();
-			}, revids);
+		var token = mw.user.tokens.get('patrolToken');
+		$.each(revids, function(i, revid) {
+			BulkPatroller.executePatrolOne(token, revid);
 		});
+
+		BulkPatroller.executeOnPatrolDone(function() {
+			$(motherLink).replaceWith(gLang.msg("markedaspatrolledtext"));
+			QuickPatroller.gotoRcIfWanted();
+		}, revids);
 	},
 
 	intervalId: 0,
@@ -249,7 +247,8 @@ window.BulkPatroller = {
 mw.hook('wikipage.content').add(function(){
 	if ( /^(Recentchanges|Recentchangeslinked|Watchlist)/.test(mw.config.get('wgCanonicalSpecialPageName')) ) {
 		BulkPatroller.makeBulkDiffsPatrollable();
-	} else if (mw.config.get('wgAction') === "view") {
+	}
+	if ($.inArray("patroller", mw.config.get('wgUserGroups')) !== -1) {
 		QuickPatroller.enable();
 		BulkPatroller.enable();
 	}
