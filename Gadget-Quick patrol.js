@@ -15,71 +15,73 @@ gLang.addMessages({
 	"nchanges"          : "\\d+ промени"
 }, "bg");
 
-/**
- * Ajaxify patrol links
- */
-var QuickPatroller = {
-	linkClassWorking: "working",
+mw.ext.Patroller = {};
 
-	enable: function() {
+mw.ext.Patroller.quick = function() {
+	var my = this;
+	
+	my.linkClassWorking = "working";
+
+	my.enable = function() {
 		$("body").on("click", ".patrollink a", function(){
-			QuickPatroller.executePatrol(this);
+			my.executePatrol(this);
 			return false;
 		});
-	},
+	};
 
-	executePatrol: function(link) {
-		var $link = $(link).addClass( this.linkClassWorking );
+	my.executePatrol = function(link) {
+		var $link = $(link).addClass(my.linkClassWorking);
 		$.post(link.href, function(data){
 			$link.replaceWith(gLang.msg("markedaspatrolledtext1"));
-			QuickPatroller.gotoRcIfWanted();
+			my.gotoRcIfWanted();
 		});
-	},
+	};
 
-	gotoRcIfWanted: function() {
+	my.gotoRcIfWanted = function() {
 		if (window.wgxQuickPatrolLoadRc && wgxQuickPatrolLoadRc) {
 			location.href = mw.util.getUrl(gLang.msg("recentchangespage"));
 		}
-	}
+	};
 };
 
 /**
  * Enable bulk patrolling when multiple edits are reviewed at once
  * thru the enhanced recent changes
  */
-var BulkPatroller = {
+mw.ext.Patroller.bulk = function() {
+	var my = this;
 
-	revidsParam: "patrol-revids",
-	diffsParam: "diffs",
-	paramDelim: ",",
-	bulkDiffLinkClass: "bulk-duff-link",
-	diffLinkClass: "duff-link",
-	diffLinkClassDone: "done",
-	diffLinkClassNotDone: "not-done",
-	classLoading: "loading",
+	my.revidsParam = "patrol-revids";
+	my.diffsParam = "diffs";
+	my.paramDelim = ",";
+	my.bulkDiffLinkClass = "bulk-duff-link";
+	my.diffLinkClass = "duff-link";
+	my.diffLinkClassDone = "done";
+	my.diffLinkClassNotDone = "not-done";
+	my.classLoading = "loading";
 
 	/* track number of patrolled edits */
-	numEditsPatrolled: 0,
+	my.numEditsPatrolled = 0;
 
 	/* error codes returned from API */
-	errors: [],
+	my.errors = [];
 
 	/** Works on Special:Recentchanges */
-	makeBulkDiffsPatrollable: function() {
+	my.makeBulkDiffsPatrollable = function() {
 		$(".mw-collapsible.mw-enhanced-rc").each(function() {
 			if ($(this).find(".unpatrolled").length) {
-				BulkPatroller.makeBulkDiffPatrollable(this);
+				my.makeBulkDiffPatrollable(this);
 			}
 		});
-	},
+	};
 
-	makeBulkDiffPatrollable: function(changeslist) {
+	my.makeBulkDiffPatrollable = function(changeslist) {
 		var $timeLinks = $(".unpatrolled", changeslist).closest("tr").find(".mw-enhanced-rc-time a");
-		var revids = this.getJoinedValueFromHrefs($timeLinks, /oldid=(\d+)/);
-		this.enhanceBulkDiffLink($("tr:first", changeslist), revids);
-	},
+		var revids = my.getJoinedValueFromHrefs($timeLinks, /oldid=(\d+)/);
+		my.enhanceBulkDiffLink($("tr:first", changeslist), revids);
+	};
 
-	getJoinedValueFromHrefs: function($links, regexp, regexpAlt) {
+	my.getJoinedValueFromHrefs = function($links, regexp, regexpAlt) {
 		return $links.map(function(){
 			var m = $(this).attr("href").match(regexp);
 			if ( null === m && typeof regexpAlt == "object" ) {
@@ -87,58 +89,58 @@ var BulkPatroller = {
 				m = $(this).attr("href").match(regexpAlt);
 			}
 			return null === m ? 0 : m[1];
-		}).get().join(this.paramDelim);
-	},
+		}).get().join(my.paramDelim);
+	};
 
 	/**
 	 * Add extra parameters to the href attribute of the bulk diff link.
 	 * If there is no diff link (by new pages) one is created.
 	 */
-	enhanceBulkDiffLink: function($holder, revids) {
-		var extraParams = "&" + this.revidsParam + "=" + revids;
+	my.enhanceBulkDiffLink = function($holder, revids) {
+		var extraParams = "&" + my.revidsParam + "=" + revids;
 
 		var $link = $('a[href*="diff"]', $holder);
 		if ($link.length) {
 			$link.attr("href", function(){
 				return this.href + extraParams;
-			}).addClass(this.bulkDiffLinkClass);
+			}).addClass(my.bulkDiffLinkClass);
 		} else {
-			this.addBulkDiffLinkTo(
+			my.addBulkDiffLinkTo(
 				$("td:eq(1)", $holder), // second table cell
-				diffs.split(this.paramDelim).shift(), // first id
+				diffs.split(my.paramDelim).shift(), // first id
 				extraParams
 			);
 		}
-	},
+	};
 
-	addBulkDiffLinkTo: function($holder, diff, extraParams) {
-		$holder.html( $holder.html().replace(
-			new RegExp( gLang.msg("nchanges") ),
+	my.addBulkDiffLinkTo = function($holder, diff, extraParams) {
+		$holder.html($holder.html().replace(
+			new RegExp(gLang.msg("nchanges")),
 			'<a href="' + mw.config.get('wgScript') + "?diff=" + diff + "&oldid=" + diff + extraParams
-				+ '" class="' + this.bulkDiffLinkClass + '">$&</a>') );
-	},
+				+ '" class="' + my.bulkDiffLinkClass + '">$&</a>'));
+	};
 
 	/** Works on diff pages */
-	enable: function(url) {
+	my.enable = function(url) {
 		$bulkPatrolLinkHolder = $("#mw-diff-ntitle4");
 		if ( 0 == $bulkPatrolLinkHolder.length ) {
 			return; // not a diff page, get out of here
 		}
 
-		var revidsRaw = mw.util.getParamValue(this.revidsParam, url);
+		var revidsRaw = mw.util.getParamValue(my.revidsParam, url);
 		if ( ! revidsRaw ) {
 			return; // no revids to patrol
 		}
 
-		var revids = revidsRaw.split(this.paramDelim);
-		this.addPatrolLinkTo($bulkPatrolLinkHolder, revids);
+		var revids = revidsRaw.split(my.paramDelim);
+		my.addPatrolLinkTo($bulkPatrolLinkHolder, revids);
 
-		this.addDiffLinksTo($bulkPatrolLinkHolder, revids);
+		my.addDiffLinksTo($bulkPatrolLinkHolder, revids);
 
-		this.addShowAllDiffsLinkTo($bulkPatrolLinkHolder);
-	},
+		my.addShowAllDiffsLinkTo($bulkPatrolLinkHolder);
+	};
 
-	addPatrolLinkTo: function($holder, revids) {
+	my.addPatrolLinkTo = function($holder, revids) {
 		if ($holder.children().length) {
 			$holder.append("<br/>");
 		}
@@ -147,109 +149,118 @@ var BulkPatroller = {
 				? gLang.msg("markaspatrolledtext1")
 				: gLang.msg("markaspatrolledtext", revids.length) )
 			.click(function() {
-				$(this).addClass(QuickPatroller.linkClassWorking);
-				BulkPatroller.executePatrol(revids, this);
+				$(this).addClass(my.linkClassWorking);
+				my.executePatrol(revids, this);
 				return false;
 			})
 			.appendTo($holder);
-	},
+	};
 
-	addDiffLinksTo: function($holder, revids) {
+	my.addDiffLinksTo = function($holder, revids) {
 		var $list = $("<ul/>");
 		$.each(revids, function(i, revid){
-			$list.append(BulkPatroller.getDiffLink(revid));
+			$list.append(my.getDiffLink(revid));
 		});
 		$list.appendTo($holder);
-	},
+	};
 
-	addShowAllDiffsLinkTo: function($holder) {
+	my.addShowAllDiffsLinkTo = function($holder) {
 		$('<a href="#alldiffs"/>')
 			.text( gLang.msg("showalldiffs") )
 			.click(function(){
 				$all = $('<div id="alldiffs"/>').insertAfter( $holder.parents(".diff") );
 
-				$("." + BulkPatroller.diffLinkClass, $holder).each(function(){
-					BulkPatroller.loadDiffContentFor(this, $all);
+				$("." + my.diffLinkClass, $holder).each(function(){
+					my.loadDiffContentFor(this, $all);
 				});
 
 				$(this).remove();
 			})
 			.appendTo($holder);
-	},
+	};
 
-	loadDiffContentFor: function(link, $holder) {
-		var $out = $("<div/>").appendTo($holder).addClass(this.classLoading).before("<hr/>");
+	my.loadDiffContentFor = function(link, $holder) {
+		var $out = $("<div/>").appendTo($holder).addClass(my.classLoading).before("<hr/>");
 
 		$.get(link.href + "&diffonly=1&action=render", function(data){
-			$out.html(data).removeClass(BulkPatroller.classLoading);
+			$out.html(data).removeClass(my.classLoading);
 		});
-	},
+	};
 
-	getDiffLink: function(revid) {
+	my.getDiffLink = function(revid) {
 		return '<li><a'
-			+ ' id="' + this.getDiffLinkId(revid) + '"'
-			+ ' class="' + this.diffLinkClass + '"'
+			+ ' id="' + my.getDiffLinkId(revid) + '"'
+			+ ' class="' + my.diffLinkClass + '"'
 			+ ' href="' + mw.config.get('wgScript') + '?oldid=prev&diff=' + revid + '"'
 			+ '>' + revid +'</a></li>';
-	},
+	};
 
-	getDiffLinkId: function(revid) {
+	my.getDiffLinkId = function(revid) {
 		return "diff-link-" + revid;
-	},
+	};
 
-	executePatrol: function(revids, motherLink) {
+	my.executePatrol = function(revids, motherLink) {
 		var token = mw.user.tokens.get('patrolToken');
 		$.each(revids, function(i, revid) {
-			BulkPatroller.executePatrolOne(token, revid);
+			my.executePatrolOne(token, revid);
 		});
 
-		BulkPatroller.executeOnPatrolDone(function() {
+		my.executeOnPatrolDone(function() {
 			$(motherLink).replaceWith(gLang.msg("markedaspatrolledtext"));
-			QuickPatroller.gotoRcIfWanted();
+			my.gotoRcIfWanted();
 		}, revids);
-	},
+	};
 
-	intervalId: 0,
-	executeOnPatrolDone: function(callback, revids) {
-		this.intervalId = setInterval(function() {
-			if (BulkPatroller.numEditsPatrolled >= revids.length) {
-				clearInterval(BulkPatroller.intervalId);
+	my.intervalId = 0;
+	my.executeOnPatrolDone = function(callback, revids) {
+		my.intervalId = setInterval(function() {
+			if (my.numEditsPatrolled >= revids.length) {
+				clearInterval(my.intervalId);
 				callback();
 			}
 		}, 200);
-	},
+	};
 
-	executePatrolOne: function(token, revid) {
-		var $diffLink = $("#" + BulkPatroller.getDiffLinkId(revid));
-		$diffLink.addClass(QuickPatroller.linkClassWorking);
+	my.executePatrolOne = function(token, revid) {
+		var $diffLink = $("#" + my.getDiffLinkId(revid));
+		$diffLink.addClass(my.linkClassWorking);
 		var api = new mw.Api();
 		api.post({
 			action: "patrol",
 			token: token,
 			revid: revid
 		}).done(function(data) {
-			$diffLink.removeClass(QuickPatroller.linkClassWorking).addClass(BulkPatroller.diffLinkClassDone);
+			$diffLink.removeClass(my.linkClassWorking).addClass(my.diffLinkClassDone);
 		}).fail(function() {
-			$diffLink.addClass(BulkPatroller.diffLinkClassNotDone);
-			BulkPatroller.handleError(data.error, $diffLink);
+			$diffLink.addClass(my.diffLinkClassNotDone);
+			my.handleError(data.error, $diffLink);
 		}).always(function() {
-			BulkPatroller.numEditsPatrolled++;
+			my.numEditsPatrolled++;
 		});
-	},
+	};
 
-	handleError: function(error, $diffLink) {
-		this.errors.push(error.code);
+	my.handleError = function(error, $diffLink) {
+		my.errors.push(error.code);
 		$diffLink.attr("title", error.info);
-	}
+	};
 
 };
 
-mw.hook('wikipage.content').add(function(){
-	if ( /^(Recentchanges|Recentchangeslinked|Watchlist)/.test(mw.config.get('wgCanonicalSpecialPageName')) ) {
-		BulkPatroller.makeBulkDiffsPatrollable();
+mw.ext.Patroller.init = function() {
+	if ($.inArray("patroller", mw.config.get('wgUserGroups')) === -1) {
+		// user is not a patroller
+		return;
 	}
-	if ($.inArray("patroller", mw.config.get('wgUserGroups')) !== -1) {
-		QuickPatroller.enable();
-		BulkPatroller.enable();
-	}
-});
+	var bulk = new mw.ext.Patroller.bulk();
+	var quick = new mw.ext.Patroller.quick();
+	var isOnPageWithChanges = /^(Recentchanges|Recentchangeslinked|Watchlist)/.test(mw.config.get('wgCanonicalSpecialPageName'));
+	mw.hook('wikipage.content').add(function() {
+		if (isOnPageWithChanges) {
+			bulk.makeBulkDiffsPatrollable();
+		}
+		quick.enable();
+		bulk.enable();
+	});
+};
+
+mw.ext.Patroller.init();
