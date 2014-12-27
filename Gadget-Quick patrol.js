@@ -48,9 +48,10 @@ mw.ext.Patroller.quick = function() {
  * Enable bulk patrolling when multiple edits are reviewed at once
  * thru the enhanced recent changes
  */
-mw.ext.Patroller.bulk = function() {
+mw.ext.Patroller.bulk = function(quick) {
 	var my = this;
 
+	my.quick = quick;
 	my.revidsParam = "patrol-revids";
 	my.diffsParam = "diffs";
 	my.paramDelim = ",";
@@ -149,7 +150,7 @@ mw.ext.Patroller.bulk = function() {
 				? gLang.msg("markaspatrolledtext1")
 				: gLang.msg("markaspatrolledtext", revids.length) )
 			.click(function() {
-				$(this).addClass(my.linkClassWorking);
+				$(this).addClass(my.quick.linkClassWorking);
 				my.executePatrol(revids, this);
 				return false;
 			})
@@ -207,7 +208,7 @@ mw.ext.Patroller.bulk = function() {
 
 		my.executeOnPatrolDone(function() {
 			$(motherLink).replaceWith(gLang.msg("markedaspatrolledtext"));
-			my.gotoRcIfWanted();
+			my.quick.gotoRcIfWanted();
 		}, revids);
 	};
 
@@ -223,14 +224,14 @@ mw.ext.Patroller.bulk = function() {
 
 	my.executePatrolOne = function(token, revid) {
 		var $diffLink = $("#" + my.getDiffLinkId(revid));
-		$diffLink.addClass(my.linkClassWorking);
+		$diffLink.addClass(my.quick.linkClassWorking);
 		var api = new mw.Api();
 		api.post({
 			action: "patrol",
 			token: token,
 			revid: revid
 		}).done(function(data) {
-			$diffLink.removeClass(my.linkClassWorking).addClass(my.diffLinkClassDone);
+			$diffLink.removeClass(my.quick.linkClassWorking).addClass(my.diffLinkClassDone);
 		}).fail(function() {
 			$diffLink.addClass(my.diffLinkClassNotDone);
 			my.handleError(data.error, $diffLink);
@@ -251,8 +252,8 @@ mw.ext.Patroller.init = function() {
 		// user is not a patroller
 		return;
 	}
-	var bulk = new mw.ext.Patroller.bulk();
 	var quick = new mw.ext.Patroller.quick();
+	var bulk = new mw.ext.Patroller.bulk(quick);
 	var isOnPageWithChanges = /^(Recentchanges|Recentchangeslinked|Watchlist)/.test(mw.config.get('wgCanonicalSpecialPageName'));
 	mw.hook('wikipage.content').add(function() {
 		if (isOnPageWithChanges) {
