@@ -15,6 +15,8 @@ mw.messages.set({
 	"nchanges"          : "\\d+ промени"
 });
 
+mw.ext = mw.ext || {};
+
 mw.ext.Patroller = {};
 
 mw.ext.Patroller.quick = function() {
