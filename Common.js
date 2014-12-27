@@ -51,8 +51,7 @@ mw.ext.isNs = function(namespaces) {
 };
 
 
-var _lang_messages = {};
-_lang_messages["bg"] = {
+mw.messages.set({
 	// Projects
 	"wikipedia": "Уикипедия",
 	"wiktionary": "Уикиречник",
@@ -81,95 +80,19 @@ _lang_messages["bg"] = {
 
 	// Toolbox add-ons
 	"tb-subpages": "Подстраници",
-	"tb-inother": "В други проекти",
-
-	"":""
-};
-
-var _debug_lang = false;
-
-function MessageLanguage() {
-	this.lang = DEFAULT_USER_LANGUAGE;
-	this.messages = {};
-	this.prefix = "";
-
-	this.addMessages = function(messages, code, prefix) {
-		if ( typeof this.messages[code] == "undefined" ) {
-			this.messages[code] = {};
-		}
-		var p = typeof prefix == "string" ? prefix : "";
-		for (var key in messages) {
-			if ( typeof key == "string" ) {
-				this.messages[code][p + key] = messages[key];
-			}
-		}
-	};
-
-	this.setLanguage = function(langCode) {
-		this.lang = langCode;
-		this.importMessages( this.lang );
-	};
-
-	this.setPrefix = function(prefix) {
-		this.prefix = prefix;
-	};
-
-	this.msg = function(key) {
-		key = this.prefix + key;
-		var msg = this.messages[this.lang] && this.messages[this.lang][key];
-		if ( typeof msg == "undefined" ) {
-			if ( _debug_lang ) console.log(key + " го няма на "+this.lang);
-			msg = this.messages[FALLBACK_USER_LANGUAGE]
-				&& this.messages[FALLBACK_USER_LANGUAGE][key];
-		}
-		if ( typeof msg == "undefined" ) {
-			return "{"+ key +"}";
-		}
-		for (var i = 1; i < arguments.length; i++) {
-			msg = msg.replace( new RegExp("\\$"+i, "g"), arguments[i]);
-		}
-		return msg;
-	};
-
-	// FIXME this is currently broken
-	this.importMessages = function(lang) {
-		importScript("МедияУики:Messages/" + lang + ".js");
-	};
-}
-
-
-var gLang = new MessageLanguage();
-
-// import message files
-if (mw.config.get('wgUserLanguage') !== "bg") {
-	gLang.setLanguage( mw.config.get('wgUserLanguage') );
-}
-
-var mainLangs = [ DEFAULT_USER_LANGUAGE, FALLBACK_USER_LANGUAGE ];
-if ( $.inArray( mw.config.get('wgUserLanguage'), mainLangs ) == -1 ) {
-	gLang.importMessages( FALLBACK_USER_LANGUAGE );
-}
-
-// add messages on load
-$( function() {
-	if ( typeof _lang_messages[ mw.config.get('wgUserLanguage') ] == "object" ) {
-		gLang.addMessages( _lang_messages[ mw.config.get('wgUserLanguage') ], mw.config.get('wgUserLanguage') );
-	}
-	if ( typeof _lang_messages[ FALLBACK_USER_LANGUAGE ] == "object" ) {
-		if ( $.inArray( mw.config.get('wgUserLanguage'), mainLangs ) == -1 ) {
-			gLang.addMessages( _lang_messages[ FALLBACK_USER_LANGUAGE ],
-				FALLBACK_USER_LANGUAGE );
-		}
-	}
+	"tb-inother": "В други проекти"
 });
 
+// for backwards compatibility
+var gLang = {};
+gLang.msg = mw.msg;
 
- /** MediaWiki media player *******************************************************
-   *
-   *  Description: A Java player for in-browser playback of media files.
-   *  Created by: [[:en:User:Gmaxwell]]
-   */
 
+/** MediaWiki media player *******************************************************
+ *
+ *  Description: A Java player for in-browser playback of media files.
+ *  Created by: [[:en:User:Gmaxwell]]
+ */
 mw.loader.load('//en.wikipedia.org/w/index.php?title=Mediawiki:Wikimediaplayer.js&action=raw&ctype=text/javascript');
 
 
