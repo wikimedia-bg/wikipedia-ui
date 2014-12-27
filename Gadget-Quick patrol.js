@@ -107,7 +107,7 @@ mw.ext.Patroller.bulk = function() {
 		} else {
 			my.addBulkDiffLinkTo(
 				$("td:eq(1)", $holder), // second table cell
-				diffs.split(my.paramDelim).shift(), // first id
+				revids.split(my.paramDelim).shift(), // first id
 				extraParams
 			);
 		}
