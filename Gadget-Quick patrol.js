@@ -5,7 +5,7 @@
  * Documentation: [[МедияУики:Gadget-Quick patrol.js/doc]]
  */
 
-gLang.addMessages({
+mw.messages.set({
 	"markaspatrolledtext1" : "Отбелязване на следната редакция като проверена",
 	"markaspatrolledtext"  : "Отбелязване на следните $1 редакции като проверени",
 	"markedaspatrolledtext1": "Редакцията беше отбелязана като проверена.",
@@ -13,7 +13,7 @@ gLang.addMessages({
 	"showalldiffs"      : "Показване на редакциите",
 	"recentchangespage" : "Специални:Последни промени",
 	"nchanges"          : "\\d+ промени"
-}, "bg");
+});
 
 mw.ext.Patroller = {};
 
@@ -32,14 +32,14 @@ mw.ext.Patroller.quick = function() {
 	my.executePatrol = function(link) {
 		var $link = $(link).addClass(my.linkClassWorking);
 		$.post(link.href, function(data){
-			$link.replaceWith(gLang.msg("markedaspatrolledtext1"));
+			$link.replaceWith(mw.msg("markedaspatrolledtext1"));
 			my.gotoRcIfWanted();
 		});
 	};
 
 	my.gotoRcIfWanted = function() {
 		if (window.wgxQuickPatrolLoadRc && wgxQuickPatrolLoadRc) {
-			location.href = mw.util.getUrl(gLang.msg("recentchangespage"));
+			location.href = mw.util.getUrl(mw.msg("recentchangespage"));
 		}
 	};
 };
@@ -116,7 +116,7 @@ mw.ext.Patroller.bulk = function(quick) {
 
 	my.addBulkDiffLinkTo = function($holder, diff, extraParams) {
 		$holder.html($holder.html().replace(
-			new RegExp(gLang.msg("nchanges")),
+			new RegExp(mw.msg("nchanges")),
 			'<a href="' + mw.config.get('wgScript') + "?diff=" + diff + "&oldid=" + diff + extraParams
 				+ '" class="' + my.bulkDiffLinkClass + '">$&</a>'));
 	};
@@ -147,8 +147,8 @@ mw.ext.Patroller.bulk = function(quick) {
 		}
 		$('<a href="#executePatrol"/>')
 			.text( revids.length == 1
-				? gLang.msg("markaspatrolledtext1")
-				: gLang.msg("markaspatrolledtext", revids.length) )
+				? mw.msg("markaspatrolledtext1")
+				: mw.msg("markaspatrolledtext", revids.length) )
 			.click(function() {
 				$(this).addClass(my.quick.linkClassWorking);
 				my.executePatrol(revids, this);
@@ -167,7 +167,7 @@ mw.ext.Patroller.bulk = function(quick) {
 
 	my.addShowAllDiffsLinkTo = function($holder) {
 		$('<a href="#alldiffs"/>')
-			.text( gLang.msg("showalldiffs") )
+			.text(mw.msg("showalldiffs"))
 			.click(function(){
 				$all = $('<div id="alldiffs"/>').insertAfter( $holder.parents(".diff") );
 
@@ -207,7 +207,7 @@ mw.ext.Patroller.bulk = function(quick) {
 		});
 
 		my.executeOnPatrolDone(function() {
-			$(motherLink).replaceWith(gLang.msg("markedaspatrolledtext"));
+			$(motherLink).replaceWith(mw.msg("markedaspatrolledtext"));
 			my.quick.gotoRcIfWanted();
 		}, revids);
 	};
