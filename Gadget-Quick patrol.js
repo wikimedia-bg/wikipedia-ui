@@ -107,7 +107,7 @@ mw.ext.Patroller.bulk = function(quick) {
 			}).addClass(my.bulkDiffLinkClass);
 		} else {
 			my.addBulkDiffLinkTo(
-				$("td:eq(1)", $holder), // second table cell
+				$("td:eq(2)", $holder), // third table cell
 				revids.split(my.paramDelim).shift(), // first id
 				extraParams
 			);
@@ -258,9 +258,10 @@ mw.ext.Patroller.init = function() {
 	mw.hook('wikipage.content').add(function() {
 		if (isOnPageWithChanges) {
 			bulk.makeBulkDiffsPatrollable();
+		} else {
+			quick.enable();
+			bulk.enable();
 		}
-		quick.enable();
-		bulk.enable();
 	});
 };
 
