@@ -1,3 +1,7 @@
+/**
+ * Verwendung von OpenStreetMap in Wikipedia.
+ * (c) 2008 by Magnus Manske, Released under GPL
+ */
 mw.loader.using( [ 'mediawiki.util' ], function() { $( function() {
 	var c = $( '#coordinates' );
 	if ( !c.length ) {
