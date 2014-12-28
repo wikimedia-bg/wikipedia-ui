@@ -22,6 +22,7 @@
 
 == interface-gadgets ==
 
+* OpenStreetMap[ResourceLoader|dependencies=mediawiki.util|default]|OpenStreetMap.js
 * ReferenceTooltips|Core.js|ReferenceTooltips.js|ReferenceTooltips.css
 * UTCLiveClock|Core.js|UTCLiveClock.js
 * Blackskin|Core.js|Blackskin.css
