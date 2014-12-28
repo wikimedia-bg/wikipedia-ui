@@ -27,7 +27,9 @@ var QuickDiff = {
 		this.getViewWindow().css("top", $link.position().top + 30)
 			.find("#quickdiff-content").html(content)
 			.end().show();
-		new mw.ext.Patroller.bulk(new mw.ext.Patroller.quick()).enable($link[0].href);
+		if (mw.ext.Patroller) {
+			new mw.ext.Patroller.bulk(new mw.ext.Patroller.quick()).enable($link[0].href);
+		}
 	},
 
 	viewWindow: null,
@@ -48,7 +50,9 @@ var QuickDiff = {
 		mw.loader.load("mediawiki.action.history.diff", "text/css");
 		this.addCss();
 
-		new mw.ext.Patroller.quick().enable();
+		if (mw.ext.Patroller) {
+			new mw.ext.Patroller.quick().enable();
+		}
 	},
 
 	buildViewWindow: function()
