@@ -17,12 +17,15 @@ $(function() {
 		'modern' : 'pt-userpage',
 		'vector' : 'pt-userpage'
 	};
-	if ( !parents[mw.user.options.get('skin')] ) {
+	var skin = mw.user.options.get('skin');
+	if ( !parents[skin] ) {
 		return; // unsupported skin
 	}
-	var p = $("#"+parents[mw.user.options.get('skin')]);
-	if ( !p.length ) {
-		alert('В текущия документ не съществува елемент с ID „'+p+'“. Контролерът на бързите връзки не може да бъде зареден.');
+	var parent = $("#"+parents[skin]);
+	if (parent.length === 0 && skin == 'vector') {
+		parent = $('#p-personal ul:first');
+	}
+	if (parent.length === 0) {
 		return;
 	}
 
@@ -92,7 +95,24 @@ $(function() {
 		return false;
 	});
 
-	$('<span style="z-index: 11"/>').append(' (', link, ')').appendTo(p);
+	var $item = $('<li id="pt-quicklinks"></li>').append(link);
+	if (parent.is('li')) {
+		$item.insertAfter(parent);
+	} else if (parent.is('ul')) { // vector with compact user menu
+		$item.prependTo(parent);
+		mw.util.addCSS('\
+			#pt-quicklinks {\
+				line-height: 2em;\
+			}\
+			#pt-quicklinks > a {\
+				color: #888;\
+				display: block;\
+				font-size: 1.8em;\
+				font-weight: bold;\
+				text-decoration: none;\
+			}\
+		');
+	}
 	$(document.body).on("click", function() {
 		// hide container by clicking anywhere in the document
 		if (container) container.hide();
