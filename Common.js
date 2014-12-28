@@ -109,7 +109,7 @@ var subPagesLink = {
 		if ( document.getElementById("p-tb") && !mw.ext.isNs(subPagesLink.wo_ns) ) {
 			mw.util.addPortletLink( 'p-tb',
 				mw.util.getUrl('Special:Prefixindex/' + mw.config.get('wgPageName') +'/'),
-				gLang.msg("tb-subpages"), 't-subpages' );
+				mw.msg("tb-subpages"), 't-subpages' );
 		}
 	}
 }
@@ -144,14 +144,14 @@ function Projectlinks() {
 	}
 
 	var projects = {
-		"wiktionary" : gLang.msg("wiktionary"),
-		"wikiquote" : gLang.msg("wikiquote"),
-		"wikibooks" : gLang.msg("wikibooks"),
-		"wikisource" : gLang.msg("wikisource"),
-		"wikinews" : gLang.msg("wikinews"),
-		"wikispecies" : gLang.msg("wikispecies"),
-		"wikiversity" : gLang.msg("wikiversity"),
-		"commons.wiki" : gLang.msg("commons")
+		"wiktionary": mw.msg("wiktionary"),
+		"wikiquote": mw.msg("wikiquote"),
+		"wikibooks": mw.msg("wikibooks"),
+		"wikisource": mw.msg("wikisource"),
+		"wikinews": mw.msg("wikinews"),
+		"wikispecies": mw.msg("wikispecies"),
+		"wikiversity": mw.msg("wikiversity"),
+		"commons.wiki": mw.msg("commons")
 	};
 
 	function getProjectName(url) {
@@ -181,7 +181,7 @@ function Projectlinks() {
 		$('<li>', { html: element }).appendTo(pllist);
 	});
 	// and navbox
-	var plheader = $('<h3>', {text: gLang.msg("tb-inother")});
+	var plheader = $('<h3>', {text: mw.msg("tb-inother")});
 	var plbox = $('<div>', {'class': 'body', html: pllist}).show();
 	var portlet = $('<div>', {'class': 'portal', id: 'p-sl'}).append(plheader, plbox);
 	ptb.after(portlet);
@@ -481,7 +481,7 @@ function attachMemorizer(form) {
 	form.title.value = "";
 	jQuery(form).submit(function() {
 		if ( $.trim(this.title.value) == "" ) {
-			alert( gLang.msg("ta-emptyfield") );
+			alert( mw.msg("ta-emptyfield") );
 			return false;
 		}
 		var subpage = this.title.value;
@@ -510,7 +510,7 @@ function transcludeSubpage(mainpage, subpage) {
 	api.postWithToken("edit", {
 		action: "edit",
 		title: mainpage,
-		summary: gLang.msg("ta-summary", fullpage),
+		summary: mw.msg("ta-summary", fullpage),
 		appendtext: "\n{"+"{" + fullpage + "}}"
 	});
 }
