@@ -84,16 +84,7 @@ mw.messages.set({
 });
 
 // for backwards compatibility
-var gLang = {};
-gLang.msg = mw.msg;
-
-
-/** MediaWiki media player *******************************************************
- *
- *  Description: A Java player for in-browser playback of media files.
- *  Created by: [[:en:User:Gmaxwell]]
- */
-mw.loader.load('//en.wikipedia.org/w/index.php?title=Mediawiki:Wikimediaplayer.js&action=raw&ctype=text/javascript');
+var gLang = { msg: mw.msg };
 
 
 /* * * * * * * * * *   Toolbox add-ons   * * * * * * * * * */
