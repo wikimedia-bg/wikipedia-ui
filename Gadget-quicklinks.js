@@ -102,7 +102,7 @@ $(function() {
 		$item.prependTo(parent);
 		mw.util.addCSS('\
 			#pt-quicklinks {\
-				line-height: 2em;\
+				line-height: 2em !important;\
 			}\
 			#pt-quicklinks > a {\
 				color: #888;\
