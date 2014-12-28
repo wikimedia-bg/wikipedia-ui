@@ -22,7 +22,6 @@
 
 == interface-gadgets ==
 
-#* removeAccessKeys|Core.js|removeAccessKeys.js
 * ReferenceTooltips|Core.js|ReferenceTooltips.js|ReferenceTooltips.css
 * UTCLiveClock|Core.js|UTCLiveClock.js
 * Blackskin|Core.js|Blackskin.css
@@ -35,8 +34,3 @@
 == patrol-gadgets ==
 * Quick patrol|Quick patrol.js
 * Quick diff|Quick diff.js
-
-#== library-gadgets ==
-
-#* JSL|Core.js|JSL.js
-#* modernskin-thunks|Core.js|modernskin-thunks.js
