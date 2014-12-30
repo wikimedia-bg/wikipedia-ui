@@ -42,8 +42,3 @@ input.searchButton, #searchGoButton {
 .force-underlined-links a:hover { text-decoration: none; }
 .force-naked-links a { text-decoration: none; }
 .force-naked-links a:hover { text-decoration: underline; }
-
- 
-/* Скриване на бутона за преместване при категории */
- 
-.ns-14 #ca-move { display: none }
