@@ -1048,3 +1048,7 @@ pre.source-lua {
   text-decoration: none;
   color: black;
 }
+
+/* Скриване на бутона за преместване при категории */
+
+.ns-14 #ca-move { display: none }
