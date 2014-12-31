@@ -3,5 +3,5 @@
 
 // disable loading for IE, not needed, but might save a few milliseconds
 if (navigator.appName != 'Microsoft Internet Explorer') {
-	importOuterScript("User:Cacycle/wikEd.js", "en");
+	mw.loader.load('//en.wikipedia.org/w/index.php?title=User:Cacycle/wikEd.js&action=raw&ctype=text/javascript&smaxage=21600&maxage=86400');
 }
