@@ -1,1 +1,1 @@
-importOuterScript("MediaWiki:Gadget-exlinks.js", "en");
+mw.loader.load('//en.wikipedia.org/w/index.php?title=MediaWiki:Gadget-exlinks.js&action=raw&ctype=text/javascript&smaxage=21600&maxage=86400');
