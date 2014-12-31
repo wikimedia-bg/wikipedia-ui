@@ -1,1 +1,1 @@
-importOuterScript("MediaWiki:Gadget-popups.js", "en");
+mw.loader.load('//en.wikipedia.org/w/index.php?title=MediaWiki:Gadget-popups.js&action=raw&ctype=text/javascript&smaxage=21600&maxage=86400');
