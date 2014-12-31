@@ -3,6 +3,8 @@
 # Не променяйте името на вече съществуващите джаджи (това ще ги деактивира за всички потребители)
 # Ако някоя джаджа не работи, тя може да бъде изключена чрез заместване на * с #
 
+* Core[ResourceLoader|hidden|rights=hidden]|Core.js
+
 == browsing-gadgets ==
 
 * Navigation_popups|popups.js|navpop.css
