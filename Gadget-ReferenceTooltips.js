@@ -1,1 +1,1 @@
-importOuterScript("MediaWiki:Gadget-ReferenceTooltips.js", "en");
+mw.loader.load('//en.wikipedia.org/w/index.php?title=MediaWiki:Gadget-ReferenceTooltips.js&action=raw&ctype=text/javascript&smaxage=21600&maxage=86400');
