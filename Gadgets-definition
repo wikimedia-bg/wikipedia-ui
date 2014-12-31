@@ -5,25 +5,25 @@
 
 == browsing-gadgets ==
 
-* Navigation_popups|Core.js|popups.js|navpop.css
-* exlinks|Core.js|exlinks.js
+* Navigation_popups|popups.js|navpop.css
+* exlinks|exlinks.js
 * lum|lum.js
 * Big dynamap|Big dynamap.js
-* ExternalSearch|Core.js|externalsearch.js
+* ExternalSearch|externalsearch.js
 
 == editing-gadgets ==
 
-* edittop|Core.js|edittop.js
-* wikEd|Core.js|wikEd.js
-* HotCat|Core.js|HotCat.js
+* edittop|edittop.js
+* wikEd|wikEd.js
+* HotCat|HotCat.js
 * Advisor|Advisor.js
 * EditGuard|EditGuard.js
 
 == interface-gadgets ==
 
 * OpenStreetMap[ResourceLoader|dependencies=mediawiki.util|default]|OpenStreetMap.js
-* ReferenceTooltips|Core.js|ReferenceTooltips.js|ReferenceTooltips.css
-* UTCLiveClock|Core.js|UTCLiveClock.js
+* ReferenceTooltips|ReferenceTooltips.js|ReferenceTooltips.css
+* UTCLiveClock|UTCLiveClock.js
 * Blackskin|Blackskin.css
 * purgetab|purgetab.js
 * cats-on-top|cats-on-top.js
