@@ -13,7 +13,7 @@ mw.libs.addCreatePageForm = function() {
 			'action-create' : 'Create'
 		}
 	};
-	mw.messages.set(messages[mw.config.get('wgUserLanguage')] || messages.bg);
+	mw.messages.set(messages[mw.config.get('wgUserLanguage')] || messages.en);
 
 	var header = $('<h3>', {text: mw.msg('p-createnew')});
 	var form = $('<form>', {
