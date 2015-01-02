@@ -1,14 +1,15 @@
+//<source lang="javascript">
 // Localization of HotCat
 if (window.HotCat) {
 	$.extend(HotCat.messages, {
-		cat_removed:      'Премахване на [[Категория:$1]]',
-		template_removed: 'Премахване на {{[[Категория:$1]]}}',
-		cat_added:        'Добавяне на [[Категория:$1]]',
-		cat_keychange:    'Нов ключ за [[Категория:$1]]: „$2“',
+		cat_removed:      'Премахване на ['+'[Категория:$1]]',
+		template_removed: 'Премахване на {'+'{['+'[Категория:$1]]}}',
+		cat_added:        'Добавяне на ['+'[Категория:$1]]',
+		cat_keychange:    'Нов ключ за ['+'[Категория:$1]]: „$2“',
 		cat_notFound:     'Категорията „$1“ не беше открита',
 		cat_exists:       'Категорията „$1“ вече е налична и не беше добавена отново.',
-		cat_resolved:     '(оправено пренасочване към [[Категория:$1]])',
-		uncat_removed:    'премахване на {{uncategorized}}',
+		cat_resolved:     '(оправено пренасочване към ['+'[Категория:$1]])',
+		uncat_removed:    'премахване на {'+'{uncategorized}}',
 		using:            ', ползвайки [[MediaWiki:Gadget-HotCat.js|HotCat]]',
 		multi_change:     '$1 категории',
 		commit:           'Запис',
@@ -40,3 +41,4 @@ if (window.HotCat) {
 		multi_tooltip: 'Промяна на няколко категории'
 	});
 }
+//</source>
