@@ -1,31 +1,80 @@
+/**
+ * Core of the EditToolbar
+ *
+ * Some functions and arrays are still bound to window for backwards compatibility
+ */
+
+window.setCustomInsButton = function(code, left, middle, right, shownText, title) {
+	customInsButtons[code] = [left, middle, right, shownText, title];
+};
+
+window.setCustomMiscButton = function(code, codeToRun, shownText, title) {
+	customMiscButtons[code] = [codeToRun, shownText, title];
+};
+
+window.rmCustomInsButtons = function(rmButtons) {
+	rmCustomButtons(customInsButtons, rmButtons);
+};
+window.rmCustomMiscButtons = function(rmButtons) {
+	rmCustomButtons(customMiscButtons, rmButtons);
+};
+window.rmCustomButtons = function(allButtons, rmButtons) {
+	for (var i = rmButtons.length - 1; i >= 0; i--) {
+		delete( allButtons[ rmButtons[i] ] );
+	}
+};
+
+/**
+	insert an edit toolbar before the textarea.
+	useful for testing user script pages while previewing
+	use it with:
+		putToolbar();
+	put in your script page, e.g. User:Your_Name/monobook.js
+*/
+window.putToolbar = function(rightNow) {
+	var toolbar = $('<div>', {'class': 'custom-toolbar'});
+	var putIt = function() {
+		$("#editform").before(toolbar);
+	};
+	if ( window.rightNow ) {
+		putIt();
+	} else {
+		$(putIt);
+	}
+	return toolbar;
+};
+
+mw.libs.EditToolbar = {};
+
 /* * *   Extra buttons for text insertion   * * */
 
 // от тези данни ще се генерират допълнителни бутони с insertTags()
-var customInsButtons = {
+window.customInsButtons = {
 	// "CODE" : ["LEFT", "MIDDLE", "RIGHT", "SHOWN TEXT", "TITLE"],
-	"b1" : ["#виж ["+"[", "Страница", "]]", "вж", "+команда за пренасочване"],
+	"b1" : ["#виж [[", "Страница", "]]", "вж", "+команда за пренасочване"],
 	"b2" : ["<code>", "моля, въведете програмен код", "</code>", "<tt>код</tt>", "Текст в равноширок шрифт — обикновено код"],
 	"b3" : ["<sub>", "моля, въведете индекс", "</sub>", "a<sub>x</sub>", "+долен индекс"],
 	"b4" : ["<sup>", "моля, въведете степен", "</sup>", "a<sup>x</sup>", "+горен индекс"],
 	"b5" : ["\u00a0", "", "", "nbsp", "+несекаем интервал"],
 	"b6" : ["„", "текст в кавички", "“", "„“", "+български кавички"],
 	"b7" : ["<del>", "зачертан текст", "</del>", "<del>del</del>", "Отбелязване на текст като изтрит"],
-	"b8" : ["{"+"{", "", "}}", "{"+"{}}", "+скоби за шаблон"],
+	"b8" : ["{{", "", "}}", "{{}}", "+скоби за шаблон"],
 	"b9" : ["|", "", "", "&nbsp;|&nbsp;", "+отвесна черта — |"],
 	"b10" : ["—", "", "", "—", "+дълга чертица — mdash"],
 	"b11" : ["–", "", "", "&nbsp;–&nbsp;", "+средна чертица — ndash"],
 	"b12" : ["", "", "&#768;", "удар.", "+ударение за гласна буква (маркирайте една буква)"],
-	"b13" : ["<"+"!-- ", "моля, въведете коментар", " -->", "&lt;!--", "+коментар"],
+	"b13" : ["<!-- ", "моля, въведете коментар", " -->", "&lt;!--", "+коментар"],
 	"b14" : ["{"+"{ЗАМЕСТ:-)}}", "", "", ":-)", "+шаблон „Усмивка“"],
 	"b15" : ["{"+"{ЗАМЕСТ:D}}", "", "", ":-D", "+шаблон „Ухилено човече“"],
 	"b16" : ["[[en:", "en", "]]", "en:", "+английско междуики"],
-	"b19" : ["{"+"{Br}}\n", "", "", "br", "+шаблон Br"],
+	"b19" : ["{{Br}}\n", "", "", "br", "+шаблон Br"],
 	"b20" : ["{"+"{subst:", "", "}}", "subst:", "+заместване на шаблон"],
-	"b21n" : ["<ref name=\"\">", "", "</ref>", "&lt;ref name>", "+многократна употреба на източник / бележка под линия"],
-	"b22" : ["["+"[", "", "]]", "[[...]]", "+препратка без разделител"],
+	"b21" : ["<ref>", "", "</ref>", "&lt;ref&gt;", "+източник / бележка под линия"],
+	"b21n" : ['<ref name="">', "", "</ref>", "&lt;ref name&gt;", "+многократна употреба на източник / бележка под линия"],
+	"b22" : ["[[", "", "]]", "[[...]]", "+препратка без разделител"],
 	"b23l" : ["["+"[", "", "|]]", "[[...&#124;]]", "+препратка с разделител (курсорът е отляво на разделителя)"],
 	"b23r" : ["["+"[|", "", "]]", "[[&#124;...]]", "+препратка с разделител (курсорът е отдясно на разделителя)"],
-	"b24" : ["["+"[:", "", "]]", "[[:...]]", "+текстова препратка"],
+	"b24" : ["[[:", "", "]]", "[[:...]]", "+текстова препратка"],
 	"b25" : ["#", "", "", "...#...", "+диез"]
 };
 
@@ -39,25 +88,33 @@ if (mw.config.get('wgCanonicalNamespace') === '') {
 }
 
 
+mw.messages.set({
+	"et-addchar": "Вмъкване на знака „$1“",
+	"et-addpref": "Вмъкване на $1",
+	"et-ddmenutitle": "Оттук можете да вмъкнете празен шаблон",
+	"et-ajaxerror": "Шаблонът [[$1]] не можа да бъде зареден."
+});
+
+
 /* * *   Extra buttons for miscelaneous functions   * * */
 
 // името на елемента за допълнителните знаци
 var charsElemId = "extraChars";
 
 // данни за още бутони с код по желание
-var customMiscButtons = {
+window.customMiscButtons = {
 	// "CODE" : ["CODE TO RUN", "SHOWN TEXT", "TITLE"],
 	// уикификатора
-	"#" : ["obrabotka(false)", "#", "Преобразуване на някои знаци"],
-	"$" : ["obrabotka(true)", "$", "Преобразуване на числа към БДС"],
+	"#" : ["mw.libs.EditToolbar.obrabotka(false)", "#", "Преобразуване на някои знаци"],
+	"$" : ["mw.libs.EditToolbar.obrabotka(true)", "$", "Преобразуване на числа към БДС"],
 	// допълнителните знаци
-	"ch" : ["toggleChars()", "Още…", "Виртуална клавиатура"]
+	"ch" : ["mw.libs.EditToolbar.toggleChars()", "Още…", "Виртуална клавиатура"]
 };
 
 /* * *   Drop down menus for template insertion   * * */
 
 /* по идея на [[:he:MediaWiki:Summary|еврейската Уикипедия]] */
-var tpl1 = {
+window.tpl1 = {
 	// "SHOWN TEXT" : "TEMPLATE CONTENT",
 	"Елементи от статията…" : "-",
 	"==  ==" : "\n== >>|<< ==\n",
@@ -65,16 +122,16 @@ var tpl1 = {
 	"Таблица" : "\n{| class=\"wikitable\"\n|+ >>|Заглавие на таблицата|<<\n! колона 1\n! колона 2\n! колона 3\n|-\n| ред 1, клетка 1\n| ред 1, клетка 2\n| ред 1, клетка 3\n|-\n| ред 2, клетка 1\n| ред 2, клетка 2\n| ред 2, клетка 3\n|}",
 	"Галерия" : "<center><gallery caption=\">>|<<\">\n Image: | \n Image: | \n Image: | \n Image: | \n</gallery></center>",
 	"Източници" : "\n== Източници ==\n<references />\n>>|<<",
-	"Вижте също" : "\n== Вижте също ==\n* ["+"[>>|<<]]\n",
+	"Вижте също" : "\n== Вижте също ==\n* [[>>|<<]]\n",
 	"Външни препратки" : "\n== Външни препратки ==\n* [>>|<<]\n",
-	"Сортиране по ключ" : "{"+"{СОРТКАТ:>>|<<}}",
-	"Категория" : "["+"[Категория:>>|<<]]",
-	"Мъниче" : "{"+"{мъниче>>|<<}}",
-	"Към пояснение" : "{"+"{към пояснение|"+ mw.config.get('wgTitle') +"|>>|<<"+ mw.config.get('wgTitle') +" (пояснение)}}"
+	"Сортиране по ключ" : "{{СОРТКАТ:>>|<<}}",
+	"Категория" : "[[Категория:>>|<<]]",
+	"Мъниче" : "{{мъниче>>|<<}}",
+	"Към пояснение" : "{{към пояснение|"+ mw.config.get('wgTitle') +"|>>|<<"+ mw.config.get('wgTitle') +" (пояснение)}}"
 };
 
 var atplb = "МедияУики:Common.js/Edit tools data/";
-var atpl1 = {
+window.atpl1 = {
 	// "SHOWN TEXT" : "PAGE NAME",
 	"Тематични шаблони…" : "-",
 	"Биография инфо" : atplb + "Биография инфо",
@@ -92,7 +149,7 @@ var atpl1 = {
 
 };
 
-var atpl2 = {
+window.atpl2 = {
 	"Работни шаблони…" : "-",
 	"Шаблони за статии" : {
 		"Авторски права" : atplb + "Авторски права",
@@ -175,56 +232,16 @@ var chars = [
 	'å']
 ];
 
-var showMenus = true;
-var showButtons = true;
-
-function setCustomInsButton(code, left, middle, right, shownText, title) {
-	customInsButtons[code] = [left, middle, right, shownText, title];
-}
-
-function setCustomMiscButton(code, codeToRun, shownText, title) {
-	customMiscButtons[code] = [codeToRun, shownText, title];
-}
-
-function rmCustomInsButtons(rmButtons) {
-	rmCustomButtons(customInsButtons, rmButtons);
-}
-function rmCustomMiscButtons(rmButtons) {
-	rmCustomButtons(customMiscButtons, rmButtons);
-}
-function rmCustomButtons(allButtons, rmButtons) {
-	for (var i = rmButtons.length - 1; i >= 0; i--) {
-		delete( allButtons[ rmButtons[i] ] );
-	}
-}
-
-/**
-	insert an edit toolbar before the textarea.
-	useful for testing user script pages while previewing
-	use it with:
-		putToolbar();
-	put in your script page, e.g. User:Your_Name/monobook.js
-*/
-function putToolbar(rightNow) {
-	var toolbar = $('<div>', {'class': 'custom-toolbar'});
-	var putIt = function() {
-		$("#editform").before(toolbar);
-	};
-	if ( window.rightNow ) {
-		putIt();
-	} else {
-		$(putIt);
-	}
-	return toolbar;
-}
-
-
-var existChars = false; // are the extra chars already added
+window.showMenus = true;
+window.showButtons = true;
 
 /** generate and add extra chars in the element $charsElemId  */
 function addChars() {
-	// if there are extra chars already, do nothing
-	if ( existChars ) { return; }
+	$chars = $('#'+charsElemId);
+	if (!$chars.is(':empty')) {
+		// if there are extra chars already, do nothing
+		return $chars;
+	}
 	var cont = '';
 	var len = chars.length;
 	for (var i in chars) {
@@ -232,16 +249,16 @@ function addChars() {
 			cont += "<a href=\"javascript:mw.toolbar.insertTags('"+chars[i][j]+"', '', '')\" "+
 			'title="' + mw.msg("et-addchar", chars[i][j]) +'">'+chars[i][j]+'</a> ';
 		}
-		if (i != len-1) { cont += '<br/>'; }
+		if (i != len-1) {
+			cont += '<br/>';
+		}
 	}
-	$('#'+charsElemId).html(cont);
-	existChars = true;
+	return $chars.html(cont);
 }
 
-function toggleChars() {
-	addChars();
-	$('#'+charsElemId).toggle();
-}
+mw.libs.EditToolbar.toggleChars = function() {
+	addChars().toggle();
+};
 
 /* * *   Extra buttons for text insertion   * * */
 
@@ -250,6 +267,7 @@ function setupCustomEditTools() {
 	if ( !$("#editform").length ) {
 		return;
 	}
+
 	var toolbar = putToolbar(true);
 	toolbar.addClass("buttonlinks");
 	if ( showMenus ) {
@@ -276,7 +294,7 @@ function appendCustomButtons(parent) {
 		var el = customInsButtons[i];
 		var title = el[4];
 		if ( title.charAt(0) == "+" ) {
-			title = mw.msg("et-addpref") + title.substr(1);
+			title = mw.msg("et-addpref", [title.substr(1)]);
 		}
 		appendCustomButton(buts, {
 			href: "javascript:mw.toolbar.insertTags('"+el[0] +"','"+el[2]+"','"+ el[1]+"')",
@@ -300,9 +318,7 @@ function appendCustomButton(box, item) {
 }
 
 function appendExtraChars(parent) {
-	if (window.charsElemId) {
-		$('<div>', { id: charsElemId, style: 'display: none' }).appendTo(parent);
-	}
+	$('<div>', { id: charsElemId, style: 'display: none' }).appendTo(parent);
 }
 
 function appendDropDownMenus(parent, tplVarBaseName, callback) {
@@ -353,35 +369,16 @@ function appendOptions(box, opts) {
 
 /* * * * * * * * * *   Ajax functions   * * * * * * * * * */
 
-var prevReq;
-var pageUrlTpl = wgScript + "?title=$1&action=raw&templates=expand";
-var pageUrl = "";
-var pageToFetch = "";
-
 function loadPage(page) {
-	prevReq = sajax_init_object();
-	if ( !prevReq ) return false;
-	pageToFetch = page;
-	pageUrl = pageUrlTpl.replace(/\$1/, encodeURI(page));
 	showLoadIndicator();
-	prevReq.onreadystatechange = insertIntoWikiTextFromRequest;
-	prevReq.open("GET", pageUrl, true);
-	prevReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	prevReq.send(null);
-	return true;
-}
-
-function insertIntoWikiTextFromRequest() {
-	if ( prevReq.readyState != 4 ) {
-		return;
-	}
-	hideLoadIndicator();
-	if ( prevReq.status != 200 ) {
-		window.alert(mw.msg("et-ajaxerror", [prevReq.status, prevReq.statusText,
-			pageToFetch, pageUrl]));
-		return;
-	}
-	insertIntoWikiText(prevReq.responseText);
+	var pageUrl = mw.util.getUrl(page, { action: 'raw', templates: 'expand' });
+	$.get(pageUrl)
+	.done(insertIntoWikiText)
+	.fail(function() {
+		alert(mw.msg('et-ajaxerror', [page]));
+	}).always(function() {
+		hideLoadIndicator();
+	});
 }
 
 function insertIntoWikiText(content) {
@@ -389,7 +386,7 @@ function insertIntoWikiText(content) {
 	var re = /<!--noinclude-->.*<!--\/noinclude-->|<\/?pre>|<\/?nowiki>/g;
 	content = content.replace(re, "");
 	// replace escaped tags
-	var specials = ["pre", "nowiki"];
+	var specials = ['pre', 'nowiki'];
 	for (var i in specials) {
 		re = new RegExp("\\[(\/?)"+ specials[i] +"\\]", "g");
 		content = content.replace(re, "<$1"+ specials[i] +">");
@@ -397,38 +394,46 @@ function insertIntoWikiText(content) {
 
 	// we can have >>|sample text|<< or >>|<< or just simple text
 	var parts = null;
-	var left, right, def = "";
+	var left, right, def = '';
 	content = escapeNl(content);
 	if ( ( parts = content.match(/(.*)>>\|(.*)\|<<(.*)/) ) ) {
 		left = parts[1];
 		def = parts[2];
 		right = parts[3];
 	} else { // no sample text: split at caret’s position
-		parts = content.split(">>|<<");
+		parts = content.split('>>|<<');
 		left = parts[0];
 		delete(parts[0]);
-		right = parts.join("");
+		right = parts.join('');
 	}
 	mw.toolbar.insertTags(unescapeNl(left), unescapeNl(right), unescapeNl(def));
 }
 
-function escapeNl(s) { return s.replace(/\n/g, "\x01"); }
-function unescapeNl(s) { return s.replace(/\x01/g, "\n"); }
-
-var loadIndicator;
-function showLoadIndicator() {
-	if ( loadIndicator ) {
-		loadIndicator.style.display = "block";
-		return;
-	}
-	loadIndicator = document.createElement("div");
-	loadIndicator.id = "loadIndicator";
-	loadIndicator.appendChild( document.createTextNode(mw.msg("et-tplloading")) );
-	document.getElementsByTagName("body")[0].appendChild(loadIndicator);
+function escapeNl(s) {
+	return s.replace(/\n/g, "\x01");
+}
+function unescapeNl(s) {
+	return s.replace(/\x01/g, "\n");
 }
 
+var $loadIndicator;
+function showLoadIndicator() {
+	if (!$loadIndicator) {
+		$loadIndicator = $('<div class="mw-ajax-loader"/>')
+			.css({
+				position: 'absolute',
+				top: $('#wpTextbox1').offset().top + 10,
+				left: '50%'
+			})
+			.hide()
+			.appendTo('body');
+	}
+	$loadIndicator.fadeIn();
+}
 function hideLoadIndicator() {
-	if (loadIndicator) loadIndicator.style.display = "none";
+	if ($loadIndicator) {
+		$loadIndicator.hide();
+	}
 }
 
 
@@ -437,7 +442,7 @@ function hideLoadIndicator() {
 var txt; // текста, който ще се обработва от Уикификатора
 
 // BEGIN код от [[:ru:MediaWiki:Summary]], вижте [[:ru:Википедия:Викификатор]]
-function obrabotka(bds) {
+mw.libs.EditToolbar.obrabotka = function(bds) {
 	check_regexp();//Проверяем поддерживаются ли рег. выражения
 	document.editform.wpTextbox1.focus();
 	var txtarea = document.editform.wpTextbox1;
