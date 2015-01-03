@@ -6,7 +6,7 @@
 == browsing-gadgets ==
 
 * Navigation_popups|popups.js|navpop.css
-* exlinks|exlinks.js
+* exlinks[ResourceLoader|dependencies=mediawiki.util]|exlinks.js
 * lum|lum.js
 * Big dynamap|Big dynamap.js
 * ExternalSearch|externalsearch.js
@@ -15,19 +15,19 @@
 
 * EditToolbar[ResourceLoader|default]|EditToolbar.js
 * EditToolbar-core[ResourceLoader|rights=hidden]|EditToolbar-core.js
-* edittop|edittop.js
+* edittop[ResourceLoader|dependencies=user.options]|edittop.js
 * wikEd|wikEd.js
-* HotCat|HotCat.js
+* HotCat[ResourceLoader]|HotCat.js
 * Advisor|Advisor.js
 * EditGuard|EditGuard.js
 
 == interface-gadgets ==
 
 * OpenStreetMap[ResourceLoader|dependencies=mediawiki.util|default]|OpenStreetMap.js
-* ReferenceTooltips|ReferenceTooltips.js|ReferenceTooltips.css
-* UTCLiveClock|UTCLiveClock.js
-* Blackskin|Blackskin.css
-* purgetab|purgetab.js
+* ReferenceTooltips[ResourceLoader]|ReferenceTooltips.js|ReferenceTooltips.css
+* UTCLiveClock[ResourceLoader]|UTCLiveClock.js
+* Blackskin[ResourceLoader|skins=monobook]|Blackskin.css
+* purgetab[ResourceLoader|dependencies=mediawiki.util]|purgetab.js
 * cats-on-top|cats-on-top.js
 * quicklinks|quicklinks.js
 * HideFundraisingNotice|HideFundraisingNotice.css
