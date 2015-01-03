@@ -121,17 +121,6 @@ div.thumb div div.thumbcaption, div.gallerytext { text-align: center; }
 	margin-top: .2em;
 }
 
-#loadIndicator {
-	position: absolute;
-	top: 6em;
-	left: 20%;
-	float: left;
-	color: black;
-	background-color: #CCDDEE;
-	font-size: 2em;
-	padding: 0.5em;
-	border: solid thin #006699;
-}
 /* elements which are doing something... */
 .working {
 	background: url(//upload.wikimedia.org/wikipedia/commons/3/32/Loader3.gif) right center no-repeat;
