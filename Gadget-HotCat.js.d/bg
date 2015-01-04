@@ -13,7 +13,7 @@ if (window.HotCat) {
 		using:            ', ползвайки [[MediaWiki:Gadget-HotCat.js|HotCat]]',
 		multi_change:     '$1 категории',
 		commit:           'Запис',
-		ok:               'Готово'; // OK
+		ok:               'Готово', // OK
 		cancel:           'Отказ',
 		multi_error:      'Текстът на страницата не можа да бъде зареден и промените ви не могат да бъдат съхранени.'
 	});
