@@ -404,22 +404,4 @@ ct.rules.push(function (s) {
 	return b;
 });
 
-ct.rules.push(function (s) {
-    var re = /(\d+)(&nbsp;)?( *км)([^{letter}])/g;
-    re = ct.fixRegExp(re);
-    var a = ct.getAllMatches(re, s);
-    for (var i = 0; i < a.length; i++) {
-        var m = a[i];
-        a[i] = {
-            start: m.start,
-            end: m.end,
-            replacement: m[1] + '\u00a0' + 'km' + m[4],
-            name: 'км→km',
-            description: 'Промени „км“ на „km“',
-            help: 'Съгласно международната система SI километър се означава с „km“.'
-        };
-    }
-    return a;
-});
-
 }
