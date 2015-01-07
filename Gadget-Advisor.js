@@ -398,4 +398,22 @@ ct.rules.push(function (s) {
 	return b;
 });
 
+ct.rules.push(function (s) {
+    var re = /([^\n ])( {2,})([^ =])/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        a[i] = {
+            start: m.start,
+            end: m.end,
+            replacement: m[1] + ' ' + m[3],
+            name: 'интервали2',
+            description: 'Замени двойните интервали с единични',
+            help: 'Двойните интервали са ненужни.'
+        };
+    }
+    return a;
+});
+
 }
