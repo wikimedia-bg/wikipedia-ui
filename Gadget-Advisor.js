@@ -13,11 +13,11 @@ if (window.wgUserLanguage === 'bg') {
 'Changing text in wikEd is not yet supported.':
 	'Променянето на текст в wikEd още не се поддържа.',
 
-'This article is rather long.  Advisor.js may consume a lot of RAM and CPU resources while trying to parse the text.  You could limit your edit to a single section, or ':
+'This article is rather long. Advisor.js may consume a lot of RAM and CPU resources while trying to parse the text. You could limit your edit to a single section, or ':
 	'',
 
-'Advisor.js is disabled on talk pages, because it might suggest changing other users\' comments.  That would be something against talk page conventions.  If you promise to be careful, you can ':
-	'Advisor.js по подразбиране е спрян за беседите, защото има опасност да предложи промяна на чужди коментари.  Това би било в противоречие с конвенциите за беседи.  Ако обещаваш да си внимателен, можеш да ',
+'Advisor.js is disabled on talk pages, because it might suggest changing other users\' comments. That would be something against talk page conventions. If you promise to be careful, you can ':
+	'Advisor.js по подразбиране е спрян за беседите, защото има опасност да предложи промяна на чужди коментари. Това би било в противоречие с конвенциите за беседи. Ако обещаваш да си внимателен, можеш да ',
 
 'scan the text anyway.':
 	'провериш текста.',
@@ -124,7 +124,7 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
-		// Be careful not to break wikilinks.  If we find a ']' before we find an '['---drop the suggestion.
+		// Be careful not to break wikilinks. If we find a ']' before we find an '['---drop the suggestion.
 		var rightContext = s.substring(m.end);
 		var indexOfOpening = rightContext.indexOf('[');
 		var indexOfClosing = rightContext.indexOf(']');
@@ -213,7 +213,7 @@ ct.rules.push(function (s) {
 					help: 'Има два стила на писане на заглавия в уики-текста: <tt><ul><li>== С интервали ==</li><li>==Без интервали==</li></ul>'
 						+ 'Повечето заглавия в тази статия са '
 						+ ((m[2]) ? 'без' : 'със')
-						+ ' (' + counters.spaced + ' срещу ' + counters.nonSpaced + ').  '
+						+ ' (' + counters.spaced + ' срещу ' + counters.nonSpaced + '). '
 						+ 'Препоръчва се да се съобразиш с мнозинството.'
 			});
 		}
@@ -279,7 +279,7 @@ ct.rules.push(function (s) {
 					end: m.end,
 					name: 'ISBN',
 					description: 'Трябва да е дълъг 10 или 13 цифри',
-					help: 'ISBN номерата трябва да са дълги 10 или 13 цифри.  '
+					help: 'ISBN номерата трябва да са дълги 10 или 13 цифри. '
 							+ 'Този се състои от ' + s.length + ' цифри:<br><tt>' + m[1] + '</tt>'
 			});
 			continue;
@@ -339,7 +339,7 @@ ct.rules.push(function (s) {
 					name: 'й→и\u0300',
 					description: 'Промени „й“ на „и\u0300“',
 					help: 'Когато се ползва като местоимение, „й“ трябва да се изписва '
-							+ 'като „и&#x0300;“ с ударение.  В уикитекста това може да се направи чрез '
+							+ 'като „и&#x0300;“ с ударение. В уикитекста това може да се направи чрез '
 							+ '<tt>и&amp;#x0300;</tt> или <tt>и&amp;#768;</tt>.'
 			});
 		} else {
@@ -399,7 +399,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /([^\n ])( {2,})([^ =])/g;
+    var re = /([^\n\s])( {2,})([^\s=/])/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     for (var i = 0; i < a.length; i++) {
