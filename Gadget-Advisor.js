@@ -411,4 +411,40 @@ ct.rules.push(function (s) {
     return a;
 });
 
+ct.rules.push(function (s) {
+    var re = /([{letter}\]])( , ?|,)([{letter}\[])/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        a[i] = {
+            start: m.start,
+            end: m.end,
+            replacement: m[1] + m[2].trim() + ' ' + m[3],
+            name: 'запетая',
+            description: 'Премахни интервала преди запетаята. Добави интервал след запетаята',
+            help: 'Интервалът трява да е след запетаята и не преди нея.'
+        };
+    }
+    return a;
+});
+
+ct.rules.push(function (s) {
+    var re = /\n{3,}/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        a[i] = {
+            start: m.start,
+            end: m.end,
+            replacement: '\n\n',
+            name: 'нов ред',
+            description: 'Премахни излишните празни редове',
+            help: 'Повече от един празен ред е излишен.'
+        };
+    }
+    return a;
+});
+
 }
