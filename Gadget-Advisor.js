@@ -4,7 +4,6 @@
 
 mw.loader.load('//en.wikipedia.org/w/index.php?title=User:Cameltrader/Advisor.js&action=raw&ctype=text/javascript');
 
-
 var ct = ct || {};
 
 if (window.wgUserLanguage === 'bg') {
@@ -13,17 +12,11 @@ if (window.wgUserLanguage === 'bg') {
 'Changing text in wikEd is not yet supported.':
 	'Променянето на текст в wikEd още не се поддържа.',
 
-'This article is rather long.  Advisor.js may consume a lot of RAM and CPU resources while trying to parse the text.  You could limit your edit to a single section, or ':
+'This article is rather long. Advisor.js may consume a lot of RAM and CPU resources while trying to parse the text. You could limit your edit to a single section, or ':
 	'',
 
-'scan the text anyway.':
-	'',
-
-'Ignore this warning.':
-	'',
-
-'Advisor.js is disabled on talk pages, because it might suggest changing other users\' comments.  That would be something against talk page conventions.  If you promise to be careful, you can ':
-	'Advisor.js по подразбиране е спрян за беседите, защото има опасност да предложи промяна на чужди коментари.  Това би било в противоречие с конвенциите за беседи.  Ако обещаваш да си внимателен, можеш да ',
+'Advisor.js is disabled on talk pages, because it might suggest changing other users\' comments. That would be something against talk page conventions. If you promise to be careful, you can ':
+	'Advisor.js по подразбиране е спрян за беседите, защото има опасност да предложи промяна на чужди коментари. Това би било в противоречие с конвенциите за беседи. Ако обещаваш да си внимателен, можеш да ',
 
 'scan the text anyway.':
 	'провериш текста.',
@@ -74,12 +67,12 @@ ct.rules.push(function (s) {
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		a[i] = {
-				start: m.start,
-				end: m.end,
-				replacement: '[[' + m[1] + ']]',
-				name: 'А|А',
-				description: '„[[А|А]]“ може да се опрости до „[[А]]“.',
-				help: 'Синтаксисът на МедияУики позволява препратки от вида „<tt>[[А|А]]</tt>“ да се пишат просто като „<tt>[[А]]</tt>“.'
+			start: m.start,
+			end: m.end,
+			replacement: '[[' + m[1] + ']]',
+			name: 'А|А',
+			description: '„[[А|А]]“ може да се опрости до „[[А]]“.',
+			help: 'Синтаксисът на МедияУики позволява препратки от вида „<tt>[[А|А]]</tt>“ да се пишат просто като „<tt>[[А]]</tt>“.'
 		};
 	}
 	return a;
@@ -92,12 +85,12 @@ ct.rules.push(function (s) {
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		a[i] = {
-				start: m.start,
-				end: m.end,
-				replacement: '[[' + m[1] + ']]' + m[2],
-				name: 'А|АБ',
-				description: '„[[А|АБ]]“ може да се опрости до „[[А]]Б“.',
-				help: 'Синтаксисът на МедияУики позволява препратки от вида „<tt>[[А|АБ]]</tt>“ да се пишат като „<tt>[[А]]Б</tt>“.'
+			start: m.start,
+			end: m.end,
+			replacement: '[[' + m[1] + ']]' + m[2],
+			name: 'А|АБ',
+			description: '„[[А|АБ]]“ може да се опрости до „[[А]]Б“.',
+			help: 'Синтаксисът на МедияУики позволява препратки от вида „<tt>[[А|АБ]]</tt>“ да се пишат като „<tt>[[А]]Б</tt>“.'
 		};
 	}
 	return a;
@@ -112,12 +105,12 @@ ct.rules.push(function (s) {
 			continue;
 		}
 		b.push({
-				start: m.start,
-				end: m.end,
-				replacement: '',
-				name: 'интервали',
-				description: 'Изтрий интервалите в края на реда',
-				help: 'Интервалите в края на реда са ненужни.'
+			start: m.start,
+			end: m.end,
+			replacement: '',
+			name: 'интервали',
+			description: 'Изтрий интервалите в края на реда',
+			help: 'Интервалите в края на реда са ненужни.'
 		});
 	}
 	return b;
@@ -130,21 +123,20 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
-		// Be careful not to break wikilinks.  If we find a ']' before we find an '['---drop the suggestion.
+		// Be careful not to break wikilinks. If we find a ']' before we find an '['---drop the suggestion.
 		var rightContext = s.substring(m.end);
 		var indexOfOpening = rightContext.indexOf('[');
 		var indexOfClosing = rightContext.indexOf(']');
-		if ((indexOfClosing != -1)
-				&& ((indexOfOpening == -1) || (indexOfOpening > indexOfClosing))) {
+		if (indexOfClosing != -1 && (indexOfOpening == -1 || indexOfOpening > indexOfClosing)) {
 			continue;
 		}
 		b.push({
-				start: m.start + 1,
-				end: m.end - 1,
-				replacement: '\u00a0\u2014 ', // U+2014 is an mdash
-				name: 'дълго тире',
-				description: 'Смени с дълго тире (em dash)',
-				help: 'В изречение, късо тире оградено с интервали, почти сигурно трябва да е дълго тире (em dash).'
+			start: m.start + 1,
+			end: m.end - 1,
+			replacement: '\u00a0\u2014 ', // U+2014 is an mdash
+			name: 'дълго тире',
+			description: 'Смени с дълго тире (em dash)',
+			help: 'В изречение, късо тире оградено с интервали, почти сигурно трябва да е дълго тире (em dash).'
 		});
 	}
 	return b;
@@ -156,11 +148,11 @@ ct.rules.push(function (s) {
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		a[i] = {
-				start: m.start + 1,
-				end: m.end - 1,
-				replacement: m[1] + '\u2013' + m[2], // U+2013 is an ndash
-				name: 'средно тире',
-				description: 'Периодите от години изглеждат по добре със средно тире (en dash).'
+			start: m.start + 1,
+			end: m.end - 1,
+			replacement: m[1] + '\u2013' + m[2], // U+2013 is an ndash
+			name: 'средно тире',
+			description: 'Периодите от години изглеждат по добре със средно тире (en dash).'
 		};
 	}
 	return a;
@@ -174,8 +166,8 @@ ct.rules.push(function (s) {
 	var editform = document.getElementById('editform');
 	// If we are editing a section, we have to be tolerant to the first heading's level
 	var isSection = editform &&
-	                (editform['wpSection'] != null) &&
-	                (editform['wpSection'].value != '');
+		editform['wpSection'] != null &&
+		editform['wpSection'].value != '';
 	// Count spaced and non-spaced headings to find out the majority
 	var counters = {spaced: 0, nonSpaced: 0, unclear: 0};
 	for (var i = 0; i < a.length; i++) {
@@ -198,73 +190,70 @@ ct.rules.push(function (s) {
 		if (m[2] != m[4]) {
 			var spacer = (predominantSpacingStyle == 'spaced') ? ' ' : (predominantSpacingStyle == 'nonSpaced') ? '' : m[2];
 			b.push({
-					start: m.start,
-					end: m.end,
-					replacement: m[1] + spacer + m[3] + spacer + m[1],
-					name: 'заглавие',
-					description: 'Поправи интервалите',
-					help: 'Стилът на заглавието трябва да е или '
-						+ "<tt>==&nbsp;С интервали&nbsp;==</tt>, или <tt>==Без интервали==</tt>."
+				start: m.start,
+				end: m.end,
+				replacement: m[1] + spacer + m[3] + spacer + m[1],
+				name: 'заглавие',
+				description: 'Поправи интервалите',
+				help: 'Стилът на заглавието трябва да е или '
+					+ "<tt>==&nbsp;С интервали&nbsp;==</tt>, или <tt>==Без интервали==</tt>."
 			});
-		} else if ((m[2] && (predominantSpacingStyle == 'nonSpaced'))
-		       || (!m[2] && (predominantSpacingStyle == 'spaced'))) {
-			var spacer = (m[2]) ? '' : ' ';
+		} else if ((m[2] && predominantSpacingStyle == 'nonSpaced') || (!m[2] && predominantSpacingStyle == 'spaced')) {
+			var spacer = m[2] ? '' : ' ';
 			b.push({
-					start: m.start,
-					end: m.end,
-					replacement: m[1] + spacer + m[3] + spacer + m[1],
-					name: 'заглавие-стил',
-					description: 'Съобрази се с това, че повечето заглавия в тази статия са '
-						+ ((m[2]) ? 'без' : 'с') + ' интервали',
-					help: 'Има два стила на писане на заглавия в уики-текста: <tt><ul><li>== С интервали ==</li><li>==Без интервали==</li></ul>'
-						+ 'Повечето заглавия в тази статия са '
-						+ ((m[2]) ? 'без' : 'със')
-						+ ' (' + counters.spaced + ' срещу ' + counters.nonSpaced + ').  '
-						+ 'Препоръчва се да се съобразиш с мнозинството.'
+				start: m.start,
+				end: m.end,
+				replacement: m[1] + spacer + m[3] + spacer + m[1],
+				name: 'заглавие-стил',
+				description: 'Съобрази се с това, че повечето заглавия в тази статия са ' + (m[2] ? 'без' : 'с') + ' интервали',
+				help: 'Има два стила на писане на заглавия в уики-текста: <tt><ul><li>== С интервали ==</li><li>==Без интервали==</li></ul>'
+					+ 'Повечето заглавия в тази статия са '	+ (m[2] ? 'без' : 'със')
+					+ ' (' + counters.spaced + ' срещу ' + counters.nonSpaced + '). '
+					+ 'Препоръчва се да се съобразиш с мнозинството.'
 			});
 		}
 		var oldLevel = level;
 		level = m[1].length - 1;
-		if ( (level - oldLevel > 1) && (!isSection || (oldLevel > 0)) ) {
+		if (level - oldLevel > 1 && (!isSection || oldLevel > 0) ) {
 			var h = '======='.substring(0, oldLevel + 2);
 			b.push({
-					start: m.start,
-					end: m.end,
-					replacement: h + m[2] + m[3] + m[2] + h,
-					name: 'заглавие-вложеност',
-					description: 'Поправи неправилната вложеност',
-					help: 'Всяко заглавие трябва да е вложено точно едно ниво под по-общото заглавие.'
+				start: m.start,
+				end: m.end,
+				replacement: h + m[2] + m[3] + m[2] + h,
+				name: 'заглавие-вложеност',
+				description: 'Поправи неправилната вложеност',
+				help: 'Всяко заглавие трябва да е вложено точно едно ниво под по-общото заглавие.'
 			});
 		}
 		var frequentMistakes = [
-//				{ code: 'see-also',  wrong: /^see *al+so$/i,          correct: 'See also' },
-//				{ code: 'ext-links', wrong: /^external links?$/i,     correct: 'External links' },
-//				{ code: 'refs',      wrong: /^ref+e?r+en(c|s)es?$/i,  correct: 'References' }
+//			{ code: 'see-also',  wrong: /^see *al+so$/i,          correct: 'See also' },
+//			{ code: 'ext-links', wrong: /^external links?$/i,     correct: 'External links' },
+//			{ code: 'refs',      wrong: /^ref+e?r+en(c|s)es?$/i,  correct: 'References' }
 		];
 		for (var j = 0; j < frequentMistakes.length; j++) {
 			var fm = frequentMistakes[j];
-			if (fm.wrong.test(m[3]) && (m[3] != fm.correct)) {
+			if (fm.wrong.test(m[3]) && m[3] != fm.correct) {
 				var r = m[1] + m[2] + fm.correct + m[2] + m[1];
 				if (r != m[0]) {
 					b.push({
-							start: m.start,
-							end: m.end,
-							replacement: r,
-							name: fm.code,
-							description: 'Поправи на „' + fm.correct + "“.",
-							help: 'Правилното изписване е „<tt>' + fm.correct + "</tt>“."
+						start: m.start,
+						end: m.end,
+						replacement: r,
+						name: fm.code,
+						description: 'Поправи на „' + fm.correct + "“.",
+						help: 'Правилното изписване е „<tt>' + fm.correct + "</tt>“."
 					});
 				}
 			}
 		}
 		if (titleSet[m[3]] != null) {
 			b.push({
-					start: m.start + (m[1] || '').length + (m[2] || '').length,
-					end: m.start + (m[1] || '').length + (m[2] || '').length + m[3].length,
-					replacement: null, // we cannot propose anything, it's the editor who has to choose a different title
-					name: 'повторено заглавие',
-					description: 'Повтарящите се заглавия трябва да се избягват',
-					help: 'Имената на секциите трябва да са уникални в рамките на статията.'
+				start: m.start + (m[1] || '').length + (m[2] || '').length,
+				end: m.start + (m[1] || '').length + (m[2] || '').length + m[3].length,
+				replacement: null, // we cannot propose anything, it's the editor who has to choose a different title
+				name: 'повторено заглавие',
+				description: 'Повтарящите се заглавия трябва да се избягват',
+				help: 'Имената на секциите трябва да са уникални в рамките на статията.'
 			});
 		}
 		titleSet[m[3]] = true;
@@ -279,51 +268,51 @@ ct.rules.push(function (s) {
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		var s = m[1].replace(/[^0-9Xx]+/g, '').toUpperCase(); // remove all non-digits
-		if ((s.length !== 10) && (s.length !== 13)) {
+		if (s.length !== 10 && s.length !== 13) {
 			b.push({
-					start: m.start,
-					end: m.end,
-					name: 'ISBN',
-					description: 'Трябва да е дълъг 10 или 13 цифри',
-					help: 'ISBN номерата трябва да са дълги 10 или 13 цифри.  '
-							+ 'Този се състои от ' + s.length + ' цифри:<br><tt>' + m[1] + '</tt>'
+				start: m.start,
+				end: m.end,
+				name: 'ISBN',
+				description: 'Трябва да е дълъг 10 или 13 цифри',
+				help: 'ISBN номерата трябва да са дълги 10 или 13 цифри. '
+					+ 'Този се състои от ' + s.length + ' цифри:<br><tt>' + m[1] + '</tt>'
 			});
 			continue;
 		}
 		var isNew = (s.length === 13); // old (10 digits) or new (13 digits)
 		var xIndex = s.indexOf('X');
-		if ((xIndex !== -1) && ((xIndex !== 9) || isNew)) {
+		if (xIndex !== -1 && (xIndex !== 9 || isNew)) {
 			b.push({
-					start: m.start,
-					end: m.end,
-					name: 'ISBN',
-					description: 'Неправилна употреба на X като цифра',
-					help: "``<tt>X</tt>'' може да се ползва само като последна цифра в в 10-цифрен ISBN номер "
-							+ '<br><tt>' + m[1] + '</tt>'
+				start: m.start,
+				end: m.end,
+				name: 'ISBN',
+				description: 'Неправилна употреба на X като цифра',
+				help: "``<tt>X</tt>'' може да се ползва само като последна цифра в в 10-цифрен ISBN номер "
+					+ '<br><tt>' + m[1] + '</tt>'
 			});
 			continue;
 		}
 		var computedChecksum = 0;
-		var modulus = (isNew) ? 10 : 11;
+		var modulus = isNew ? 10 : 11;
 		for (var j = s.length - 2; j >= 0; j--) {
 			var digit = s.charCodeAt(j) - 48; // 48 is the ASCII code of '0'
-			var quotient = (isNew)
-								? ((j & 1) ? 3 : 1) // the new way: 1 for even, 3 for odd
-								: (10 - j);         // the old way: 10, 9, 8, etc
+			var quotient = isNew
+				? ((j & 1) ? 3 : 1) // the new way: 1 for even, 3 for odd
+				: 10 - j;           // the old way: 10, 9, 8, etc
 			computedChecksum = (computedChecksum + (quotient * digit)) % modulus;
 		}
 		computedChecksum = (modulus - computedChecksum) % modulus;
 		var c = s.charCodeAt(s.length - 1) - 48;
-		var actualChecksum = ((c < 0) || (9 < c)) ? 10 : c;
+		var actualChecksum = (c < 0 || 9 < c) ? 10 : c;
 		if (computedChecksum === actualChecksum) {
 			continue;
 		}
 		b.push({
-				start: m.start,
-				end: m.end,
-				name: 'ISBN',
-				description: 'Неправилна контролна сума',
-				help: 'Неправилна контролна сума на ISBN номер:<br/><tt>' + m[1] + '</tt><br/>'
+			start: m.start,
+			end: m.end,
+			name: 'ISBN',
+			description: 'Неправилна контролна сума',
+			help: 'Неправилна контролна сума на ISBN номер:<br/><tt>' + m[1] + '</tt><br/>'
 		});
 	}
 	return b;
@@ -339,14 +328,14 @@ ct.rules.push(function (s) {
 		var w = m[0]; // the word
 		if (w === 'й') {
 			b.push({
-					start: m.start,
-					end: m.end,
-					replacement: 'и&#768;',
-					name: 'й→и\u0300',
-					description: 'Промени „й“ на „и\u0300“',
-					help: 'Когато се ползва като местоимение, „й“ трябва да се изписва '
-							+ 'като „и&#x0300;“ с ударение.  В уикитекста това може да се направи чрез '
-							+ '<tt>и&amp;#x0300;</tt> или <tt>и&amp;#768;</tt>.'
+				start: m.start,
+				end: m.end,
+				replacement: 'и&#768;',
+				name: 'й→и\u0300',
+				description: 'Промени „й“ на „и\u0300“',
+				help: 'Когато се ползва като местоимение, „й“ трябва да се изписва '
+					+ 'като „и&#x0300;“ с ударение. В уикитекста това може да се направи чрез '
+					+ '<tt>и&amp;#x0300;</tt> или <tt>и&amp;#768;</tt>.'
 			});
 		} else {
 			// todo: check spelling
@@ -366,12 +355,12 @@ ct.rules.push(function (s) {
 		var replacement = m[1] + 'г.';
 		if (original !== replacement) {
 			b.push({
-					start: m.start,
-					end: m.end,
-					replacement: replacement,
-					name: 'год.→г.',
-					description: 'год.→г.',
-					help: 'Приетото съкращение за година е „г.“, а не „год.“'
+				start: m.start,
+				end: m.end,
+				replacement: replacement,
+				name: 'год.→г.',
+				description: 'год.→г.',
+				help: 'Приетото съкращение за година е „г.“, а не „год.“'
 			});
 		}
 	}
@@ -390,18 +379,36 @@ ct.rules.push(function (s) {
 		var unit = m[3];
 		if (spacing !== ' ') {
 			b.push({
-					start: m.start,
-					end: m.end,
-					replacement: number + '\u00a0' + unit,
-					name: 'число+' + unit,
-					description: 'год.→г.',
-					help: 'Между число и „' + unit + '“ трябва да се оставя един интервал, '
-							+ 'за предпочитане непренасящият се <tt>&amp;nbsp;</tt> '
-							+ '(non-breaking space, <tt>U+00A0</tt>).'
+				start: m.start,
+				end: m.end,
+				replacement: number + '\u00a0' + unit,
+				name: 'число+' + unit,
+				description: 'год.→г.',
+				help: 'Между число и „' + unit + '“ трябва да се оставя един интервал, '
+					+ 'за предпочитане непренасящият се <tt>&amp;nbsp;</tt> '
+					+ '(non-breaking space, <tt>U+00A0</tt>).'
 			});
 		}
 	}
 	return b;
+});
+
+ct.rules.push(function (s) {
+    var re = /([^\n\s])( {2,})([^\s=/])/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        a[i] = {
+            start: m.start,
+            end: m.end,
+            replacement: m[1] + ' ' + m[3],
+            name: 'интервали2',
+            description: 'Замени двойните интервали с единични',
+            help: 'Двойните интервали са ненужни.'
+        };
+    }
+    return a;
 });
 
 }
