@@ -430,7 +430,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /\n{3,}/g;
+    var re = /\n{3,}|(\.)\n([{letter}])/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     for (var i = 0; i < a.length; i++) {
@@ -438,10 +438,10 @@ ct.rules.push(function (s) {
         a[i] = {
             start: m.start,
             end: m.end,
-            replacement: '\n\n',
+            replacement: (m[1] || '') + '\n\n' + (m[2] || ''),
             name: 'нов ред',
-            description: 'Премахни излишните празни редове',
-            help: 'Повече от един празен ред е излишен.'
+            description: 'Премахни излишните празни редове или добави нов ред.',
+            help: 'Между отделните абзаци трябва да има един празен ред. Повече от един празен ред е излишен.'
         };
     }
     return a;
