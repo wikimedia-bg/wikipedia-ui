@@ -268,6 +268,7 @@ mw.libs.CategoryMaster = function() {
 			'padding': '1em',
 			'background-color': 'white',
 			'overflow': 'auto',
+			'font-size': '9pt',
 			'z-index': 1000
 		}).append(generateCloseHandle());
 	}
