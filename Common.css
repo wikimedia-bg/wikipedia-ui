@@ -126,9 +126,8 @@ div.thumb div div.thumbcaption, div.gallerytext { text-align: center; }
 	background: url(//upload.wikimedia.org/wikipedia/commons/3/32/Loader3.gif) right center no-repeat;
 }
 /* contents are currently loaded */
-.loading {
-	min-height: 2.5em;
-	background: url(//upload.wikimedia.org/wikipedia/commons/3/32/Loader3.gif) no-repeat center;
+.loading:before {
+	content: url(//upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Vector_Loading_fallback.gif/16px-Vector_Loading_fallback.gif);
 }
 /* A working element has done its job */
 .done:before {
