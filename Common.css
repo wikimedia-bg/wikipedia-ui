@@ -306,7 +306,7 @@ a.NavToggle {
 .infobox.geography .maptable td,
 .infobox.geography .maptable th {
 	border: 0;
-	padding: 0 0 0 0;
+	padding: 0;
 }
 
 table.toccolours caption { font-weight: bold; }
@@ -377,8 +377,8 @@ table.wikitable2 caption {
 	font-size: 85%;
 	white-space: nowrap;
 	text-transform: none;
-	margin: 0.0em;
-	padding: 0.0em;
+	margin: 0;
+	padding: 0;
 }
 
 #coordinates, .coordinates {
