@@ -430,7 +430,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /\n{3,}|(\.)\n([{letter}])/g;
+    var re = /\n{3,}|(\.)\n((?!File|Image)[{letter}])/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     for (var i = 0; i < a.length; i++) {
