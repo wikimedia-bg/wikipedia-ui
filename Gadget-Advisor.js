@@ -430,15 +430,16 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /\n{3,}|(\.)\n([А-я])/g;
+    var re = /((=\n{2,}.)|.\n=|.\n{3,}.|\.\n[А-я])/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
+        var lines = (m[2] === undefined) ? '\n\n' : '\n';
         a[i] = {
             start: m.start,
             end: m.end,
-            replacement: (m[1] || '') + '\n\n' + (m[2] || ''),
+            replacement: m[1][0] + lines + m[1][m.end - m.start - 1],
             name: 'нов ред',
             description: 'Премахни излишните празни редове или добави нов ред.',
             help: 'Между отделните абзаци трябва да има един празен ред. Повече от един празен ред е излишен.'
