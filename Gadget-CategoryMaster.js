@@ -124,15 +124,20 @@ mw.libs.ProgressBar = function(completeLabel) {
 		'top': '4px',
 		'font-weight': 'bold'
 	});
+	var origDocTitle = document.title;
 	my.$content.progressbar({
 		value: 0,
 		change: function() {
-			$label.text(my.$content.progressbar('value') + '%');
+			updateLabel(my.$content.progressbar('value') + '%');
 		},
 		complete: function() {
-			$label.text(completeLabel || '100%');
+			updateLabel(completeLabel || '100%');
 		}
 	});
+	function updateLabel(text) {
+		$label.text(text);
+		document.title = '['+text+'] ' + origDocTitle;
+	}
 	my.set = function(value) {
 		my.$content.progressbar('value', Math.ceil(parseFloat(value)));
 		return my;
