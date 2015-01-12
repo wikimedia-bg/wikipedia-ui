@@ -157,7 +157,7 @@ mw.libs.CategoryMaster = function() {
 	var api = new mw.Api();
 
 	my.categoryPrefix = mw.libs.localizedNamespace('category') + ':';
-	my.editThrottleSecs = 5;
+	my.editThrottleSecs = 3;
 
 	my.preparePlayField = function() {
 		if ($('#cmContainer').length) {
