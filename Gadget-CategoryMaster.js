@@ -175,7 +175,7 @@ mw.libs.CategoryMaster = function() {
 		$('#cmMoveForm').on('submit', function() {
 			my.progressbar = new mw.libs.ProgressBar(mw.msg('cm-progress-done')).appendTo($container);
 			my.logWindow = generateLogWindow().appendTo($container);
-			my.moveCategory(this.oldCategory.value, this.newCategory.value);
+			my.moveCategory(this.oldCategory.value, this.newCategory.value, this.reason.value);
 			return false;
 		});
 		$('#cmOldCategory').on('change', function() {
@@ -241,6 +241,10 @@ mw.libs.CategoryMaster = function() {
 			.append( $('<div class="mw-ui-vform-field"/>')
 				.append('<label for="cmNewCategory">'+mw.msg('cm-form-new-cat')+'</label>')
 				.append('<input name="newCategory" id="cmNewCategory" class="mw-ui-input cm-cat-field" value="'+my.categoryPrefix+'" data-invalid="1">')
+			)
+			.append( $('<div class="mw-ui-vform-field"/>')
+				.append('<label for="cmReason">'+mw.msg('cm-form-reason')+'</label>')
+				.append('<input name="reason" id="cmReason" class="mw-ui-input">')
 			)
 			.append( $('<div class="mw-ui-vform-field"/>')
 				.append('<input type="submit" class="mw-ui-button mw-ui-constructive" value="'+mw.msg('cm-form-submit')+'" disabled>')
@@ -393,6 +397,7 @@ mw.libs.CategoryMaster.messages = {
 	'cm-form-intro-warning': 'Бъдете внимателни и не злоупотребявайте с този инструмент!',
 	'cm-form-old-cat': 'Текуща категория',
 	'cm-form-new-cat': 'Нова категория',
+	'cm-form-reason': 'Причина за преместването',
 	'cm-form-submit': 'Преместване',
 	'cm-form-infotip': '[[$1]] съдържа $2.',
 	'cm-form-infotip-subcats': '<b>$1</b> подкатегории',
