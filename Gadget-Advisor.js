@@ -39,7 +39,7 @@ if (window.wgUserLanguage === 'bg') {
 'Show All':
 	'Покажи всички',
 
-'formatting: $1 (using [[МедияУики:Gadget-Advisor.js|Advisor.js]])':
+'formatting: $1 (using [[User:Cameltrader#Advisor.js|Advisor.js]])':
 	'форматиране: $1 (ползвайки [[МедияУики:Gadget-Advisor.js|Advisor.js]])',
 
 'Add to summary':
