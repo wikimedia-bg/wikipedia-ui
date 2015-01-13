@@ -12,11 +12,11 @@ if (window.wgUserLanguage === 'bg') {
 'Changing text in wikEd is not yet supported.':
 	'Променянето на текст в wikEd още не се поддържа.',
 
-'This article is rather long. Advisor.js may consume a lot of RAM and CPU resources while trying to parse the text. You could limit your edit to a single section, or ':
-	'',
+'This article is rather long.  Advisor.js may consume a lot of RAM and CPU resources while trying to parse the text.  You could limit your edit to a single section, or ':
+	'Тази статия е твърде дълга. Advisor.js може да консумира много RAM и процесорни ресурси, докато се опитва да анализира текста. Можеш да ограничиш редакцията на един раздел, или да ',
 
-'Advisor.js is disabled on talk pages, because it might suggest changing other users\' comments. That would be something against talk page conventions. If you promise to be careful, you can ':
-	'Advisor.js по подразбиране е спрян за беседите, защото има опасност да предложи промяна на чужди коментари. Това би било в противоречие с конвенциите за беседи. Ако обещаваш да си внимателен, можеш да ',
+'Advisor.js is disabled on talk pages, because it might suggest changing other users\' comments.  That would be something against talk page conventions.  If you promise to be careful, you can ':
+	'Advisor.js по подразбиране е спрян за беседите, защото има опасност да предложи промяна на чужди коментари.  Това би било в противоречие с конвенциите за беседи.  Ако обещаваш да си внимателен, можеш да ',
 
 'scan the text anyway.':
 	'провериш текста.',
