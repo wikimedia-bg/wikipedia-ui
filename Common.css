@@ -30,7 +30,7 @@ sup {vertical-align: baseline; font-size: 0.8em; position: relative; top: -0.4em
 .code { font-family: monospace; }
 
 /* подравняване на текста в таблицата нагоре */
-table.nagore tbody { vertical-align:top; }
+.nagore tbody { vertical-align:top; }
 
 #siteNotice { padding: 0.3em; text-align: center; margin-bottom: 0.5em; }
 
@@ -41,7 +41,7 @@ table.nagore tbody { vertical-align:top; }
 .noulinks a, .nounderlines a { text-decoration: none; }
 
 /* текста, отбелязващ малките промени [[МедияУики:Minoreditletter]] */
-span.minor { font-weight: normal; }
+.minor { font-weight: normal; }
 
 /* изпъкващи елементи */
 .hilite {
@@ -109,7 +109,7 @@ span.minor { font-weight: normal; }
 }
 
 /* центриране на описанията на миникартинките и при галериите */
-div.thumb div div.thumbcaption, div.gallerytext { text-align: center; }
+.thumbcaption, .gallerytext { text-align: center; }
 
 /* [[МедияУики:Monobook.js|поздравително съобщение]] за всеки невлязъл потребител */
 #externMessage {
@@ -134,47 +134,9 @@ div.thumb div div.thumbcaption, div.gallerytext { text-align: center; }
 	content: url(//upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Yes_check.svg/16px-Yes_check.svg.png);
 }
 /* A working element that hadn’t been so lucky */
-.not-done:before {
+.not-done:before,
+.fail:before {
 	content: url(//upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Red_x.svg/16px-Red_x.svg.png);
-}
-
-/* Standard Navigationsleisten, aka box hiding thingy from .de.*/
-div.Boxmerge, div.NavFrame {
-	margin: 0;
-	padding: 0.2ex;
-	border: thin solid #aaaaaa;
-	text-align: center;
-	border-collapse: collapse;
-	font-size: 95%;
-}
-div.Boxmerge div.NavFrame { border-style: none; border-style: hidden; }
-div.NavFrame + div.NavFrame { border-top-style: none; border-top-style: hidden; }
-div.NavPic {
-	background-color: #ffffff;
-	margin: 0;
-	padding: 0.2ex;
-	float: left;
-}
-div.NavFrame div.NavHead {
-	height: 1.6em;
-	font-weight: bold;
-	font-size: 100%;
-	background-color: #efefef;
-	position:relative;
-}
-div.NavFrame p, div.NavContent, div.NavContent p { font-size: 100%; }
-div.NavEnd {
-	margin: 0;
-	padding: 0;
-	line-height: 0.1em;
-	clear: both;
-}
-a.NavToggle {
-	position:absolute;
-	top:0;
-	right:0.2em;
-	font-weight:normal;
-	font-size:smaller;
 }
 
 .plainlinksneverexpand { background: none ! important; padding: 0 ! important; }
@@ -309,53 +271,53 @@ a.NavToggle {
 	padding: 0;
 }
 
-table.toccolours caption { font-weight: bold; }
-table.toccolours tr.hrow th { background-color: #e0e6e9; }
-tr.odd { background-color: inherit; }
-tr.even { background-color: #eceff3; }
+.toccolours caption { font-weight: bold; }
+.toccolours .hrow th { background-color: #e0e6e9; }
+.odd { background-color: inherit; }
+.even { background-color: #eceff3; }
 
 /* wikitable/prettytable class for skinning normal tables */
-table.wikitable, table.prettytable {
+.wikitable, .prettytable {
 	margin: 1em 1em 1em 0;
 	background: #f9f9f9;
 	border: 1px #aaaaaa solid;
 	border-collapse: collapse;
 }
-table.wikitable th, table.wikitable td,
-table.prettytable th, table.prettytable td {
+.wikitable th, .wikitable td,
+.prettytable th, .prettytable td {
 	border: 1px #aaaaaa solid;
 	padding: 0.2em;
 }
-table.wikitable th, table.prettytable th {
+.wikitable th, .prettytable th {
 	background: #f2f2f2;
 	text-align: center;
 }
-table.wikitable caption, table.prettytable caption {
+.wikitable caption, .prettytable caption {
 	margin-left: inherit;
 	margin-right: inherit;
 	font-weight: bold;
 }
-table.wikitable table th, table.prettytable table th,
-table.wikitable table td, table.prettytable table td {
+.wikitable table th, .prettytable table th,
+.wikitable table td, .prettytable table td {
 	border: none;
 }
 
 /* wikitable2 class for skinning normal tables with borders */
-table.wikitable2 {
+.wikitable2 {
 	margin: 1em 1em 1em 0;
 	background: #f9f9f9;
 	border: 1px #aaaaaa solid;
 	border-collapse: collapse;
 }
-table.wikitable2 th, table.wikitable2 td {
+.wikitable2 th, .wikitable2 td {
 	border: 1px #aaaaaa solid;
 	padding: 0.2em;
 }
-table.wikitable2 th {
+.wikitable2 th {
 	background: #f2f2f2;
 	text-align: center;
 }
-table.wikitable2 caption {
+.wikitable2 caption {
 	margin-left: inherit;
 	margin-right: inherit;
 	font-weight: bold;
@@ -408,11 +370,9 @@ table.wikitable2 caption {
 .same-bg { background: none }
 
 /* Highlight clicked reference in blue to help navigation */
-ol.references > li:target {
-	background-color: #DEF;
-}
-
-sup.reference:target, cite:target {
+.references > :target,
+.reference:target,
+cite:target {
 	background-color: #DEF;
 }
 
@@ -442,96 +402,95 @@ sup.reference:target, cite:target {
 }
 
 /* Cell sizes for ambox/tmbox/imbox/cmbox/ombox/fmbox/dmbox message boxes */
-th.mbox-text, td.mbox-text {     /* The message body cell(s) */
+.mbox-text {     /* The message body cell(s) */
     border: none;
     padding: 0.25em 0.9em;       /* 0.9em left/right */
     width: 100%;    /* Make all mboxes the same width regardless of text length */
 }
-td.mbox-image {                  /* The left image cell */
+.mbox-image {                  /* The left image cell */
     border: none;
     padding: 2px 0 2px 0.9em;    /* 0.9em left, 0px right */
     text-align: center;
 }
-td.mbox-imageright {             /* The right image cell */
+.mbox-imageright {             /* The right image cell */
     border: none;
     padding: 2px 0.9em 2px 0;    /* 0px left, 0.9em right */
     text-align: center;
 }
-td.mbox-empty-cell {         /* An empty narrow cell */
+.mbox-empty-cell {         /* An empty narrow cell */
     border: none;
     padding: 0px;
     width: 1px;
 }
 
 /* Article message box styles */
-table.ambox {
+.ambox {
     margin: 0px 10%;   /* 10% = Will not overlap with other elements */
     border: 1px solid #aaa;
     border-left: 10px solid #1e90ff;    /* Default "notice" blue */
     background: #fbfbfb;
 }
-table.ambox + table.ambox {   /* Single border between stacked boxes. */
+.ambox + .ambox {   /* Single border between stacked boxes. */
     margin-top: -1px;
 }
-.ambox th.mbox-text,
-.ambox td.mbox-text {            /* The message body cell(s) */
+.ambox .mbox-text {            /* The message body cell(s) */
     padding: 0.25em 0.5em;       /* 0.5em left/right */
 }
-.ambox td.mbox-image {           /* The left image cell */
+.ambox .mbox-image {           /* The left image cell */
     padding: 2px 0 2px 0.5em;    /* 0.5em left, 0px right */
 }
-.ambox td.mbox-imageright {      /* The right image cell */
+.ambox .mbox-imageright {      /* The right image cell */
     padding: 2px 0.5em 2px 0;    /* 0px left, 0.5em right */
 }
 
-table.ambox-notice {
+.ambox-notice {
     border-left: 10px solid #1e90ff;    /* Blue */
 }
-table.ambox-delete,
-table.ambox-serious {
+.ambox-delete,
+.ambox-serious {
     border-left: 10px solid #b22222;    /* Red */
 }
-table.ambox-content {
+.ambox-content {
     border-left: 10px solid #f28500;    /* Orange */
 }
-table.ambox-style {
+.ambox-style {
     border-left: 10px solid #f4c430;    /* Yellow */
 }
-table.ambox-move,
-table.ambox-merge {
+.ambox-move,
+.ambox-merge {
     border-left: 10px solid #9932cc;    /* Purple */
 }
-table.ambox-stub,
-table.ambox-protection {
+.ambox-stub,
+.ambox-protection {
     border-left: 10px solid #bba;       /* Gray-gold */
 }
 
-table.fmbox {
+.fmbox {
     clear: both;
     margin: 0.2em 0;
     width: 100%;
     border: 1px solid #aaa;
     background: #f9f9f9;     /* Default "system" gray */
 }
-table.fmbox-system {
+.fmbox-system {
     background: #f9f9f9;
 }
-table.fmbox-warning {
+.fmbox-warning {
     border: 1px solid #bb7070;  /* Dark pink */
     background: #ffdbdb;        /* Pink */
 }
-table.fmbox-editnotice {
+.fmbox-editnotice {
     background: transparent;
 }
 
-li.FA {
+.FA {
 	list-style-image: url("//upload.wikimedia.org/wikipedia/commons/d/d4/Monobook-bullet-star.png");
 }
-li.GA {
+.GA {
 	list-style-image: url("//upload.wikimedia.org/wikipedia/commons/4/42/Monobook-bullet-ga.png");
 }
 
-div.hilited, span.hilited {
+.hilited {
 	color: white;
 	background-color: #000080;
 }
@@ -543,7 +502,7 @@ div.hilited, span.hilited {
 }
 
 /* съобщения за блокиране на беседи */
-div.user-block {
+.user-block {
 	padding: 5px;
 	border: 1px solid #A9A9A9;
 	background-color: #FFEFD5;
@@ -573,7 +532,7 @@ div.user-block {
 	color: #000;
 }
 /* кутии с връзки в доста страници от ИП Уикипедия */
-div.user-wpnav {
+.user-wpnav {
 	border: 1px solid #A3B1BF;
 	margin-bottom: 1em;
 	padding: .5em .5em 0em .5em;
@@ -587,10 +546,10 @@ div.user-wpnav {
 
 /*
 	These mbox-small classes must be placed after all other
-	ambox/tmbox/ombox etc classes. "body.mediawiki" is so
-	they override "table.ambox + table.ambox" above.
+	ambox/tmbox/ombox etc classes. ".mediawiki" is so
+	they override ".ambox + .ambox" above.
 */
-body.mediawiki table.mbox-small {   /* For the "small=yes" option. */
+.mediawiki .mbox-small {   /* For the "small=yes" option. */
 	clear: right;
 	float: right;
 	margin: 4px 0 4px 1em;
@@ -598,7 +557,7 @@ body.mediawiki table.mbox-small {   /* For the "small=yes" option. */
 	font-size: 88%;
 	line-height: 1.25em;
 }
-body.mediawiki table.mbox-small-left {   /* For the "small=left" option. */
+.mediawiki .mbox-small-left {   /* For the "small=left" option. */
 	margin: 4px 1em 4px 0;
 	width: 238px;
 	border-collapse: collapse;
@@ -609,7 +568,7 @@ body.mediawiki table.mbox-small-left {   /* For the "small=left" option. */
 
 /* Default skin for navigation boxes */
 /* Navbox container */
-table.navbox {
+.navbox {
 	border: 1px solid #aaa;
 	width: 100%;
 	margin: auto;
@@ -619,7 +578,7 @@ table.navbox {
 	padding: 1px;
 }
 /* Single pixel border between adjacent navboxes */
-table.navbox + table.navbox {
+.navbox + .navbox {
 	margin-top: -1px;
 }
 /* Title and above/below */
@@ -644,7 +603,7 @@ table.navbox th {
 	border-color: #fdfdfd;	/* Must match background color */
 }
 .navbox-title,
-table.navbox th {
+.navbox th {
 	background: #ccccff;	/* Level 1 color */
 }
 .navbox-abovebelow,
@@ -693,16 +652,16 @@ table.navbox th {
 
 
 /* Styling for Template:Quote */
-blockquote.templatequote {
+.templatequote {
      margin-top: 0;
 }
-blockquote.templatequote div.templatequotecite {
+.templatequote .templatequotecite {
     line-height: 1em;
     text-align: left;
     padding-left: 2em;
     margin-top: 0;
 }
-blockquote.templatequote div.templatequotecite cite {
+.templatequote .templatequotecite cite {
     font-size: 85%;
 }
 /* Infobox v_2 */
@@ -868,8 +827,6 @@ pre.source-lua {
 .navbox .hlist dt,
 .navbox .hlist li {
     white-space: nowrap;
-    /* IE < 8 no-wraps entire list, so disable it */
-    white-space: normal !ie;
 }
 /* But allow parent list items to be wrapped */
 .navbox .hlist dd dl,
@@ -893,11 +850,6 @@ pre.source-lua {
 .transborder {
     border: solid transparent;
 }
-* html .transborder {  /* IE6 */
-    border: solid #000001;
-    filter: chroma(color=#000001);
-}
-
 
 /* graphiques transparents d'entêtes des infobox V2 */
 
@@ -1038,5 +990,4 @@ pre.source-lua {
 }
 
 /* Скриване на бутона за преместване при категории */
-
 .ns-14 #ca-move { display: none }
