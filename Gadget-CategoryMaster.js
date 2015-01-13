@@ -405,7 +405,7 @@ mw.libs.CategoryMaster.messages = {
 	'cm-form-infotip-pages': '<b>$1</b> страници',
 	'cm-form-infotip-nonexistant': '[[$1]] не съществува.',
 	'cm-form-infotip-empty': '[[$1]] съществува, но не съдържа страници.',
-	'cm-summary': '[[$1]] → [[$2]] (чрез [[У:КМ|КМ]])',
+	'cm-summary': '[[У:КМ|КМ]]: [[$1]] → [[$2]]',
 	'cm-move-reason': '$1 (чрез [[У:КМ|КМ]])',
 	'cm-notify-cat': '[[$1]] се премества като [[$2]]',
 	'cm-notify-page': '($1) [[$2]] → [[$3]]',
