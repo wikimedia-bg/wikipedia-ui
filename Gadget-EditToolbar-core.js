@@ -80,7 +80,7 @@ window.customInsButtons = {
 
 // cleanup by articles
 if (mw.config.get('wgCanonicalNamespace') === '') {
-	mw.loader.using("mediawiki.action.edit", function() {
+	mw.loader.using("mediawiki.toolbar", function() {
 		delete customInsButtons['b14'];
 		delete customInsButtons['b15'];
 		$('#mw-editbutton-signature').hide();
