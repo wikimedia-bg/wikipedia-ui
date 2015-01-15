@@ -403,7 +403,7 @@ ct.rules.push(function (s) {
             start: m.start,
             end: m.end,
             replacement: m[1] + ' ' + m[3],
-            name: 'дв. интервали',
+            name: 'дв. интервал',
             description: 'Замени двойните интервали с единични',
             help: 'Двойните интервали са ненужни.'
         };
