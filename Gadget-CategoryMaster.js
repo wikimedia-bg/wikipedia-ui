@@ -24,6 +24,11 @@ mw.libs.api.fetchAll = function(params) {
 	})(params);
 };
 
+mw.libs.RegExp = mw.libs.RegExp || {};
+mw.libs.RegExp.quote = function(string) {
+	return string.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
+};
+
 mw.libs.reduceArray = function(array, callback, sleepInterval) {
 	if (array.length === 0) {
 		return;
@@ -356,6 +361,7 @@ mw.libs.CategoryMaster = function() {
 
 	function replaceCategoryInContent(content, oldCategory, newCategory) {
 		var oldCategoryTitle = oldCategory.replace(new RegExp('^'+my.categoryPrefix), '');
+		oldCategoryTitle = mw.libs.RegExp.quote(oldCategoryTitle);
 		var search = new RegExp('\\[\\[ *('+my.categoryPrefix+'|Category:) *'+oldCategoryTitle+' *([\\]|])', 'gi');
 		var replacement = '[['+newCategory+'$2';
 		return content.replace(search, replacement);
