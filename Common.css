@@ -541,6 +541,14 @@ cite:target {
 	text-align: center;
 	min-height: 2em;
 }
+/* списъци с водещ текст, който не е част от списъка */
+.list-with-leadtext {
+	margin: .6em 0;
+}
+.list-with-leadtext p, .list-with-leadtext ul {
+	display: inline;
+	margin: 0;
+}
 /* за редове, които не трябва да се пренасят */
 .oneline { white-space: nowrap; }
 
