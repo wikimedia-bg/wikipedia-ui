@@ -622,6 +622,11 @@ cite:target {
 	content: " · ";
 	font-weight: bold;
 }
+.hlist-big dd:after,
+.hlist-big li:after {
+	content: " • ";
+	font-weight: normal;
+}
 .hlist dd:last-child:after,
 .hlist dt:last-child:after,
 .hlist li:last-child:after {
