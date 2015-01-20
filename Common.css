@@ -628,12 +628,12 @@ cite:target {
 }
 .hlist dd:after,
 .hlist li:after {
-	content: " · ";
+	content: " ·";
 	font-weight: bold;
 }
 .hlist-big dd:after,
 .hlist-big li:after {
-	content: " • ";
+	content: " •";
 	font-weight: normal;
 }
 .hlist dd:last-child:after,
