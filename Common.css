@@ -602,6 +602,7 @@ cite:target {
 .hlist li {
 	margin: 0;
 	display: inline;
+	white-space: nowrap;
 }
 /* Display nested lists inline */
 .hlist.inline,
