@@ -84,7 +84,7 @@ mw.libs.wikiMsg = function() {
 	var key = '__bug__'+(new Date().getTime());
 	mw.messages.set(key, textMsg);
 	return mw.message(key).parse();
-}
+};
 
 mw.libs.LogMessage = function(text) {
 	var my = this;
@@ -423,7 +423,8 @@ mw.libs.CategoryMaster.messages = {
 mw.libs.CategoryMaster.register = function() {
 	mw.messages.set(mw.libs.CategoryMaster.messages);
 	if (mw.config.get('wgCanonicalNamespace') == 'Category') {
-		$('#ca-move').addClass('cm-link').show();
+		// show() generates 'display:list-item' which does not work by monobook
+		$('#ca-move').addClass('cm-link').css('display', 'inline');
 	}
 	mw.loader.using(['mediawiki.util'], function() {
 		var l = mw.util.addPortletLink('p-tb', '#', mw.msg('cm-portlet-link'), 't-cm-movecat');
