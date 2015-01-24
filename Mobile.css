@@ -1,0 +1,21 @@
+/* CSS placed here will affect users of the mobile site */
+
+/* copied from https://wikimediafoundation.org/wiki/Template:Social_accounts */
+.fancy-btn {
+	background-color: #3366bb;
+	background-image: linear-gradient(to bottom, #3670c8, #3366bb);
+	border: 1px solid #3366bb;
+	border-radius: 3px;
+	color: #fff;
+	display: inline-block;
+	line-height: 1;
+	padding: 0.7em;
+	text-align: center;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	font-size: 1.4em;
+	min-width: 200px;
+	margin: 4px;
+}
+.fancy-btn:hover {
+	text-decoration: underline;
+}
