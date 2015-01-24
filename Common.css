@@ -1083,4 +1083,5 @@ pre.source-lua {
 }
 .fancy-btn:hover {
 	text-decoration: underline;
+	opacity: 0.9;
 }
