@@ -448,4 +448,42 @@ ct.rules.push(function (s) {
     return a;
 });
 
+ct.rules.push(function (s) {
+    var re = /(([А-я] e [А-я])|([a-z][А-я])|([А-я][a-z]))/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        a[i] = {
+            start: m.start,
+            end: m.end,
+            replacement: m[1],
+            name: '6lokavica',
+            description: 'Неизвестна замяна. Проверете текста.',
+            help: 'Една дума в текста трябва да бъде написана или само на кирилица или на латиница'
+        };
+        
+        if (m[2] !== undefined) {
+        	a[i].replacement = m[2][0] + ' е ' + m[2][4];
+        	a[i].description = 'Замени латинско "e" с кирилско.';
+        }
+        else if (m[3] !== undefined || m[4] !== undefined) {
+        	a[i].replacement = (m[3] === undefined) ? m[4] : m[3];
+        	if (a[i].replacement.indexOf('a') > -1) {
+        		a[i].replacement = a[i].replacement.replace('a', 'а');
+        		a[i].description = 'Замени латинско "a" с кирилско.';
+        	} 
+        	else if (a[i].replacement.indexOf('e') > -1) {
+        		a[i].replacement = a[i].replacement.replace('e', 'е');
+        		a[i].description = 'Замени латинско "e" с кирилско.';
+        	}
+        	else if (a[i].replacement.indexOf('o') > -1) {
+        		a[i].replacement = a[i].replacement.replace('o', 'о');
+        		a[i].description = 'Замени латинско "o" с кирилско.';
+        	}
+        }
+    }
+    return a;
+});
+
 }
