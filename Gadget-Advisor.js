@@ -449,7 +449,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /(([А-я] e [А-я])|([a-z][А-я])|([А-я][a-z]))/g;
+    var re = /(([А-я] e [А-я])|[a-z][А-я]|[А-я][a-z])/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     for (var i = 0; i < a.length; i++) {
