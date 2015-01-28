@@ -460,26 +460,19 @@ ct.rules.push(function (s) {
             replacement: m[1],
             name: '6lokavica',
             description: 'Неизвестна замяна. Проверете текста.',
-            help: 'Една дума в текста трябва да бъде написана или само на кирилица или на латиница'
+            help: 'Една дума трябва да бъде написана или само на кирилица или само на латиница.'
         };
         
-        if (m[2] !== undefined) {
-        	a[i].replacement = m[2][0] + ' е ' + m[2][4];
-        	a[i].description = 'Замени латинско "e" с кирилско.';
+        function replace(latin, cyrillic) {
+        	a[i].replacement = a[i].replacement.replace(latin, cyrillic);
+        	a[i].description = 'Замени латинско "' + latin + '" с кирилско.';
         }
-        else if (m[3] !== undefined || m[4] !== undefined) {
-        	if (a[i].replacement.indexOf('a') > -1) {
-        		a[i].replacement = a[i].replacement.replace('a', 'а');
-        		a[i].description = 'Замени латинско "a" с кирилско.';
-        	} 
-        	else if (a[i].replacement.indexOf('e') > -1) {
-        		a[i].replacement = a[i].replacement.replace('e', 'е');
-        		a[i].description = 'Замени латинско "e" с кирилско.';
-        	}
-        	else if (a[i].replacement.indexOf('o') > -1) {
-        		a[i].replacement = a[i].replacement.replace('o', 'о');
-        		a[i].description = 'Замени латинско "o" с кирилско.';
-        	}
+        
+        if (m[2] !== undefined) replace('e', 'е');
+        else {
+        	if (a[i].replacement.indexOf('a') > -1) replace('a', 'а');
+        	else if (a[i].replacement.indexOf('e') > -1) replace('e', 'е');
+        	else if (a[i].replacement.indexOf('o') > -1) replace('o', 'о');
         }
     }
     return a;
