@@ -468,7 +468,6 @@ ct.rules.push(function (s) {
         	a[i].description = 'Замени латинско "e" с кирилско.';
         }
         else if (m[3] !== undefined || m[4] !== undefined) {
-        	a[i].replacement = (m[3] === undefined) ? m[4] : m[3];
         	if (a[i].replacement.indexOf('a') > -1) {
         		a[i].replacement = a[i].replacement.replace('a', 'а');
         		a[i].description = 'Замени латинско "a" с кирилско.';
