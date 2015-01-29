@@ -459,22 +459,22 @@ ct.rules.push(function (s) {
         a[i] = {
             start: m.start,
             end: m.end,
-            replacement: m[1],
+            replacement: null,
             name: '6lokavica',
             description: 'Неизвестна замяна. Проверете текста.',
             help: 'Една дума трябва да бъде написана или само на кирилица или само на латиница.'
         };
         
         function replace(latin, cyrillic) {
-        	a[i].replacement = a[i].replacement.replace(latin, cyrillic);
+        	a[i].replacement = m[1].replace(latin, cyrillic);
         	a[i].description = 'Замени латинско "' + latin + '" с кирилско.';
         }
         
         if (m[2] !== undefined) replace('e', 'е');
         else {
-        	if (a[i].replacement.indexOf('a') > -1) replace('a', 'а');
-        	else if (a[i].replacement.indexOf('e') > -1) replace('e', 'е');
-        	else if (a[i].replacement.indexOf('o') > -1) replace('o', 'о');
+        	if (m[1].indexOf('a') > -1) replace('a', 'а');
+        	else if (m[1].indexOf('e') > -1) replace('e', 'е');
+        	else if (m[1].indexOf('o') > -1) replace('o', 'о');
         }
     }
     return a;
