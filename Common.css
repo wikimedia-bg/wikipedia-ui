@@ -6,7 +6,7 @@
 }
 
 table { background-color: inherit; }
-.allpagesredirect, .wp-admin .mw-redirect {
+.allpagesredirect, .wp-admin .mw-redireict {
 	font-style: italic;
 }
 
@@ -191,6 +191,13 @@ sup {vertical-align: baseline; font-size: 0.8em; position: relative; top: -0.4em
 	padding: 0.2em;
 	float: right;
 	clear: right;
+}
+.infobox-lua {
+	width: 22em;
+	text-align: left;
+	font-size: 88%;
+	line-height: 1.5em;
+	border-spacing: 5px;
 }
 .infobox td,
 .infobox th {
@@ -835,8 +842,6 @@ from [[Template:Navbar]], so they need to be the same width. */
 .infobox_v2 { /* monobookocentré debut */
  background: #f9f9f9;
  color: #000;
- font-size:90%;
- line-height:1.1em;
  float:right;
  clear:right;
  margin:0 0 .5em 1em; /* haut droite bas gauche */
