@@ -851,7 +851,6 @@ from [[Template:Navbar]], so they need to be the same width. */
 }
 
 .infobox_v2 th {
- vertical-align:middle;
  text-align:left;
 }
 
