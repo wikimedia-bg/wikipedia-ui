@@ -737,6 +737,9 @@ th.navbox-group {			 /* Group style */
 	line-height: 1.8em;
 	border-color: #fdfdfd;	/* Must match background color */
 }
+.navbox-list ul {
+	line-height: 1.8em;
+}
 .navbox th,
 .navbox-title {
 	background: #ccccff;	  /* Level 1 color */
