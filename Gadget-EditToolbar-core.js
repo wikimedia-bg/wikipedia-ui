@@ -282,7 +282,6 @@ function setupCustomEditTools() {
 
 $(function() {
 	mw.loader.using("user", function(){
-		window.console && console.log("call setupCustomEditTools()");
 		setupCustomEditTools();
 	});
 });
