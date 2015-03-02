@@ -6,8 +6,11 @@
 }
 
 table { background-color: inherit; }
-.allpagesredirect, .wp-admin .mw-redireict {
-	font-style: italic;
+.wp-admin .mw-redirect:after {
+	background-color: lightblue;
+	content: "→";
+	font-weight: bold;
+	margin-left: 0.2em;
 }
 
 /* Горен/долен индекс със запазване на височината на реда */
