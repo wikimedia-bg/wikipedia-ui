@@ -1091,3 +1091,7 @@ pre.source-lua {
 .fancy-btn:hover {
 	opacity: 0.9;
 }
+/* changes by CategoryMaster on RecentChanges and Watchlist */
+.mw-changeslist-CategoryMaster {
+	opacity: 0.3;
+}
