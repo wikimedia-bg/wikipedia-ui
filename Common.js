@@ -511,6 +511,16 @@ function createCollapseButtons() {
 
 mw.hook( 'wikipage.content' ).add( createCollapseButtons );
 
+(function() {
+	if ($.inArray(mw.config.get('wgCanonicalSpecialPageName'), ['Recentchanges', 'Watchlist']) === -1) {
+		return;
+	}
+	// add a class to all rows with changes by CategoryMaster
+	$('.mw-tag-marker-CategoryMaster').each(function() {
+		$(this).closest('tr').addClass('mw-changeslist-CategoryMaster');
+	});
+})();
+
 /* Край на mw.loader.using callback */
 } );
 /* НЕ ДОБАВЯЙТЕ КОМАНДИ ПОД ТОЗИ РЕД */
