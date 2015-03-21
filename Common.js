@@ -388,28 +388,6 @@ mw.log.deprecate( window, 'getURLParamValue', function () {
     return mw.util.getParamValue.apply( mw.util, arguments );
 }, 'Use mw.util.getParamValue() instead' );
 
- /** Междууики връзки към избрани статии ****************************************
- *
- * Описание: Указва междуезиковите препратки към избраните статии на други езици
- *              чрез звездичка вместо точка пред тях.
- * Поддържа се от: [[:en:User:R. Koot]]
- */
-function LinkFA() {
-    if ( document.getElementById( 'p-lang' ) ) {
-        var InterwikiLinks = document.getElementById( 'p-lang' ).getElementsByTagName( 'li' );
-
-        for ( var i = 0; i < InterwikiLinks.length; i++ ) {
-            var className = InterwikiLinks[i].className.match(/interwiki-[-\w]+/);
-            if ( document.getElementById( className + '-fa' ) && InterwikiLinks[i].className.indexOf( 'badge-featuredarticle' ) === -1 ) {
-                InterwikiLinks[i].className += ' FA';
-                InterwikiLinks[i].title = 'Тази статия на друг език е избрана';
-            } else if ( document.getElementById( className + '-ga' ) && InterwikiLinks[i].className.indexOf( 'badge-goodarticle' ) === -1 ) {
-                InterwikiLinks[i].className += ' GA';
-                InterwikiLinks[i].title = 'Тази статия на друг език е определена за добра';
-            }
-        }
-    }
-}
 
 mw.hook( 'wikipage.content' ).add( LinkFA );
 
