@@ -389,8 +389,6 @@ mw.log.deprecate( window, 'getURLParamValue', function () {
 }, 'Use mw.util.getParamValue() instead' );
 
 
-mw.hook( 'wikipage.content' ).add( LinkFA );
-
 /**
  * Скриваеми таблици **********************************************************
  *
