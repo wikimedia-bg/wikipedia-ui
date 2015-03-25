@@ -413,23 +413,23 @@ ct.rules.push(function (s) {
     return a;
 });
 
-ct.rules.push(function (s) {
-    var re = /([{letter}\]])( , ?|,)([{letter}\[])/g;
-    re = ct.fixRegExp(re);
-    var a = ct.getAllMatches(re, s);
-    for (var i = 0; i < a.length; i++) {
-        var m = a[i];
-        a[i] = {
-            start: m.start,
-            end: m.end,
-            replacement: m[1] + m[2].trim() + ' ' + m[3],
-            name: 'запетая',
-            description: 'Премахни интервала преди запетаята и/или добави такъв след нея',
-            help: 'Интервалът трява да е след запетаята и не преди нея.'
-        };
-    }
-    return a;
-});
+//ct.rules.push(function (s) {
+//    var re = /([{letter}\]])( , ?|,)([{letter}\[])/g;
+//    re = ct.fixRegExp(re);
+//    var a = ct.getAllMatches(re, s);
+//    for (var i = 0; i < a.length; i++) {
+//        var m = a[i];
+//        a[i] = {
+//            start: m.start,
+//            end: m.end,
+//            replacement: m[1] + m[2].trim() + ' ' + m[3],
+//            name: 'запетая',
+//            description: 'Премахни интервала преди запетаята и/или добави такъв след нея',
+//            help: 'Интервалът трява да е след запетаята и не преди нея.'
+//        };
+//    }
+//    return a;
+//});
 
 ct.rules.push(function (s) {
     var re = /((=\n{2,}.)|[^=\n]\n=|.\n{3,}.|\.\n[А-я])/g;
