@@ -1092,6 +1092,7 @@ pre.source-lua {
 	opacity: 0.9;
 }
 /* changes by CategoryMaster on RecentChanges and Watchlist */
+.mw-tag-CategoryMaster,
 .mw-changeslist-CategoryMaster {
 	opacity: 0.3;
 }
