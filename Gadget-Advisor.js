@@ -389,7 +389,7 @@ ct.rules.push(function (s) {
 				end: m.end,
 				replacement: number + '\u00a0' + unit,
 				name: 'число+' + unit,
-				description: 'год.→г.',
+				description: 'Добави интервал между числото и ' + unit,
 				help: 'Между число и „' + unit + '“ трябва да се оставя един интервал, '
 					+ 'за предпочитане непренасящият се <tt>&amp;nbsp;</tt> '
 					+ '(non-breaking space, <tt>U+00A0</tt>).'
