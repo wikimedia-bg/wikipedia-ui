@@ -125,11 +125,15 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
-		// Be careful not to break wikilinks. If we find a ']' before we find an '['---drop the suggestion.
+		// Be careful not to break interwiki or mediawiki links
+		var leftContext = s.substring(0, m.start);
 		var rightContext = s.substring(m.end);
-		var indexOfOpening = rightContext.indexOf('[');
-		var indexOfClosing = rightContext.indexOf(']');
-		if (indexOfClosing != -1 && (indexOfOpening == -1 || indexOfOpening > indexOfClosing)) {
+		var indexOfOpeningLeft = leftContext.lastIndexOf('[');
+		var indexOfClosingLeft = leftContext.lastIndexOf(']');
+		var indexOfOpeningRight = rightContext.indexOf('[');
+		var indexOfClosingRight = rightContext.indexOf(']');
+		if ((indexOfOpeningLeft != -1 && (indexOfClosingLeft == -1 || indexOfOpeningLeft > indexOfClosingLeft)) ||
+			(indexOfClosingRight != -1 && (indexOfOpeningRight == -1 || indexOfOpeningRight > indexOfClosingRight)) ) {
 			continue;
 		}
 		b.push({
@@ -413,23 +417,27 @@ ct.rules.push(function (s) {
     return a;
 });
 
-//ct.rules.push(function (s) {
-//    var re = /([{letter}\]])( , ?|,)([{letter}\[])/g;
-//    re = ct.fixRegExp(re);
-//    var a = ct.getAllMatches(re, s);
-//    for (var i = 0; i < a.length; i++) {
-//        var m = a[i];
-//        a[i] = {
-//            start: m.start,
-//            end: m.end,
-//            replacement: m[1] + m[2].trim() + ' ' + m[3],
-//            name: 'запетая',
-//            description: 'Премахни интервала преди запетаята и/или добави такъв след нея',
-//            help: 'Интервалът трява да е след запетаята и не преди нея.'
-//        };
-//    }
-//    return a;
-//});
+ct.rules.push(function (s) {
+    var re = /(\S*[{letter}\]\)“])( , ?|,)([{letter}\[\(„])/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    var b = [];
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        if (m[1].indexOf('://') > -1 && m[2] == ',') {
+        	continue;
+        }
+		b.push({
+		    start: m.start,
+		    end: m.end,
+		    replacement: m[1] + m[2].trim() + ' ' + m[3],
+		    name: 'запетая',
+		    description: 'Премахни интервала преди запетаята и/или добави такъв след нея',
+		    help: 'Интервалът трява да е след запетаята и не преди нея.'
+		});
+    }
+    return b;
+});
 
 ct.rules.push(function (s) {
     var re = /((=\n{2,}.)|[^=\n]\n=|.\n{3,}.|\.\n[А-я])/g;
