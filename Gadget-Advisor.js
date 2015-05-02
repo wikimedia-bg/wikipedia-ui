@@ -483,6 +483,9 @@ ct.rules.push(function (s) {
         	if (m[1].indexOf('a') > -1) replace('a', 'а');
         	else if (m[1].indexOf('e') > -1) replace('e', 'е');
         	else if (m[1].indexOf('o') > -1) replace('o', 'о');
+        	else if (m[1].indexOf('x') > -1) replace('x', 'х');
+        	else if (m[1].indexOf('p') > -1) replace('p', 'р');
+        	else if (m[1].indexOf('c') > -1) replace('c', 'с');
         }
     }
     return a;
