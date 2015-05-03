@@ -16,7 +16,7 @@ if it works, the rules can be safely removed
 }
 */
 
-/* Fix the position of {{Coor title d}} and similar geo templates. */
+/* Fix the position of {{Coord}} and similar geo templates. */
 #coordinates { top: -4em }
  
 /* Fix the position of the featured (FA) and good (GA) articles' icon.
