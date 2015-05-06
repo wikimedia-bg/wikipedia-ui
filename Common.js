@@ -307,8 +307,8 @@ function GeoBox_Init() {
 	$('.img_toggle').each(function() {
 		var $container = $(this);
 		var $ToggleLinksDiv = $('<ul>');
-		var cssItemShown = { bottom: "1px", color: "black" };
-		var cssItemHidden = { bottom: "0", color: "#444" };
+		var cssItemShown = { bottom: "1px", color: "black", background: "#eee", borderTop: "none" };
+		var cssItemHidden = { bottom: "0", color: "#444", background: "#fff", borderTop: "1px solid #aaa" };
 		$container.find('.location-map').each(function(idx) {
 			var ThisBox = this;
 			var toggle = $('<a href="#">'+ThisBox.getElementsByTagName('img')[0].alt+'</a>').on('click', function() {
@@ -319,7 +319,7 @@ function GeoBox_Init() {
 				return false;
 			});
 			var $li = $('<li>').append(toggle).appendTo($ToggleLinksDiv);
-			if (idx == 0) {
+			if (idx === 0) {
 				$li.css(cssItemShown);
 			} else {
 				ThisBox.style.borderTop = '0';
