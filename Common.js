@@ -313,7 +313,7 @@ function GeoBox_Init() {
 			var ThisBox = this;
 			var toggle = $('<a href="#">'+ThisBox.getElementsByTagName('img')[0].alt+'</a>').on('click', function() {
 				$container.find('.location-map').hide();
-				$(ThisBox).show();
+				$(ThisBox).fadeIn();
 				$ToggleLinksDiv.find('li').css(cssItemHidden);
 				$(this).parent().css(cssItemShown);
 				return false;
