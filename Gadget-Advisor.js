@@ -8,6 +8,19 @@ if ($.inArray(mw.config.get('wgCanonicalNamespace'), ['User', 'MediaWiki', 'Temp
 
 var ct = ct || {};
 
+function inBrackets(s, m, brackets) {
+    var leftContext = s.substring(0, m.start);
+    var rightContext = s.substring(m.end);
+
+    var indexOfOpeningLeft = leftContext.lastIndexOf(brackets[0]);
+    var indexOfClosingLeft = leftContext.lastIndexOf(brackets[1]);
+    var indexOfOpeningRight = rightContext.indexOf(brackets[0]);
+    var indexOfClosingRight = rightContext.indexOf(brackets[1]);
+
+    return (indexOfOpeningLeft != -1 && (indexOfClosingLeft == -1 || indexOfOpeningLeft > indexOfClosingLeft)) ||
+        (indexOfClosingRight != -1 && (indexOfOpeningRight == -1 || indexOfOpeningRight > indexOfClosingRight))
+}
+
 if (window.wgUserLanguage === 'bg') {
 	ct.translation = {
 	
@@ -56,7 +69,6 @@ if (window.wgUserLanguage === 'bg') {
 '':''
 	};
 }
-
 
 if (window.wgContentLanguage === 'bg') {
 
@@ -119,33 +131,28 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var re = /[{letter}]( +- +)[{letter}]/g;
-	re = ct.fixRegExp(re);
-	var a = ct.getAllMatches(re, s);
-	var b = [];
-	for (var i = 0; i < a.length; i++) {
-		var m = a[i];
-		// Be careful not to break interwiki or mediawiki links
-		var leftContext = s.substring(0, m.start);
-		var rightContext = s.substring(m.end);
-		var indexOfOpeningLeft = leftContext.lastIndexOf('[');
-		var indexOfClosingLeft = leftContext.lastIndexOf(']');
-		var indexOfOpeningRight = rightContext.indexOf('[');
-		var indexOfClosingRight = rightContext.indexOf(']');
-		if ((indexOfOpeningLeft != -1 && (indexOfClosingLeft == -1 || indexOfOpeningLeft > indexOfClosingLeft)) ||
-			(indexOfClosingRight != -1 && (indexOfOpeningRight == -1 || indexOfOpeningRight > indexOfClosingRight)) ) {
-			continue;
-		}
-		b.push({
-			start: m.start + 1,
-			end: m.end - 1,
-			replacement: '\u00a0\u2014 ', // U+2014 is an mdash
-			name: 'дълго тире',
-			description: 'Смени с дълго тире (em dash)',
-			help: 'В изречение, късо тире оградено с интервали, почти сигурно трябва да е дълго тире (em dash).'
-		});
-	}
-	return b;
+    var re = /[{letter}]( +- +)[{letter}]/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    var b = [];
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+
+        // Be careful not to break interwiki or mediawiki links
+        if (inBrackets(s, m, ['[', ']']) || inBrackets(s, m, ['{', '}'])) {
+            continue;
+        }
+
+        b.push({
+            start: m.start + 1,
+            end: m.end - 1,
+            replacement: '\u00a0\u2014 ', // U+2014 is an mdash
+            name: 'дълго тире',
+            description: 'Смени с дълго тире (em dash)',
+            help: 'В изречение, късо тире оградено с интервали, почти сигурно трябва да е дълго тире (em dash).'
+        });
+    }
+    return b;
 });
 
 ct.rules.push(function (s) {
@@ -424,9 +431,10 @@ ct.rules.push(function (s) {
     var b = [];
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
-        if (m[1].indexOf('://') > -1 && m[2] == ',') {
+        if ((m[1].indexOf('://') > -1 && m[2] == ',') || inBrackets(s, m, ['[', ']']) || inBrackets(s, m, ['{', '}'])) {
         	continue;
         }
+        
 		b.push({
 		    start: m.start,
 		    end: m.end,
