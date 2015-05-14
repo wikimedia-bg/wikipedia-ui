@@ -337,7 +337,7 @@ function GeoBox_Init() {
 			slideshow = setInterval(function () {
 				index = index < $anchors.length - 1 ? index + 1 : 0;
 				$($anchors[index]).click();
-			}, 1000);
+			}, 5000);
 		}
 	});
 }
