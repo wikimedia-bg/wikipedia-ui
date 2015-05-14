@@ -333,7 +333,7 @@ function GeoBox_Init() {
 		$container.append($ToggleLinksDiv);
 		if ($container.hasClass('slideshow')) {
 			var index = 0;
-			$anchors = $container.find('A');
+			$anchors = $ToggleLinksDiv.find('A');
 			slideshow = setInterval(function () {
 				index = index < $anchors.length - 1 ? index + 1 : 0;
 				$($anchors[index]).click();
