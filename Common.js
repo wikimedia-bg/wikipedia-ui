@@ -311,7 +311,10 @@ function GeoBox_Init() {
 		var cssItemHidden = { bottom: "0", color: "#444", background: "#f5f5f5", borderTop: "1px solid #aaa" };
 		$container.find('.location-map').each(function(idx) {
 			var ThisBox = this;
-			var toggle = $('<a href="#">'+ThisBox.getElementsByTagName('img')[0].alt+'</a>').on('click', function() {
+			var toggle = $('<a href="#">'+ThisBox.getElementsByTagName('img')[0].alt+'</a>').on('click', function(e) {
+				if ($container.hasClass('slideshow') && e.bubbles) {
+					clearInterval(slideshow);
+				}
 				$container.find('.location-map').hide();
 				$(ThisBox).fadeIn();
 				$ToggleLinksDiv.find('li').css(cssItemHidden);
@@ -328,6 +331,14 @@ function GeoBox_Init() {
 			}
 		});
 		$container.append($ToggleLinksDiv);
+		if ($container.hasClass('slideshow')) {
+			var index = 0;
+			$anchors = $container.find('A');
+			slideshow = setInterval(function () {
+				index = index < $anchors.length - 1 ? index + 1 : 0;
+				$($anchors[index]).click();
+			}, 1000);
+		}
 	});
 }
 
