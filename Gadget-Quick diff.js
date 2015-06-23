@@ -50,7 +50,7 @@ var QuickDiff = {
 		mw.loader.load("mediawiki.action.history.diff", "text/css");
 		this.addCss();
 
-		if (mw.ext.Patroller) {
+		if (mw.ext && mw.ext.Patroller) {
 			new mw.ext.Patroller.quick().enable();
 		}
 	},
