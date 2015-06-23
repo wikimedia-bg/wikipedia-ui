@@ -27,7 +27,7 @@ var QuickDiff = {
 		this.getViewWindow().css("top", $link.position().top + 30)
 			.find("#quickdiff-content").html(content)
 			.end().show();
-		if (mw.ext.Patroller) {
+		if (mw.ext && mw.ext.Patroller) {
 			new mw.ext.Patroller.bulk(new mw.ext.Patroller.quick()).enable($link[0].href);
 		}
 	},
