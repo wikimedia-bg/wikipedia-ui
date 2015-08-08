@@ -35,5 +35,5 @@
 * BKL[ResourceLoader]|bkl-check.js
 
 == patrol-gadgets ==
-* Quick patrol|Quick patrol.js
-* Quick diff|Quick diff.js
+* Quick patrol[ResourceLoader]|Quick patrol.js
+* Quick diff[ResourceLoader]|Quick diff.js
