@@ -5,11 +5,11 @@
 
 == browsing-gadgets ==
 
-* Navigation_popups|popups.js|navpop.css
+* Navigation_popups[ResourceLoader]|popups.js|navpop.css
 * exlinks[ResourceLoader|dependencies=mediawiki.util]|exlinks.js
-* lum|lum.js
-* Big dynamap|Big dynamap.js
-* ExternalSearch|externalsearch.js
+* lum[ResourceLoader]|lum.js
+* Big dynamap[ResourceLoader]|Big dynamap.js
+* ExternalSearch[ResourceLoader]|externalsearch.js
 
 == editing-gadgets ==
 
