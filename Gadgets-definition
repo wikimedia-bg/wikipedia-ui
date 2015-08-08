@@ -29,10 +29,10 @@
 * UTCLiveClock[ResourceLoader]|UTCLiveClock.js
 * Blackskin[ResourceLoader|skins=monobook]|Blackskin.css
 * purgetab[ResourceLoader|dependencies=mediawiki.util]|purgetab.js
-* cats-on-top|cats-on-top.js
-* quicklinks|quicklinks.js
+* cats-on-top[ResourceLoader]|cats-on-top.js
+* quicklinks[ResourceLoader]|quicklinks.js
 * HideFundraisingNotice|HideFundraisingNotice.css
-* BKL|bkl-check.js
+* BKL[ResourceLoader]|bkl-check.js
 
 == patrol-gadgets ==
 * Quick patrol|Quick patrol.js
