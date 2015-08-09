@@ -38,5 +38,5 @@
 * Quick patrol[ResourceLoader]|Quick patrol.js
 * Quick diff[ResourceLoader]|Quick diff.js
 
-== test ==
+== test-gadgets ==
 * Test[ResourceLoader|rights=protect|targets=desktop,mobile]|Test.js
