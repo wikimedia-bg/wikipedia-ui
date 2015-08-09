@@ -39,4 +39,4 @@
 * Quick diff[ResourceLoader]|Quick diff.js
 
 == test ==
-* Test[rights=sysop]|Test.js
+* Test[ResourceLoader|rights=sysop|targets=desktop,mobile]|Test.js
