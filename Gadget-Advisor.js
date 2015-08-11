@@ -494,6 +494,8 @@ ct.rules.push(function (s) {
     return a;
 });
 
+window.ct = ct;
+
 if ($.inArray(mw.config.get('wgCanonicalNamespace'), ['User', 'MediaWiki', 'Template', 'Module']) === -1) {
 	mw.loader.using( 'ext.gadget.Advisor', function () {
 		mw.loader.load('//en.wikipedia.org/w/index.php?title=User:Cameltrader/Advisor.js&action=raw&ctype=text/javascript');
