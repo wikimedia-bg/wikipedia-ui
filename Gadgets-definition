@@ -37,6 +37,3 @@
 == patrol-gadgets ==
 * Quick patrol[ResourceLoader]|Quick patrol.js
 * Quick diff[ResourceLoader]|Quick diff.js
-
-== test-gadgets ==
-* Test[ResourceLoader]|Test.js
