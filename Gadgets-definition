@@ -19,7 +19,6 @@
 * wikEd[ResourceLoader]|wikEd.js
 * HotCat[ResourceLoader]|HotCat.js
 * Advisor[ResourceLoader]|Advisor.js
-* EditGuard[ResourceLoader]|EditGuard.js
 * CategoryMaster[ResourceLoader|rights=autopatrol]|CategoryMaster.js
 
 == interface-gadgets ==
