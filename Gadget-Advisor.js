@@ -21,7 +21,7 @@ function inBrackets(s, m, brackets) {
         (indexOfClosingRight != -1 && (indexOfOpeningRight == -1 || indexOfOpeningRight > indexOfClosingRight))
 }
 
-if (window.wgUserLanguage === 'bg') {
+if (mw.config.get('wgUserLanguage')) {
 	ct.translation = {
 	
 'Changing text in wikEd is not yet supported.':
@@ -70,7 +70,6 @@ if (window.wgUserLanguage === 'bg') {
 	};
 }
 
-if (window.wgContentLanguage === 'bg') {
 
 ct.rules = [];
 
@@ -498,5 +497,3 @@ ct.rules.push(function (s) {
     }
     return a;
 });
-
-}
