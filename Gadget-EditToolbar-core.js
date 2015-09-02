@@ -441,7 +441,7 @@ function hideLoadIndicator() {
 
 var txt; // текста, който ще се обработва от Уикификатора
 
-// BEGIN код от [[:ru:MediaWiki:Summary]], вижте [[:ru:Википедия:Викификатор]]
+// BEGIN код от [[:ru:MediaWiki:Summary]], вижте [[:ru:MediaWiki:MediaWiki:Wikificator.js]], [[:ru:Википедия:Викификатор]]
 mw.libs.EditToolbar.obrabotka = function(bds) {
 	check_regexp();//Проверяем поддерживаются ли рег. выражения
 	document.editform.wpTextbox1.focus();
@@ -454,7 +454,7 @@ mw.libs.EditToolbar.obrabotka = function(bds) {
 			txt = txt.substr (1, txt.length-1);
 			document.selection.createRange().text = txt;
 		}
-	} else if((txtarea.selectionStart || txtarea.selectionStart == '0')&&(navigator.productSub>20031000)) /*Gecko-браузеры старше 10.2003*/ {
+	} else if (txtarea.selectionStart || txtarea.selectionStart == '0') {
 		var startPos = txtarea.selectionStart;
 		var endPos = txtarea.selectionEnd;
 		var scrollTop=txtarea.scrollTop;
