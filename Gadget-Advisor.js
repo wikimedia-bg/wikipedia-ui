@@ -51,7 +51,7 @@ if (mw.config.get('wgUserLanguage') === 'bg') {
 	'Покажи всички',
 
 'formatting: $1 (using [[User:Cameltrader#Advisor.js|Advisor.js]])':
-	'форматиране: $1 (ползвайки [[МедияУики:Gadget-Advisor.js|Advisor.js]])',
+	'форматиране: $1 (ползвайки [[Уикипедия:Съветник|Advisor.js]])',
 
 'Add to summary':
 	'Добави към резюмето',
