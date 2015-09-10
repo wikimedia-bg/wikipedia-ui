@@ -17,9 +17,9 @@ function inBrackets(s, m, brackets) {
         (indexOfClosingRight != -1 && (indexOfOpeningRight == -1 || indexOfOpeningRight > indexOfClosingRight))
 }
 
-ct.inWikiLinkAddr = function (s, m) {
+ct.inWikiLinkAddr = function (s, pos) {
     // If we find '[[' not followed by ']]' or '|' --- return true.
-    var leftContext = s.substr(0, m.start);
+    var leftContext = s.substr(0, pos);
     var indexOfOpening = leftContext.lastIndexOf('[[');
     var indexOfClosing = leftContext.indexOf(']]', indexOfOpening);
     var indexOfVerticalBar = leftContext.indexOf('|', indexOfOpening);
@@ -143,7 +143,7 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0, l = a.length; i < l; i++) {
 		var m = a[i];
-		if ( ct.inWikiLinkAddr(s, m) ) {
+		if ( ct.inWikiLinkAddr(s, m.start + 1) ) {
 			continue;
 		}
 		b.push({
@@ -508,7 +508,7 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0, l = a.length; i < l; i++) {
 		var m = a[i];
-		if ( ct.inWikiLinkAddr(s, m) ) {
+		if ( ct.inWikiLinkAddr(s, m.start) ) {
 			continue;
 		}
 		b.push({
