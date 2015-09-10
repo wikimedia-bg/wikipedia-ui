@@ -596,8 +596,8 @@ function zamena(bds) {
 		}
 
 	// Заменяем " - " на тире
-	txt = txt.replace(/(&nbsp;|\s)-{1,2} /g,'$1\u2014 ');
-	txt = txt.replace (/^- /g,"\u2014 ");
+	txt = txt.replace(/(&nbsp;|\s)-{1,2} /g,'$1\u2013 ');
+	txt = txt.replace (/^- /g,"\u2013 ");
 	txt = txt.replace(/(\d)--(\d)/g, "$1–$2");
 	txt = txt.replace(/(^|\s)(\d{4})-(\d{4})($|\s|\.|,)/mg, "$1$2–$3$4");
 	txt = txt.replace(/(^|\s)([IVXLCDM]+)-([IVXLCDM]+)($|\s|\.|,)/img, "$1$2–$3$4");
