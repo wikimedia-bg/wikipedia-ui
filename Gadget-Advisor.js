@@ -17,6 +17,17 @@ function inBrackets(s, m, brackets) {
         (indexOfClosingRight != -1 && (indexOfOpeningRight == -1 || indexOfOpeningRight > indexOfClosingRight))
 }
 
+ct.inWikiLinkAddr = function (s, m) {
+    // If we find '[[' not followed by ']]' or '|' --- return true.
+    var leftContext = s.substr(0, m.start);
+    var indexOfOpening = leftContext.lastIndexOf('[[');
+    var indexOfClosing = leftContext.indexOf(']]', indexOfOpening);
+    var indexOfVerticalBar = leftContext.indexOf('|', indexOfOpening);
+    if ( indexOfOpening != -1 && indexOfClosing == -1 && indexOfVerticalBar == -1 ) {
+        return true;
+    }
+}
+
 if (mw.config.get('wgUserLanguage') === 'bg') {
 	ct.translation = {
 	
@@ -126,28 +137,25 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /[{letter}]( +- +)[{letter}]/g;
-    re = ct.fixRegExp(re);
-    var a = ct.getAllMatches(re, s);
-    var b = [];
-    for (var i = 0; i < a.length; i++) {
-        var m = a[i];
-
-        // Be careful not to break interwiki or mediawiki links
-        if (inBrackets(s, m, ['[', ']']) || inBrackets(s, m, ['{', '}'])) {
-            continue;
-        }
-
-        b.push({
-            start: m.start + 1,
-            end: m.end - 1,
-            replacement: '\u00a0\u2013 ', // U+2013 is an ndash
-            name: 'средно тире',
-            description: 'Смени със средно тире (en dash)',
-            help: 'В изречение, късо тире оградено с интервали, почти сигурно трябва да е средно тире (en dash).'
-        });
-    }
-    return b;
+	// [^|] - пропусни ако вероятно е за означаване на празна клетка в таблица
+	var re = /[^|]([ \u00a0]+|&nbsp;)[-\u2014] +/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0, l = a.length; i < l; i++) {
+		var m = a[i];
+		if ( ct.inWikiLinkAddr(s, m) ) {
+			continue;
+		}
+		b.push({
+			start: m.start + 1,
+			end: m.end,
+			replacement: '\u00a0\u2013 ', // U+2013 is an ndash
+			name: 'тире',
+			description: 'Смени със средно тире (en dash)',
+			help: 'В изречение, късо тире оградено с интервали, почти сигурно трябва да е средно тире (en dash).'
+		});
+	}
+	return b;
 });
 
 ct.rules.push(function (s) {
@@ -338,12 +346,11 @@ ct.rules.push(function (s) {
 			b.push({
 				start: m.start,
 				end: m.end,
-				replacement: 'и&#768;',
-				name: 'й→и\u0300',
-				description: 'Промени „й“ на „и\u0300“',
+				replacement: 'ѝ',
+				name: 'й→ѝ',
+				description: 'Промени „й“ на „ѝ“',
 				help: 'Когато се ползва като местоимение, „й“ трябва да се изписва '
-					+ 'като „и&#x0300;“ с ударение. В уикитекста това може да се направи чрез '
-					+ '<tt>и&amp;#x0300;</tt> или <tt>и&amp;#768;</tt>.'
+					+ 'като „ѝ“ с ударение.'
 			});
 		} else {
 			// todo: check spelling
@@ -408,9 +415,9 @@ ct.rules.push(function (s) {
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
         a[i] = {
-            start: m.start,
-            end: m.end,
-            replacement: m[1] + ' ' + m[3],
+            start: m.start + 1,
+            end: m.end - 1,
+            replacement: ' ',
             name: 'дв. интервал',
             description: 'Замени двойните интервали с единични',
             help: 'Двойните интервали са ненужни.'
@@ -436,7 +443,7 @@ ct.rules.push(function (s) {
 		    replacement: m[1] + m[2].trim() + ' ' + m[3],
 		    name: 'запетая',
 		    description: 'Премахни интервала преди запетаята и/или добави такъв след нея',
-		    help: 'Интервалът трява да е след запетаята и не преди нея.'
+		    help: 'Интервалът трябва да е след запетаята и не преди нея.'
 		});
     }
     return b;
@@ -492,6 +499,28 @@ ct.rules.push(function (s) {
         }
     }
     return a;
+});
+
+ct.rules.push(function (s) {
+	// отварящи кавички ако са в нач. на реда или след '', интервал, *, #, >, }, (, «
+	var re = /(^|''|[ *#>}|(«])"([^"]*)"/gm;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0, l = a.length; i < l; i++) {
+		var m = a[i];
+		if ( ct.inWikiLinkAddr(s, m) ) {
+			continue;
+		}
+		b.push({
+			start: m.start + m[1].length,
+			end: m.end,
+			replacement: '„' + m[2] + '“',
+			name: 'кавички',
+			description: 'Заместване на "прави" със „стандартни“ кавички.',
+			help: 'В българския език и в Уикипедия на български се използват тези кавички: „ и “.'
+		});
+	}
+	return b;
 });
 
 window.ct = ct;
