@@ -541,6 +541,24 @@ ct.rules.push(function (s) {
     return a;
 });
 
+ct.rules.push(function (s) {
+    var re = /(https?:\/\/[^ \n\|\]\<]*%[^ \n\|\]\<]*)/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        a[i] = {
+            start: m.start,
+            end: m.end,
+            replacement: decodeURIComponent(m[1]),
+            name: 'URL',
+            description: 'Декодира кодирани URL адреси',
+            help: 'URL адресите се четат по-лесно когато са декодирани.'
+        };
+    }
+    return a;
+});
+
 window.ct = ct;
 
 if ($.inArray(mw.config.get('wgCanonicalNamespace'), ['User', 'MediaWiki', 'Template', 'Module']) === -1) {
