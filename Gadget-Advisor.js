@@ -523,6 +523,24 @@ ct.rules.push(function (s) {
 	return b;
 });
 
+ct.rules.push(function (s) {
+    var re = /([^\n]\|)( *[A-z,А-я]+ *= *\|)/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        a[i] = {
+            start: m.start,
+            end: m.end,
+            replacement: m[1],
+            name: 'параметър',
+            description: 'Премахва неизползваните параметри от шаблоните',
+            help: 'Неизползваните параметри са излишни.'
+        };
+    }
+    return a;
+});
+
 window.ct = ct;
 
 if ($.inArray(mw.config.get('wgCanonicalNamespace'), ['User', 'MediaWiki', 'Template', 'Module']) === -1) {
