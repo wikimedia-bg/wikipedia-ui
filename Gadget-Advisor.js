@@ -542,7 +542,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /(https?:\/\/[^ \n\|\]\<]*%[^ \n\|\]\<]*)/g;
+    var re = /(https?:\/\/[A-z\.]+\/)([^ \n\|\]\<]*%[^ \n\|\]\<]*)/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     for (var i = 0; i < a.length; i++) {
@@ -550,7 +550,7 @@ ct.rules.push(function (s) {
         a[i] = {
             start: m.start,
             end: m.end,
-            replacement: decodeURIComponent(m[1]),
+            replacement: m[1] + decodeURIComponent(m[2]),
             name: 'URL',
             description: 'Декодира кодирани URL адреси',
             help: 'URL адресите се четат по-лесно когато са декодирани.'
