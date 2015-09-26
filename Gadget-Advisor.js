@@ -524,7 +524,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /([^\n]\|)( *[A-z,А-я]+ *= *\|)/g;
+    var re = /([^\n])(\| *[A-z,А-я]+ *= *)([\|\}])/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     for (var i = 0; i < a.length; i++) {
@@ -532,7 +532,7 @@ ct.rules.push(function (s) {
         a[i] = {
             start: m.start,
             end: m.end,
-            replacement: m[1],
+            replacement: m[1] + m[3],
             name: 'параметър',
             description: 'Премахва неизползваните параметри от шаблоните',
             help: 'Неизползваните параметри са излишни.'
