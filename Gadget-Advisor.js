@@ -117,23 +117,19 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var a = ct.getAllMatches(/ +$/gm, s);
-	var b = [];
+	var a = ct.getAllMatches(/[^=] +$/gm, s);
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
-		if (/^[=\|]$/.test(s[m.start - 1])) { // this can be tolerated, it happens too often in templates
-			continue;
-		}
-		b.push({
-			start: m.start,
+        a[i] = {
+			start: m.start + 1,
 			end: m.end,
 			replacement: '',
 			name: 'интервали',
 			description: 'Изтрий интервалите в края на реда',
 			help: 'Интервалите в края на реда са ненужни.'
-		});
+        };
 	}
-	return b;
+	return a;
 });
 
 ct.rules.push(function (s) {
@@ -519,7 +515,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /((?=[^\n])\| *[\wА-я]+ *= *(?=[\|\}]))+/g;
+    var re = /(\| *[\wА-я]+ *= *(?=[\|\}]))+/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     for (var i = 0; i < a.length; i++) {
