@@ -361,13 +361,13 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// год. предшествано от цифри, евентуално оградени с [[ и ]]
-	var re = /((\[\[[0-9]+\]\]|[0-9]+)( +|&nbsp;)?)\u0433\u043e\u0434\./g;
+	var re = /(\[\[[0-9]+\]\]|[0-9]+)( +|&nbsp;)?\u0433\u043e\u0434\./g;
 	var a = ct.getAllMatches(re, s);
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		var original = m[0];
-		var replacement = m[2] + ' г.';
+		var replacement = m[1] + ' г.';
 		if (original !== replacement) {
 			b.push({
 				start: m.start,
