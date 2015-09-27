@@ -361,20 +361,25 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// год. предшествано от цифри, евентуално оградени с [[ и ]]
-	var re = /(\[\[[0-9]+\]\]|[0-9]+)( +|&nbsp;)?\u0433\u043e\u0434\./g;
+	var re = /((\[\[[0-9]+\]\]|[0-9]+)( +|&nbsp;)?)\u0433\u043e\u0434\./g;
 	var a = ct.getAllMatches(re, s);
+	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
-        a[i] = {
-			start: m.start,
-			end: m.end,
-			replacement: m[1] + ' г.',
-			name: 'год.→г.',
-			description: 'год.→г.',
-			help: 'Приетото съкращение за година е „г.“, а не „год.“'
-        };
+		var original = m[0];
+		var replacement = m[2] + ' г.';
+		if (original !== replacement) {
+			b.push({
+				start: m.start,
+				end: m.end,
+				replacement: replacement,
+				name: 'год.→г.',
+				description: 'год.→г.',
+				help: 'Приетото съкращение за година е „г.“, а не „год.“'
+			});
+		}
 	}
-	return а;
+	return b;
 });
 
 ct.rules.push(function (s) {
