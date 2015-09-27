@@ -525,7 +525,7 @@ ct.rules.push(function (s) {
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
         a[i] = {
-            start: m.start + 1,
+            start: m.start,
             end: m.end,
             replacement: '',
             name: 'параметър',
