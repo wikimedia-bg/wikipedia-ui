@@ -367,7 +367,7 @@ ct.rules.push(function (s) {
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		var original = m[0];
-		var replacement = m[1] + 'г.';
+		var replacement = m[2] + ' г.';
 		if (original !== replacement) {
 			b.push({
 				start: m.start,
