@@ -120,14 +120,14 @@ ct.rules.push(function (s) {
 	var a = ct.getAllMatches(/[^=] +$/gm, s);
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
-        a[i] = {
+		a[i] = {
 			start: m.start + 1,
 			end: m.end,
 			replacement: '',
 			name: 'интервали',
 			description: 'Изтрий интервалите в края на реда',
 			help: 'Интервалите в края на реда са ненужни.'
-        };
+		};
 	}
 	return a;
 });
