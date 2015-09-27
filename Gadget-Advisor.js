@@ -524,21 +524,24 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /([^\n])(\| *[A-z,А-я]+ *= *)([\|\}])/g;
+    var re = /\| *[\wА-я]+ *= *(?=[\|\}])/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
+    var b = [];
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
-        a[i] = {
+        if (s[m.start - 1] == '\n')
+            continue;
+        b.push({
             start: m.start,
             end: m.end,
-            replacement: m[1] + m[3],
+            replacement: '',
             name: 'параметър',
             description: 'Премахва неизползваните параметри от шаблоните',
             help: 'Неизползваните параметри са излишни.'
-        };
+        });
     }
-    return a;
+    return b;
 });
 
 //ct.rules.push(function (s) {
