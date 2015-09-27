@@ -519,15 +519,12 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /[^\n]\| *[\wА-я]+ *= *(?=[\|\}])/g;
+    var re = /((?=[^\n])\| *[\wА-я]+ *= *(?=[\|\}]))+/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
-    var b = [];
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
-        //if (s[m.start - 1] == '\n')
-        //    continue;
-        b.push({
+        a[i] = {
             start: m.start + 1,
             end: m.end,
             replacement: '',
@@ -536,7 +533,7 @@ ct.rules.push(function (s) {
             help: 'Неизползваните параметри са излишни.'
         });
     }
-    return b;
+    return a;
 });
 
 //ct.rules.push(function (s) {
