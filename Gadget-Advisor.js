@@ -364,7 +364,7 @@ ct.rules.push(function (s) {
 	var re = /(\[\[[0-9]+\]\]|[0-9]+)( +|&nbsp;)?\u0433\u043e\u0434\./g;
 	var a = ct.getAllMatches(re, s);
 	for (var i = 0; i < a.length; i++) {
-		var m = a[i];
+        var m = a[i];
         a[i] = {
 			start: m.start,
 			end: m.end,
