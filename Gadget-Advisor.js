@@ -442,6 +442,29 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
+    var re = /( [а-я]{2,})( \. ?|\.)(?=[А-Я][а-я]+)/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    var b = [];
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        if (ct.inBrackets(s, m, ['[', ']']) || ct.inBrackets(s, m, ['{', '}'])) {
+        	continue;
+        }
+
+		b.push({
+		    start: m.start + m[1].length,
+		    end: m.end,
+		    replacement: m[2].trim() + ' ',
+		    name: 'точка (тестване)',
+		    description: 'Премахни интервала преди точката в края на изречението и/или добави такъв след нея',
+		    help: 'Интервалът трябва да е след точката и не преди нея.'
+		});
+    }
+    return b;
+});
+
+ct.rules.push(function (s) {
     var re = /((=\n{2,}.)|[^=\n]\n=|.\n{3,}.|\.\n[А-я])/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
