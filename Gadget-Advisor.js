@@ -357,14 +357,14 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// год. предшествано от цифри, евентуално оградени с [[ и ]]
-	var re = /(\[\[[0-9]+\]\]|[0-9]+)( +|&nbsp;)?\u0433\u043e\u0434\./g;
+	var re = /(\[\[[0-9]+\]\]|[0-9]+)([ \u00a0]+|&nbsp;)?\u0433\u043e\u0434\./g;
 	var a = ct.getAllMatches(re, s);
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		a[i] = {
 			start: m.start,
 			end: m.end,
-			replacement: m[1] + ' г.',
+			replacement: m[1] + '\u00a0г.',
 			name: 'год.→г.',
 			description: 'год.→г.',
 			help: 'Приетото съкращение за година е „г.“, а не „год.“'
@@ -494,7 +494,7 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// отварящи кавички ако са в нач. на реда или след '', интервал, *, #, >, }, (, «
-	var re = /(^|''|[ *#>}|(«])"([^"]*)"/gm;
+	var re = /(^|''|[ *#>}|(«])"(?![ .,;])([^"„“]*[^"„“ («])"/gm;
 	var a = ct.getAllMatches(re, s);
 	var b = [];
 	for (var i = 0, l = a.length; i < l; i++) {
