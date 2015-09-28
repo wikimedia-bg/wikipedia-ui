@@ -153,7 +153,7 @@ ct.rules.push(function (s) {
 	}
 	return b;
 });
-
+/*
 ct.rules.push(function (s) {
 	var re = /[^0-9]({year}|\[\[{year}\]\]) *(?:-|\u2014|&mdash;|--) *({year}|\[\[{year}\]\])[^0-9]/g; // U+2014 is an mdash
 	re = ct.fixRegExp(re);
@@ -170,7 +170,7 @@ ct.rules.push(function (s) {
 	}
 	return a;
 });
-
+*/
 ct.rules.push(function (s) {
 	var re = /^(?: *)(==+)( *)([^=]*[^= ])( *)\1/gm;
 	var a = ct.getAllMatches(re, s);
