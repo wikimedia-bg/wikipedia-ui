@@ -117,11 +117,11 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var a = ct.getAllMatches(/[^=] +$/gm, s);
+	var a = ct.getAllMatches(/([^=]{2}|={2}|(?!.)\n) +$/gm, s);
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		a[i] = {
-			start: m.start + 1,
+			start: m.start + 2,
 			end: m.end,
 			replacement: '',
 			name: 'интервали',
