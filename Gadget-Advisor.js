@@ -117,11 +117,11 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var a = ct.getAllMatches(/([^=]{2}|={2}|(?!.)\n|= ) +$/gm, s);
+	var a = ct.getAllMatches(/[^=] +$/gm, s);
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		a[i] = {
-			start: m.start + 2,
+			start: m.start + 1,
 			end: m.end,
 			replacement: '',
 			name: 'интервали',
@@ -419,13 +419,13 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /([{letter}\]\)“]+)( , ?|,)(?=[{letter}\[\(„])/g;
+    var re = /([А-я\]\)“]+)( , ?|,)(?=[А-я\[\(„])/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     var b = [];
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
-        if ((m[1].indexOf('://') > -1 && m[2] == ',') || ct.inBrackets(s, m, ['[', ']']) || ct.inBrackets(s, m, ['{', '}'])) {
+        if (ct.inBrackets(s, m, ['[', ']']) || ct.inBrackets(s, m, ['{', '}'])) {
         	continue;
         }
 
