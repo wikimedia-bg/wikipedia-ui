@@ -155,7 +155,8 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var re = /[^0-9]({year}) *(?:-|\u2014|&mdash;|--) *({year})[^0-9]/g; // U+2014 is an mdash
+	var re = /[^0-9]({year}|\[\[{year}\]\]) *(?:-|\u2014|&mdash;|--) *({year}|\[\[{year}\]\])[^0-9]/g; // U+2014 is an mdash
+	re = ct.fixRegExp(re);
 	var a = ct.getAllMatches(re, s);
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
@@ -163,7 +164,7 @@ ct.rules.push(function (s) {
 			start: m.start + 1,
 			end: m.end - 1,
 			replacement: m[1] + '\u2013' + m[2], // U+2013 is an ndash
-			name: 'средно тире',
+			name: 'тире-години',
 			description: 'Периодите от години изглеждат по добре със средно тире (en dash).'
 		};
 	}
@@ -418,7 +419,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /(\S*[{letter}\]\)“])( , ?|,)([{letter}\[\(„])/g;
+    var re = /(\S*[{letter}\]\)“])( , ?|,)(?=[{letter}\[\(„])/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     var b = [];
@@ -427,11 +428,11 @@ ct.rules.push(function (s) {
         if ((m[1].indexOf('://') > -1 && m[2] == ',') || inBrackets(s, m, ['[', ']']) || inBrackets(s, m, ['{', '}'])) {
         	continue;
         }
-        
+
 		b.push({
-		    start: m.start,
+		    start: m.start + m[1].length,
 		    end: m.end,
-		    replacement: m[1] + m[2].trim() + ' ' + m[3],
+		    replacement: m[2].trim() + ' ',
 		    name: 'запетая',
 		    description: 'Премахни интервала преди запетаята и/или добави такъв след нея',
 		    help: 'Интервалът трябва да е след запетаята и не преди нея.'
