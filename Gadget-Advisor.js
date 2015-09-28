@@ -4,7 +4,7 @@
 
 var ct = ct || {};
 
-function inBrackets(s, m, brackets) {
+ct.inBrackets = function (s, m, brackets) {
     var leftContext = s.substring(0, m.start);
     var rightContext = s.substring(m.end);
 
@@ -117,11 +117,11 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var a = ct.getAllMatches(/[^=] +$/gm, s);
+	var a = ct.getAllMatches(/([^=]{2}|={2}|(?!.)\n|= ) +$/gm, s);
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		a[i] = {
-			start: m.start + 1,
+			start: m.start + 2,
 			end: m.end,
 			replacement: '',
 			name: 'интервали',
@@ -419,13 +419,13 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /(\S*[{letter}\]\)“])( , ?|,)(?=[{letter}\[\(„])/g;
+    var re = /([{letter}\]\)“]+)( , ?|,)(?=[{letter}\[\(„])/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     var b = [];
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
-        if ((m[1].indexOf('://') > -1 && m[2] == ',') || inBrackets(s, m, ['[', ']']) || inBrackets(s, m, ['{', '}'])) {
+        if ((m[1].indexOf('://') > -1 && m[2] == ',') || ct.inBrackets(s, m, ['[', ']']) || ct.inBrackets(s, m, ['{', '}'])) {
         	continue;
         }
 
@@ -533,23 +533,25 @@ ct.rules.push(function (s) {
     return a;
 });
 
-//ct.rules.push(function (s) {
-//    var re = /(https?:\/\/[A-z\.]+\/)([^ \n]*%[^ \n\|\]\<]*)/g;
-//    re = ct.fixRegExp(re);
-//    var a = ct.getAllMatches(re, s);
-//    for (var i = 0; i < a.length; i++) {
-//        var m = a[i];
-//        a[i] = {
-//            start: m.start,
-//            end: m.end,
-//            replacement: m[1] + decodeURIComponent(m[2]).replace(/\s+/g, '_'),
-//            name: 'URL',
-//            description: 'Декодира кодирани URL адреси',
-//            help: 'URL адресите се четат по-лесно когато са декодирани.'
-//        };
-//    }
-//    return a;
-//});
+ct.rules.push(function (s) {
+    var re = /(https?:\/\/[^\ ]+\/)(((?!(%3C|%3E|[ \n\|\]\}\>\)])).)*)/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    var b = [];
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        if (m[2].indexOf('%') === -1) continue;
+        b.push({
+            start: m.start,
+            end: m.end,
+            replacement: m[1] + decodeURIComponent(m[2]).replace(/ /g, '_'),
+            name: 'URL (тестване)',
+            description: 'Декодира кодирани URL адреси',
+            help: 'URL адресите се четат по-лесно когато са декодирани.'
+        });
+    }
+    return b;
+});
 
 window.ct = ct;
 
