@@ -428,15 +428,14 @@ ct.rules.push(function (s) {
         if (ct.inBrackets(s, m, ['[', ']']) || ct.inBrackets(s, m, ['{', '}'])) {
         	continue;
         }
-
-		b.push({
-		    start: m.start + m[1].length,
-		    end: m.end,
-		    replacement: m[2].trim() + ' ',
-		    name: 'запетая',
-		    description: 'Премахни интервала преди запетаята и/или добави такъв след нея',
-		    help: 'Интервалът трябва да е след запетаята и не преди нея.'
-		});
+        b.push({
+            start: m.start + m[1].length,
+            end: m.end,
+            replacement: m[2].trim() + ' ',
+            name: 'запетая',
+            description: 'Премахни интервала преди запетаята и/или добави такъв след нея',
+            help: 'Интервалът трябва да е след запетаята и не преди нея.'
+        });
     }
     return b;
 });
@@ -451,15 +450,14 @@ ct.rules.push(function (s) {
         if (ct.inBrackets(s, m, ['[', ']']) || ct.inBrackets(s, m, ['{', '}'])) {
         	continue;
         }
-
-		b.push({
-		    start: m.start + m[1].length,
-		    end: m.end,
-		    replacement: m[2].trim() + ' ',
-		    name: 'точка (тестване)',
-		    description: 'Премахни интервала преди точката в края на изречението и/или добави такъв след нея',
-		    help: 'Интервалът трябва да е след точката и не преди нея.'
-		});
+        b.push({
+            start: m.start + m[1].length,
+            end: m.end,
+            replacement: m[2].trim() + ' ',
+            name: 'точка (тестване)',
+            description: 'Премахни интервала преди точката в края на изречението и/или добави такъв след нея',
+            help: 'Интервалът трябва да е след точката и не преди нея.'
+        });
     }
     return b;
 });
@@ -574,6 +572,24 @@ ct.rules.push(function (s) {
         });
     }
     return b;
+});
+
+ct.rules.push(function (s) {
+    var re = /([А-я]{2,})(\(|\)| ?\( | \) ?)(?=[А-я]{2,})/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        a[i] = {
+            start: m.start + m[1].length,
+            end: m.end,
+            replacement: m[2].indexOf('(') != -1 ? ' (' : ') ',
+            name: 'скоба (тестване)',
+            description: 'Добави/премахни интервала преди/след отварящата/затварящата скоба',
+            help: 'Преди отваряща и след затваряща скоба трябва да има интервал. Интервалите са ненужни след отваряща и преди затваряща скоба.'
+        };
+    }
+    return a;
 });
 
 window.ct = ct;
