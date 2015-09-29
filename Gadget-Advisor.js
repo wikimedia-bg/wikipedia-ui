@@ -557,7 +557,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /(https?:\/\/[^\/ ]+\/)(((?!(%3C|%3E|[ \n\|\]\}\>\)])).)*)/g;
+    var re = /(https?:\/\/[^\/ ]+\/)(((?!(%3C|%3E|[ \n\|\]\}\>\<\)])).)*)/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     var b = [];
