@@ -554,25 +554,25 @@ ct.rules.push(function (s) {
     return a;
 });
 
-ct.rules.push(function (s) {
-    var re = /(https?:\/\/[^\/ ]+\/)(((?!(%3C|%3E|[ \n\|\]\}\>\<\)])).)*)/g;
-    re = ct.fixRegExp(re);
-    var a = ct.getAllMatches(re, s);
-    var b = [];
-    for (var i = 0; i < a.length; i++) {
-        var m = a[i];
-        if (m[2].indexOf('%') === -1) continue;
-        b.push({
-            start: m.start,
-            end: m.end,
-            replacement: m[1] + decodeURIComponent(m[2]).replace(/ /g, '_'),
-            name: 'URL (тестване)',
-            description: 'Декодира кодирани URL адреси',
-            help: 'URL адресите се четат по-лесно когато са декодирани.'
-        });
-    }
-    return b;
-});
+//ct.rules.push(function (s) {
+//    var re = /(https?:\/\/[^\/ ]+\/)(((?!(%3C|%3E|[ \n\|\]\}\>\<\)])).)*)/g;
+//    re = ct.fixRegExp(re);
+//    var a = ct.getAllMatches(re, s);
+//    var b = [];
+//    for (var i = 0; i < a.length; i++) {
+//        var m = a[i];
+//        if (m[2].indexOf('%') === -1) continue;
+//        b.push({
+//            start: m.start,
+//            end: m.end,
+//            replacement: m[1] + decodeURIComponent(m[2]).replace(/ /g, '_'),
+//            name: 'URL (тестване)',
+//            description: 'Декодира кодирани URL адреси',
+//            help: 'URL адресите се четат по-лесно когато са декодирани.'
+//        });
+//    }
+//    return b;
+//});
 
 ct.rules.push(function (s) {
     var re = /([А-я]{2,})(\(|\)| ?\( | \) ?)(?=[А-я]{2,})/g;
