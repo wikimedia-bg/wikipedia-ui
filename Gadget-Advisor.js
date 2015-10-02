@@ -117,7 +117,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var a = ct.getAllMatches(/[^=] +$/gm, s);
+	var a = ct.getAllMatches(/[^=\|] +$/gm, s);
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		a[i] = {
