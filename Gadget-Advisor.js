@@ -564,7 +564,7 @@ ct.rules.push(function (s) {
         var m = a[i];
         if (m[2].indexOf('%') === -1) continue;
         try {
-        	decoded = decodeURIComponent(m[2]);
+        	decoded = decodeURI(m[2]);
         }
         catch (e) {
             b.push({
