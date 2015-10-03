@@ -559,13 +559,27 @@ ct.rules.push(function (s) {
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     var b = [];
+    var decoded;
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
         if (m[2].indexOf('%') === -1) continue;
+        try {
+        	decoded = decodeURIComponent(m[2]);
+        }
+        catch (e) {
+            b.push({
+                start: m.start,
+                end: m.end,
+                name: 'невалиден URL',
+                description: 'Адресът е невалиден',
+                help: 'Проверете и опитайте да поправите адреса'
+            });
+            continue;
+        }
         b.push({
             start: m.start,
             end: m.end,
-            replacement: m[1] + decodeURIComponent(m[2]),
+            replacement: m[1] + decoded,
             name: 'URL (тестване)',
             description: 'Декодира кодирани URL адреси',
             help: 'URL адресите се четат по-лесно когато са декодирани.'
