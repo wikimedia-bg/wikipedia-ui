@@ -606,6 +606,26 @@ ct.rules.push(function (s) {
     return a;
 });
 
+ct.rules.push(function (s) {
+    var re = /[0-9] (Януари|Февруари|Март|Април|Май|Юни|Юли|Август|Септември|Октомври|Ноември|Декември)[^А-я]/g;
+    var a = ct.getAllMatches(re, s);
+    var m, replacement, b = [];
+    for (var i = 0; i < a.length; i++) {
+        m = a[i];
+        if (ct.inWikiLinkAddr(s, m.start)) continue;
+        replacement = m[1][0].toLowerCase() + m[1].slice(1);
+        b.push({
+            start: m.start + 2,
+            end: m.end - 1,
+            replacement: replacement,
+            name: 'месец',
+            description: m[1] + ' -> ' + replacement,
+            help: 'В българския език имената на месеците се пишат с малка буква.'
+        });
+    }
+    return b;
+});
+
 window.ct = ct;
 
 if ($.inArray(mw.config.get('wgCanonicalNamespace'), ['User', 'MediaWiki', 'Template', 'Module']) === -1) {
