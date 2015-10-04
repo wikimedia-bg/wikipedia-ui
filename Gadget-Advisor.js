@@ -563,7 +563,7 @@ ct.rules.push(function (s) {
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
         try {
-        	decoded = decodeURI(m[2]);
+            decoded = decodeURI(m[2]);
             if (m[2].indexOf('%') === -1 || m[2] === decoded) continue;
             b.push({
                 start: m.start,
