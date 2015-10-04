@@ -562,9 +562,17 @@ ct.rules.push(function (s) {
     var decoded;
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
-        if (m[2].indexOf('%') === -1) continue;
         try {
         	decoded = decodeURI(m[2]);
+            if (m[2].indexOf('%') === -1 || m[2] === decoded) continue;
+            b.push({
+                start: m.start,
+                end: m.end,
+                replacement: m[1] + decoded,
+                name: 'URL (тестване)',
+                description: 'Декодира кодирани URL адреси',
+                help: 'URL адресите се четат по-лесно когато са декодирани.'
+            });
         }
         catch (e) {
             b.push({
@@ -574,16 +582,7 @@ ct.rules.push(function (s) {
                 description: 'Адресът е невалиден',
                 help: 'Проверете и опитайте да поправите адреса'
             });
-            continue;
         }
-        b.push({
-            start: m.start,
-            end: m.end,
-            replacement: m[1] + decoded,
-            name: 'URL (тестване)',
-            description: 'Декодира кодирани URL адреси',
-            help: 'URL адресите се четат по-лесно когато са декодирани.'
-        });
     }
     return b;
 });
