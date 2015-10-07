@@ -1101,30 +1101,30 @@ pre.source-lua {
 }
 
 /* За [[Шаблон:Портал]] и [[Шаблон:Портал линк]] - от fr:MediaWiki:Common.css */
-#bandeau-portail {
+#bandeau-portal {
         border: solid #aaa 1px;
         background-color: #f9f9f9;
         text-align: center;
         margin-top: 1em;
 }
-#bandeau-portail,
-#liste-portail {
+#bandeau-portal,
+#list-portal {
         padding: 4px;
         margin-left: 0;
         clear: both;
 }
-#liste-portail li,
-#bandeau-portail li{
+#list-portal li,
+#bandeau-portal li{
         display: inline;
 }
-.bandeau-portail-element {
+.bandeau-portal-element {
         white-space: nowrap;
         margin: auto 1.5em;
 }
-.bandeau-portail-icone {
+.bandeau-portal-icon {
         margin-right: 0.5em;
 }
-.bandeau-portail-texte {
+.bandeau-portal-text {
         font-weight: bold;
 }
 
