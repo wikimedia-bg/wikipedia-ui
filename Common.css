@@ -1093,10 +1093,39 @@ pre.source-lua {
 .fancy-btn:hover {
 	opacity: 0.9;
 }
+
 /* changes by CategoryMaster on RecentChanges and Watchlist */
 .mw-tag-CategoryMaster,
 .mw-changeslist-CategoryMaster {
 	opacity: 0.5;
+}
+
+/* За [[Шаблон:Портал]] и [[Шаблон:Портал линк]] - от fr:MediaWiki:Common.css */
+#bandeau-portail {
+        border: solid #aaa 1px;
+        background-color: #f9f9f9;
+        text-align: center;
+        margin-top: 1em;
+}
+#bandeau-portail,
+#liste-portail {
+        padding: 4px;
+        margin-left: 0;
+        clear: both;
+}
+#liste-portail li,
+#bandeau-portail li{
+        display: inline;
+}
+.bandeau-portail-element {
+        white-space: nowrap;
+        margin: auto 1.5em;
+}
+.bandeau-portail-icone {
+        margin-right: 0.5em;
+}
+.bandeau-portail-texte {
+        font-weight: bold;
 }
 
 /* Temporary logo for 200 000 articles  */
