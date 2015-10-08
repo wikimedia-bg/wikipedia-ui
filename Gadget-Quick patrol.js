@@ -250,7 +250,7 @@ mw.ext.Patroller.bulk = function(quick) {
 };
 
 mw.ext.Patroller.init = function() {
-	if ($.inArray("patroller", mw.config.get('wgUserGroups')) === -1) {
+	if ($.inArray("patroller", mw.config.get('wgUserGroups')) === -1 && $.inArray("sysop", mw.config.get('wgUserGroups')) === -1) {
 		// user is not a patroller
 		return;
 	}
