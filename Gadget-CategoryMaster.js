@@ -26,7 +26,7 @@ mw.libs.api.fetchAll = function(params) {
 
 mw.libs.RegExp = mw.libs.RegExp || {};
 mw.libs.RegExp.quote = function(string) {
-	return string.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
+	return string.replace(/[.?*+^$[\]\\/(){}|-]/g, "\\$&");
 };
 
 mw.libs.reduceArray = function(array, callback, sleepInterval) {
@@ -253,7 +253,7 @@ mw.libs.CategoryMaster = function() {
 			)
 			.append( $('<div class="mw-ui-vform-field"/>')
 				.append('<input type="submit" class="mw-ui-button mw-ui-constructive" value="'+mw.msg('cm-form-submit')+'" disabled>')
-			)
+			);
 	}
 
 	function markInputAsValid(inputField) {
