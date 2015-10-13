@@ -131,7 +131,7 @@ ct.rules.push(function (s) {
 	}
 	return a;
 });
-/*
+
 ct.rules.push(function (s) {
 	// [^|] - пропусни ако вероятно е за означаване на празна клетка в таблица
 	var re = /[^|]([ \u00a0]+|&nbsp;)[-\u2014] +/g;
@@ -139,7 +139,8 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0, l = a.length; i < l; i++) {
 		var m = a[i];
-		if ( ct.inWikiLinkAddr(s, m.start + 1) ) {
+		if ( ct.inWikiLinkAddr(s, m.start + 1)
+           || s.slice(m.end).match(/^[^\n\[\]{}<>|]*\.[A-Za-z]{3,4} *[\n|}]/) ) {
 			continue;
 		}
 		b.push({
@@ -154,6 +155,7 @@ ct.rules.push(function (s) {
 	return b;
 });
 
+/*
 ct.rules.push(function (s) {
 	var re = /[^0-9]({year}|\[\[{year}\]\]) *(?:-|\u2014|&mdash;|--) *({year}|\[\[{year}\]\])[^0-9]/g; // U+2014 is an mdash
 	re = ct.fixRegExp(re);
