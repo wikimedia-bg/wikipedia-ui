@@ -72,7 +72,7 @@ window.customInsButtons = {
 	"b23l" : ["["+"[", "", "|]]", "[[...&#124;]]", "+препратка с разделител (курсорът е отляво на разделителя)"],
 	"b23r" : ["["+"[|", "", "]]", "[[&#124;...]]", "+препратка с разделител (курсорът е отдясно на разделителя)"],
 	"b24" : ["["+"[:", "", "]]", "[[:...]]", "+текстова препратка"],
-	"b25" : ["#", "", "", "...#...", "+диез"]
+	"b25" : ["#", "", "", "#...", "+диез"]
 };
 
 // cleanup by articles
@@ -101,6 +101,7 @@ var charsElemId = "extraChars";
 // данни за още бутони с код по желание
 window.customMiscButtons = {
 	// "CODE" : ["CODE TO RUN", "SHOWN TEXT", "TITLE"],
+    "linkWithAddrAndLabel" : ["mw.libs.EditToolbar.linkWithAddrAndLabel()", "[[.|.]]", "Копиране на маркирания текст и като адрес и като надпис в уикипрепратка"],
 	// уикификатора
 	"#" : ["mw.libs.EditToolbar.obrabotka(false)", "#", "Преобразуване на някои знаци"],
 	"$" : ["mw.libs.EditToolbar.obrabotka(true)", "$", "Преобразуване на числа към БДС"],
@@ -437,12 +438,83 @@ function hideLoadIndicator() {
 	}
 }
 
+// if the cursor is within a wikilink or immediately after it,
+// or if text is selected within the link, or including only one link, this function
+// returns the index of the first [ and the index of the following ]] + 2,
+// as well as the whole link text starting with [[ and ending with the closing ]]
+mw.libs.EditToolbar.findFocusedLink = function (text, selStart, selEnd) {
+    var start = text.lastIndexOf('[[', selEnd - 1);
+    if (start == -1) return null;
+
+    var end = text.indexOf(']]', selStart - (selStart == selEnd ? 2 : 1)) + 2;
+    if (end == -1 || start > end) return null;
+
+    if (text.slice(start+2, end-2).match(/\[\[|\]\]/)) return null;
+
+    return {start: start, end: end, sel: text.slice(start, end)};
+};
+
+mw.libs.EditToolbar.linkWithAddrAndLabel = function () {
+    // en:Wikipedia:Page_name#Invalid_page_names :
+    var wikiLinkIllegalChars = /[\[\]{}<>|\u0000-\u001f\u007f\ufffd]/;
+
+    var indexOfWithDefault = function (str, searchStr, defaultVal, from) {
+        var index = str.indexOf(searchStr, (from || 0));
+        return (index > -1 ? index : defaultVal);
+    };
+
+    var $ta = $('#wpTextbox1');
+    var caretPos = $ta.textSelection( 'getCaretPosition', {startAndEnd: true} );
+    var text = $ta.val().replace(/\r/g, '');
+    var sel, start, end;
+    var linkObj = mw.libs.EditToolbar.findFocusedLink(text, caretPos[0], caretPos[1]);
+
+    if (linkObj) {
+        start = linkObj.start;
+        end = linkObj.end;
+        sel = linkObj.sel;
+    }
+    else {
+        start = caretPos[0];
+        end = caretPos[1];
+        sel = text.slice(caretPos[0], caretPos[1]);
+    }
+
+    if (linkObj) { // if cursor before 1st space in address -> move before 1st space in link label
+        var indexOfBar = sel.indexOf('|');
+        if (indexOfBar > -1) {
+            var indexOf1stSpace = indexOfWithDefault(sel, ' ', indexOfBar);
+            if (caretPos[0] == caretPos[1] && caretPos[0] == start + indexOf1stSpace) {
+                var firstSpaceInLabel = indexOfWithDefault(sel, ' ', sel.length - 2, indexOfBar);
+                var newPos = start + firstSpaceInLabel;
+                $ta.focus().textSelection('setSelection', {start: newPos, end: newPos});
+                return;
+            }
+        }
+    }
+
+    var selTrimmed = sel.replace(/^ *(\[\[)? *| *(\]\])? *$/g, '').replace(/_+| +/g, ' ');
+    var linkAddr = selTrimmed.replace(/\u00a0|&nbsp;/g, ' '); // not necessary
+
+    if (wikiLinkIllegalChars.test(linkAddr)) { $ta.focus(); return; }
+
+    var spacesLeft = (sel.match(/^ +[^ ]/) || [' '])[0].slice(0, -1); // none if only spaces in string
+    var spacesRight = (sel.match(/ +$/) || [''])[0];
+    var firstSpaceIndex = indexOfWithDefault(linkAddr, ' ', linkAddr.length);
+    var newCaretPos = start + spacesLeft.length + 2 + firstSpaceIndex;
+
+    $ta.val( text.slice(0, start)
+             + spacesLeft + '[[' + linkAddr + '|' + selTrimmed + ']]' + spacesRight
+             + text.slice(end)
+    ).focus().textSelection('setSelection', {start: newCaretPos, end: newCaretPos});
+};
+
 
 /* * * * * * * * * *   Wikificator functions   * * * * * * * * * */
 
 var txt; // текста, който ще се обработва от Уикификатора
 
-// BEGIN код от [[:ru:MediaWiki:Summary]], вижте [[:ru:MediaWiki:MediaWiki:Wikificator.js]], [[:ru:Википедия:Викификатор]]
+// BEGIN код от [[:ru:MediaWiki:Summary]], вижте [[:ru:MediaWiki:Wikificator.js]], [[:ru:Википедия:Викификатор]]
 mw.libs.EditToolbar.obrabotka = function(bds) {
 	check_regexp();//Проверяем поддерживаются ли рег. выражения
 	document.editform.wpTextbox1.focus();
