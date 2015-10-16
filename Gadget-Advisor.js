@@ -539,13 +539,13 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /(\| *[\wА-я-]+ *= *(?=[\|\}]))+/g;
+    var re = /[^\n](\| *[\wА-я-]+ *= *(?=[\|\}]))+/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
         a[i] = {
-            start: m.start,
+            start: m.start + 1,
             end: m.end,
             replacement: '',
             name: 'параметър',
