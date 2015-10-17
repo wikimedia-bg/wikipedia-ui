@@ -456,7 +456,7 @@ ct.rules.push(function (s) {
             start: m.start + m[1].length,
             end: m.end,
             replacement: m[2].trim() + ' ',
-            name: 'точка (тестване)',
+            name: 'точка',
             description: 'Премахни интервала преди точката в края на изречението и/или добави такъв след нея',
             help: 'Интервалът трябва да е след точката и не преди нея.'
         });
@@ -571,7 +571,7 @@ ct.rules.push(function (s) {
                 start: m.start,
                 end: m.end,
                 replacement: m[1] + decoded,
-                name: 'URL (тестване)',
+                name: 'URL',
                 description: 'Декодира кодирани URL адреси',
                 help: 'URL адресите се четат по-лесно когато са декодирани.'
             });
@@ -590,7 +590,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /([А-я]{2,})(\(|\)| ?\( | \) ?)(?=[А-я]{2,})/g;
+    var re = /([А-я]+)(\(|\)| ?\( | \) ?)(?=[А-я]+)/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     for (var i = 0; i < a.length; i++) {
@@ -599,7 +599,7 @@ ct.rules.push(function (s) {
             start: m.start + m[1].length,
             end: m.end,
             replacement: m[2].indexOf('(') != -1 ? ' (' : ') ',
-            name: 'скоба (тестване)',
+            name: 'скоба',
             description: 'Добави/премахни интервала преди/след отварящата/затварящата скоба',
             help: 'Преди отваряща и след затваряща скоба трябва да има интервал. Интервалите са ненужни след отваряща и преди затваряща скоба.'
         };
@@ -629,7 +629,7 @@ ct.rules.push(function (s) {
 
 window.ct = ct;
 
-if ($.inArray(mw.config.get('wgCanonicalNamespace'), ['User', 'MediaWiki', 'Template', 'Module']) === -1) {
+if ($.inArray(mw.config.get('wgCanonicalNamespace'), ['MediaWiki', 'Template', 'Module']) === -1) {
 	mw.loader.using( 'ext.gadget.Advisor', function () {
 		mw.loader.load('//en.wikipedia.org/w/index.php?title=User:Cameltrader/Advisor.js&action=raw&ctype=text/javascript');
 	});
