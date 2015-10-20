@@ -17,11 +17,12 @@
 	w.putToolbar = function() {};
 	w.customInsButtons =
 	w.customMiscButtons = {};
-}(window) );
 
-if ($.inArray( mw.config.get( 'wgAction' ), [ 'edit', 'submit' ] ) !== -1) {
-	mw.loader.using('ext.gadget.EditToolbar-core', function () {
-		$.extend(window.customInsButtons, customInsButtons);
-		$.extend(window.customMiscButtons, customMiscButtons);
-	});
-}
+	if ($.inArray( mw.config.get( 'wgAction' ), [ 'edit', 'submit' ] ) !== -1) {
+		mw.loader.using('ext.gadget.EditToolbar-core', function () {
+			$.extend(w.customInsButtons, customInsButtons);
+			$.extend(w.customMiscButtons, customMiscButtons);
+		});
+	}
+
+}(window) );
