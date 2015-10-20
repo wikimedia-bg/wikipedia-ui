@@ -269,19 +269,20 @@ function setupCustomEditTools() {
 		return;
 	}
 
-	mw.loader.load("mediawiki.toolbar");
-	var toolbar = putToolbar(true);
-	toolbar.addClass("buttonlinks");
-	if ( showMenus ) {
-		// drop-down menus inserting text put direct in the javascript
-		appendDropDownMenus(toolbar, tplVarBaseName, insertIntoWikiText);
-		// drop-down menus inserting content from wiki pages
-		appendDropDownMenus(toolbar, atplVarBaseName, loadPage);
-	}
-	if ( showButtons ) {
-		appendCustomButtons(toolbar);
-		appendExtraChars(toolbar);
-	}
+	mw.loader.using("mediawiki.toolbar", function(){
+		var toolbar = putToolbar(true);
+		toolbar.addClass("buttonlinks");
+		if ( showMenus ) {
+			// drop-down menus inserting text put direct in the javascript
+			appendDropDownMenus(toolbar, tplVarBaseName, insertIntoWikiText);
+			// drop-down menus inserting content from wiki pages
+			appendDropDownMenus(toolbar, atplVarBaseName, loadPage);
+		}
+		if ( showButtons ) {
+			appendCustomButtons(toolbar);
+			appendExtraChars(toolbar);
+		}
+	});
 }
 
 $(function() {
