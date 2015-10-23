@@ -557,7 +557,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /(https?:\/\/[^\/ ]+\/)(((?!(%3A|%3C|%3E|%20|[ \n\|\]\}\>\<])).)*)/g;
+    var re = /(https?:\/\/[^\/ ]+\/)(((?![ \n\|\]\}><]).)*)/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     var b = [];
@@ -565,7 +565,8 @@ ct.rules.push(function (s) {
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
         try {
-            decoded = decodeURI(m[2]);
+            decoded = decodeURI(m[2]).replace(/ /g, '%20').replace(/:/g, '%3A')
+            	.replace(/</g, '%3C').replace(/>/g, '%3E');
             if (m[2].indexOf('%') === -1 || m[2] === decoded) continue;
             b.push({
                 start: m.start,
@@ -581,7 +582,7 @@ ct.rules.push(function (s) {
                 start: m.start,
                 end: m.end,
                 name: 'невалиден URL',
-                description: 'Адресът е невалиден',
+                description: 'Адресът изглежда е невалиден',
                 help: 'Проверете и опитайте да поправите адреса'
             });
         }
