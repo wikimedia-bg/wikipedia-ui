@@ -14,19 +14,30 @@ ct.inBrackets = function (s, m, brackets) {
     var indexOfClosingRight = rightContext.indexOf(brackets[1]);
 
     return (indexOfOpeningLeft != -1 && (indexOfClosingLeft == -1 || indexOfOpeningLeft > indexOfClosingLeft)) ||
-        (indexOfClosingRight != -1 && (indexOfOpeningRight == -1 || indexOfOpeningRight > indexOfClosingRight))
-}
+        (indexOfClosingRight != -1 && (indexOfOpeningRight == -1 || indexOfOpeningRight > indexOfClosingRight));
+};
 
-ct.inWikiLinkAddr = function (s, pos) {
-    // If we find '[[' not followed by ']]' or '|' --- return true.
-    var leftContext = s.substr(0, pos);
-    var indexOfOpening = leftContext.lastIndexOf('[[');
-    var indexOfClosing = leftContext.indexOf(']]', indexOfOpening);
-    var indexOfVerticalBar = leftContext.indexOf('|', indexOfOpening);
-    if ( indexOfOpening != -1 && indexOfClosing == -1 && indexOfVerticalBar == -1 ) {
-        return true;
+// originally from https://en.wikipedia.org/wiki/User:GregU/dashes.js
+// checkPat1, checkPat2, checkTags, checkFileName default to true
+ct.doNotFix = function (s, m, checkPat1, checkPat2, checkTags, checkFileName) {
+	var pos = m.start;
+    var pat = /\[\[[^|\]]*$|\{\{[^|}]*$|[:\/%][^\s|>]+$|<[^>]*$|#\w*expr:.*$/i;
+    if (checkPat1 !== false && s.substring(pos - 260, pos + 1).search(pat) >= 0)
+        return true;             // it's a link, so don't change it
+
+    var pat2 = /\{\{(друг[ои] значени[ея]|основна|към|от пренасочване|категория|anchor)[^}]*$/i;
+    if (checkPat2 !== false && s.substring(pos - 260, pos + 1).search(pat2) >= 0)
+        return true;             // likely templates with page-name
+
+    if (checkTags !== false) {
+        var nextTagPos = s.slice(pos).search(/<\/?(math|pre|code|tt|source|syntaxhighlight)\b/i);
+        if (nextTagPos >= 0 && s.charAt(pos + nextTagPos + 1) == '/')
+            return true;         // don't break a <math> equation, or source code
     }
-}
+
+    if (checkFileName !== false && s.slice(pos).search(/^[^|{}[\]<>\n]*\.([a-z]{3,4}\s*[|}\n])/i) >= 0)
+        return true;             // it's a file name parameter
+};
 
 if (mw.config.get('wgUserLanguage') === 'bg') {
 	ct.translation = {
@@ -139,8 +150,7 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0, l = a.length; i < l; i++) {
 		var m = a[i];
-		if ( ct.inWikiLinkAddr(s, m.start + 1)
-           || s.slice(m.end).match(/^[^\n\[\]{}<>|]*\.[A-Za-z]{3,4} *[\n|}]/) ) {
+		if ( ct.doNotFix(s, m) ) {
 			continue;
 		}
 		b.push({
@@ -523,7 +533,7 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0, l = a.length; i < l; i++) {
 		var m = a[i];
-		if ( ct.inWikiLinkAddr(s, m.start) ) {
+		if ( ct.doNotFix(s, m) ) {
 			continue;
 		}
 		b.push({
@@ -614,7 +624,7 @@ ct.rules.push(function (s) {
     var m, replacement, b = [];
     for (var i = 0; i < a.length; i++) {
         m = a[i];
-        if (ct.inWikiLinkAddr(s, m.start)) continue;
+        if ( ct.doNotFix(s, m) ) continue;
         replacement = m[1][0].toLowerCase() + m[1].slice(1);
         b.push({
             start: m.start + 2,
