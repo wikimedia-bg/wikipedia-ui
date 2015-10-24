@@ -568,18 +568,31 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
+    var skipNext = false;
+    var decoder = function (match, charCode, index, s) {
+        if (skipNext) {
+            skipNext = false;
+            return '';
+        }
+
+        if ( parseInt(charCode, 16) < 128 ) return match; // ASCII, don't decode
+
+        var urlEncoded = match + s.slice(index + 3, index + 6);
+        var char = decodeURI(urlEncoded);
+        skipNext = true;
+        return (char.length == 1 && char.match(letterRE) ? char : match);
+    }
+
     var re = /(https?:\/\/[^\/ ]+\/)(((?![ \n\|\]\}><]).)*)/g;
-    re = ct.fixRegExp(re);
+    var letterRE = ct.fixRegExp(/[{letter}]/);
     var a = ct.getAllMatches(re, s);
     var b = [];
     var decoded;
     for (var i = 0; i < a.length; i++) {
         var m = a[i];
         try {
-            decoded = decodeURI(m[2]).replace(/ /g, '%20').replace(/:/g, '%3A')
-            	.replace(/\[/g, '%5B').replace(/\]/g, '%5D')
-            	.replace(/</g, '%3C').replace(/>/g, '%3E').replace(/"/g, '%22');
-            if (m[2].indexOf('%') === -1 || m[2] === decoded) continue;
+            decoded = m[2].replace(/%([0-9A-Fa-f]{2})/g, decoder);
+            if (m[2] === decoded) continue;
             b.push({
                 start: m.start,
                 end: m.end,
