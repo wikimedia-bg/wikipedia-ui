@@ -577,7 +577,7 @@ ct.rules.push(function (s) {
         var m = a[i];
         try {
             decoded = decodeURI(m[2]).replace(/ /g, '%20').replace(/:/g, '%3A')
-            	.replace(/</g, '%3C').replace(/>/g, '%3E');
+            	.replace(/</g, '%3C').replace(/>/g, '%3E').replace(/"/g,'%22');
             if (m[2].indexOf('%') === -1 || m[2] === decoded) continue;
             b.push({
                 start: m.start,
