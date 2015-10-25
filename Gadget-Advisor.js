@@ -567,23 +567,31 @@ ct.rules.push(function (s) {
     return a;
 });
 
+
 ct.rules.push(function (s) {
-    var skipNext = false;
+    var skipNext = 0;
     var decoder = function (match, charCode, index, s) {
-        if (skipNext) {
-            skipNext = false;
+        if (skipNext > 0) {
+            skipNext--;
             return '';
         }
 
-        if ( parseInt(charCode, 16) < 128 ) return match; // ASCII, don't decode
+        var decimal = parseInt(charCode, 16);
+        var bin = Number(decimal).toString(2);
+        if ( decimal < 128 ) return match; // ASCII, don't decode
 
-        var urlEncoded = match + s.slice(index + 3, index + 6);
+        var nOfBytes = bin.match(/^1+/)[0].length;
+        skipNext = nOfBytes - 1;
+
+        var urlEncoded = match + s.slice(index + 3, index + 3 * nOfBytes);
+
         var char = decodeURI(urlEncoded);
-        skipNext = true;
-        return (char.length == 1 && char.match(letterRE) ? char : match);
+        return (char.length == 1 && char.match(letterRE) ? char : urlEncoded);
     }
 
     var re = /(https?:\/\/[^\/ ]+\/)(((?![ \n\|\]\}><]).)*)/g;
+    // букви дефинирани в en:User:Cameltrader/Advisor.js,
+    // изглежда не включва всички, напр. арабски:
     var letterRE = ct.fixRegExp(/[{letter}]/);
     var a = ct.getAllMatches(re, s);
     var b = [];
