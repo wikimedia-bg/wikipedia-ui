@@ -586,13 +586,10 @@ ct.rules.push(function (s) {
         var urlEncoded = match + s.slice(index + 3, index + 3 * nOfBytes);
 
         var char = decodeURI(urlEncoded);
-        return (char.length == 1 && char.match(letterRE) ? char : urlEncoded);
+        return (char.length == 1 ? char : urlEncoded);
     }
 
     var re = /(https?:\/\/[^\/ ]+\/)(((?![ \n\|\]\}><]).)*)/g;
-    // букви дефинирани в en:User:Cameltrader/Advisor.js,
-    // изглежда не включва всички, напр. арабски:
-    var letterRE = ct.fixRegExp(/[{letter}]/);
     var a = ct.getAllMatches(re, s);
     var b = [];
     var decoded;
