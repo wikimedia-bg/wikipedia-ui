@@ -165,24 +165,28 @@ ct.rules.push(function (s) {
 	return b;
 });
 
-/*
 ct.rules.push(function (s) {
-	var re = /[^0-9]({year}|\[\[{year}\]\]) *(?:-|\u2014|&mdash;|--) *({year}|\[\[{year}\]\])[^0-9]/g; // U+2014 is an mdash
+	var re = /[^0-9]({year}|\[\[{year}\]\])(?:-|\u2014|--)({year}|\[\[{year}\]\])[^0-9]/g;
+    // U+2014 is mdash, U+2013 is ndash
 	re = ct.fixRegExp(re);
 	var a = ct.getAllMatches(re, s);
+    var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
-		a[i] = {
+
+        if ( ct.doNotFix(s, m) ) continue;
+
+		b.push({
 			start: m.start + 1,
 			end: m.end - 1,
-			replacement: m[1] + '\u2013' + m[2], // U+2013 is an ndash
+			replacement: m[1] + '\u2013' + m[2],
 			name: 'тире-години',
-			description: 'Периодите от години изглеждат по добре със средно тире (en dash).'
-		};
+			description: 'За периодите от години се използва средно тире (en dash).'
+		});
 	}
-	return a;
+	return b;
 });
-*/
+
 ct.rules.push(function (s) {
 	var re = /^(?: *)(==+)( *)([^=]*[^= ])( *)\1/gm;
 	var a = ct.getAllMatches(re, s);
