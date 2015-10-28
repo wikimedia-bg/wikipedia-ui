@@ -70,8 +70,7 @@ window.customInsButtons = {
 	"b22" : ["["+"[", "", "]]", "[[...]]", "+препратка без разделител"],
 	"b23l" : ["["+"[", "", "|]]", "[[...&#124;]]", "+препратка с разделител (курсорът е отляво на разделителя)"],
 	"b23r" : ["["+"[|", "", "]]", "[[&#124;...]]", "+препратка с разделител (курсорът е отдясно на разделителя)"],
-	"b24" : ["["+"[:", "", "]]", "[[:...]]", "+текстова препратка"],
-	"b25" : ["#", "", "", "#...", "+диез"]
+	"b24" : ["["+"[:", "", "]]", "[[:...]]", "+текстова препратка"]
 };
 
 // cleanup by articles
@@ -101,6 +100,8 @@ var charsElemId = "extraChars";
 window.customMiscButtons = {
 	// "CODE" : ["CODE TO RUN", "SHOWN TEXT", "TITLE"],
     "linkWithAddrAndLabel" : ["mw.libs.EditToolbar.linkWithAddrAndLabel()", "[[.|.]]", "Копиране на маркирания текст и като адрес и като надпис в уикипрепратка"],
+    "mkBulletList" : ["mw.libs.EditToolbar.mkList(false)", "*..", "Добавяне на * в началото на всеки ред"],
+    "mkNumList" : ["mw.libs.EditToolbar.mkList(true)", "#..", "Добавяне на # в началото на всеки ред"],
 	// уикификатора
 	"#" : ["mw.libs.EditToolbar.obrabotka(false)", "#", "Преобразуване на някои знаци"],
 	"$" : ["mw.libs.EditToolbar.obrabotka(true)", "$", "Преобразуване на числа към БДС"],
@@ -438,6 +439,8 @@ function hideLoadIndicator() {
 	}
 }
 
+/* * * * * * * * * *   Misc buttons   * * * * * * * * * */
+
 // if the cursor is within a wikilink or immediately after it,
 // or if text is selected within the link, or including only one link, this function
 // returns the index of the first [ and the index of the following ]] + 2,
@@ -509,6 +512,39 @@ mw.libs.EditToolbar.linkWithAddrAndLabel = function () {
     ).focus().textSelection('setSelection', {start: newCaretPos, end: newCaretPos});
 };
 
+mw.libs.EditToolbar.mkList = function (numbered) {
+    function linesMatchRE(ls, re) {
+        return ls[0].match(re) !== null && ls[1].match(re) !== null && re;
+    }
+
+    var $ta = $('#wpTextbox1');
+    var sel = $ta.focus().textSelection('getSelection');
+    var lines = sel.split('\n');
+    var numLineRE = /^\d+\. */;
+    var numSignLineRE = /^# */;
+    var asteriskLineRE = /^\* */;
+    var removeRE;
+    var rmFirstLn = lines.length > 1 && lines[0] === '';
+    var rmLastLn = lines.length > 1 && lines[lines.length - 1] === '';
+
+    if (rmFirstLn) lines.shift(); // don't add * or # to first line if it's blank
+    if (rmLastLn) lines.pop();    // same for last line
+    if (lines.length > 1) // which regex to apply to rm chars from start of each line:
+        removeRE = linesMatchRE(lines, numLineRE)
+                || (numbered && linesMatchRE(lines, asteriskLineRE)) // if adding # and ln start w/ *, rm *
+                || (!numbered && linesMatchRE(lines, numSignLineRE))
+    if (!removeRE) removeRE = /^ +/;
+
+    for (var l, noSpace, i = lines.length - 1; i >= 0; i--) {
+        l = lines[i];
+        l = l.replace(removeRE, '');
+        noSpace = l.match(/^[*#]/) || sel === '';
+        lines[i] = (numbered ? '#' : '*') + (noSpace ? '' : ' ') + l;
+    }
+    if (rmFirstLn) lines.unshift('');
+    if (rmLastLn) lines.push('');
+    $ta.focus().textSelection('encapsulateSelection', {pre: lines.join('\n'), peri: '', post: '', replace: true});
+}
 
 /* * * * * * * * * *   Wikificator functions   * * * * * * * * * */
 
