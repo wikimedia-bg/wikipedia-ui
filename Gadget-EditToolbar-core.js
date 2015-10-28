@@ -520,7 +520,7 @@ mw.libs.EditToolbar.mkList = function (numbered) {
 
     var $ta = $('#wpTextbox1');
     var sel = $ta.focus().textSelection('getSelection');
-    var lines = sel.replace(/<br\/?>/gi, '\n').replace(/^[ \t]+/mg, '')
+    var lines = sel.replace(/<br\/?>/gi, '\n').replace(/^[ \t]+|[ \t]+$/mg, '')
                    .replace(/(\r?\n)+/g, '\n').split('\n');
     var numLineRE = /^\d+\. */;
     var numSignLineRE = /^# */;
