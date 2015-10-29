@@ -128,19 +128,70 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var a = ct.getAllMatches(/[^=\|] +$/gm, s);
-	for (var i = 0; i < a.length; i++) {
-		var m = a[i];
-		a[i] = {
-			start: m.start + 1,
-			end: m.end,
-			replacement: '',
-			name: 'интервали',
-			description: 'Изтрий интервалите в края на реда',
-			help: 'Интервалите в края на реда са ненужни.'
-		};
-	}
-	return a;
+    var preTagRE = /<\/?pre\b/i;
+    var sourceTagRE = /<\/?(source|syntaxhighlight)\b/i;
+    function doNotFixSpaces(s, index, re) {
+        var nextTagPos = s.slice(index).search(re);
+        if (nextTagPos >= 0 && s.charAt(index + nextTagPos + 1) == '/') return true;
+        return false;
+    }
+
+    var start = -1, end = 0;
+    var replacement;
+    var spacesRemoved1 = 0;
+    var spacesRemoved2 = 0;
+
+    // Remove end-of-line spaces
+    replacement = s.replace(/ +$/gm, function (m, index, s) {
+        var prev2chars = s.slice(index - 2, index);
+        // don't rm EOL-space in empty table cells (after |) and in empty template param vals (after =)
+        // but after headings, yes (after ==)
+        if (prev2chars[1] == '|' || ( prev2chars[1] == '=' && prev2chars != '==' )) return m;
+        if ( doNotFixSpaces(s, index, preTagRE) ) return m;
+        if (start == -1) start = index;
+        end = index + m.length;
+        spacesRemoved1 += m.length;
+        return '';
+    });
+
+    end = end - spacesRemoved1;
+
+    // Remove double spaces
+    replacement = replacement.replace(/([^\s])(  +)/g, function (m, $1, $2, index, s) {
+        var repl;
+        var fromStartOfLine = s.slice([s.lastIndexOf('\n', index) + 1], index);
+        if (    doNotFixSpaces(s, index, sourceTagRE) || doNotFixSpaces(s, index, preTagRE)
+                // do not remove intervals around template parameter names:
+             || ( s[index + m.length] == '=' && fromStartOfLine.match(/^ *\|/)) ) {
+            repl = m;
+        }
+        else {
+            repl = $1 + ' ';
+            if (start == -1 || start > index + 1) start = index + 1;
+            if (index + m.length > end) end = index + m.length;
+            spacesRemoved2 += $2.length - 1;
+        }
+        return repl;
+    });
+
+    end = end - spacesRemoved2;
+
+    var spacesRemoved = spacesRemoved1 + spacesRemoved2;  // == s.length - replacement.length;
+
+    if (spacesRemoved === 0) return [];
+
+    replacement = replacement.slice(start, end);
+
+    var a = [{
+        start: start,
+        end: end + spacesRemoved,
+        replacement: replacement,
+        name: (spacesRemoved == 1 ? 'интервал' : spacesRemoved + ' интервала'),
+        description: 'Изтрий двойните интервали и интервалите в края на редовете',
+        help: 'Двойните интервали и интервалите в края на редовете са ненужни.'
+    }];
+
+    return a;
 });
 
 ct.rules.push(function (s) {
@@ -414,24 +465,6 @@ ct.rules.push(function (s) {
 		}
 	}
 	return b;
-});
-
-ct.rules.push(function (s) {
-    var re = /([^\n\s])( {2,})([^\s=/])/g;
-    re = ct.fixRegExp(re);
-    var a = ct.getAllMatches(re, s);
-    for (var i = 0; i < a.length; i++) {
-        var m = a[i];
-        a[i] = {
-            start: m.start + 1,
-            end: m.end - 1,
-            replacement: ' ',
-            name: 'дв. интервал',
-            description: 'Замени двойните интервали с единични',
-            help: 'Двойните интервали са ненужни.'
-        };
-    }
-    return a;
 });
 
 ct.rules.push(function (s) {
