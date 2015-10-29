@@ -61,7 +61,7 @@ window.customInsButtons = {
 	"b8" : ["{"+"{", "", "}}", "{{}}", "+скоби за шаблон"],
 	"b9" : ["|", "", "", "&nbsp;|&nbsp;", "+отвесна черта — |"],
 	"b11" : ["–", "", "", "&nbsp;–&nbsp;", "+средна чертица — ndash"],
-	"b12" : ["", "", "&#768;", "удар.", "+ударение за гласна буква (маркирайте една буква)"],
+	"b12" : ["mw.libs.EditToolbar.graveAccent()", "удар.", "+ударение за гласна буква или замяна на предходно „и“ или „й“ с „ѝ“"],
 	"b13" : ["<!-- ", "моля, въведете коментар", " -->", "&lt;!--", "+коментар"],
 	"b14" : ["{"+"{ЗАМЕСТ:-)}}", "", "", ":-)", "+шаблон „Усмивка“"],
 	"b19" : ["<br>\n", "", "", "br", "+ нов ред"],
@@ -71,7 +71,9 @@ window.customInsButtons = {
 	"b22" : ["["+"[", "", "]]", "[[...]]", "+препратка без разделител"],
 	"b23l" : ["["+"[", "", "|]]", "[[...&#124;]]", "+препратка с разделител (курсорът е отляво на разделителя)"],
 	"b23r" : ["["+"[|", "", "]]", "[[&#124;...]]", "+препратка с разделител (курсорът е отдясно на разделителя)"],
-	"b24" : ["["+"[:", "", "]]", "[[:...]]", "+текстова препратка"]
+	"b24" : ["["+"[:", "", "]]", "[[:...]]", "+текстова препратка"],
+    "linkWithAddrAndLabel" : ["mw.libs.EditToolbar.linkWithAddrAndLabel()", "[[.|.]]",
+                              "Копиране на маркирания текст и като адрес и като надпис в уикипрепратка"]
 };
 
 // cleanup by articles
@@ -100,7 +102,6 @@ var charsElemId = "extraChars";
 // данни за още бутони с код по желание
 window.customMiscButtons = {
 	// "CODE" : ["CODE TO RUN", "SHOWN TEXT", "TITLE"],
-    "linkWithAddrAndLabel" : ["mw.libs.EditToolbar.linkWithAddrAndLabel()", "[[.|.]]", "Копиране на маркирания текст и като адрес и като надпис в уикипрепратка"],
     "mkBulletList" : ["mw.libs.EditToolbar.mkList(false)", "*..", "Добавяне на * в началото на всеки ред"],
     "mkNumList" : ["mw.libs.EditToolbar.mkList(true)", "#..", "Добавяне на # в началото на всеки ред"],
 	// уикификатора
@@ -296,14 +297,25 @@ function appendCustomButtons(parent) {
 	var buts = $('<div>', { id: "custombuttons" });
 	for (var i in customInsButtons) {
 		var el = customInsButtons[i];
-		var title = el[4];
+		var title, href, html;
+		if (el.length > 3) { // an Insert button
+			href = "javascript:mw.toolbar.insertTags('"+el[0] +"','"+el[2]+"','"+ el[1]+"')";
+			title = el[4];
+			html = el[3];
+		}
+		else { // a Misc button
+			href = "javascript:"+el[0];
+			title = el[2];
+			html = el[1];
+		}
+
 		if ( title.charAt(0) == "+" ) {
 			title = mw.msg("et-addpref", [title.substr(1)]);
 		}
 		appendCustomButton(buts, {
-			href: "javascript:mw.toolbar.insertTags('"+el[0] +"','"+el[2]+"','"+ el[1]+"')",
+			href: href,
 			title: title,
-			html: el[3]
+			html: html
 		});
 	}
 	for (var i in customMiscButtons) {
@@ -469,7 +481,7 @@ mw.libs.EditToolbar.linkWithAddrAndLabel = function () {
 
     var $ta = $('#wpTextbox1');
     var caretPos = $ta.textSelection( 'getCaretPosition', {startAndEnd: true} );
-    var text = $ta.val().replace(/\r/g, '');
+    var text = $ta.val().replace(/\r/g, ''); // old IE returns new lines as \r\n
     var sel, start, end;
     var linkObj = mw.libs.EditToolbar.findFocusedLink(text, caretPos[0], caretPos[1]);
 
@@ -512,6 +524,20 @@ mw.libs.EditToolbar.linkWithAddrAndLabel = function () {
              + text.slice(end)
     ).focus().textSelection('setSelection', {start: newCaretPos, end: newCaretPos});
 };
+
+mw.libs.EditToolbar.graveAccent = function () {
+	var $ta = $('#wpTextbox1');
+	var val = $ta.val().replace(/\r/g, ''); // old IE returns new lines as \r\n
+	var caretPos = $ta.textSelection( 'getCaretPosition', {startAndEnd: true} );
+	var prevCharPos = caretPos[1] - 1;
+	if (prevCharPos < 0) {$ta.focus(); return;}
+	var prevChar = val[prevCharPos];
+	if (prevChar == 'и' || prevChar == 'й') result = 'ѝ';
+	else result = prevChar + '&#768;'
+	val = val.slice(0, prevCharPos) + result + val.slice(prevCharPos + 1);
+	var newCarretPos = prevCharPos + result.length;
+	$ta.val(val).focus().textSelection('setSelection', {start: newCarretPos, end: newCarretPos});
+}
 
 mw.libs.EditToolbar.mkList = function (numbered) {
     function linesMatchRE(ls, re) {
