@@ -157,12 +157,11 @@ ct.rules.push(function (s) {
     end = end - spacesRemoved1;
 
     // Remove double spaces
-    replacement = replacement.replace(/([^\s])(  +)/g, function (m, $1, $2, index, s) {
+    replacement = replacement.replace(/([^\s])( {2,})/g, function (m, $1, $2, index, s) {
         var repl;
         var fromStartOfLine = s.slice([s.lastIndexOf('\n', index) + 1], index);
         if (    doNotFixSpaces(s, index, sourceTagRE) || doNotFixSpaces(s, index, preTagRE)
-                // do not remove intervals around template parameter names:
-             || ( s[index + m.length] == '=' && fromStartOfLine.match(/^ *\|/)) ) {
+             || ( s[index + m.length] == '=' && s[index + m.length + 1] != '=' ) ) {
             repl = m;
         }
         else {
