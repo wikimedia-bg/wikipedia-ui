@@ -214,7 +214,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var re = /[^0-9]({year}|\[\[{year}\]\])(?:-|\u2014|--)({year}|\[\[{year}\]\])[^0-9]/g;
+	var re = /[^0-9]({year}|\[\[{year}\]\])(?:-|\u2014|--|\u2013)({year}|\[\[{year}\]\])[^0-9]/g;
     // U+2014 is mdash, U+2013 is ndash
 	re = ct.fixRegExp(re);
 	var a = ct.getAllMatches(re, s);
@@ -227,9 +227,9 @@ ct.rules.push(function (s) {
 		b.push({
 			start: m.start + 1,
 			end: m.end - 1,
-			replacement: m[1] + '\u2013' + m[2],
+			replacement: m[1] + '\u00a0\u2013 ' + m[2],
 			name: 'тире-години',
-			description: 'За периодите от години се използва средно тире (en dash).'
+			description: 'За периодите от години се използва средно тире (en dash) оградено с интервали.'
 		});
 	}
 	return b;
