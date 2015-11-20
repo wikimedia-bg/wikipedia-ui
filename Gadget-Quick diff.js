@@ -59,13 +59,15 @@ var QuickDiff = {
 	{
 		var $win = jQuery('<div id="quickdiff"><div id="quickdiff-close"/><div id="quickdiff-content"/></div>');
 		var closeWin = function(){
-			$win.hide();
+			if ($win) {
+				$win.hide();
+			}
 		};
 		$win.dblclick(closeWin).appendTo("#bodyContent").find("#quickdiff-close").click(closeWin);
 		$(document).keyup(function(e) {
 			if (e.keyCode == KEY_ESC) { closeWin() }
 		});
-
+		$(document.body).on("click", closeWin);
 		return $win;
 	},
 
