@@ -63,7 +63,10 @@ var QuickDiff = {
 				$win.hide();
 			}
 		};
-		$win.dblclick(closeWin).appendTo("#bodyContent").find("#quickdiff-close").click(closeWin);
+		$win.on('dblclick', closeWin).appendTo("#bodyContent").find("#quickdiff-close").click(closeWin);
+		$win.on('click', function(event) { 
+			event.stopPropagation();
+		});
 		$(document).keyup(function(e) {
 			if (e.keyCode == KEY_ESC) { closeWin() }
 		});
