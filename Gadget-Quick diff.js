@@ -11,7 +11,7 @@ var QuickDiff = {
 	enable: function()
 	{
 		jQuery('a[href*="diff="]').click(function(event){
-			var $link = jQuery(this).addClass("working");
+			var $link = QuickDiff.$currentDiffLink = jQuery(this).addClass("working");
 			var href = this.href + "&action=render"
 				+ ( event.ctrlKey ? "" : "&diffonly=1" );
 			jQuery.get(href, function(data){
@@ -102,6 +102,7 @@ var QuickDiff = {
 $(function(){
 	if ( /^(Recentchanges|Watchlist|Contributions)/.test(mw.config.get('wgCanonicalSpecialPageName'))
 			|| mw.config.get('wgAction') === "history"
+			|| mw.config.get('wgPageName') === "Уикипедия:Активни_беседи"
 	) {
 		QuickDiff.enable();
 	}
