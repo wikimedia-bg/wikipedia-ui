@@ -64,13 +64,14 @@ var QuickDiff = {
 			}
 		};
 		$win.on('dblclick', closeWin).appendTo("#bodyContent").find("#quickdiff-close").click(closeWin);
-		$win.on('click', function(event) { 
-			event.stopPropagation();
-		});
 		$(document).keyup(function(e) {
 			if (e.keyCode == KEY_ESC) { closeWin() }
 		});
-		$(document.body).on("click", closeWin);
+		$(document.body).on("click", function(event) {
+			if ($(event.target).parents('#quickdiff').length === 0) {
+				closeWin();
+			}
+	    });
 		return $win;
 	},
 
