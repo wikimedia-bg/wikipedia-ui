@@ -178,6 +178,7 @@ mw.ext.Patroller.bulk = function(quick) {
 				});
 
 				$(this).remove();
+				return false;
 			})
 			.appendTo($holder);
 	};
