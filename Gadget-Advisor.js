@@ -584,23 +584,25 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /[^\n](\| *[\wА-я-]+ *= *(?=[\|\}]))+/g;
-    re = ct.fixRegExp(re);
+    var re = /(^|[^\n ] *)(\| *[\wА-я-]+ *= *(?=[\|\}]))+/g;
     var a = ct.getAllMatches(re, s);
-    for (var i = 0; i < a.length; i++) {
-        var m = a[i];
-        a[i] = {
-            start: m.start + 1,
-            end: m.end,
-            replacement: '',
-            name: 'параметър',
+    if (a.length === 0) return [];
+    var n = a.length;
+    var start = a[0].start + a[0][1].length;
+    var end = a[n - 1].end + 1;
+
+    var replacement = s.slice(start, end).replace(re, '$1');
+
+    var b = [{
+            start: start,
+            end: end - 1,
+            replacement: replacement.slice(0, -1),
+            name: (n == 1 ? 'параметър' : n + '+ параметъра'),
             description: 'Премахва неизползваните параметри от шаблоните',
             help: 'Неизползваните параметри са излишни.'
-        };
-    }
-    return a;
+    }];
+    return b;
 });
-
 
 ct.rules.push(function (s) {
     var skipNext = 0;
