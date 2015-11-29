@@ -222,7 +222,7 @@ ct.rules.push(function (s) {
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 
-        if ( ct.doNotFix(s, m) ) continue;
+        if ( ct.doNotFix(s, m) || (m[1].length == 3 && m[2].length == 10) ) continue; // don't change ISBN-13
 
 		b.push({
 			start: m.start + 1,
