@@ -460,7 +460,7 @@ function hideLoadIndicator() {
 // as well as the whole link text starting with [[ and ending with the closing ]]
 mw.libs.EditToolbar.findFocusedLink = function (text, selStart, selEnd) {
     var start = text.lastIndexOf('[[', selEnd - 1);
-    if (start == -1) return null;
+    if (start == -1 || text.slice(start + 2).match(/^(File|Image|Файл|Картинка)/i)) return null;
 
     var end = text.indexOf(']]', selStart - (selStart == selEnd ? 2 : 1)) + 2;
     if (end == -1 || start > end) return null;
