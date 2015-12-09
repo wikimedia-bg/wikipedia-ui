@@ -31,7 +31,7 @@
 * cats-on-top[ResourceLoader]|cats-on-top.js
 * quicklinks[ResourceLoader]|quicklinks.js
 * HideFundraisingNotice|HideFundraisingNotice.css
-* BKL[ResourceLoader]|bkl-check.css
+* BKL[ResourceLoader]|HighlightDisambigLinks.css
 
 == patrol-gadgets ==
 * Quick patrol[ResourceLoader]|Quick patrol.js
