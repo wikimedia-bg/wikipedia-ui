@@ -518,11 +518,13 @@ mw.libs.EditToolbar.linkWithAddrAndLabel = function () {
     var spacesRight = (sel.match(/ +$/) || [''])[0];
     var firstSpaceIndex = indexOfWithDefault(linkAddr, ' ', linkAddr.length);
     var newCaretPos = start + spacesLeft.length + 2 + firstSpaceIndex;
-
+	var wScrollTop = $(window).scrollTop(); // Chromium scrolls the page and textarea
+	var taScrollTop = $ta.scrollTop();
     $ta.val( text.slice(0, start)
              + spacesLeft + '[[' + linkAddr + '|' + selTrimmed + ']]' + spacesRight
              + text.slice(end)
-    ).focus().textSelection('setSelection', {start: newCaretPos, end: newCaretPos});
+    ).focus().textSelection('setSelection', {start: newCaretPos, end: newCaretPos}).scrollTop(taScrollTop);
+	$(window).scrollTop(wScrollTop);
 };
 
 mw.libs.EditToolbar.graveAccent = function () {
@@ -536,7 +538,10 @@ mw.libs.EditToolbar.graveAccent = function () {
 	else result = prevChar + '&#768;'
 	val = val.slice(0, prevCharPos) + result + val.slice(prevCharPos + 1);
 	var newCarretPos = prevCharPos + result.length;
-	$ta.val(val).focus().textSelection('setSelection', {start: newCarretPos, end: newCarretPos});
+	var wScrollTop = $(window).scrollTop(); // Chromium scrolls the page and textarea
+	var taScrollTop = $ta.scrollTop();
+	$ta.val(val).focus().textSelection('setSelection', {start: newCarretPos, end: newCarretPos}).scrollTop(taScrollTop);
+	$(window).scrollTop(wScrollTop);
 }
 
 mw.libs.EditToolbar.mkList = function (numbered) {
