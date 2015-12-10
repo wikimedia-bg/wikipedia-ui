@@ -396,28 +396,22 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var re = /([{letter}]|&#768;|&#x0?300;|\u0300)+/g;
+	var re = / й[^А-я\w]/g;
 	re = ct.fixRegExp(re);
 	var a = ct.getAllMatches(re, s);
-	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
-		var w = m[0]; // the word
-		if (w === 'й') {
-			b.push({
-				start: m.start,
-				end: m.end,
-				replacement: 'ѝ',
-				name: 'й→ѝ',
-				description: 'Промени „й“ на „ѝ“',
-				help: 'Когато се ползва като местоимение, „й“ трябва да се изписва '
-					+ 'като „ѝ“ с ударение.'
-			});
-		} else {
-			// todo: check spelling
-		}
+		a[i] = {
+			start: m.start + 1,
+			end: m.end - 1,
+			replacement: 'ѝ',
+			name: 'й→ѝ',
+			description: 'Промени „й“ на „ѝ“',
+			help: 'Когато се ползва като местоимение, „й“ трябва да се изписва '
+				+ 'като „ѝ“ с ударение.'
+		};
 	}
-	return b;
+	return a;
 });
 
 ct.rules.push(function (s) {
