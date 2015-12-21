@@ -1147,8 +1147,3 @@ pre.source-lua {
 	background-position: top;
 	background-repeat: repeat;
 }
-
-/* Temporary logo for 200 000 articles  */
-#p-logo a, #p-logo a:hover {
-background: url("//upload.wikimedia.org/wikipedia/commons/3/3b/Wikipedia_logo_v1_bg_200_000_v3.png") 35% 50% no-repeat !important;
-}
