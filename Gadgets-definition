@@ -32,6 +32,7 @@
 * quicklinks[ResourceLoader]|quicklinks.js
 * HideFundraisingNotice|HideFundraisingNotice.css
 * BKL[ResourceLoader]|HighlightDisambigLinks.css
+* quickeditcounter[ResourceLoader|dependencies=mediawiki.api,mediawiki.util]|quickeditcounter.js
 
 == patrol-gadgets ==
 * Quick patrol[ResourceLoader]|Quick patrol.js
