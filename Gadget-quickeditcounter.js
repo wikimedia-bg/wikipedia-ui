@@ -1,3 +1,4 @@
+// Преработена версия от https://www.wikidata.org/wiki/MediaWiki:Gadget-quickeditcounter.js
 window.qecGadget = {
 	init: function () {
 		if (mw.config.get('wgNamespaceNumber') !== 2 && mw.config.get('wgNamespaceNumber') !== 3 ) return;
@@ -26,12 +27,12 @@ window.qecGadget = {
 		});
 	},
 
-	showResults: function ( data ) {
+	showResults: function (data) {
 		data = data.query.users[0];
 		if (!data || data.name !== this.username || data.invalid || data.editcount === undefined) return;
 
 		var firstHeading;
-		var headers = document.getElementsByTagName( 'h1' );
+		var headers = document.getElementsByTagName('h1');
 
 		for (var i = 0; i < headers.length; i++) {
 			var header = headers[i];
@@ -49,7 +50,7 @@ window.qecGadget = {
 			project: mw.config.get('wgServerName')
 		} );
 			
-		var html = data.gender === 'female' ? 'Потребителят е направил' : 'Потребителката е направила';
+		var html = data.gender === 'female' ?  'Потребителката е направила' : 'Потребителят е направил';
 		html += ' <a href="' + url + '">' + data.editcount + '</a> редакции.';
 
 		var div = document.createElement('div');
