@@ -5,20 +5,16 @@ window.qecGadget = {
 		if (mw.util.getParamValue('printable') === 'yes') return;
 
 		this.username = mw.config.get('wgTitle').replace(/\/.*$/, '');
-
 		var that = this;
-
-		var request = {
+		
+		var api = new mw.Api();
+		api.get({
 			action: 'query',
 			list: 'users',
 			usprop: 'editcount|gender',
 			ususers: this.username,
 			requestid: new Date().getTime()
-		};
-		var api = new mw.Api();
-
-		api.get(request)
-		.done(function (result) {
+		}).done(function (result) {
 			if (result) {
 				jQuery(document).ready(function () {
 					that.showResults(result);
@@ -49,9 +45,16 @@ window.qecGadget = {
 			user: this.username,
 			project: mw.config.get('wgServerName')
 		} );
-			
+
+		function format(num){
+		    var n = num.toString(), p = n.indexOf('.');
+		    return n.replace(/\d(?=(?:\d{3})+(?:\.|$))/g, function($0, i){
+		        return p<0 || i<p ? ($0+',') : $0;
+		   });
+		}
+
 		var html = data.gender === 'female' ?  'Потребителката е направила' : 'Потребителят е направил';
-		html += ' <a href="' + url + '">' + data.editcount + '</a> редакции.';
+		html += ' <a href="' + url + '">' + format(data.editcount) + '</a> редакции.';
 
 		var div = document.createElement('div');
 		div.style.cssText = 'font-size:0.5em;line-height:1em';
