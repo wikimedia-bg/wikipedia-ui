@@ -35,7 +35,25 @@ sup {vertical-align: baseline; font-size: 0.8em; position: relative; top: -0.4em
 /* подравняване на текста в таблицата нагоре */
 .nagore tbody { vertical-align:top; }
 
+/*
+Sitenotice
+https://www.mediawiki.org/wiki/Manual:Interface/Sitenotice
+*/
+
 #siteNotice { padding: 0.3em; text-align: center; margin-bottom: 0.5em; }
+
+/* Override ext.dismissableSiteNotice.css so that the local sitenotice fills the whole space.
+Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNotice.git/master/modules */
+.mw-dismissable-notice-body {
+	margin: auto !important;
+}
+
+/* Extend ext.dismissableSiteNotice.css to position the 'dismiss' link in the
+upper right corner of the now expanded local sitenotice. */
+.mw-dismissable-notice-close {
+	margin-top: 3px;
+	margin-right: 8px;
+}
 
 /* текста, отбелязващ нова страница в последните промени [[МедияУики:Newpageletter]] */
 .newpage { color: black; background-color: yellow; }
