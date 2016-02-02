@@ -42,14 +42,13 @@ https://www.mediawiki.org/wiki/Manual:Interface/Sitenotice
 
 #siteNotice { padding: 0.3em; text-align: center; margin-bottom: 0.5em; }
 
-/* Override ext.dismissableSiteNotice.css so that the local sitenotice fills the whole space.
+/* Локалният Sitenotice изпълва цялото пространство на страницата.
 Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNotice.git/master/modules */
 .mw-dismissable-notice-body {
 	margin: auto !important;
 }
 
-/* Extend ext.dismissableSiteNotice.css to position the 'dismiss' link in the
-upper right corner of the now expanded local sitenotice. */
+/* Разширяване на ext.dismissableSiteNotice.css до позициониране на линка 'скриване' в горния десен ъгъл на разширения локален Sitenotice. */
 .mw-dismissable-notice-close {
 	margin-top: 3px;
 	margin-right: 8px;
@@ -724,7 +723,7 @@ cite:target {
 	margin-bottom: 0;
 }
 
-/* Default style for navigation boxes */
+/* Стил по подразбиране на навигационните шаблони */
 .navbox {					 /* Navbox container style */
 	border: 1px solid #aaa;
 	width: 100%;
