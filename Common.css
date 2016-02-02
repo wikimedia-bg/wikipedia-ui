@@ -42,7 +42,7 @@ https://www.mediawiki.org/wiki/Manual:Interface/Sitenotice
 
 #siteNotice { padding: 0.3em; text-align: center; margin-bottom: 0.5em; }
 
-/* Локалният Sitenotice изпълва цялото пространство на страницата.
+/* Локалният Sitenotice изпълва цялата ширина на страницата.
 Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNotice.git/master/modules */
 .mw-dismissable-notice-body {
 	margin: auto !important;
@@ -178,7 +178,7 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	font-family /**/:inherit;
 }
 
-/* Messagebox templates */
+/* Шаблони за Messagebox */
 .messagebox {
 	border: 1px solid #aaaaaa;
 	background-color: #f9f9f9;
@@ -201,7 +201,7 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	background-color: #f8eaba;
 }
 
-/* Infobox template */
+/* Шаблон Infobox */
 .infobox {
 	border: 1px solid #aaaaaa;
 	background-color: #f9f9f9;
