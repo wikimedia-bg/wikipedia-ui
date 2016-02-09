@@ -178,29 +178,6 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	font-family /**/:inherit;
 }
 
-/* Шаблони за Messagebox */
-.messagebox {
-	border: 1px solid #aaaaaa;
-	background-color: #f9f9f9;
-	width: 80%;
-	margin: 0 auto 1em auto;
-	padding: .2em .5em;
-}
-.messagebox.merge {
-	border: 1px solid #c0b8cc;
-	background-color: #f0e5ff;
-	text-align: center;
-}
-.messagebox.cleanup {
-	border: 1px solid #9f9fff;
-	background-color: #efefff;
-	text-align: center;
-}
-.messagebox.standard-talk {
-	border: 1px solid #c0c090;
-	background-color: #f8eaba;
-}
-
 /* Шаблон Infobox */
 .infobox {
 	border: 1px solid #aaaaaa;
@@ -428,23 +405,47 @@ cite:target {
 	color: #8B0000; /* darkred */
 }
 
+/* Шаблони за Messagebox */
+.messagebox {
+	border: 1px solid #aaaaaa;
+	background-color: #f9f9f9;
+	width: 80%;
+	margin: 0 auto 1em auto;
+	padding: .2em;
+}
+.messagebox.merge {
+	border: 1px solid #c0b8cc;
+	background-color: #f0e5ff;
+	text-align: center;
+}
+.messagebox.cleanup {
+	border: 1px solid #9f9fff;
+	background-color: #efefff;
+	text-align: center;
+}
+.messagebox.standard-talk {
+	border: 1px solid #c0c090;
+	background-color: #f8eaba;
+	margin: 4px auto;
+}
+
 /* Cell sizes for ambox/tmbox/imbox/cmbox/ombox/fmbox/dmbox message boxes */
-.mbox-text {     /* The message body cell(s) */
+.mbox-text {     				/* The message body cell(s) */
     border: none;
-    padding: 0.25em 0.9em;       /* 0.9em left/right */
-    width: 100%;    /* Make all mboxes the same width regardless of text length */
+    padding: 0.25em 0.9em;    	/* 0.9em left/right */
+    width: 100%;    			/* Make all mboxes the same width regardless of text length */
 }
-.mbox-image {                  /* The left image cell */
+.mbox-image {                  	/* The left image cell */
     border: none;
-    padding: 2px 0 2px 0.9em;    /* 0.9em left, 0px right */
+    padding: 2px 0 2px 0.9em;  	/* 0.9em left, 0px right */
     text-align: center;
 }
-.mbox-imageright {             /* The right image cell */
+.mbox-imageright {          	/* The right image cell */
     border: none;
-    padding: 2px 0.9em 2px 0;    /* 0px left, 0.9em right */
+    padding: 2px 0.9em 2px 0;  	/* 0px left, 0.9em right */
     text-align: center;
 }
-.mbox-empty-cell {         /* An empty narrow cell */
+.mbox-empty-cell {         		/* An empty narrow cell */
     border: none;
     padding: 0px;
     width: 1px;
@@ -487,11 +488,150 @@ cite:target {
 .ambox-merge {
     border-left: 10px solid #9932cc;    /* Purple */
 }
-.ambox-stub,
+.ambox-stub {
+    border-left: 10px solid #c0c090;    /* Gray-brown */
+}
 .ambox-protection {
     border-left: 10px solid #bba;       /* Gray-gold */
 }
 
+/* Image message box styles */
+.imbox {
+    margin: 4px 10%;
+    border-collapse: collapse;
+    border: 3px solid #1e90ff;    /* Default "notice" blue */
+    background: #fbfbfb;
+}
+.imbox .mbox-text .imbox {  	  /* For imboxes inside imbox-text cells. */
+    margin: 0 -0.5em;   		  /* 0.9 - 0.5 = 0.4em left/right.        */
+    display: block;    			  /* Fix for webkit to force 100% width.  */
+}
+.mbox-inside .imbox {       	  /* For imboxes inside other templates.  */
+    margin: 4px;
+}
+
+.imbox-notice {
+    border: 3px solid #1e90ff;    /* Blue */
+}
+.imbox-delete,
+.imbox-serious {
+    border: 3px solid #b22222;    /* Red */
+}
+.imbox-content {
+    border: 3px solid #f28500;    /* Orange */
+}
+.imbox-style {
+    border: 3px solid #f4c430;    /* Yellow */
+}
+.imbox-move,
+.imbox-merge {
+    border: 3px solid #9932cc;    /* Purple */
+}
+.imbox-protection {
+    border: 3px solid #bba;       /* Gray-gold */
+}
+.imbox-license {
+    border: 3px solid #88a;       /* Dark gray */
+    background: #f7f8ff;          /* Light gray */
+}
+.imbox-featured {
+    border: 3px solid #cba135;    /* Brown-gold */
+}
+
+/* Category message box styles */
+.cmbox {
+    margin: 3px 10%;
+    border-collapse: collapse;
+    border: 1px solid #aaa;
+    background: #DFE8FF;          /* Default "notice" blue */
+}
+
+.cmbox-notice {
+    background: #D8E8FF;		  /* Blue */
+}
+.cmbox-delete,
+.cmbox-serious {
+    background: #FFDBDB;    	  /* Red */
+}
+.cmbox-content {
+    background: #FFE7CE;    	  /* Orange */
+}
+.cmbox-style {
+    background: #FFF9DB;		  /* Yellow */
+}
+.cmbox-move,
+.cmbox-merge {
+    background: #E4D8FF;		  /* Purple */
+}
+.cmbox-protection {
+    background: #EFEFE1;		  /* Gray-gold */
+}
+
+/* Talk page message box styles */
+.tmbox {
+    margin: 4px 10%;
+    border-collapse: collapse;
+    border: 1px solid #c0c090;    /* Default "notice" gray-brown */
+    background: #f8eaba;
+}
+.mediawiki .mbox-inside .tmbox { /* For tmboxes inside other templates. The "mediawiki" class ensures that */
+    margin: 2px 0;               /* this declaration overrides other styles (including mbox-small above)   */
+    width: 100%;                 /* For Safari and Opera */
+}
+.mbox-inside .tmbox.mbox-small { /* "small" tmboxes should not be small when  */
+    line-height: 1.5em;          /* also "nested", so reset styles that are   */
+    font-size: 100%;             /* set in "mbox-small" above.                */
+}
+
+.tmbox-delete,
+.tmbox-serious {
+    border: 2px solid #b22222;    /* Red */
+}
+.tmbox-content {
+    border: 2px solid #f28500;    /* Orange */
+}
+.tmbox-style {
+    border: 2px solid #f4c430;    /* Yellow */
+}
+.tmbox-move,
+.tmbox-merge {
+    border: 2px solid #9932cc;    /* Purple */
+}
+.tmbox-protection,
+.tmbox-notice {
+    border: 1px solid #c0c090;    /* Gray-brown */
+}
+
+/* Other pages message box styles */
+.ombox {
+    margin: 4px 10%;
+    border-collapse: collapse;
+    border: 1px solid #aaa;       /* Default "notice" gray */
+    background: #f9f9f9;
+}
+
+.ombox-notice {
+    border: 1px solid #aaa;       /* Gray */
+}
+.ombox-delete,
+.ombox-serious {
+    border: 2px solid #b22222;    /* Red */
+}
+.ombox-content {
+    border: 1px solid #f28500;    /* Orange */
+}
+.ombox-style {
+    border: 1px solid #f4c430;    /* Yellow */
+}
+.ombox-move,
+.ombox-merge {
+    border: 1px solid #9932cc;    /* Purple */
+}
+.ombox-protection {
+    border: 2px solid #bba;       /* Gray-gold */
+}
+
+/* Footer and header message box styles */
 .fmbox {
     clear: both;
     margin: 0.2em 0;
