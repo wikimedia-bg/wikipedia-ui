@@ -359,9 +359,13 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	line-height:1em;
 }
 
-.geo-geo-dec .geo-dec, .geo-geo-dms .geo-dms {display:inline}
-.geo-geo-dec .geo-dms, .geo-geo-dms .geo-dec, .geo-multi-punct {display:none}
-.geo-lat, .geo-lon {white-space:nowrap}
+/* Geographical coordinates defaults. See [[:en:Template:Coord/link]]
+   for how these are used. The classes "geo", "longitude", and
+   "latitude" are used by the [[:en:Geo microformat]]. */
+   
+.geo-default, .geo-dms, .geo-dec  { display: inline; }
+.geo-nondefault, .geo-multi-punct { display: none; }
+.longitude, .latitude             { white-space: nowrap; }
 
 
 .references { font-size: 85%;}
