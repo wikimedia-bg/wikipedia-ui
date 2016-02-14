@@ -359,10 +359,11 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	line-height:1em;
 }
 
+.geo-default  { display: inline; }
+.geo-nondefault, .geo-multi-punct { display: none; }
 .geo-geo-dec .geo-dec, .geo-geo-dms .geo-dms {display:inline}
-.geo-geo-dec .geo-dms, .geo-geo-dms .geo-dec, .geo-multi-punct {display:none}
+.geo-geo-dec .geo-dms, .geo-geo-dms .geo-dec {display:none}
 .geo-lat, .geo-lon {white-space:nowrap}
-
 
 .references { font-size: 85%;}
 
