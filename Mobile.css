@@ -19,3 +19,7 @@
 .fancy-btn:hover {
 	text-decoration: underline;
 }
+
+.geo-nondefault, .geo-multi-punct { display: none; }
+.geo-default, .geo-dms, .geo-dec { display: inline; }
+.longitude, .latitude { white-space: nowrap; }
