@@ -34,7 +34,7 @@ var QuickDiff = {
         function mkRollbkLink(n) {
             var links = [ {}
                         , { label: 'добро', info: 'Отмяна с резюме за добронамерени редакции' }
-                        , { label: 'с резюме', info: 'Отмяна с ръчно въведено резюме' }
+                        , { label: 'с коментар', info: 'Отмяна с ръчно въведен коментар в резюмето' }
                         ];
             var link = links[n];
             return $('<a href="#' + link.info + '" title="' + link.info + '">' + link.label + '</a>')
