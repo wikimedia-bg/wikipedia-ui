@@ -62,11 +62,13 @@ var QuickDiff = {
         var href = $rollbkLink.attr('href');
         var title = (href.match(/(?:\?|&)title=([^&]*)(&|$)/) || ['', ''])[1];
         var user = (href.match(/(?:\?|&)from=([^&]*)(&|$)/) || ['', ''])[1];
-        var userDecoded = decodeURIComponent(user);
+        var $userLink = $('.diff-ntitle .mw-userlink');
+        var userTalkPage = 'Потребител беседа:' + $userLink.text();
+        var userLinkAddr = ( $userLink.hasClass('mw-anonuserlink') ? $userLink.attr('title') : 'Потребител:' + $userLink.text() );
         if (summary)
             summary = 'Премахнати ' + (summary == 1 ? '[[У:ДОБРО|добронамерени]] ' : '')
-                    + 'редакции на [[Потребител:' + userDecoded + '|' + userDecoded
-                    + ']] ([[Потребител беседа:' + userDecoded + '|б.]])'
+                    + 'редакции на [[' + userLinkAddr + '|' + $userLink.text()
+                    + ']] ([[' + userTalkPage + '|б.]])'
                     + (typeof summary == 'string' ? ': ' + summary : '');
         var rollbkUrl = 'https://bg.wikipedia.org/w/api.php?action=rollback&title='
                           + title + '&user=' + user + '&format=json'
