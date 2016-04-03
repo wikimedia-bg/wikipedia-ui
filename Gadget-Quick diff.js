@@ -50,7 +50,7 @@ var QuickDiff = {
 		});
 
         if (mw.config.get('wgContentLanguage') == 'bg') {
-            $('.mw-rollback-link').before('<br/>');
+            $('#quickdiff .mw-rollback-link').before('<br/>');
             var $afterSpan = $('<span class="afterRollbkLink"/>').append(': ').append( mkRollbkLink(1) )
                              .append(', ').append( mkRollbkLink(2) );
             $rollbkLink.after($afterSpan);
