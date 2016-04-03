@@ -37,3 +37,4 @@
 == patrol-gadgets ==
 * Quick patrol[ResourceLoader]|Quick patrol.js
 * Quick diff[ResourceLoader]|Quick diff.js
+* Quick rollback[ResourceLoader]|Quick rollback.js
