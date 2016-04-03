@@ -30,7 +30,75 @@ var QuickDiff = {
 		if (mw.ext && mw.ext.Patroller) {
 			new mw.ext.Patroller.bulk(new mw.ext.Patroller.quick()).enable($link[0].href);
 		}
+
+        function mkRollbkLink(n) {
+            var links = [ {}
+                        , { label: 'добро', info: 'Отмяна с резюме за добронамерени редакции' }
+                        , { label: 'с резюме', info: 'Отмяна с ръчно въведено резюме' }
+                        ];
+            var link = links[n];
+            return $('<a href="#' + link.info + '" title="' + link.info + '">' + link.label + '</a>')
+                   .click(function (e) {
+                       e.preventDefault();
+                       QuickDiff.rollbk(n);
+                   });
+        }
+
+		var $rollbkLink = QuickDiff.$rollbkLink = $('#quickdiff .mw-rollback-link a').click(function (e) {
+    		e.preventDefault();
+    		QuickDiff.rollbk();
+		});
+
+        if (mw.config.get('wgContentLanguage') == 'bg') {
+            $('.mw-rollback-link').before('<br/>');
+            var $afterSpan = $('<span class="afterRollbkLink"/>').append(': ').append( mkRollbkLink(1) )
+                             .append(', ').append( mkRollbkLink(2) );
+            $rollbkLink.after($afterSpan);
+        }
 	},
+
+    rollbkWithToken: function(token, summary) {
+        var $rollbkLink = QuickDiff.$rollbkLink.addClass('working');
+        var href = $rollbkLink.attr('href');
+        var title = (href.match(/(?:\?|&)title=([^&]*)(&|$)/) || ['', ''])[1];
+        var user = (href.match(/(?:\?|&)from=([^&]*)(&|$)/) || ['', ''])[1];
+        var userDecoded = decodeURIComponent(user);
+        if (summary)
+            summary = 'Премахнати ' + (summary == 1 ? '[[У:ДОБРО|добронамерени]] ' : '')
+                    + 'редакции на [[Потребител:' + userDecoded + '|' + userDecoded
+                    + ']] ([[Потребител беседа:' + userDecoded + '|б.]])'
+                    + (typeof summary == 'string' ? ': ' + summary : '');
+        var rollbkUrl = 'https://bg.wikipedia.org/w/api.php?action=rollback&title='
+                          + title + '&user=' + user + '&format=json'
+                          + (summary ? '&summary=' + encodeURIComponent(summary) : '');
+        $.post(rollbkUrl, {token: token}, function (resp) {
+              var error = resp.error && resp.error.info;
+              if (error) { $rollbkLink.removeClass('working'); alert(error); }
+              else {
+                  $rollbkLink.replaceWith($('<span class="done">' + $rollbkLink.text() + '</span>'));
+                  $('.afterRollbkLink').remove();
+              }
+        });
+    },
+
+    rollbk: function(summary) {
+        var link = QuickDiff.$rollbkLink;
+		if (!link[0]) return;
+        if (summary == 2) {
+            summary = prompt('Въведете коментар за отмяната:');
+            if (!summary) return;
+        }
+        link.addClass('working');
+        $.getJSON('https://bg.wikipedia.org/w/api.php?action=query&meta=tokens&type=rollback&format=json',
+                  function (resp) {
+            var token = resp && resp.query && resp.query.tokens && resp.query.tokens.rollbacktoken;
+            if (token) QuickDiff.rollbkWithToken(token, summary);
+            else { // no token in response for some reason
+                QuickDiff.$rollbkLink.removeClass('working');
+                QuickDiff.$rollbkLink.attr('target', '_blank')[0].click();
+            }
+        });
+    },
 
 	viewWindow: null,
 
