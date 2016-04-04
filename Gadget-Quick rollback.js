@@ -55,8 +55,15 @@ mw.ext.QuickRollback = {
                           + (summary ? '&summary=' + encodeURIComponent(summary) : '');
 
         $.post(rollbkUrl, {token: token}, function (resp) {
-              var error = resp.error && resp.error.info;
-              if (error) { $link.removeClass('working'); alert(error); }
+              var error = resp.error;
+              var msgs = {
+              	  'onlyauthor': 'Последният редактор е и единствен автор на страницата.\nНе може да бъде извършена отмяна на редакциите.',
+              	  'alreadyrolled': 'Редакциите веча са били отменени.'
+              };
+              if (error) {
+              	   $link.removeClass('working');
+              	   alert( msgs[error.code] || error.info );
+              }
               else {
                   $rollbkLink.parent().find('.quickRollbackLinks').remove();
                   $rollbkLink.replaceWith($('<span class="done">' + $rollbkLink.text() + '</span>'));
