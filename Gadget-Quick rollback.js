@@ -36,28 +36,24 @@ mw.ext.QuickRollback = {
     rollbkWithToken: function ($link, token, summary) {
         var $rollbkLink = $link.closest('.mw-rollback-link').children('a').first();
         var href = $rollbkLink.attr('href');
-        var title = (href.match(/(?:\?|&)title=([^&]*)(&|$)/) || ['', ''])[1];
-        var user = (href.match(/(?:\?|&)from=([^&]*)(&|$)/) || ['', ''])[1];
-        var $userLink = $rollbkLink.parent().prevAll('a.mw-userlink');
-        var userDecoded = decodeURIComponent(user);
-        var userTalkPage = 'Потребител беседа:' + userDecoded;
-        var userLinkAddr = ( $userLink.hasClass('mw-anonuserlink')
-                           ? $userLink.attr('title')
-                           : 'Потребител:' + userDecoded );
+        var titleEncoded = (href.match(/(?:\?|&)title=([^&]*)(&|$)/) || ['', ''])[1];
+        var userEncoded = (href.match(/(?:\?|&)from=([^&]*)(&|$)/) || ['', ''])[1];
+        var user = decodeURIComponent(userEncoded);
         var goodFaithLink = $link.hasClass('quickRollback_good');
         if (summary || goodFaithLink)
             summary = 'Премахнати ' + (goodFaithLink ? '[[У:ДОБРО|добронамерени]] ' : '')
-                    + 'редакции на [[' + userLinkAddr + '|' + userDecoded
-                    + ']] ([[' + userTalkPage + '|б.]])'
+                    + '[[Special:Contributions/' + user + '|редакции на ' + user
+                    + ']] ([[User talk:' + user + '|б.]])'
                     + (typeof summary == 'string' ? ': ' + summary : '');
         var rollbkUrl = 'https://bg.wikipedia.org/w/api.php?action=rollback&title='
-                          + title + '&user=' + user + '&format=json'
+                          + titleEncoded + '&user=' + userEncoded + '&format=json'
                           + (summary ? '&summary=' + encodeURIComponent(summary) : '');
 
         $.post(rollbkUrl, {token: token}, function (resp) {
               var error = resp.error;
               var msgs = {
-              	  'onlyauthor': 'Последният редактор е и единствен автор на страницата.\nНе може да бъде извършена отмяна на редакциите.',
+              	  'onlyauthor': 'Последният редактор е и единствен автор на страницата.\n'
+                              + 'Не може да бъде извършена отмяна на редакциите.',
               	  'alreadyrolled': 'Редакциите веча са били отменени.'
               };
               if (error) {
