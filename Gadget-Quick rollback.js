@@ -37,7 +37,7 @@ mw.ext.QuickRollback = {
         var $rollbkLink = $link.closest('.mw-rollback-link').children('a').first();
         var href = $rollbkLink.attr('href');
         var titleEncoded = (href.match(/(?:\?|&)title=([^&]*)(&|$)/) || ['', ''])[1];
-        var userEncoded = (href.match(/(?:\?|&)from=([^&]*)(&|$)/) || ['', ''])[1];
+        var userEncoded = (href.match(/(?:\?|&)from=([^&]*)(&|$)/) || ['', ''])[1].replace(/\+/g, ' ');
         var user = decodeURIComponent(userEncoded);
         var goodFaithLink = $link.hasClass('quickRollback_good');
         if (summary || goodFaithLink)
