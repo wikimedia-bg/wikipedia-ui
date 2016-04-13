@@ -6,6 +6,7 @@ mw.ext = mw.ext || {};
 // $('body').off("click", ".mw-rollback-link a");
 
 mw.ext.QuickRollback = {
+	gadgetName: 'Бързо отменяне',
 
     mkRollbkLink: function (n) {
         var links = [ {}
@@ -54,11 +55,15 @@ mw.ext.QuickRollback = {
               var msgs = {
               	  'onlyauthor': 'Последният редактор е и единствен автор на страницата.\n'
                               + 'Не може да бъде извършена отмяна на редакциите.',
-              	  'alreadyrolled': 'Редакциите веча са били отменени.'
+              	  'alreadyrolled': 'Редакциите веча са били отменени.',
+              	  'editconflict': 'Конфликт на редакциите' // Edit conflict detected
               };
               if (error) {
+              	   if (error.code == 'editconflict' && !$link[0])
+              	       return; // user probably clicked the link twice
               	   $link.removeClass('working');
-              	   alert( msgs[error.code] || error.info );
+              	   alert( mw.ext.QuickRollback.gadgetName
+              	        + ':\n' + (msgs[error.code] || error.info) );
               }
               else {
                   $rollbkLink.parent().find('.quickRollbackLinks').remove();
@@ -74,7 +79,7 @@ mw.ext.QuickRollback = {
             summary = prompt('Въведете коментар за отмяната:');
             if (!summary) return;
         }
-        $link.addClass('working');
+        $link.addClass('working'); // TODO: disable link
         $.getJSON('https://bg.wikipedia.org/w/api.php?action=query&meta=tokens&type=rollback&format=json',
                   function (resp) {
             var token = resp && resp.query && resp.query.tokens && resp.query.tokens.rollbacktoken;
