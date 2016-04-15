@@ -79,6 +79,9 @@ mw.ext.QuickRollback = {
             summary = prompt('Въведете коментар за отмяната:');
             if (!summary) return;
         }
+        else if (window.quickRollback_confirm) {
+        	if ( !confirm('Отмяна?') ) return;
+        }
         $link.addClass('working'); // TODO: disable link
         $.getJSON('https://bg.wikipedia.org/w/api.php?action=query&meta=tokens&type=rollback&format=json',
                   function (resp) {
