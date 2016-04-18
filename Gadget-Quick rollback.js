@@ -3,7 +3,7 @@
 mw.ext = mw.ext || {};
 
 // $('.quickRollbackLinks').remove();
-// $('body').off("click", ".mw-rollback-link a");
+// $('body').off("click.QuickRollback", ".mw-rollback-link a");
 
 mw.ext.QuickRollback = {
 	gadgetName: 'Бързо отменяне',
@@ -30,8 +30,7 @@ mw.ext.QuickRollback = {
         $rollbkLinks.each(function (i, link) {
             $(link).after($afterSpan.clone());
         });
-        if ($link) $link.click(onClick);
-        else $("body").on("click", ".mw-rollback-link a", onClick);
+        if (!$link) $("body").on("click.QuickRollback", ".mw-rollback-link a", onClick);
     },
 
     rollbkWithToken: function ($link, token, summary) {
