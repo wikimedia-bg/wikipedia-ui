@@ -31,9 +31,7 @@ var QuickDiff = {
 			new mw.ext.Patroller.bulk(new mw.ext.Patroller.quick()).enable($link[0].href);
 		}
 		if (mw.ext && mw.ext.QuickRollback) {
-			var $rollbackLinkSpan = $('#quickdiff .mw-rollback-link');
-			$rollbackLinkSpan.before('<br/>');
-			mw.ext.QuickRollback.enable($rollbackLinkSpan.find('a'));
+			$('#quickdiff .mw-rollback-link').before('<br/>');
 		}
 	},
 
