@@ -157,7 +157,7 @@ ct.rules.push(function (s) {
     end = end - spacesRemoved1;
 
     // Remove double spaces
-    replacement = replacement.replace(/([^\s])( {2,})(?=[^ =]|==)/g, function (m, $1, $2, index, s) {
+    replacement = replacement.replace(/([^\s])([ \u00a0]{2,})(?=[^ =]|==)/g, function (m, $1, $2, index, s) {
         var repl;
         if ( doNotFixSpaces(s, index, sourceTagRE) || doNotFixSpaces(s, index, preTagRE) ) {
             repl = m;
