@@ -214,7 +214,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var re = /[^\d\wА-я–-](\d+|\[\[\d\]\])(?:-|\u2014|--|\u2013)(\d+|\[\[\d\]\]|\?|\.{3}|…)[^\d\wА-я–-]/g;
+	var re = /[^\d\wА-я–-](\d+|\[\[\d+\]\])(?:-|\u2014|--|\u2013)(\d+|\[\[\d+\]\]|\?|\.{3}|…)[^\d\wА-я–-]/g;
     // U+2014 is mdash, U+2013 is ndash
 	re = ct.fixRegExp(re);
 	var a = ct.getAllMatches(re, s);
