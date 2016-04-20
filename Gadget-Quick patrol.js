@@ -117,9 +117,10 @@ mw.ext.Patroller.bulk = function(quick) {
 	};
 
 	my.addBulkDiffLinkTo = function($holder, diff, extraParams) {
+		var oldid = (document.domain == 'bg.wikipedia.org' ? '7259813' : diff);
 		$holder.html($holder.html().replace(
 			new RegExp(mw.msg("nchanges")),
-			'<a href="' + mw.config.get('wgScript') + "?diff=" + diff + "&oldid=" + diff + extraParams
+			'<a href="' + mw.config.get('wgScript') + "?diff=" + diff + "&oldid=" + oldid + extraParams
 				+ '" class="' + my.bulkDiffLinkClass + '">$&</a>'));
 	};
 
