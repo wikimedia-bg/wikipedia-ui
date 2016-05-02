@@ -1,0 +1,86 @@
+#cat_a_lot
+{
+	bottom: 0;
+	display: block;
+	position: fixed;
+	right: 0;
+	z-index: 100;
+	padding: 5px;
+	-moz-box-shadow: 0 2px 4px rgba(0,0,0,0.5); 
+	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+	box-shadow: 0 2px 4px rgba(0,0,0,0.5); 
+	background-color: #FBFCC7;
+	background: -moz-linear-gradient(top, rgba(251, 252, 209, 0.9), #FBFCC7);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(251, 252, 209, 0.9)), to(#FBFCC7));
+}
+#cat_a_lot_data, #cat_a_lot_mark_counter
+{
+	display: none;
+}
+#cat_a_lot_data ul
+{
+	list-style-image: none;
+	list-style-type: none;
+	margin: 0 0 0 5px;
+}
+#cat_a_lot_selections, #cat_a_lot_mark_counter, #cat_a_lot_settings
+{
+	background: url(/w/skins/Vector/images/portal-break.png) no-repeat;
+	padding: 5px;
+}
+#cat_a_lot_remove
+{
+	font-weight: bold;
+	display: block;
+}
+a {
+	cursor:pointer;
+}
+.cat_a_lot_move, .cat_a_lot_action
+{
+	font-weight: bold;
+}
+.cat_a_lot_feedback 
+{
+	border: 1px #A9DE16 solid !important;
+	background: #EAF2CB url(//upload.wikimedia.org/wikipedia/commons/d/de/Ajax-loader.gif) no-repeat 8px 14px !important;
+	padding-left: 2.85em !important;
+	padding-top: 10px !important;
+	font-size: 1.1em !important;
+}
+
+.cat_a_lot_done {
+	background-image: url(//upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Dialog-apply.svg/50px-Dialog-apply.svg.png)!important;
+	background-position: 8px 50% !important;
+	padding-top: 0 !important;
+}
+#cat_a_lot_searchcatname {
+	font-size: 112%;
+	margin: -5px 0 5px -5px;
+	width: 102%;
+}
+.skin-vector #cat_a_lot {
+	font-size: .75em;
+}
+.cat_a_lot_markAsDone {
+	background-color: #BABABA;
+}
+.cat_a_lot_selected
+{
+	background-color: #DF6;
+}
+#cat_a_lot_no_found, #cat_a_lot_last_selected, #cat_a_lot_settings {
+	font-weight:bold;
+}
+#cat_a_lot_last_selected
+{
+	outline:1px dotted #999;
+}
+#cat_a_lot_category_list table
+{
+	width: 100%;
+}
+#cat_a_lot_category_list
+{
+	overflow: auto;
+}
