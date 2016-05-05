@@ -555,7 +555,7 @@ mw.libs.EditToolbar.mkList = function (numbered) {
 
     var $ta = $('#wpTextbox1');
     var sel = $ta.focus().textSelection('getSelection');
-    var lines = sel.replace(/<br\/?>/gi, '\n').replace(/^[ \t]+|[ \t]+$/mg, '')
+    var lines = sel.replace(/<br\/?>/gi, '\n').replace(/^[ \t•]+|[ \t]+$/mg, '')
                    .replace(/(\r?\n)+/g, '\n').split('\n');
     var numLineRE = /^\d+\. */;
     var numSignLineRE = /^# */;
@@ -849,7 +849,7 @@ function zamena_5ko() {
 	while(1)
 	{
 		var old = txt;
-		txt=txt.replace(r, "$1&nbsp;$2");
+		txt=txt.replace(r, "$1\u00a0$2");
 		if(old == txt) break;
 	}
 
@@ -859,7 +859,7 @@ function zamena_5ko() {
 
 	// Край.
 	// Ако е четирицифрено, се пише слято:
-	r=/(\b\d)&nbsp;(\d\d\d(?:[^\d&]|$))/gm;
+	r=/(\b\d)\u00a0(\d\d\d(?:[^\d&]|$))/gm;
 	txt=txt.replace(r, "$1$2");
 
 	// Всичко обратно:
