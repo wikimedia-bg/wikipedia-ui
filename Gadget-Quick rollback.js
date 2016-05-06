@@ -7,6 +7,7 @@ mw.ext = mw.ext || {};
 
 mw.ext.QuickRollback = {
 	gadgetName: 'Бързо отменяне',
+	scriptPath: mw.config.get('wgScriptPath'),
 
     mkRollbkLink: function (n) {
         var links = [ {}
@@ -45,7 +46,7 @@ mw.ext.QuickRollback = {
                     + '[[Special:Contributions/' + user + '|редакции на ' + user
                     + ']] ([[User talk:' + user + '|б.]])'
                     + (typeof summary == 'string' ? ': ' + summary : '');
-        var rollbkUrl = 'https://bg.wikipedia.org/w/api.php?action=rollback&title='
+        var rollbkUrl = mw.ext.QuickRollback.scriptPath + '/api.php?action=rollback&title='
                           + titleEncoded + '&user=' + userEncoded + '&format=json'
                           + (summary ? '&summary=' + encodeURIComponent(summary) : '');
 
@@ -81,8 +82,8 @@ mw.ext.QuickRollback = {
         else if (window.quickRollback_confirm) {
         	if ( !confirm('Отмяна?') ) return;
         }
-        $link.addClass('working'); // TODO: disable link
-        $.getJSON('https://bg.wikipedia.org/w/api.php?action=query&meta=tokens&type=rollback&format=json',
+        $link.addClass('working');
+        $.getJSON(mw.ext.QuickRollback.scriptPath + '/api.php?action=query&meta=tokens&type=rollback&format=json',
                   function (resp) {
             var token = resp && resp.query && resp.query.tokens && resp.query.tokens.rollbacktoken;
             if (token) mw.ext.QuickRollback.rollbkWithToken($link, token, summary);
