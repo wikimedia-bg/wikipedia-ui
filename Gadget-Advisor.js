@@ -245,48 +245,16 @@ ct.rules.push(function (s) {
 	var isSection = editform &&
 		editform['wpSection'] != null &&
 		editform['wpSection'].value != '';
-	// Count spaced and non-spaced headings to find out the majority
-	var counters = {spaced: 0, nonSpaced: 0, unclear: 0};
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
-		counters[(!m[2] && !m[4]) ? 'nonSpaced' : (m[2] && m[4]) ? 'spaced' : 'unclear']++;
-	}
-	var predominantSpacingStyle = 'unclear';
-	var total = counters.spaced + counters.nonSpaced;
-	var threshold = 0.7;
-	if (total >= 3) { // minimum number of headings required for us to judge
-		if (counters.spaced >= threshold * total) {
-			predominantSpacingStyle = 'spaced';
-		} else if (counters.nonSpaced >= threshold * total) {
-			predominantSpacingStyle = 'nonSpaced';
-		}
-	}
-	var titleSet = {}; // a set of title names, will be used to detect duplicates
-	for (var i = 0; i < a.length; i++) {
-		var m = a[i];
-		if (m[2] != m[4]) {
-			var spacer = (predominantSpacingStyle == 'spaced') ? ' ' : (predominantSpacingStyle == 'nonSpaced') ? '' : m[2];
+		if (m[2] != ' ' || m[4] != ' ') {
 			b.push({
 				start: m.start,
 				end: m.end,
-				replacement: m[1] + spacer + m[3] + spacer + m[1],
-				name: 'заглавие',
-				description: 'Поправи интервалите',
-				help: 'Стилът на заглавието трябва да е или '
-					+ "<tt>==&nbsp;С интервали&nbsp;==</tt>, или <tt>==Без интервали==</tt>."
-			});
-		} else if ((m[2] && predominantSpacingStyle == 'nonSpaced') || (!m[2] && predominantSpacingStyle == 'spaced')) {
-			var spacer = m[2] ? '' : ' ';
-			b.push({
-				start: m.start,
-				end: m.end,
-				replacement: m[1] + spacer + m[3] + spacer + m[1],
+				replacement: m[1] + ' ' + m[3] + ' ' + m[1],
 				name: 'заглавие-стил',
-				description: 'Съобрази се с това, че повечето заглавия в тази статия са ' + (m[2] ? 'без' : 'с') + ' интервали',
-				help: 'Има два стила на писане на заглавия в уики-текста: <tt><ul><li>== С интервали ==</li><li>==Без интервали==</li></ul>'
-					+ 'Повечето заглавия в тази статия са '	+ (m[2] ? 'без' : 'със')
-					+ ' (' + counters.spaced + ' срещу ' + counters.nonSpaced + '). '
-					+ 'Препоръчва се да се съобразиш с мнозинството.'
+				description: 'Поправи интервалите',
+				help: 'Стилът на заглавието трябва да е <tt>==&nbsp;С интервали&nbsp;==</tt>.'
 			});
 		}
 		var oldLevel = level;
@@ -298,11 +266,12 @@ ct.rules.push(function (s) {
 				end: m.end,
 				//replacement: h + m[2] + m[3] + m[2] + h,
 				name: 'заглавие-вложеност',
-				description: 'Поправи ръчно неправилната вложеност, провери и следващите подзаглавия',
+				description: 'Поправи ръчно неправилната вложеност, провери ръчно и следващите подзаглавия',
 				help: 'Всяко заглавие трябва да е вложено точно едно ниво под по-общото заглавие.'
 			});
 		}
 		var frequentMistakes = [
+//			{ code: 'външни вр.',  wrong: /^[Вв]ъншни *[Вв]ръзки$/i,   correct: 'Външни препратки' },
 //			{ code: 'see-also',  wrong: /^see *al+so$/i,          correct: 'See also' },
 //			{ code: 'ext-links', wrong: /^external links?$/i,     correct: 'External links' },
 //			{ code: 'refs',      wrong: /^ref+e?r+en(c|s)es?$/i,  correct: 'References' }
@@ -323,17 +292,6 @@ ct.rules.push(function (s) {
 				}
 			}
 		}
-		if (titleSet[m[3]] != null) {
-			b.push({
-				start: m.start + (m[1] || '').length + (m[2] || '').length,
-				end: m.start + (m[1] || '').length + (m[2] || '').length + m[3].length,
-				replacement: null, // we cannot propose anything, it's the editor who has to choose a different title
-				name: 'повторено заглавие',
-				description: 'Повтарящите се заглавия трябва да се избягват',
-				help: 'Имената на секциите трябва да са уникални в рамките на статията.'
-			});
-		}
-		titleSet[m[3]] = true;
 	}
 	return b;
 });
