@@ -609,7 +609,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-    var re = /([А-я]+)(\(|\)| ?\( | \) ?)(?=[А-я]+)/g;
+    var re = /([А-я“"]+)(\(|\)| ?\( | \) ?)(?=[А-я\d]+)/g;
     re = ct.fixRegExp(re);
     var a = ct.getAllMatches(re, s);
     for (var i = 0; i < a.length; i++) {
