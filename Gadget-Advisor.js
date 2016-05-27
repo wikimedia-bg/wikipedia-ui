@@ -30,7 +30,7 @@ ct.doNotFix = function (s, m, checkPat1, checkPat2, checkTags, checkFileName) {
         return true;             // likely templates with page-name
 
     if (checkTags !== false) {
-        var nextTagPos = s.slice(pos).search(/<\/?(math|pre|code|tt|source|syntaxhighlight|timeline)\b/i);
+        var nextTagPos = s.slice(pos).search(/<\/?(math|pre|code|tt|source|syntaxhighlight|timeline|graph)\b/i);
         if (nextTagPos >= 0 && s.charAt(pos + nextTagPos + 1) == '/')
             return true;         // don't break a <math> equation, or source code
     }
