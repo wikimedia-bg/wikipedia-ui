@@ -608,23 +608,24 @@ ct.rules.push(function (s) {
     return b;
 });
 
-//ct.rules.push(function (s) {
-//    var re = /([А-я]+)(\(|\)| ?\( | \) ?)(?=[А-я]+)/g;
-//    re = ct.fixRegExp(re);
-//    var a = ct.getAllMatches(re, s);
-//    for (var i = 0; i < a.length; i++) {
-//        var m = a[i];
-//        a[i] = {
-//            start: m.start + m[1].length,
-//            end: m.end,
-//            replacement: m[2].indexOf('(') != -1 ? ' (' : ') ',
-//            name: 'скоба',
-//            description: 'Добави/премахни интервала преди/след отварящата/затварящата скоба',
-//            help: 'Преди отваряща и след затваряща скоба трябва да има интервал. Интервалите са ненужни след отваряща и преди затваряща скоба.'
-//        };
-//    }
-//    return a;
-//});
+ct.rules.push(function (s) {
+    var re = /([А-я]+)(\(|\)| ?\( | \) ?)(?=[А-я]+)/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        if ( ct.doNotFix(s, m) ) continue;
+        a[i] = {
+            start: m.start + m[1].length,
+            end: m.end,
+            // replacement: m[2].indexOf('(') != -1 ? ' (' : ') ', // чупи параметри в Шаблон:ТВ продукция
+            name: 'скоба',
+            description: 'Добави/премахни интервала преди/след отварящата/затварящата скоба',
+            help: 'Преди отваряща и след затваряща скоба трябва да има интервал. Интервалите са ненужни след отваряща и преди затваряща скоба.'
+        };
+    }
+    return a;
+});
 
 ct.rules.push(function (s) {
     var re = /[0-9] (Януари|Февруари|Март|Април|Май|Юни|Юли|Август|Септември|Октомври|Ноември|Декември)[^А-я]/g;
