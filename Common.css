@@ -1321,3 +1321,11 @@ pre.source-lua {
 	background-position: top;
 	background-repeat: repeat;
 }
+
+/* Временно скриване на бутона Upload в меню Мултимедийни настройки на Визуалния редактор, 
+заради нерешен към момента проблем с филтрирането на cross-wiki uploads по език и голямото количество
+нарушения на авторски права, които се качват през връзката  https://phabricator.wikimedia.org/T120867#1876447
+*/
+.ve-ui-mwMediaDialog-panel-search > div > div:nth-of-type(2) > div > div > div:nth-of-type(2) {
+	display: none !important;
+}
