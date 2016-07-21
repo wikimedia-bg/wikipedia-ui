@@ -8,7 +8,7 @@ if ( window.importScript && ! window.jQuery ) {
 	The old image links are disabled.
 	@uses jQuery
 */
-addOnloadHook(function() {
+$(function() {
 	jQuery("div.dynamap").each(function(){
 		var newMap = jQuery(this).clone();
 		var newImg = jQuery("img", newMap).eq(0); // the map image
