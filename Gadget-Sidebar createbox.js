@@ -12,7 +12,7 @@ gLang.addMessages({
 	"action-create" : "Create"
 }, "en");
 
-addOnloadHook(function(){
+$(function(){
 	var psearch = document.getElementById("p-search");
 	if ( ! psearch || skin != "monobook" ) {
 		return;
