@@ -54,5 +54,5 @@ function SpecialSearchEnhanced() {
 var searchEngines = [];
 
 if (wgCanonicalNamespace == "Special" && wgCanonicalSpecialPageName == "Search") {
-  addOnloadHook(SpecialSearchEnhanced);
+  $(SpecialSearchEnhanced);
 }
