@@ -394,7 +394,7 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	var re = /(\[\[[0-9]+\]\]|[0-9]+)( +|&nbsp;)?(г\.|лв\.|щ\.д\.|(мг|кг|мм|см|км|mg|kg|mm|cm|km|m|м|g|г)(?![\w\dА-я]))/g;
-	var autoFix = ['г.', 'лв.', 'щ.д.'];
+	var autofix = ['г.', 'лв.', 'щ.д.'];
 	var a = ct.getAllMatches(re, s);
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
@@ -403,11 +403,12 @@ ct.rules.push(function (s) {
 		var number = m[1]; // може да е оградено с [[ и ]]
 		var spacing = m[2] || '';
 		var unit = m[3];
-		if (spacing !== ' ') {
+		var autofixThis = $.inArray(unit, autofix) > -1;
+		if ( ( autofixThis && spacing !== ' ' ) || ( !autofixThis && spacing == '' ) ) {
 			b.push({
 				start: m.start,
 				end: m.end,
-				replacement: ( $.inArray(unit, autoFix) == -1 ? undefined : number + '\u00a0' + unit),
+				replacement: ( autofixThis ? number + '\u00a0' + unit : undefined ),
 				name: 'число+' + unit,
 				description: 'Добави интервал между числото и ' + unit,
 				help: 'Между число и „' + unit + '“ трябва да се оставя един интервал, '
