@@ -236,7 +236,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var re = /^(?: *)(==+)( *)([^=]*[^= ])( *)\1/gm;
+	var re = /^(==+)( *)([^=]*[^= ])( *)\1/gm;
 	var a = ct.getAllMatches(re, s);
 	var b = [];
 	var level = 0; // == Level 1 ==, === Level 2 ===, ==== Level 3 ====, etc.
@@ -359,6 +359,7 @@ ct.rules.push(function (s) {
 	var a = ct.getAllMatches(re, s);
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
+		if ( ct.doNotFix(s, m) ) continue;
 		a[i] = {
 			start: m.start + 1,
 			end: m.end - 1,
@@ -378,6 +379,7 @@ ct.rules.push(function (s) {
 	var a = ct.getAllMatches(re, s);
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
+		if ( ct.doNotFix(s, m) ) continue;
 		a[i] = {
 			start: m.start,
 			end: m.end,
@@ -391,12 +393,13 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	// год., лв. или щ.д.
-	var re = /(\[\[[0-9]+\]\]|[0-9]+)( +|&nbsp;)?(\u0433\.|\u043b\u0432\.|\u0449\.\u0434\.)/g;
+	var re = /(\[\[[0-9]+\]\]|[0-9]+)( +|&nbsp;)?(г\.|лв\.|щ\.д\.|(мг|кг|мм|см|км|mg|kg|mm|cm|km|m|м|g|г)(?![\w\dА-я]))/g;
+	var autoFix = ['г.', 'лв.', 'щ.д.'];
 	var a = ct.getAllMatches(re, s);
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
+		if ( ct.doNotFix(s, m) ) continue;
 		var number = m[1]; // може да е оградено с [[ и ]]
 		var spacing = m[2] || '';
 		var unit = m[3];
@@ -404,7 +407,7 @@ ct.rules.push(function (s) {
 			b.push({
 				start: m.start,
 				end: m.end,
-				replacement: number + '\u00a0' + unit,
+				replacement: ( $.inArray(unit, autoFix) == -1 ? undefined : number + '\u00a0' + unit),
 				name: 'число+' + unit,
 				description: 'Добави интервал между числото и ' + unit,
 				help: 'Между число и „' + unit + '“ трябва да се оставя един интервал, '
