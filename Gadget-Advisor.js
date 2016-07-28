@@ -214,6 +214,28 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
+	// [^|] - пропусни ако вероятно е за означаване на празна клетка в таблица
+	// не работи при липса на интервал преди цифра защото може да е негативно число
+	// също не работи преди " и" или " или" за случаи като "антропо- и зооморфна пластика"
+	var re = /[^|]([ \u00a0]+|&nbsp;)-[^\s\d-]|[^| \u00a0\n]-(\n| (?!и |или ))/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0, l = a.length; i < l; i++) {
+		var m = a[i];
+		if ( ct.doNotFix(s, m) ) continue;
+		b.push({
+			start: m.start + 1,
+			end: m.end - 1,
+			//replacement: '\u00a0\u2013 ', // U+2013 is an ndash
+			name: 'тире-',
+			description: 'Късо тире с интервал само от едната страна',
+			help: 'Късо тире с интервал само от едната страна вероятно трябва да е средно тире (en dash) с интервали и от двете страни.'
+		});
+	}
+	return b;
+});
+
+ct.rules.push(function (s) {
 	var re = /[^\d\wА-я–-](\d+|\[\[\d+\]\])(?:-|\u2014|--|\u2013)(\d+|\[\[\d+\]\]|\?|\.{3}|…)[^\d\wА-я–-]/g;
     // U+2014 is mdash, U+2013 is ndash
 	re = ct.fixRegExp(re);
