@@ -622,13 +622,7 @@ ct.rules.push(function (s) {
             });
         }
         catch (e) {
-            b.push({
-                start: m.start,
-                end: m.end,
-                name: 'невалиден URL',
-                description: 'Адресът изглежда е невалиден',
-                help: 'Проверете и опитайте да поправите адреса'
-            });
+            // не е кодиран Unicode текст
         }
     }
     return b;
