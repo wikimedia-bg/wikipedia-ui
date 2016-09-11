@@ -1,5 +1,5 @@
-// Българска версия на скрипта Advisor.js,
-// копирана тук от Потребител:Cameltrader/Advisor.js
+// Българска версия на правилата за скрипта Advisor.js
+// Виж МедияУики:Gadget-Advisor-core.js за основния скрипт
 // виж http://en.wikipedia.org/wiki/User:Cameltrader/Advisor.js/Description
 
 var ct = ct || {};
@@ -671,6 +671,6 @@ window.ct = ct;
 
 if ($.inArray(mw.config.get('wgCanonicalNamespace'), ['MediaWiki', 'Template', 'Module']) === -1) {
 	mw.loader.using( 'ext.gadget.Advisor', function () {
-		mw.loader.load('//en.wikipedia.org/w/index.php?title=User:Cameltrader/Advisor.js&action=raw&ctype=text/javascript');
+		mw.loader.load('//bg.wikipedia.org/w/index.php?title=МедияУики:Gadget-Advisor-core.js&action=raw&ctype=text/javascript');
 	});
 }
