@@ -370,7 +370,7 @@ ct.scan = function (force) {
 	// Warn about scanning a talk page
     var wgCanonicalNamespace = mw.config.get('wgCanonicalNamespace');
 	if ((wgCanonicalNamespace != null)
-				&& /_talk$/.test(wgCanonicalNamespace)
+				&& /(^|_)talk$/i.test(wgCanonicalNamespace)
 				&& !ct.isTalkPageScanConfirmed) {
 		ct.eSuggestions.appendChild(document.createTextNode(
 				ct._('Advisor.js is disabled on talk pages, because ' +
