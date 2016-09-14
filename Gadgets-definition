@@ -19,7 +19,7 @@
 * wikEd[ResourceLoader]|wikEd.js
 * HotCat[ResourceLoader]|HotCat.js
 * Cat-a-lot[ResourceLoader|dependencies=mediawiki.util]|Cat-a-lot.js|Cat-a-lot.css
-* Advisor[ResourceLoader]|Advisor.js|Advisor-core.js
+* Advisor[ResourceLoader]|Advisor.js
 * CategoryMaster[ResourceLoader|rights=autopatrol]|CategoryMaster.js
 
 == interface-gadgets ==
