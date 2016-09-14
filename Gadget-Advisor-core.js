@@ -243,6 +243,7 @@ ct.observe(window, 'load', function () {
 	ct.eTextarea = document.getElementById('wpTextbox1');
 	if (ct.eTextarea == null) {
 		// This is not an ``?action=edit'' page
+		console.log('ct.eTextarea is null');
 		return;
 	}
 	ct.eSuggestions = document.createElement('DIV');
