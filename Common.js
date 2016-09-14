@@ -34,6 +34,11 @@ mw.ext.isAction = function(actions) {
 	return $.inArray(mw.config.get('wgAction'), actions) !== -1;
 };
 
+// Calls to setCustomMiscButton() from a personal common.js causes an error in Google Chrome
+window.setCustomMiscButton = window.setCustomMiscButton || function () {
+	console.log('A call to an undefined function setCustomMiscButton(). This message comes from МедияУики:Common.js');
+};
+
 /**
  * Checks whether the current page namespace is one of the given ones
  * @param string|array namespaces
