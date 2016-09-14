@@ -239,11 +239,10 @@ ct.scanTimeoutId = null; // a timeout is set after a keystroke and before
 
 // === int main() ===
 // This is the entry point
-ct.observe(window, 'load', function () {
+ct.entryPoint = function () {
 	ct.eTextarea = document.getElementById('wpTextbox1');
 	if (ct.eTextarea == null) {
 		// This is not an ``?action=edit'' page
-		console.log('ct.eTextarea is null');
 		return;
 	}
 	ct.eSuggestions = document.createElement('DIV');
@@ -266,7 +265,10 @@ ct.observe(window, 'load', function () {
 	wpSummaryLabel.parentNode.insertBefore(ct.eAddToSummary, wpSummaryLabel);
 	ct.scan(); // do a scan now ...
 	ct.observeWikiText(ct.delayScan); // ... and every time the user pauses typing
-});
+};
+
+if (document.readyState == 'complete') ct.entryPoint();
+else ct.observe(window, 'load', ct.entryPoint);
 
 // === Internationalisation ===
 // ct._() is a gettext-style internationalisation helper
