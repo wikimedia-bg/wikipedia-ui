@@ -34,7 +34,11 @@ window.rmCustomButtons = function(allButtons, rmButtons) {
 window.putToolbar = function(rightNow) {
 	var toolbar = $('<div>', {'class': 'custom-toolbar'});
 	var putIt = function() {
-		$("#editform").before(toolbar);
+		var $advisorDiv = $("#advisorSuggestions");
+		if ($advisorDiv.length > 0)
+			$advisorDiv.before(toolbar);
+		else
+			$("#editform").before(toolbar);
 	};
 	if ( window.rightNow ) {
 		putIt();
