@@ -296,11 +296,19 @@ function setupCustomEditTools() {
 	});
 }
 
-$(function() {
+function entryPoint() {
 	mw.loader.using("user", function(){
 		setupCustomEditTools();
 	});
-});
+}
+
+// not to depend on $() so it doesn't break when there are errors in other scripts
+if (document.readyState == 'complete')
+	entryPoint();
+else if (window.addEventListener)
+	window.addEventListener('load', entryPoint, false);
+else
+	window.attachEvent('onload', entryPoint);
 
 function appendCustomButtons(parent) {
 	var buts = $('<div>', { id: "custombuttons" });
