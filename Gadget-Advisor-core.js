@@ -238,7 +238,6 @@ ct.scanTimeoutId = null; // a timeout is set after a keystroke and before
                          // a scan, this variable tracks its id
 
 // === int main() ===
-// This is the entry point
 ct.entryPoint = function () {
 	ct.eTextarea = document.getElementById('wpTextbox1');
 	if (ct.eTextarea == null) {
@@ -266,9 +265,6 @@ ct.entryPoint = function () {
 	ct.scan(); // do a scan now ...
 	ct.observeWikiText(ct.delayScan); // ... and every time the user pauses typing
 };
-
-if (document.readyState == 'complete') ct.entryPoint();
-else ct.observe(window, 'load', ct.entryPoint);
 
 // === Internationalisation ===
 // ct._() is a gettext-style internationalisation helper
@@ -594,6 +590,10 @@ ct.addToSummary = function (summary) {
 	wpSummary.value = summary;
 	ct.eAddToSummary.style.display = 'none';
 };
+
+// This is the entry point
+if (document.readyState == 'complete') ct.entryPoint();
+else ct.observe(window, 'load', ct.entryPoint);
 
 // == Rules ==
 
