@@ -245,6 +245,7 @@ ct.entryPoint = function () {
 		return;
 	}
 	ct.eSuggestions = document.createElement('DIV');
+	ct.eSuggestions.id = 'advisorSuggestions';
 	ct.eSuggestions.style.border = 'dashed #ccc 1px';
 	ct.eSuggestions.style.color = '#888';
 	var e = document.getElementById('editform');
