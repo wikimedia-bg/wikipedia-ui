@@ -1,4 +1,3 @@
-console.log("start loading common.js");
 /** Namespace constants */
 mw.ns = mw.ns || {
 	MEDIA          : -2,
@@ -517,5 +516,3 @@ mw.hook( 'wikipage.content' ).add( createCollapseButtons );
 /* Край на mw.loader.using callback */
 } );
 /* НЕ ДОБАВЯЙТЕ КОМАНДИ ПОД ТОЗИ РЕД */
-
-console.log("end loading common.js");
