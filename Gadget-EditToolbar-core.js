@@ -4,26 +4,6 @@
  * Some functions and arrays are still bound to window for backwards compatibility
  */
 
-window.setCustomInsButton = function(code, left, middle, right, shownText, title) {
-	customInsButtons[code] = [left, middle, right, shownText, title];
-};
-
-window.setCustomMiscButton = function(code, codeToRun, shownText, title) {
-	customMiscButtons[code] = [codeToRun, shownText, title];
-};
-
-window.rmCustomInsButtons = function(rmButtons) {
-	rmCustomButtons(customInsButtons, rmButtons);
-};
-window.rmCustomMiscButtons = function(rmButtons) {
-	rmCustomButtons(customMiscButtons, rmButtons);
-};
-window.rmCustomButtons = function(allButtons, rmButtons) {
-	for (var i = rmButtons.length - 1; i >= 0; i--) {
-		delete( allButtons[ rmButtons[i] ] );
-	}
-};
-
 /**
 	insert an edit toolbar before the textarea.
 	useful for testing user script pages while previewing
@@ -49,11 +29,21 @@ window.putToolbar = function(rightNow) {
 };
 
 mw.libs.EditToolbar = {};
+var self = mw.libs.EditToolbar;
+
+mw.messages.set({
+	"et-addchar": "Вмъкване на знака „$1“",
+	"et-addpref": "Вмъкване на $1",
+	"et-ddmenutitle": "Оттук можете да вмъкнете празен шаблон",
+	"et-ajaxerror": "Шаблонът [[$1]] не можа да бъде зареден."
+});
 
 /* * *   Extra buttons for text insertion   * * */
 
+mw.loader.using("user", function() {
+mw.vars.end();
 // от тези данни ще се генерират допълнителни бутони с insertTags()
-window.customInsButtons = {
+self.customInsButtons = $.extend({
 	// "CODE" : ["LEFT", "MIDDLE", "RIGHT", "SHOWN TEXT", "TITLE"],
 	"b1" : ["#виж [[", "Страница", "]]", "вж", "+команда за пренасочване"],
 	"b2" : ["<code>", "моля, въведете програмен код", "</code>", "<tt>код</tt>", "Текст в равноширок шрифт — обикновено код"],
@@ -79,34 +69,7 @@ window.customInsButtons = {
 	"b23r" : ["["+"[|", "", "]]", "[[&#124;...]]", "+препратка с разделител (курсорът е отдясно на разделителя)"],
 	"b24" : ["["+"[:", "", "]]", "[[:...]]", "+текстова препратка"],
     "linkWithAddrAndLabel" : ["mw.libs.EditToolbar.linkWithAddrAndLabel()", "[[.|.]]",
-                              "Копиране на маркирания текст и като адрес и като надпис в уикипрепратка"]
-};
-
-// cleanup by articles
-if (mw.config.get('wgCanonicalNamespace') === '') {
-	mw.loader.using("mediawiki.toolbar", function() {
-		delete customInsButtons['b14'];
-		delete customInsButtons['b15'];
-		$('#mw-editbutton-signature').hide();
-	});
-}
-
-
-mw.messages.set({
-	"et-addchar": "Вмъкване на знака „$1“",
-	"et-addpref": "Вмъкване на $1",
-	"et-ddmenutitle": "Оттук можете да вмъкнете празен шаблон",
-	"et-ajaxerror": "Шаблонът [[$1]] не можа да бъде зареден."
-});
-
-
-/* * *   Extra buttons for miscelaneous functions   * * */
-
-// името на елемента за допълнителните знаци
-var charsElemId = "extraChars";
-
-// данни за още бутони с код по желание
-window.customMiscButtons = {
+                              "Копиране на маркирания текст и като адрес и като надпис в уикипрепратка"],
 	// "CODE" : ["CODE TO RUN", "SHOWN TEXT", "TITLE"],
     "mkBulletList" : ["mw.libs.EditToolbar.mkList(false)", "*..", "Добавяне на * в началото на всеки ред"],
     "mkNumList" : ["mw.libs.EditToolbar.mkList(true)", "#..", "Добавяне на # в началото на всеки ред"],
@@ -115,7 +78,15 @@ window.customMiscButtons = {
 	"$" : ["mw.libs.EditToolbar.obrabotka(true)", "$", "Преобразуване на числа към БДС"],
 	// допълнителните знаци
 	"ch" : ["mw.libs.EditToolbar.toggleChars()", "Още…", "Виртуална клавиатура"]
-};
+}, mw.vars.get("EditToolbar.buttons"));
+
+// cleanup by articles
+if (mw.config.get('wgCanonicalNamespace') === '') {
+	delete self.customInsButtons.b14;
+	delete self.customInsButtons.b15;
+}
+
+}); // end using("user")
 
 /* * *   Drop down menus for template insertion   * * */
 
@@ -215,6 +186,9 @@ window.atpl2 = window.atpl2 || {
 var tplVarBaseName = "tpl";
 var atplVarBaseName = "atpl";
 
+// името на елемента за допълнителните знаци
+var charsElemId = "extraChars";
+
 var chars = [
        ['А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С',
 	'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ь', 'Ю', 'Я', 'Ы', 'Э', 'а', 'б', 'в', 'г',
@@ -268,7 +242,7 @@ function addChars() {
 	return $chars.html(cont);
 }
 
-mw.libs.EditToolbar.toggleChars = function() {
+self.toggleChars = function() {
 	addChars().toggle();
 };
 
@@ -296,16 +270,14 @@ function setupCustomEditTools() {
 	});
 }
 
-$(function() {
-	mw.loader.using("user", function(){
-		setupCustomEditTools();
-	});
+mw.loader.using("user", function(){
+	setupCustomEditTools();
 });
 
 function appendCustomButtons(parent) {
 	var buts = $('<div>', { id: "custombuttons" });
-	for (var i in customInsButtons) {
-		var el = customInsButtons[i];
+	for (var i in self.customInsButtons) {
+		var el = self.customInsButtons[i];
 		var title, href, html;
 		if (el.length > 3) { // an Insert button
 			href = "javascript:mw.toolbar.insertTags('"+el[0] +"','"+el[2]+"','"+ el[1]+"')";
@@ -325,14 +297,6 @@ function appendCustomButtons(parent) {
 			href: href,
 			title: title,
 			html: html
-		});
-	}
-	for (var i in customMiscButtons) {
-		var el = customMiscButtons[i];
-		appendCustomButton(buts, {
-			href: "javascript:"+el[0],
-			title: el[2],
-			html: el[1]
 		});
 	}
 	parent.append(buts);
@@ -467,7 +431,7 @@ function hideLoadIndicator() {
 // or if text is selected within the link, or including only one link, this function
 // returns the index of the first [ and the index of the following ]] + 2,
 // as well as the whole link text starting with [[ and ending with the closing ]]
-mw.libs.EditToolbar.findFocusedLink = function (text, selStart, selEnd) {
+self.findFocusedLink = function (text, selStart, selEnd) {
     var start = text.lastIndexOf('[[', selEnd - 1);
     if (start == -1 || text.slice(start + 2).match(/^(File|Image|Файл|Картинка)/i)) return null;
 
@@ -479,7 +443,7 @@ mw.libs.EditToolbar.findFocusedLink = function (text, selStart, selEnd) {
     return {start: start, end: end, sel: text.slice(start, end)};
 };
 
-mw.libs.EditToolbar.linkWithAddrAndLabel = function () {
+self.linkWithAddrAndLabel = function () {
     // en:Wikipedia:Page_name#Invalid_page_names :
     var wikiLinkIllegalChars = /[\[\]{}<>|\u0000-\u001f\u007f\ufffd]/;
 
@@ -492,7 +456,7 @@ mw.libs.EditToolbar.linkWithAddrAndLabel = function () {
     var caretPos = $ta.textSelection( 'getCaretPosition', {startAndEnd: true} );
     var text = $ta.val().replace(/\r/g, ''); // old IE returns new lines as \r\n
     var sel, start, end;
-    var linkObj = mw.libs.EditToolbar.findFocusedLink(text, caretPos[0], caretPos[1]);
+    var linkObj = self.findFocusedLink(text, caretPos[0], caretPos[1]);
 
     if (linkObj) {
         start = linkObj.start;
@@ -536,7 +500,7 @@ mw.libs.EditToolbar.linkWithAddrAndLabel = function () {
 	$(window).scrollTop(wScrollTop);
 };
 
-mw.libs.EditToolbar.graveAccent = function () {
+self.graveAccent = function () {
 	var $ta = $('#wpTextbox1');
 	var val = $ta.val().replace(/\r/g, ''); // old IE returns new lines as \r\n
 	var caretPos = $ta.textSelection( 'getCaretPosition', {startAndEnd: true} );
@@ -553,7 +517,7 @@ mw.libs.EditToolbar.graveAccent = function () {
 	$(window).scrollTop(wScrollTop);
 }
 
-mw.libs.EditToolbar.mkList = function (numbered) {
+self.mkList = function (numbered) {
     function linesMatchRE(ls, re) {
         return ls[0].match(re) !== null && ls[1].match(re) !== null && re;
     }
@@ -593,7 +557,7 @@ mw.libs.EditToolbar.mkList = function (numbered) {
 var txt; // текста, който ще се обработва от Уикификатора
 
 // BEGIN код от [[:ru:MediaWiki:Summary]], вижте [[:ru:MediaWiki:Wikificator.js]], [[:ru:Википедия:Викификатор]]
-mw.libs.EditToolbar.obrabotka = function(bds) {
+self.obrabotka = function(bds) {
 	check_regexp();//Проверяем поддерживаются ли рег. выражения
 	document.editform.wpTextbox1.focus();
 	var txtarea = document.editform.wpTextbox1;
