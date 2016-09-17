@@ -51,6 +51,57 @@ mw.ext.isNs = function(namespaces) {
 	return $.inArray(mw.config.get('wgNamespaceNumber'), namespaces) !== -1;
 };
 
+mw.vars = {
+
+	use: function(baseName) {
+		this.end();
+		this._currentBag = this._getBagFor(baseName + '.*');
+		return this;
+	},
+	end: function() {
+		this._currentBag = null;
+	},
+
+	set: function(name, value) {
+		this._getBagFor(name)[this._extractLastNamePart(name)] = value;
+		return this;
+	},
+	get: function(name, defaultValue) {
+		return this._getBagFor(name)[this._extractLastNamePart(name)] || defaultValue;
+	},
+
+	_getBagFor: function(name) {
+		var nameParts = name.split(this._nsDelim);
+		var bag = this._currentBag;
+		if (!bag) {
+			var firstPart = nameParts.shift();
+			if (!this._map.exists(firstPart)) {
+				this._map.set(firstPart, {});
+			}
+			bag = this._map.get(firstPart);
+		}
+		if (nameParts.length === 0) {
+			return bag;
+		}
+		nameParts.pop();
+		$.each(nameParts, function(i, namePart) {
+			if (!bag[namePart]) {
+				bag[namePart] = {};
+			}
+			// point the bag one level deeper
+			bag = bag[namePart];
+		});
+		return bag;
+	},
+
+	_extractLastNamePart: function(name) {
+		return name.split(this._nsDelim).pop();
+	},
+
+	_map: new mw.Map(),
+	_currentBag: null,
+	_nsDelim: '.'
+};
 
 mw.messages.set({
 	// Projects
