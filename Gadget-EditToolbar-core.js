@@ -5,12 +5,8 @@
  */
 
 /**
-	insert an edit toolbar before the textarea.
-	useful for testing user script pages while previewing
-	use it with:
-		putToolbar();
-	put in your script page, e.g. User:Your_Name/monobook.js
-*/
+ * insert an edit toolbar before the textarea.
+ */
 window.putToolbar = function(rightNow) {
 	var toolbar = $('<div>', {'class': 'custom-toolbar'});
 	var putIt = function() {
@@ -83,7 +79,7 @@ self.customInsButtons = $.extend({
 // cleanup by articles
 if (mw.config.get('wgCanonicalNamespace') === '') {
 	delete self.customInsButtons.b14;
-	delete self.customInsButtons.b15;
+	delete self.customInsButtons.b14w;
 }
 
 }); // end using("user")
@@ -124,7 +120,6 @@ window.atpl1 = window.atpl1 || {
 	"Тенисист" : atplb + "Тенисист",
 	"Таксокутия" : atplb + "Таксокутия",
 	"Летателен апарат" : atplb + "Летателен апарат"
-
 };
 
 window.atpl2 = window.atpl2 || {
@@ -278,13 +273,15 @@ function appendCustomButtons(parent) {
 	var buts = $('<div>', { id: "custombuttons" });
 	for (var i in self.customInsButtons) {
 		var el = self.customInsButtons[i];
+		if (!el) {
+			continue;
+		}
 		var title, href, html;
 		if (el.length > 3) { // an Insert button
 			href = "javascript:mw.toolbar.insertTags('"+el[0] +"','"+el[2]+"','"+ el[1]+"')";
 			title = el[4];
 			html = el[3];
-		}
-		else { // a Misc button
+		} else { // a general button
 			href = "javascript:"+el[0];
 			title = el[2];
 			html = el[1];
@@ -314,7 +311,7 @@ function appendDropDownMenus(parent, tplVarBaseName, callback) {
 	var tplVar = null;
 	for ( var i = 1; tplVar = tplVarBaseName + i,
 			eval("var tpl = typeof("+ tplVar +") == 'object' ? "+ tplVar +" : null"),
-			tpl != null; i++ ) {
+			tpl !== null; i++ ) {
 		appendDropDownMenu(parent, tpl, callback, "ddmenu_" + tplVar);
 	}
 }
