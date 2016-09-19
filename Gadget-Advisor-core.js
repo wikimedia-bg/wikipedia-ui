@@ -11,6 +11,7 @@
 // encapsulated in a private namespace object---``ct'' for ``Cameltrader'':
 
 var ct = ct || {};
+ct.rules = ct.rules || [];
 
 // == Helpers ==
 
