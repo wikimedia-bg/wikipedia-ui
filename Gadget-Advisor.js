@@ -92,7 +92,7 @@ if (mw.config.get('wgUserLanguage') === 'bg') {
 ct.rules = ct.rules || [];
 
 ct.rules.push(function (s) {
-	var re = /\[\[([{letter} ,\(\)\-]+)\|\1\]\]/g;
+	var re = /\[\[([А-яA-z ,\(\)\-]+)\|\1\]\]/g;
 	re = ct.fixRegExp(re);
 	var a = ct.getAllMatches(re, s);
 	for (var i = 0; i < a.length; i++) {
@@ -102,7 +102,7 @@ ct.rules.push(function (s) {
 			end: m.end,
 			replacement: '[[' + m[1] + ']]',
 			name: 'А|А',
-			description: '„[[А|А]]“ може да се опрости до „[[А]]“.',
+			description: '„[['+ m[1] +'|'+ m[1] + ']]“ може да се опрости до „[[' + m[1] + ']]“.',
 			help: 'Синтаксисът на МедияУики позволява препратки от вида „<tt>[[А|А]]</tt>“ да се пишат просто като „<tt>[[А]]</tt>“.'
 		};
 	}
@@ -110,7 +110,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var re = /\[\[([{letter} ,\(\)\-]+)\|\1([{letter}]+)\]\]/ig;
+	var re = /\[\[([А-яA-z ,\(\)\-]+)\|\1([А-яA-z]+)\]\]/g;
 	re = ct.fixRegExp(re);
 	var a = ct.getAllMatches(re, s);
 	for (var i = 0; i < a.length; i++) {
@@ -120,7 +120,7 @@ ct.rules.push(function (s) {
 			end: m.end,
 			replacement: '[[' + m[1] + ']]' + m[2],
 			name: 'А|АБ',
-			description: '„[['+ m[1] +'|'+ m[1] + m[2] + ']]“ може да се опрости до „[['+ m[1] +']]' + m[2] + '“.',
+			description: '„[['+ m[1] +'|'+ m[1] + m[2] + ']]“ може да се опрости до „[[' + m[1] +']]' + m[2] + '“.',
 			help: 'Синтаксисът на МедияУики позволява препратки от вида „<tt>[[А|АБ]]</tt>“ да се пишат като „<tt>[[А]]Б</tt>“.'
 		};
 	}
