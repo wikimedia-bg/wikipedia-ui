@@ -110,7 +110,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var re = /\[\[([{letter} ,\(\)\-]+)\|\1([{letter}]+)\]\]/g;
+	var re = /\[\[([{letter} ,\(\)\-]+)\|\1([{letter}]+)\]\]/ig;
 	re = ct.fixRegExp(re);
 	var a = ct.getAllMatches(re, s);
 	for (var i = 0; i < a.length; i++) {
@@ -120,7 +120,7 @@ ct.rules.push(function (s) {
 			end: m.end,
 			replacement: '[[' + m[1] + ']]' + m[2],
 			name: 'А|АБ',
-			description: '„[[А|АБ]]“ може да се опрости до „[[А]]Б“.',
+			description: '„[['+ m[1] +'|'+ m[1] + m[2] + ']]“ може да се опрости до „[['+ m[1] +']]' + m[2] + '“.',
 			help: 'Синтаксисът на МедияУики позволява препратки от вида „<tt>[[А|АБ]]</tt>“ да се пишат като „<tt>[[А]]Б</tt>“.'
 		};
 	}
