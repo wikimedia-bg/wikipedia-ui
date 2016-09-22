@@ -92,7 +92,7 @@ if (mw.config.get('wgUserLanguage') === 'bg') {
 ct.rules = ct.rules || [];
 
 ct.rules.push(function (s) {
-	var re = /\[\[([А-яA-z ,\(\)\-]+)\|\1\]\]/gi;
+	var re = /\[\[([{letter} ,\(\)\-]+)\|\1\]\]/g;
 	re = ct.fixRegExp(re);
 	var a = ct.getAllMatches(re, s);
 	for (var i = 0; i < a.length; i++) {
@@ -110,7 +110,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var re = /\[\[([А-яA-z ,\(\)\-]+)\|\1([А-яA-z]+)\]\]/gi;
+	var re = /\[\[([{letter} ,\(\)\-]+)\|\1([{letter}]+)\]\]/g;
 	re = ct.fixRegExp(re);
 	var a = ct.getAllMatches(re, s);
 	for (var i = 0; i < a.length; i++) {
