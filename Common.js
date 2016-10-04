@@ -75,10 +75,10 @@ mw.vars = {
 		var bag = this._currentBag;
 		if (!bag) {
 			var firstPart = nameParts.shift();
-			if (!this._map.exists(firstPart)) {
-				this._map.set(firstPart, {});
+			if (!this._store.hasOwnProperty(firstPart)) {
+				this._store[firstPart] = {};
 			}
-			bag = this._map.get(firstPart);
+			bag = this._store[firstPart];
 		}
 		if (nameParts.length === 0) {
 			return bag;
@@ -98,7 +98,7 @@ mw.vars = {
 		return name.split(this._nsDelim).pop();
 	},
 
-	_map: new mw.Map(),
+	_store: {},
 	_currentBag: null,
 	_nsDelim: '.'
 };
