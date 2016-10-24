@@ -81,6 +81,7 @@ self.customInsButtons = $.extend({
 if (mw.config.get('wgCanonicalNamespace') === '') {
 	delete self.customInsButtons.b14;
 	delete self.customInsButtons.b14w;
+	delete self.customInsButtons.b14g;
 }
 
 }); // end using("user")
