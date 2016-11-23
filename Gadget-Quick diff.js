@@ -56,7 +56,8 @@ var QuickDiff = {
 		this.addCss();
 
 		if (mw.ext && mw.ext.Patroller) {
-			new mw.ext.Patroller.quick().enable();
+			var patrolLink = this.viewWindow.find('.patrollink a');
+			new mw.ext.Patroller.quick().enable(patrolLink, QuickDiff.$currentDiffLink[0].href);
 		}
 	},
 
