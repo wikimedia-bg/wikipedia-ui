@@ -23,19 +23,31 @@ mw.ext.Patroller.quick = function() {
 	var my = this;
 	
 	my.linkClassWorking = "working";
+	my.diffLinkClassNotDone = "not-done";
 
-	my.enable = function() {
-		$("body").on("click", ".patrollink a", function(){
-			my.executePatrol(this);
+	my.enable = function($patrolLink, diffHref) {
+		var revid = (diffHref.match(/diff=(\d+)/) || [])[1];
+		$patrolLink.on("click", function(e) {
+			my.executePatrol($patrolLink, revid);
 			return false;
 		});
 	};
 
-	my.executePatrol = function(link) {
-		var $link = $(link).addClass(my.linkClassWorking);
-		$.post(link.href, function(data){
-			$link.replaceWith(mw.msg("markedaspatrolledtext1"));
+	my.executePatrol = function($patrolLink, revid) {
+		$patrolLink.addClass(my.linkClassWorking);
+		var token = mw.user.tokens.get('patrolToken');
+
+		var api = new mw.Api();
+		api.post({
+			action: "patrol",
+			token: token,
+			revid: revid
+		}).done(function(data) {
+			$patrolLink.replaceWith(mw.msg("markedaspatrolledtext1"));
 			my.gotoRcIfWanted();
+		}).fail(function() {
+			$patrolLink.addClass(my.diffLinkClassNotDone);
+			my.quick.handleError(data.error, $patrolLink);
 		});
 	};
 
@@ -43,6 +55,11 @@ mw.ext.Patroller.quick = function() {
 		if (window.wgxQuickPatrolLoadRc && wgxQuickPatrolLoadRc) {
 			location.href = mw.util.getUrl(mw.msg("recentchangespage"));
 		}
+	};
+
+	my.handleError = function(error, $link) {
+		my.errors.push(error.code);
+		$link.attr("title", error.info);
 	};
 };
 
@@ -59,8 +76,9 @@ mw.ext.Patroller.bulk = function(quick) {
 	my.paramDelim = ",";
 	my.bulkDiffLinkClass = "bulk-duff-link";
 	my.diffLinkClass = "duff-link";
+	my.linkClassWorking = my.quick.linkClassWorking;
 	my.diffLinkClassDone = "done";
-	my.diffLinkClassNotDone = "not-done";
+	my.diffLinkClassNotDone = my.quick.diffLinkClassNotDone;
 	my.classLoading = "loading";
 
 	/* track number of patrolled edits */
@@ -153,7 +171,7 @@ mw.ext.Patroller.bulk = function(quick) {
 				? mw.msg("markaspatrolledtext1")
 				: mw.msg("markaspatrolledtext", revids.length) )
 			.click(function() {
-				$(this).addClass(my.quick.linkClassWorking);
+				$(this).addClass(my.linkClassWorking);
 				my.executePatrol(revids, this);
 				return false;
 			})
@@ -228,25 +246,20 @@ mw.ext.Patroller.bulk = function(quick) {
 
 	my.executePatrolOne = function(token, revid) {
 		var $diffLink = $("#" + my.getDiffLinkId(revid));
-		$diffLink.addClass(my.quick.linkClassWorking);
+		$diffLink.addClass(my.linkClassWorking);
 		var api = new mw.Api();
 		api.post({
 			action: "patrol",
 			token: token,
 			revid: revid
 		}).done(function(data) {
-			$diffLink.removeClass(my.quick.linkClassWorking).addClass(my.diffLinkClassDone);
+			$diffLink.removeClass(my.linkClassWorking).addClass(my.diffLinkClassDone);
 		}).fail(function() {
 			$diffLink.addClass(my.diffLinkClassNotDone);
-			my.handleError(data.error, $diffLink);
+			my.quick.handleError(data.error, $diffLink);
 		}).always(function() {
 			my.numEditsPatrolled++;
 		});
-	};
-
-	my.handleError = function(error, $diffLink) {
-		my.errors.push(error.code);
-		$diffLink.attr("title", error.info);
 	};
 
 };
@@ -263,7 +276,6 @@ mw.ext.Patroller.init = function() {
 		if (isOnPageWithChanges) {
 			bulk.makeBulkDiffsPatrollable();
 		} else {
-			quick.enable();
 			bulk.enable();
 		}
 	});
