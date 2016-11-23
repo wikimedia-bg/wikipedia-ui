@@ -24,11 +24,13 @@ var QuickDiff = {
 
 	viewDiff: function(content, $link)
 	{
-		this.getViewWindow().css("top", $link.position().top + 30)
+		var $viewWin = this.getViewWindow().css("top", $link.position().top + 30)
 			.find("#quickdiff-content").html(content)
 			.end().show();
 		if (mw.ext && mw.ext.Patroller) {
 			new mw.ext.Patroller.bulk(new mw.ext.Patroller.quick()).enable($link[0].href);
+			var patrolLink = $viewWin.find('.patrollink a');
+			new mw.ext.Patroller.quick().enable(patrolLink, $link[0].href);
 		}
 		if (mw.ext && mw.ext.QuickRollback) {
 			var $rollbackLinkSpan = $('#quickdiff .mw-rollback-link');
@@ -54,11 +56,6 @@ var QuickDiff = {
 
 		mw.loader.load("mediawiki.action.history.diff", "text/css");
 		this.addCss();
-
-		if (mw.ext && mw.ext.Patroller) {
-			var patrolLink = this.viewWindow.find('.patrollink a');
-			new mw.ext.Patroller.quick().enable(patrolLink, QuickDiff.$currentDiffLink[0].href);
-		}
 	},
 
 	buildViewWindow: function()
