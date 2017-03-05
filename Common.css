@@ -1332,8 +1332,3 @@ pre.source-lua {
 .ve-ui-mwMediaDialog-panel-search > div > div:nth-of-type(2) > div > div > div:nth-of-type(2) {
 	display: none !important;
 }
-
-/* Temporary logo for 3 mart */
-#p-logo a, #p-logo a:hover {
-    background: url("//upload.wikimedia.org/wikipedia/commons/b/bd/Wiki-nacionalno.png") 35% 50% no-repeat !important;
-}
