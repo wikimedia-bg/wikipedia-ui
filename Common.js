@@ -437,14 +437,6 @@ if ( mw.config.get( 'wgPageName' ) === 'Начална_страница' || mw.c
             'Пълен списък', 'interwiki-completelist', 'Пълен списък с Уикипедия на всички езици (страницата е на английски)' );
     } );
 }
-/**
- * Пренасочване на addPortletLink към mw.util
- *
- * @deprecated: Използвайте mw.util.addPortletLink.
- */
-mw.log.deprecate( window, 'addPortletLink', function () {
-    return mw.util.addPortletLink.apply( mw.util, arguments );
-}, 'Използвайте mw.util.addPortletLink() вместо това' );
 
 /**
  * Взимане на URL параметър от текущото URL
