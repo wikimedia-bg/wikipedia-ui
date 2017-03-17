@@ -1324,6 +1324,27 @@ pre.source-lua {
 }
 
 /*
+MAIN PAGE STYLES: added by [[User:Iliev]] on 2017-03-17.
+See [[:mw:Making MediaWiki Mobile Friendly]] for details.
+Two columns on wide, single on narrow and mobile screens.
+*/
+.mainpage-column-left {
+    float: left;
+    width: 54%;
+}
+.mainpage-column-right {
+    float: right;
+    width: 44%;
+}
+@media only screen and (max-width: 800px) {
+    .mainpage-column-left,
+    .mainpage-column-right {
+        float: inherit;
+        width: inherit;
+    }
+}
+
+/*
 Временно скриване на таба Upload в меню Вмъкване >> Медия на Визуалния редактор, 
 заради нерешен към момента проблем с филтрирането на cross-wiki uploads по език
 и голямото количество нарушения на авторски права, които се качват по този начин.
