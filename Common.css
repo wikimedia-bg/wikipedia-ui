@@ -17,7 +17,7 @@ table { background-color: inherit; }
 sub {vertical-align: baseline; font-size: 0.8em; position: relative; top: 0.4em }
 sup {vertical-align: baseline; font-size: 0.8em; position: relative; top: -0.4em }
 
-/* Текста под кутията за редактиране */
+/* [[MediaWiki:Wikimedia-copyrightwarning]] */
 #editpage-copywarn {
 	margin: .8em 0;
 	padding: 0.2em;
