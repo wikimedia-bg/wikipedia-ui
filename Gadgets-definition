@@ -30,7 +30,7 @@
 * Blackskin[ResourceLoader|skins=monobook]|Blackskin.css
 * purgetab[ResourceLoader|dependencies=mediawiki.util]|purgetab.js
 * cats-on-top[ResourceLoader]|cats-on-top.js
-* quicklinks[ResourceLoader]|quicklinks.js
+* quicklinks[ResourceLoader|dependencies=mediawiki.util]|quicklinks.js
 * HideFundraisingNotice|HideFundraisingNotice.css
 * BKL[ResourceLoader]|HighlightDisambigLinks.css
 * quickeditcounter[ResourceLoader|dependencies=mediawiki.api,mediawiki.util]|quickeditcounter.js
