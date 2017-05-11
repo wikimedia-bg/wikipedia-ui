@@ -35,7 +35,7 @@ ct.doNotFix = function (s, m, checkPat1, checkPat2, checkTags, checkFileName) {
             return true;         // don't break a <math> equation, or source code
     }
 
-    if (checkFileName !== false && s.slice(pos).search(/^[^|{}[\]<>\n]*\.([a-z]{3,4}\s*[|}\n])/i) >= 0)
+    if (checkFileName !== false && s.slice(pos).search(/^[^|{}[\]<>\n]*\.([a-z]{3,4}\s*([|}\n]|\{\{!\}))/i) >= 0)
         return true;             // it's a file name parameter
 };
 
