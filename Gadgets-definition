@@ -5,7 +5,7 @@
 
 == browsing-gadgets ==
 
-* Navigation_popups[ResourceLoader]|popups.js|navpop.css
+* Navigation_popups[ResourceLoader|dependencies=mediawiki.user,mediawiki.util|type=general]|popups.js|navpop.css
 * exlinks[ResourceLoader|dependencies=mediawiki.util]|exlinks.js
 * lum[ResourceLoader]|lum.js
 * Big dynamap[ResourceLoader]|Big dynamap.js
