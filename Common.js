@@ -149,7 +149,7 @@ var subPagesLink = {
 		}
 	}
 }
-$( function() {
+mw.loader.using( 'mediawiki.util' ).then( function() {
 	subPagesLink.install();
 
 	if ( $.inArray("sysop", mw.config.get('wgUserGroups')) !== -1 && mw.config.get('wgCanonicalNamespace').indexOf("User") === 0 ) {
