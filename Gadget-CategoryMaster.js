@@ -264,9 +264,9 @@ mw.libs.CategoryMaster = function() {
 	}
 	function updateFormSubmit(form) {
 		if ($(form).find('[data-invalid]').length === 0) {
-			$(form).find(':submit').removeAttr('disabled');
+			$(form).find(':submit').prop('disabled', false);
 		} else {
-			$(form).find(':submit').attr('disabled', true);
+			$(form).find(':submit').prop('disabled', true);
 		}
 	}
 
