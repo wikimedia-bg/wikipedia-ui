@@ -163,7 +163,7 @@
 							.val() ) );
 					}
 				} )
-				.bind( 'input keyup', function() {
+				.on( 'input keyup', function() {
 					var oldVal = this.value,
 						newVal = oldVal.replace( reCat, '' );
 					if ( newVal !== oldVal ) this.value = newVal;
@@ -991,7 +991,7 @@
 		var prevCheckbox = null,
 			$box = this;
 		// When our boxes are clicked..
-		$box.bind( 'click.catALot', function( e ) {
+		$box.on( 'click.catALot', function( e ) {
 
 			// Highlight last selected
 			$( '#cat_a_lot_last_selected' )
