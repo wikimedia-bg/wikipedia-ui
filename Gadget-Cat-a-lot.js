@@ -781,7 +781,7 @@
 				$container
 					.resizable( "destroy" );
 				//Unbind click handlers
-				this.labels.unbind( 'click.catALot' );
+				this.labels.off( 'click.catALot' );
 			}
 		},
 
@@ -799,7 +799,7 @@
 							if ( !mustRestart ) return;
 
 							$container.remove();
-							catALot.labels.unbind( 'click.catALot' );
+							catALot.labels.off( 'click.catALot' );
 							catALot.init();
 						},
 						_saveToJS = function() {
