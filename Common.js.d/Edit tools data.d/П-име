@@ -1,1 +1,1 @@
-<nowiki>{{П-име|поставен={{замест:CURRENTTIMESTAMP}}}} ~~~~</nowiki>
+<nowiki>{{П-име|име={{замест:PAGENAME}}|поставен={{замест:CURRENTTIMESTAMP}}}} ~~~~</nowiki>
