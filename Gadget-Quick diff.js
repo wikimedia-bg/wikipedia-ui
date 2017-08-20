@@ -60,7 +60,7 @@ var QuickDiff = {
 
 	buildViewWindow: function()
 	{
-		var $win = jQuery('<div id="quickdiff"><div id="quickdiff-close"/><div id="quickdiff-content"/></div>');
+		var $win = jQuery('<div id="quickdiff"><div id="quickdiff-close"></div><div id="quickdiff-content"></div></div>');
 		var closeWin = function(){
 			if ($win) {
 				$win.hide();
