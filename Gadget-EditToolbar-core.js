@@ -36,7 +36,7 @@ mw.messages.set({
 
 /* * *   Extra buttons for text insertion   * * */
 
-mw.loader.using('user', '/w/index.php?title=MediaWiki:Common.js&action=raw&ctype=text/javascript').then( function() {
+mw.loader.using(['user', '/w/index.php?title=MediaWiki:Common.js&action=raw&ctype=text/javascript']).then( function() {
 	mw.vars.end();
 	// от тези данни ще се генерират допълнителни бутони с insertTags()
 	self.customInsButtons = $.extend({
