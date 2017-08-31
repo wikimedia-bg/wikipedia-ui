@@ -4,8 +4,6 @@
  * Some functions and arrays are still bound to window for backwards compatibility
  */
 
-mw.loader.using('/w/index.php?title=MediaWiki:Common.js&action=raw&ctype=text/javascript').then( function() {
-
 /**
  * insert an edit toolbar before the textarea.
  */
@@ -38,7 +36,7 @@ mw.messages.set({
 
 /* * *   Extra buttons for text insertion   * * */
 
-mw.loader.using('user').then( function() {
+mw.loader.using(['user', '/w/index.php?title=MediaWiki:Common.js&action=raw&ctype=text/javascript']).then( function() {
 	mw.vars.end();
 	// от тези данни ще се генерират допълнителни бутони с insertTags()
 	self.customInsButtons = $.extend({
@@ -844,5 +842,3 @@ function zamena_5ko() {
 		txt = txt.replace(r, a_petko[i++]);
 	}
 }
-
-})
