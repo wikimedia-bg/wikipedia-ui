@@ -4,6 +4,8 @@
  * Some functions and arrays are still bound to window for backwards compatibility
  */
 
+mw.loader.using('/w/index.php?title=MediaWiki:Common.js&action=raw&ctype=text/javascript').then( function() {
+
 /**
  * insert an edit toolbar before the textarea.
  */
@@ -842,3 +844,5 @@ function zamena_5ko() {
 		txt = txt.replace(r, a_petko[i++]);
 	}
 }
+
+})
