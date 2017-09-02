@@ -77,7 +77,7 @@ mw.loader.using("user", function() {
 		"ch" : ["mw.libs.EditToolbar.toggleChars()", "Още…", "Виртуална клавиатура"]
 	}, mw.vars.get("EditToolbar.buttons"));
 
-	// cleanup by articles
+	// Remove these buttons when editing articles in the main namespace.
 	if (mw.config.get('wgCanonicalNamespace') === '') {
 		delete self.customInsButtons.b14;
 		delete self.customInsButtons.b14w;
