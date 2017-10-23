@@ -545,6 +545,11 @@ ct.rules.push(function (s) {
 	return b;
 });
 
+/*
+	Премахването на празни параметри от шаблоните като практика не се ползва с
+	консенсусна подкрепа сред редакторите, затова на този етап е изключено.
+*/
+/*
 ct.rules.push(function (s) {
     var re = /(^|[^\n ] *)(\| *[\wА-я-]+ *= *(?=[\|\}]))+/g;
     var a = ct.getAllMatches(re, s);
@@ -565,6 +570,7 @@ ct.rules.push(function (s) {
     }];
     return b;
 });
+*/
 
 ct.rules.push(function (s) {
     var skipNext = 0;
