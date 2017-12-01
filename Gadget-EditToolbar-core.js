@@ -110,7 +110,7 @@ var atplb = "МедияУики:Common.js/Edit tools data/";
 window.atpl1 = window.atpl1 || {
 	// "SHOWN TEXT" : "PAGE NAME",
 	"Тематични шаблони…" : "-",
-	"Личност" : atplb + "Личност",
+	"Биография инфо" : atplb + "Биография инфо",
 	"Книга инфо" : atplb + "Книга инфо",
 	"Писател" : atplb + "Писател",
 	"Музикален албум" : atplb + "Музикален албум",
