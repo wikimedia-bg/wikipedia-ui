@@ -1352,3 +1352,10 @@ Two columns on wide, single on narrow and mobile screens.
 .ve-ui-mwMediaDialog-panel-search > div > div:nth-of-type(2) > div > div > div:nth-of-type(2) {
 	display: none !important;
 }
+
+/*
+Put a custom logo.
+*/
+.mw-wiki-logo {
+	background-image: url(//upload.wikimedia.org/wikipedia/commons/a/ae/Wikipedia-logo-m20k-bg.png) !important;
+}
