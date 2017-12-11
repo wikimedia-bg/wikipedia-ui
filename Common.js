@@ -343,11 +343,6 @@ mw.loader.using(["mediawiki.cookie"]).done(function() {
 //    logoLink.title = 'Текст в popup'; // <-- поставете между апострофите текста, който искате да излиза в popup при посочване
 //    logoLink.href = '/wiki/Име на страницата'; // <-- поставете името на страницата между апострофите, но запазете /wiki/ отпред
 //});
-mw.hook('wikipage.content').add(function(){
-    var logoLink = document.getElementById('p-logo').childNodes[0];
-    logoLink.title = '20 хиляди статии в Проект „Македония“';
-    logoLink.href = '/wiki/Портал:Македония';
-});
 
 // Преименуване на етикета "Статия" за началната страница
 if (mw.config.get('wgPageName') == 'Начална_страница' || mw.config.get('wgPageName') == 'Беседа:Начална_страница') {
