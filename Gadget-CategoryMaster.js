@@ -421,6 +421,14 @@ mw.libs.CategoryMaster.messages = {
 };
 
 mw.libs.CategoryMaster.register = function() {
+	if (
+		$.inArray("autopatrolled", mw.config.get('wgUserGroups')) === -1
+		&& if ($.inArray("patroller", mw.config.get('wgUserGroups')) === -1
+		&& $.inArray("sysop", mw.config.get('wgUserGroups')) === -1
+	) {
+		// user is not autopatrolled
+		return;
+	}
 	mw.messages.set(mw.libs.CategoryMaster.messages);
 	if (mw.config.get('wgCanonicalNamespace') == 'Category') {
 		// show() generates 'display:list-item' which does not work by monobook
