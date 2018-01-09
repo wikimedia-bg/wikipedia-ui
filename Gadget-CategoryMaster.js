@@ -423,7 +423,7 @@ mw.libs.CategoryMaster.messages = {
 mw.libs.CategoryMaster.register = function() {
 	if (
 		$.inArray("autopatrolled", mw.config.get('wgUserGroups')) === -1
-		&& if ($.inArray("patroller", mw.config.get('wgUserGroups')) === -1
+		&& $.inArray("patroller", mw.config.get('wgUserGroups')) === -1
 		&& $.inArray("sysop", mw.config.get('wgUserGroups')) === -1
 	) {
 		// user is not autopatrolled
