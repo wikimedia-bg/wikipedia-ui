@@ -1175,7 +1175,7 @@ pre.source-lua {
 .title.snowboard   {background: url("//upload.wikimedia.org/wikipedia/commons/5/59/Infobox_Snowboarding_pictogram.png") no-repeat top right;}
 .title.software    {background: url("//upload.wikimedia.org/wikipedia/commons/f/fe/Picto_infobox_software.png") no-repeat top right;}
 .title.surf        {background: url("//upload.wikimedia.org/wikipedia/commons/3/31/Infobox_Surfing_pictogram.png") no-repeat top right;}
-.title.swimming    {background: url("//upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Swimming_pictogram_white.svg/35px-Swimming_pictogram_white.svg") no-repeat top right;}
+.title.swimming    {background: url("//upload.wikimedia.org/wikipedia/commons/0/0f/Swimming_pictogram_white.svg") no-repeat top right; background-size: auto 45px;}
 .title.teatr       {background: url("//upload.wikimedia.org/wikipedia/commons/3/37/Picto_infobox_masks.png") no-repeat top right;}
 .title.technology  {background: url("//upload.wikimedia.org/wikipedia/commons/f/f9/Infobox_gear.png") no-repeat top right;}
 .title.tenis       {background: url("//upload.wikimedia.org/wikipedia/commons/d/dc/Picto_infobox_tenis.png") no-repeat top right;}
