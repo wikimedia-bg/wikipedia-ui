@@ -326,6 +326,10 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	font-weight: bold;
 }
 
+.wikitable-with-numbers th, .wikitable-with-numbers td {
+	text-align: right;
+}
+
 /* стилове за шаблоните за координати */
 
 #coordinates {
