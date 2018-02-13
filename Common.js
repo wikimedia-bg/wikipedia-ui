@@ -148,7 +148,7 @@ var subPagesLink = {
 				mw.msg("tb-subpages"), 't-subpages' );
 		}
 	}
-}
+};
 mw.loader.using( 'mediawiki.util' ).then( function() {
 	subPagesLink.install();
 
@@ -175,7 +175,7 @@ function Projectlinks() {
 	}
 
 	var wrappers = $('.interProject');
-	if ( wrappers.length == 0 ) {
+	if ( wrappers.length === 0 ) {
 		return;
 	}
 
@@ -233,7 +233,7 @@ $(function() {
 		&& mw.config.get("wgCanonicalNamespace") === "" // основно именно пространство = статия
 		&& mw.config.get("wgRestrictionEdit") === [] // няма защита
 		&& mw.config.get("wgIsProbablyEditable") === true // може да се редактира
-		&& (document.referrer != "") // има препращач
+		&& (document.referrer !== "") // има препращач
 		&& (/bg\.wikipedia\.org/.test(document.referrer) === false) // идва извън Уикипедия
 		;
 	if (shouldSeeWelcomeMsg) {
