@@ -546,6 +546,29 @@ function createCollapseButtons() {
 
 mw.hook( 'wikipage.content' ).add( createCollapseButtons );
 
+/**
+ * Allow non-complete collapsing of a table while some leading rows remain visible.
+ * The number of visible rows can be controlled by a 'data-visible-rows' attribute on the table. Default is: 3 visible rows.
+ */
+mw.hook('wikipage.content').add(function($content) {
+	$content.find("table.semicollapsible").each(function(i, table) {
+		var $table = $(table);
+		var randomId = Math.ceil(Math.random() * 1000000000);
+		var $newTBody = $('<tbody id="mw-customcollapsible-'+randomId+'" class="mw-collapsible mw-collapsed"></tbody>').appendTo($table);
+		var numberOfVisibleRows = $table.data('visible-rows') || 3;
+		var $rowsToHide = $table.find('tr').slice(numberOfVisibleRows + 1).appendTo($newTBody);
+		// TODO does not account for existing colspans
+		var columnCount = $rowsToHide.eq(0).find('td').length;
+		var toggleTitle = 'Още данни';
+		$newTBody.before('<tbody><tr><td colspan="'+columnCount+'"><div class="mw-customtoggle-'+randomId+'" title="'+toggleTitle+'" style="text-align:center">⋮</div></td></tr></tbody>');
+
+		mw.loader.using('jquery.makeCollapsible', function() {
+			$newTBody.makeCollapsible();
+		});
+	});
+});
+
+
 (function() {
 	if ($.inArray(mw.config.get('wgCanonicalSpecialPageName'), ['Recentchanges', 'Watchlist']) === -1) {
 		return;
