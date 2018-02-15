@@ -559,8 +559,8 @@ mw.hook('wikipage.content').add(function($content) {
 		var $rowsToHide = $table.find('tr').slice(numberOfVisibleRows + 1).appendTo($newTBody);
 		// TODO does not account for existing colspans
 		var columnCount = $rowsToHide.eq(0).find('td').length;
-		var toggleTitle = 'Още данни';
-		$newTBody.before('<tbody><tr><td colspan="'+columnCount+'"><div class="mw-customtoggle-'+randomId+'" title="'+toggleTitle+'" style="text-align:center">⋮</div></td></tr></tbody>');
+		var toggleText = '↓ Показване на още данни';
+		$newTBody.before('<tbody><tr><td colspan="'+columnCount+'"><div class="mw-customtoggle-'+randomId+'" style="text-align:center"><b>'+toggleText+'</b></div></td></tr></tbody>');
 
 		mw.loader.using('jquery.makeCollapsible', function() {
 			$newTBody.makeCollapsible();
