@@ -54,7 +54,7 @@ var QuickDiff = {
 	{
 		this.viewWindow = this.buildViewWindow();
 
-		mw.loader.load("mediawiki.action.history.diff", "text/css");
+		mw.loader.load("mediawiki.diff.styles", "text/css");
 		this.addCss();
 	},
 
