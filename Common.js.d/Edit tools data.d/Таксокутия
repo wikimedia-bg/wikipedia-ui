@@ -1,5 +1,4 @@
 <nowiki>{{Taxobox
-| name = 
 | image = 
 | image_caption = 
 | regnum     = 
@@ -16,8 +15,6 @@
 | genus-bg   = 
 | species    =
 | species-bg = 
-| binomial = 
-| binomial_authority = 
 | subdivision_ranks = 
 | subdivision = 
 }}</nowiki>
