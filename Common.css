@@ -307,6 +307,10 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	border: none;
 }
 
+.wikitable.centered {
+	margin: 1em auto;
+}
+
 /* wikitable2 class for skinning normal tables with borders */
 .wikitable2 {
 	margin: 1em 1em 1em 0;
