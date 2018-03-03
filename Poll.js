@@ -111,4 +111,4 @@ function getRadioValue(name) {
 	return null;
 }
 
-$(showPolls);
+addOnloadHook(showPolls);
