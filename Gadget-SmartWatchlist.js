@@ -1397,7 +1397,7 @@
 	} );
 	
 	// activate only on the watchlist page
-	if ( mw.config.get("wgNamespaceNumber") == -1 && mw.config.get("wgTitle") == "Watchlist" ) {
+	if ( mw.config.get("wgNamespaceNumber") == -1 && mw.config.get("wgTitle") == "Списък за наблюдение" ) {
 		$(document).ready(initialize);
 	};
 } ) ();
