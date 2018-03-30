@@ -37,7 +37,7 @@
 	var onChangeCallback = null;  // should be able to vary for each color picker using a subclosure (not today)
 
 	var constructPalette = function() {
-		$colorPalette = $( "<div />" )
+		$colorPalette = $( "<div>" )
 		.css( {
 			width: '97px',
 			position: 'absolute',
@@ -366,23 +366,23 @@
 
 					// add the hide change link
 					$tr.attr( "revID", revID );
-					var $revLink = $("<a/>", {
+					var $revLink = $("<a>", {
 						href: "javascript:SmartWatchlist.hideRev('" + pageID + "', '" + revID + "');",
 						title: "Hide this change",
 						text: "hide change"
 					});
-					$td.append( $( "<span/>" )
+					$td.append( $( "<span>" )
 						.addClass( "swlRevisionButton" )
 						.append( " [" ).append( $revLink ).append( "]" )
 					);
 
 					// add the patrol prior changes link
-					var $patrolLink = $("<a/>", {
+					var $patrolLink = $("<a>", {
 						href: "javascript:SmartWatchlist.patrolRev('" + pageID + "', '" + revID + "');",
 						title: "Hide previous changes",
 						text: "patrol"
 					});
-					$td.append( $( "<span/>" )
+					$td.append( $( "<span>" )
 						.addClass( "swlRevisionButton" )
 						.append( " [" ).append( $patrolLink ).append( "]" )
 					);
@@ -415,12 +415,12 @@
 				}
 
 				// add the hide user link
-				var $hideUserLink = $("<a/>", {
+				var $hideUserLink = $("<a>", {
 					href: "javascript:SmartWatchlist.hideUser('" + user + "');",
 					title: "Hide changes by " + user + " on all pages",
 					text: "hide user"
 				});
-				$td.append( $( "<span/>" )
+				$td.append( $( "<span>" )
 					.addClass( "swlHideUserButton" )
 					.append( " [" ).append( $hideUserLink ).append( "]" )
 				);
@@ -446,7 +446,7 @@
 		// check if we were able to do anything
 		if (rowsProcessed == 0) {
 			$("#SmartWatchlistOptions")
-				.append( $( "<p/>", {
+				.append( $( "<p>", {
 						text: 'To use Smart Watchlist, enable "enhanced recent changes" in your user preferences.' 
 					} )
 					.css("color", "#cc00ff")
@@ -817,7 +817,7 @@
 	var createSettingsPanel = function() {
 	
 		// construct panel column 1
-		var $column1 = $( "<td />" ).attr("valign", "top")
+		var $column1 = $( "<td>" ).attr("valign", "top")
 			.append( 
 				$( "<input>", {
 					type: "checkbox",
@@ -874,10 +874,10 @@
 			.append("Assign page categories");
 		
 		// construct panel column 2
-		var $column2 = $( "<div />" )
+		var $column2 = $( "<div>" )
 			.attr("style", "padding-left: 25pt;")
 			.append( 
-				$( "<div />" ).attr("align", "center")
+				$( "<div>" ).attr("align", "center")
 				.append(
 					$("<input />", {
 						type: "button",
@@ -906,7 +906,7 @@
 						value: "Undo"
 					} ) 
 				)
-				.append( "<p />" )
+				.append( "<p>" )
 				.append( "Display pages in:&nbsp;" )
 				.append( 
 					$constructCategoryMenu( "meta" )
@@ -915,7 +915,7 @@
 				)
 			);
 
-		$sortPanel = $( "<div />" ).attr("align", "right")
+		$sortPanel = $( "<div>" ).attr("align", "right")
 			.append( "Sort order:&nbsp;" );
 		
 		for (var i = 0; i < maxSortLevels; i++) {
@@ -928,34 +928,34 @@
 		}
 		
 		// construct panel column 3
-		var $column3 = $( "<div />" )
+		var $column3 = $( "<div>" )
 			.attr("style", "padding-left: 25pt;")
 			.append( $sortPanel );
 			
 		// construct main settings panel
 		$("#mw-watchlist-options")
 			.after( 
-				$( "<fieldset />", {
+				$( "<fieldset>", {
 					id: "SmartWatchlistOptions"
 				} )
 				.append( 
-					$( "<legend />", {
+					$( "<legend>", {
 						text: "Smart watchlist settings"
 					} ) 
 				)
 				.append( 
-					$( "<table />" )
+					$( "<table>" )
 					.append( 
-						$( "<tr />" )
+						$( "<tr>" )
 						.append( $column1 )
 						.append( 
-							$( "<td />", {
+							$( "<td>", {
 								valign: "top"
 							} )
 							.append( $column2 )
 						)
 						.append( 
-							$( "<td />", {
+							$( "<td>", {
 								valign: "top"
 							} )
 							.append( $column3 )
@@ -967,7 +967,7 @@
 		if ( !storage ) {
 			$("#SmartWatchlistOptions")
 			.append( 
-				$( "<p />", {
+				$( "<p>", {
 					text: "Your browser does not support saving settings to local storage. " +
 					"Items hidden or highlighted will not be retained after reloading the page."
 				} )
@@ -980,7 +980,7 @@
 	var $constructCategoryMenu = function( metaOptionString ) {
 
 		var $selector = 
-			$( "<select />", {
+			$( "<select>", {
 				"class": "namespaceselector swlCategoryMenu",
 				withMeta: metaOptionString  // flag so the menu can be rebuilt in setupCategories()
 			} );
@@ -1031,7 +1031,7 @@
 
 		// construct all <option> elements
 		for (var i in categories) {
-			$selector.append( $( "<option />", categories[i] ) );
+			$selector.append( $( "<option>", categories[i] ) );
 		}
 		return $selector;
 	};
@@ -1040,7 +1040,7 @@
 	var $constructSortMenu = function() {
 
 		var $selector = 
-			$( "<select />", {
+			$( "<select>", {
 				"class": "namespaceselector swlSortMenu"
 			} );
 
@@ -1057,7 +1057,7 @@
 		
 		// construct all <option> elements
 		for (var i in sortCriteria) {
-			$selector.append( $( "<option />", sortCriteria[i] ) );
+			$selector.append( $( "<option>", sortCriteria[i] ) );
 		}
 		return $selector;
 	};
@@ -1308,12 +1308,12 @@
 			// construct a category name row for editing
 			var addCategory = function ( key, name ) {
 				$editTable.append( 
-					$( '<tr />' )
+					$( '<tr>' )
 					.append( 
-						$( '<td />' ).append( $( '<span />' ).addClass( 'ui-icon ui-icon-arrowthick-2-n-s' ) )
+						$( '<td>' ).append( $( '<span>' ).addClass( 'ui-icon ui-icon-arrowthick-2-n-s' ) )
 					)
 					.append(
-						$( '<td />' ).append(
+						$( '<td>' ).append(
 							$( '<input />', {
 								type: 'text',
 								size: '20',
@@ -1326,7 +1326,7 @@
 			};
 		
 			// jQuery UI sortable() seems to only like <ul> top-level elements
-			var $editTable = $( '<ul />' ).sortable( { axis: 'y' } );
+			var $editTable = $( '<ul>' ).sortable( { axis: 'y' } );
 			
 			for (var i in settings.userCategories) {
 				addCategory( settings.userCategories[i].key,
@@ -1336,17 +1336,17 @@
 				addCategory( settings.nextCategoryKey++, '' );  // pre-add first category if needed
 			}
 			
-			var $interface = $('<div />')
+			var $interface = $('<div>')
 				.css( {
 					'position': 'relative',
 					'margin-top': '0.4em'
 				} )
 				.append( 
-					$( '<ul />')
-					.append( $( '<li />', { text: "Renamed categories retain current pages." } ) )
-					.append( $( '<li />', { text: "Dragging lines changes the order in category menus." } ) )
-					.append( $( '<li />', { text: "To delete a category, blank its name." } ) )
-					.append( $( '<li />', { text: "Pages in deleted categories revert to uncategorized." } ) )
+					$( '<ul>')
+					.append( $( '<li>', { text: "Renamed categories retain current pages." } ) )
+					.append( $( '<li>', { text: "Dragging lines changes the order in category menus." } ) )
+					.append( $( '<li>', { text: "To delete a category, blank its name." } ) )
+					.append( $( '<li>', { text: "Pages in deleted categories revert to uncategorized." } ) )
 				)
 				.append( $( '<br />' ) )
 				.append( $editTable )
