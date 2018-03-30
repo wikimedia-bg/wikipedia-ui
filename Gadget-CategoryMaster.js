@@ -236,22 +236,22 @@ mw.libs.CategoryMaster = function() {
 	}
 
 	function generateForm() {
-		return $('<form class="mw-ui-vform" id="cmMoveForm" style="width:100%"/>')
+		return $('<form class="mw-ui-vform" id="cmMoveForm" style="width:100%">')
 			.append('<div class="mw-ui-vform-field">' + mw.msg('cm-form-intro') + '</div>')
 			.append('<div class="mw-ui-vform-field warningbox">' + mw.msg('cm-form-intro-warning') + '</div>')
-			.append( $('<div class="mw-ui-vform-field"/>')
+			.append( $('<div class="mw-ui-vform-field">')
 				.append('<label for="cmOldCategory">'+mw.msg('cm-form-old-cat')+'</label>')
 				.append('<input name="oldCategory" id="cmOldCategory" class="mw-ui-input cm-cat-field" value="'+my.categoryPrefix+'" data-invalid="1">')
 			)
-			.append( $('<div class="mw-ui-vform-field"/>')
+			.append( $('<div class="mw-ui-vform-field">')
 				.append('<label for="cmNewCategory">'+mw.msg('cm-form-new-cat')+'</label>')
 				.append('<input name="newCategory" id="cmNewCategory" class="mw-ui-input cm-cat-field" value="'+my.categoryPrefix+'" data-invalid="1">')
 			)
-			.append( $('<div class="mw-ui-vform-field"/>')
+			.append( $('<div class="mw-ui-vform-field">')
 				.append('<label for="cmReason">'+mw.msg('cm-form-reason')+'</label>')
 				.append('<input name="reason" id="cmReason" class="mw-ui-input">')
 			)
-			.append( $('<div class="mw-ui-vform-field"/>')
+			.append( $('<div class="mw-ui-vform-field">')
 				.append('<input type="submit" class="mw-ui-button mw-ui-constructive" value="'+mw.msg('cm-form-submit')+'" disabled>')
 			);
 	}
@@ -271,7 +271,7 @@ mw.libs.CategoryMaster = function() {
 	}
 
 	function generateContainer() {
-		return $('<div id="cmContainer"/>').css({
+		return $('<div id="cmContainer">').css({
 			'position': 'fixed',
 			'top': '5%',
 			'left': '10%',
