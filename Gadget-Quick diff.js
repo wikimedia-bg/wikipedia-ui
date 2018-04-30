@@ -24,7 +24,7 @@ var QuickDiff = {
 
 	viewDiff: function(content, $link)
 	{
-		var $viewWin = this.getViewWindow().css("top", $link.position().top + 30)
+		var $viewWin = this.getViewWindow().offset({top: $link.offset().top + 30})
 			.find("#quickdiff-content").html(content)
 			.end().show();
 		if (mw.ext && mw.ext.Patroller) {
