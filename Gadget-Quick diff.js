@@ -24,9 +24,10 @@ var QuickDiff = {
 
 	viewDiff: function(content, $link)
 	{
-		var $viewWin = this.getViewWindow().offset({top: $link.offset().top + 30})
+		var $viewWin = this.getViewWindow()
 			.find("#quickdiff-content").html(content)
-			.end().show();
+			.end().show().offset({top: $link.offset().top + 30});
+
 		if (mw.ext && mw.ext.Patroller) {
 			new mw.ext.Patroller.bulk(new mw.ext.Patroller.quick()).enable($link[0].href);
 			var patrolLink = $viewWin.find('.patrollink a');
