@@ -742,6 +742,9 @@
 			// check if change should be hidden
 			// XXX should we show changes by hidden users when in "hidden" display mode? Maybe a new option.
 			var visible;
+
+			if (console) {
+				console.log("SmartWatchlist: PING!");
 			
 			if (displayedCategory == "all+") {
 				visible = true;
@@ -749,6 +752,8 @@
 			// Yes, let's show for the time being the edits by hidden users when "hidden" mode is chosen.
 			else if ( getSetting( "wikis", document.domain, "users", $tr.attr("wpUser"), "hide" )
 					&& displayedCategory == "hide") {
+				if (console) {
+					console.log("SmartWatchlist: PING HIDE USER!");
 				visible = true;
 			}
 			else if ( revID &&
