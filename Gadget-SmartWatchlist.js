@@ -2,6 +2,8 @@
 *
 * Provides ability to selectively hide and/or highlight changes in a user's watchlist display.
 * Author: [[:en:User:UncleDouggie]]
+* 
+* Upstream: [[:en:User:UncleDouggie/smart watchlist.js]]
 *
 */
 
