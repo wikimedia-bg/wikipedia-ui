@@ -1,11 +1,17 @@
-/** Smart watchlist
-*
-* Provides ability to selectively hide and/or highlight changes in a user's watchlist display.
-* Author: [[:en:User:UncleDouggie]]
-* 
-* Upstream: [[:en:User:UncleDouggie/smart watchlist.js]]
-*
-*/
+/** Smart Watchlist
+ * Подобрен списък за наблюдение
+ *
+ * Provides ability to selectively hide and/or highlight changes in a user's watchlist display.
+ * Author: [[:en:User:UncleDouggie]]
+ * 
+ * Предоставя възможност за скриване или маркиране на редакции, потребители и
+ * страници в списъка за наблюдение, както и за групиране на страници.
+ * Българска версия: [[User:Iliev]]
+ * 
+ * Upstream: [[:en:User:UncleDouggie/smart watchlist.js]]
+ *
+ * WARNING: Mind the WMF servers caching: any changes may not be instantly propagated!
+ */
 
 // Extend jQuery to add a simple color picker optimized for our use
 ( function() {
