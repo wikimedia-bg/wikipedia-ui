@@ -746,6 +746,11 @@
 			if (displayedCategory == "all+") {
 				visible = true;
 			}
+			// Yes, let's show for the time being the edits by hidden users when "hidden" mode is chosen.
+			else if ( getSetting( "wikis", document.domain, "users", $tr.attr("wpUser"), "hide" )
+					&& displayedCategory == "hide") {
+				visible = true;
+			}
 			else if ( revID &&
 				(  getSetting( "wikis", document.domain, "pages", pageID, "hiddenRevs", revID ) ||  // specific revision is hidden
 				  getSetting( "wikis", document.domain, "pages", pageID, "patrolled" ) >= revID  // revision has been patrolled
