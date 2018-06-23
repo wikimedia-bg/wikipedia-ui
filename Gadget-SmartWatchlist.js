@@ -909,7 +909,7 @@
 					} ) 
 				)
 				.append( "<p>" )
-				.append( "Display pages in:&nbsp;" )
+				.append( "Показване на следните страници:&nbsp;" )
 				.append( 
 					$constructCategoryMenu( "meta" )
 						// no attributes other than onChange allowed so the menu can be rebuild in setupCategories()!
@@ -1356,7 +1356,7 @@
 				.dialog( {
 					width: 400,
 					autoOpen: false,
-					title: 'Настройка на групите',
+					title: 'Настройване на групите',
 					modal: true,
 					buttons: { 
 						'Съхраняване': function() { 
