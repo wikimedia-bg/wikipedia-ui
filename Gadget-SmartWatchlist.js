@@ -275,7 +275,7 @@
 				setupCategories.apply(this, arguments);
 			}
 			else {
-				alert("Редакторът на категории не може да бъде зареден. Опитайте да презаредите страницата.");
+				alert("Редакторът на групи не може да бъде стартиран. Опитайте да презаредите страницата.");
 			}
 		}
 	};
@@ -381,8 +381,8 @@
 					// add the patrol prior changes link
 					var $patrolLink = $("<a>", {
 						href: "javascript:SmartWatchlist.patrolRev('" + pageID + "', '" + revID + "');",
-						title: "Hide previous changes",
-						text: "patrol"
+						title: "Скриване на всички предишни редакции по страницата",
+						text: "скр. вс."
 					});
 					$td.append( $( "<span>" )
 						.addClass( "swlRevisionButton" )
@@ -419,8 +419,8 @@
 				// add the hide user link
 				var $hideUserLink = $("<a>", {
 					href: "javascript:SmartWatchlist.hideUser('" + user + "');",
-					title: "Hide changes by " + user + " on all pages",
-					text: "hide user"
+					title: "Скриване на редакции от " + user + " по всички страници",
+					text: "скр. потр."
 				});
 				$td.append( $( "<span>" )
 					.addClass( "swlHideUserButton" )
@@ -449,7 +449,7 @@
 		if (rowsProcessed == 0) {
 			$("#SmartWatchlistOptions")
 				.append( $( "<p>", {
-						text: 'To use Smart Watchlist, enable "enhanced recent changes" in your user preferences.' 
+						text: 'За да използвате подобрения списък за наблюдение, активирайте опцията „Групиране по страници на промените..." в раздела „Последни промени“ на потребителските си настройки.' 
 					} )
 					.css("color", "#cc00ff")
 				);
@@ -829,7 +829,7 @@
 					onClick: "javascript:SmartWatchlist.processOptionCheckbox(this);"
 				} )
 			)
-			.append("Enable hide/patrol change buttons")
+			.append("Скриване на редакции")
 			.append( "<br />" )
 			.append( 
 				$( "<input>", {
@@ -840,7 +840,7 @@
 					onClick: "javascript:SmartWatchlist.processOptionCheckbox(this);"
 				} )
 			)
-			.append("Enable hide user buttons")
+			.append("Скриване на потребители")
 			.append( "<br />" )
 			.append( 
 				$( "<input>", {
@@ -851,7 +851,7 @@
 					onClick: "javascript:SmartWatchlist.processOptionCheckbox(this);"
 				} )
 			)
-			.append("Assign user highlight colors")
+			.append("Маркиране на потребители")
 			.append( "<br />" )
 			.append( 
 				$( "<input>", {
@@ -862,7 +862,7 @@
 					onClick: "javascript:SmartWatchlist.processOptionCheckbox(this);"
 				} )
 			)
-			.append("Assign page highlight colors")
+			.append("Маркиране на страници")
 			.append( "<br />" )
 			.append( 
 				$( "<input>", {
@@ -873,7 +873,7 @@
 					onClick: "javascript:SmartWatchlist.processOptionCheckbox(this);"
 				} )
 			)
-			.append("Assign page categories");
+			.append("Групиране на страници");
 		
 		// construct panel column 2
 		var $column2 = $( "<div>" )
@@ -884,8 +884,8 @@
 					$("<input />", {
 						type: "button",
 						onClick: "javascript:SmartWatchlist.clearSettings();",
-						title: "Reset all page and user settings and remove all custom categories",
-						value: "Clear settings"
+						title: "Изчистване на всички настройки за страници и потребители и премахване на всички групи",
+						value: "Изчистване на настройките"
 					} ) 
 				)
 				.append("&nbsp;&nbsp;")
@@ -893,8 +893,8 @@
 					$("<input />", {
 						type: "button",
 						onClick: "javascript:SmartWatchlist.setupCategories();",
-						title: "Create, change and delete custom category names",
-						value: "Setup categories"
+						title: "Създаване, промяна и изтриване на групите страници",
+						value: "Настройване на групите"
 					} )
 				)
 				.append("&nbsp;&nbsp;")
@@ -903,9 +903,9 @@
 						type: "button",
 						id: "swlUndoButton",
 						onClick: "javascript:SmartWatchlist.undo();",
-						title: "Nothing to undo",
+						title: "Няма нищо за отменяне",
 						disabled: "disabled",
-						value: "Undo"
+						value: "Отмяна"
 					} ) 
 				)
 				.append( "<p>" )
@@ -942,7 +942,7 @@
 				} )
 				.append( 
 					$( "<legend>", {
-						text: "Smart watchlist settings"
+						text: "Настройки на подобрения списък за наблюдение"
 					} ) 
 				)
 				.append( 
@@ -970,8 +970,8 @@
 			$("#SmartWatchlistOptions")
 			.append( 
 				$( "<p>", {
-					text: "Your browser does not support saving settings to local storage. " +
-					"Items hidden or highlighted will not be retained after reloading the page."
+					text: "Вашият браузър не поддържа запазване на настройките в локално хранилище. " +
+					"Скритите и маркирани обекти ще бъдат загубени при презареждане на страницата."
 				} )
 				.css("color", "red")
 			);
@@ -1008,7 +1008,7 @@
 			for (var i = 0; i < userCategories.length && userCategories[i]; i++) {
 				var key = userCategories[i].key;
 				if ( typeof(key) !== "number" ) {
-					alert("Smart watchlist user category definitions are corrupt. You will need to clear your settings. Sorry.");
+					alert("Дефинираните групи в подобрения списък за наблюдение са повредени. За съжаление, трябва да изчистите изцяло настройките на подобрения списък.");
 					break;
 				}
 				else {
@@ -1020,15 +1020,15 @@
 		// add special categories to settings menu
 		if (metaOptionString == "meta") {
 			categories.push(
-				{ value: "all", text: "all except hidden" },
-				{ value: "flag", text: "highlighted" }
+				{ value: "all", text: "всичко без скрити" },
+				{ value: "flag", text: "маркирани" }
 			);
 		}
 
-		categories.push( { value: "hide", text: "hidden" } );
+		categories.push( { value: "hide", text: "скрити" } );
 		
 		if (metaOptionString == "meta") {
-			categories.push( { value: "all+", text: "everything" } );
+			categories.push( { value: "all+", text: "всичко" } );
 		}
 
 		// construct all <option> elements
@@ -1079,9 +1079,9 @@
 		}
 		
 		if (currentAction) {
-			currentAction = "Undo " + currentAction;
+			currentAction = "Отмяна на " + currentAction;
 		} else {
-			currentAction = "Undo last change";
+			currentAction = "Отмяна на последната промяна";
 		}
 		setSetting("undoAction", currentAction);
 		$( "#swlUndoButton" )
@@ -1115,7 +1115,7 @@
 			if (lastSettings.length == 0) {
 				$( "#swlUndoButton" )
 					.attr( "disabled", "disabled" )
-					.attr( "title", "Nothing to undo" );
+					.attr( "title", "Няма нищо за отменяне" );
 			}
 		}
 	};
@@ -1148,7 +1148,7 @@
 					settings = JSON.parse( storedString );
 				}
 				catch (e) {
-					alert( "Smart watchlist: error loading stored settings!" );
+					alert( "Подобрен списък за наблюдение: грешки при зареждане на съхранените настройки!" );
 					settings = {};
 				}
 			}
@@ -1196,7 +1196,7 @@
 			var size = storeString.length;
 			if ( size > maxSettingsSize ) {
 				storeString = "";
-				alert( "Smart watchlist: new settings are too large to be saved (" + size + " bytes)!" )
+				alert( "Подобрен списък за наблюдение: новите настройки са прекалено големи, за да бъдат съхранени (" + size + " байта)!" )
 				return;
 			}
 				
@@ -1207,7 +1207,7 @@
 			}
 			catch (e) {
 				storeString = "";				
-				alert( "Smart watchlist: error saving new settings!" );
+				alert( "Подобрен списък за наблюдение: грешка при съхраняване на новите настройки!" );
 				
 				// revert to previously saved settings that seemed to work
 				storage.setItem( storageKey, lastSaveString );
@@ -1345,10 +1345,10 @@
 				} )
 				.append( 
 					$( '<ul>')
-					.append( $( '<li>', { text: "Renamed categories retain current pages." } ) )
-					.append( $( '<li>', { text: "Dragging lines changes the order in category menus." } ) )
-					.append( $( '<li>', { text: "To delete a category, blank its name." } ) )
-					.append( $( '<li>', { text: "Pages in deleted categories revert to uncategorized." } ) )
+					.append( $( '<li>', { text: "Преименуването на групи запазва включените в тях страници." } ) )
+					.append( $( '<li>', { text: "Тегленето на редове променя реда в менютата с групи." } ) )
+					.append( $( '<li>', { text: "За да изтриете група, изтрийте името ѝ." } ) )
+					.append( $( '<li>', { text: "Страниците в изтрити групи стават отново негрупирани." } ) )
 				)
 				.append( $( '<br />' ) )
 				.append( $editTable )
@@ -1356,10 +1356,10 @@
 				.dialog( {
 					width: 400,
 					autoOpen: false,
-					title: 'Custom category setup',
+					title: 'Настройка на групите',
 					modal: true,
 					buttons: { 
-						'Save': function() { 
+						'Съхраняване': function() { 
 							$(this).dialog('close');
 							snapshotSettings('category setup', 'rebuild');
 							
@@ -1386,10 +1386,10 @@
 							} );
 							rebuildCategoryMenus();
 						},
-						'Add category': function() {
+						'Добавяне на група': function() {
 							addCategory( settings.nextCategoryKey++, '' );
 						},
-						'Cancel': function() { 
+						'Отказ': function() { 
 							$(this).dialog('close');
 						}
 					}
@@ -1399,7 +1399,7 @@
 	} );
 	
 	// activate only on the watchlist page
-	if ( mw.config.get("wgNamespaceNumber") == -1 && mw.config.get("wgTitle") == "Списък за наблюдение" ) {
+	if ( mw.config.get("wgNamespaceNumber") == -1 && ["Watchlist", "Списък за наблюдение"].includes(mw.config.get("wgTitle")) ) {
 		$(document).ready(initialize);
 	};
 } ) ();
