@@ -35,7 +35,7 @@
 * BKL[ResourceLoader]|HighlightDisambigLinks.css
 * quickeditcounter[ResourceLoader|dependencies=mediawiki.api,mediawiki.util]|quickeditcounter.js
 * SmartWatchlist[ResourceLoader]|SmartWatchlist.js
-** SWLHideSettings[ResourceLoader|type=styles]|SWLHideSettings.css
+* SWLHideSettings[ResourceLoader|type=styles]|SWLHideSettings.css
 
 == patrol-gadgets ==
 * Quick patrol[ResourceLoader|dependencies=mediawiki.util]|Quick patrol.js
