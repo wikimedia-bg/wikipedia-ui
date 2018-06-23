@@ -391,7 +391,7 @@
 				}
 
 				// check if this is the top-level row for a page
-				if ( isHeader || linkText == "diff" || linkText == "разл") {
+				if ( isHeader || linkText.match(/(^diff$|^\d+\sпромени$)/) ) {
 				
 					// add the category menu with the current page category pre-selected
 					$newMenu = $categoryMenuTemplate.clone();
