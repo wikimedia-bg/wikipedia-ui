@@ -370,8 +370,8 @@
 					$tr.attr( "revID", revID );
 					var $revLink = $("<a>", {
 						href: "javascript:SmartWatchlist.hideRev('" + pageID + "', '" + revID + "');",
-						title: "Hide this change",
-						text: "hide change"
+						title: "Скриване на тази редакция",
+						text: "скр. ред."
 					});
 					$td.append( $( "<span>" )
 						.addClass( "swlRevisionButton" )
