@@ -998,7 +998,7 @@
 
 		// create default category, must be first in the menu!!!
 		var categories = [
-			{ value: "uncategorized", text: "uncategorized" }
+			{ value: "uncategorized", text: "негрупирани" }
 		];
 		
 		
