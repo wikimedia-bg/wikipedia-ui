@@ -917,6 +917,7 @@
 				)
 			);
 
+/*
 		$sortPanel = $( "<div>" ).attr("align", "right")
 			.append( "Sort order:&nbsp;" );
 		
@@ -933,6 +934,7 @@
 		var $column3 = $( "<div>" )
 			.attr("style", "padding-left: 25pt;")
 			.append( $sortPanel );
+*/
 			
 		// construct main settings panel
 		$("#mw-watchlist-options")
@@ -956,12 +958,14 @@
 							} )
 							.append( $column2 )
 						)
+/*
 						.append( 
 							$( "<td>", {
 								valign: "top"
 							} )
 							.append( $column3 )
 						)
+*/
 					)
 				)
 			);
