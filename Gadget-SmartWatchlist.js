@@ -275,7 +275,7 @@
 				setupCategories.apply(this, arguments);
 			}
 			else {
-				alert("Category editor did not load. Try reloading the page.");
+				alert("Редакторът на категории не може да бъде зареден. Опитайте да презаредите страницата.");
 			}
 		}
 	};
@@ -363,8 +363,8 @@
 				} );
 
 				// check if we were able to parse the rev ID and have an individual change row
-				if ( !isNaN(parseInt(revID) ) &&  
-					 (linkText == "cur" || linkText == "diff") ) {
+				if ( !isNaN(parseInt(revID)) &&  
+					["cur", "diff", "тек", "разл"].includes(linkText) ) {
 
 					// add the hide change link
 					$tr.attr( "revID", revID );
