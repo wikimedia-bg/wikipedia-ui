@@ -834,7 +834,7 @@
 					onClick: "javascript:SmartWatchlist.processOptionCheckbox(this);"
 				} )
 			)
-			.append("Скриване на редакции")
+			.append("Връзки за скриване на редакции")
 			.append( "<br />" )
 			.append( 
 				$( "<input>", {
@@ -845,7 +845,7 @@
 					onClick: "javascript:SmartWatchlist.processOptionCheckbox(this);"
 				} )
 			)
-			.append("Скриване на потребители")
+			.append("Връзки за скриване на потребители")
 			.append( "<br />" )
 			.append( 
 				$( "<input>", {
@@ -856,7 +856,7 @@
 					onClick: "javascript:SmartWatchlist.processOptionCheckbox(this);"
 				} )
 			)
-			.append("Маркиране на потребители")
+			.append("Връзки за маркиране на потребители")
 			.append( "<br />" )
 			.append( 
 				$( "<input>", {
@@ -867,7 +867,7 @@
 					onClick: "javascript:SmartWatchlist.processOptionCheckbox(this);"
 				} )
 			)
-			.append("Маркиране на страници")
+			.append("Връзки за маркиране на страници")
 			.append( "<br />" )
 			.append( 
 				$( "<input>", {
@@ -878,7 +878,7 @@
 					onClick: "javascript:SmartWatchlist.processOptionCheckbox(this);"
 				} )
 			)
-			.append("Групиране на страници");
+			.append("Менюта за групиране на страници");
 		
 		// construct panel column 2
 		var $column2 = $( "<div>" )
