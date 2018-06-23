@@ -745,6 +745,7 @@
 
 			if (console) {
 				console.log("SmartWatchlist: PING!");
+			}
 			
 			if (displayedCategory == "all+") {
 				visible = true;
@@ -754,6 +755,7 @@
 					&& displayedCategory == "hide") {
 				if (console) {
 					console.log("SmartWatchlist: PING HIDE USER!");
+				}
 				visible = true;
 			}
 			else if ( revID &&
