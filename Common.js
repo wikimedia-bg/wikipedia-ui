@@ -294,7 +294,9 @@ function attachMemorizer(form, mainIsRoot) {
 	if (mainIsRoot) {
 		var titleElements = form.title.value.split('/');
 		mainpage = titleElements[0];
-		subpath = titleElements.slice(0, -1).join('/') + '/';
+		subpath = (titleElements.length > 2) ?
+			titleElements.slice(1, -1).join('/') + '/' :
+			'';
 	} else {
 		mainpage = form.title.value.replace(/\/+$/g, '');
 	}
