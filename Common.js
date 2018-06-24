@@ -281,12 +281,17 @@ var Memory = {
 
 function attachMemorizers() {
 	$('.mwbot').find('form[name="createbox"]').each(function() {
-		attachMemorizer(this);
+		attachMemorizer(this, false);
+	});
+	$('.mwbot-root').find('form[name="createbox"]').each(function() {
+		attachMemorizer(this, true);
 	});
 }
 
-function attachMemorizer(form) {
-	var mainpage = form.title.value.replace(/\/+$/g, '');
+function attachMemorizer(form, mainIsRoot) {
+	var mainpage = ( mainIsRoot ) ?
+		form.title.value.split( "/", 1 )[0] :
+		form.title.value.replace( /\/+$/g, '' );
 	if ( mainpage == "" ) {
 		mainpage = mw.config.get('wgPageName');
 	}
