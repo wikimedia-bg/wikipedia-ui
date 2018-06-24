@@ -37,12 +37,25 @@ var Memory = {
 
 function attachMemorizers() {
 	$('.mwbot').find('form[name="createbox"]').each(function() {
-		attachMemorizer(this);
+		attachMemorizer(this, false);
+	});
+	$('.mwbot-root').find('form[name="createbox"]').each(function() {
+		attachMemorizer(this, true);
 	});
 }
 
-function attachMemorizer(form) {
-	var mainpage = form.title.value.replace(/\/+$/g, '');
+function attachMemorizer(form, mainIsRoot) {
+	var mainpage;
+	var subpath = '';
+	if (mainIsRoot) {
+		var titleElements = form.title.value.split('/');
+		mainpage = titleElements[0];
+		subpath = (titleElements.length > 2) ?
+			titleElements.slice(1, -1).join('/') + '/' :
+			'';
+	} else {
+		mainpage = form.title.value.replace(/\/+$/g, '');
+	}
 	if ( mainpage == "" ) {
 		mainpage = mw.config.get('wgPageName');
 	}
@@ -53,7 +66,7 @@ function attachMemorizer(form) {
 			return false;
 		}
 		var subpage = this.title.value;
-		var prefix = mainpage + "/";
+		var prefix = mainpage + "/" + subpath;
 		var prefindex = subpage.indexOf(prefix);
 		if ( prefindex == 0 ) { // the prefix is already there, remove it
 			subpage = subpage.substr(prefix.length);
@@ -61,20 +74,21 @@ function attachMemorizer(form) {
 		var fullpage = prefix + subpage;
 		this.title.value = fullpage;
 		// allow summary prefilling by new section
-		$('<input>', {type: 'hidden', name: "preloadtitle", value: subpage }).appendTo(this);
+		$('<input>', {type: 'hidden', name: "preloadtitle", value: subpath + subpage}).appendTo(this);
 		Memory.memorize("transcludeSubpage",
-			[mainpage, subpage],
+			[mainpage, subpath, subpage],
 			fullpage.replace(/ /g, "_"), "view");
 		return true;
 	});
 }
 
-function transcludeSubpage(mainpage, subpage) {
+function transcludeSubpage(mainpage, subpath, subpage) {
+	// subpath is okay to be empty.
 	if ( $.trim(mainpage) == "" || $.trim(subpage) == "" ) {
 		return;
 	}
 	var api = new mw.Api();
-	var fullpage = mainpage + "/" + subpage;
+	var fullpage = mainpage + "/" + subpath + subpage;
 	api.postWithToken("edit", {
 		action: "edit",
 		title: mainpage,
