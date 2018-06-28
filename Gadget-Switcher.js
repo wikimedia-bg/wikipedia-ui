@@ -14,7 +14,7 @@
  *    „data-switcher-default=""“ в „switcher-label“ поделемента от точка (2).
  * 4. Оградете всички елементи от точка (1) с (над)елемент (най-удобно <div>)
  *    с клас „switcher-container“.
- * 5. Ако искате радио-бутоните да се показва над съдържанието, в наделемента
+ * 5. Ако искате радио-бутоните да се показват над съдържанието, в наделемента
  *    от точка (4) добавете клас „switcher-top“.
  * 6. Ако не искате да бъде добавен бутон „Показване на всички“, в наделемента
  *    от точка (4) добавете клас „switcher-noall“.
@@ -84,7 +84,7 @@
 				radioControls.reverse();
 				action = jQuery.fn.prependTo;
 			} else {
-				action = jQuery.dn.appendTo;
+				action = jQuery.fn.appendTo;
 			}
 			radioControls.forEach( function(control) {
 				action.apply( control, [ container ] );
