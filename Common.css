@@ -311,6 +311,37 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	margin: 1em auto;
 }
 
+/* подравняване на колони: ляво, центтирано и дясно */
+.col-1-left td:nth-child(1) { text-align: left; }
+.col-2-left td:nth-child(2) { text-align: left; }
+.col-3-left td:nth-child(3) { text-align: left; }
+.col-4-left td:nth-child(4) { text-align: left; }
+.col-5-left td:nth-child(5) { text-align: left; }
+.col-6-left td:nth-child(6) { text-align: left; }
+.col-7-left td:nth-child(7) { text-align: left; }
+.col-8-left td:nth-child(8) { text-align: left; }
+.col-9-left td:nth-child(9) { text-align: left; }
+
+.col-1-center td:nth-child(1) { text-align: center; }
+.col-2-center td:nth-child(2) { text-align: center; }
+.col-3-center td:nth-child(3) { text-align: center; }
+.col-4-center td:nth-child(4) { text-align: center; }
+.col-5-center td:nth-child(5) { text-align: center; }
+.col-6-center td:nth-child(6) { text-align: center; }
+.col-7-center td:nth-child(7) { text-align: center; }
+.col-8-center td:nth-child(8) { text-align: center; }
+.col-9-center td:nth-child(9) { text-align: center; }
+
+.col-1-right td:nth-child(1) { text-align: right; }
+.col-2-right td:nth-child(2) { text-align: right; }
+.col-3-right td:nth-child(3) { text-align: right; }
+.col-4-right td:nth-child(4) { text-align: right; }
+.col-5-right td:nth-child(5) { text-align: right; }
+.col-6-right td:nth-child(6) { text-align: right; }
+.col-7-right td:nth-child(7) { text-align: right; }
+.col-8-right td:nth-child(8) { text-align: right; }
+.col-9-right td:nth-child(9) { text-align: right; }
+
 /* ширина на центрирана таблица съобразно съдържанието, а не 100% */
 .wikitable.center {
 	width: auto;
