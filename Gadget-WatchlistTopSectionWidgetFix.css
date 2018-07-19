@@ -1,0 +1,15 @@
+/*
+ * Fixes the positioning of the watchlist top section widgets with the new
+ * version of the watchlist.
+ */
+
+.mw-rcfilters-ui-watchlistTopSectionWidget-watchlistDetails {
+	display: block !important;
+}
+
+.mw-rcfilters-ui-watchlistTopSectionWidget-editWatchlistButton {
+	display: block !important;
+	position: relative;
+	top: -5em;
+	height: 0;
+}
