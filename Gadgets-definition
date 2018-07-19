@@ -38,7 +38,7 @@
 * SWLHideSettings[ResourceLoader|type=styles]|SWLHideSettings.css
 * Switcher[ResourceLoader|default|hidden]|Switcher.js
 * Mwbot[ResourceLoader|dependencies=mediawiki.cookie|default|hidden]|Mwbot.js
-* WatchlistTopSectionWidgetFix[ResourceLoader|type=styles]|WatchlistTopSectionWidgetFix.css
+* WatchlistTopSectionWidgetFix[ResourceLoader|default|type=styles]|WatchlistTopSectionWidgetFix.css
 
 == patrol-gadgets ==
 * Quick patrol[ResourceLoader|dependencies=mediawiki.util]|Quick patrol.js
