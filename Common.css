@@ -730,6 +730,11 @@ cite:target {
 	padding: 5px;
 }
 
+/* Минимална ширина на миниатюрите (thumbs) */
+.thumbinner {
+	min-width: 100px;
+}
+
 /* прости списъчета, чиито елементи е добре да се показват един до друг с разделител */
 .simplelist ul, .simplelist li { margin: 0; padding: 0; }
 .simplelist li { display: inline; white-space: nowrap; }
