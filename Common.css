@@ -308,36 +308,93 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	margin: 1em auto;
 }
 
-/* подравняване на колони: ляво, центтирано и дясно */
-.col-1-left td:nth-child(1) { text-align: left; }
-.col-2-left td:nth-child(2) { text-align: left; }
-.col-3-left td:nth-child(3) { text-align: left; }
-.col-4-left td:nth-child(4) { text-align: left; }
-.col-5-left td:nth-child(5) { text-align: left; }
-.col-6-left td:nth-child(6) { text-align: left; }
-.col-7-left td:nth-child(7) { text-align: left; }
-.col-8-left td:nth-child(8) { text-align: left; }
-.col-9-left td:nth-child(9) { text-align: left; }
+/* подравняване на колони в таблици: ляво, центрирано и дясно */
+.col-1-left td:nth-child(1),
+.col-2-left td:nth-child(2),
+.col-3-left td:nth-child(3),
+.col-4-left td:nth-child(4),
+.col-5-left td:nth-child(5),
+.col-6-left td:nth-child(6),
+.col-7-left td:nth-child(7),
+.col-8-left td:nth-child(8),
+.col-9-left td:nth-child(9),
+.col-10-left td:nth-child(10),
+.col-11-left td:nth-child(11),
+.col-12-left td:nth-child(12),
+.col-13-left td:nth-child(13),
+.col-14-left td:nth-child(14),
+.col-15-left td:nth-child(15),
+.col-16-left td:nth-child(16),
+.col-17-left td:nth-child(17),
+.col-18-left td:nth-child(18),
+.col-19-left td:nth-child(19),
+.col-20-left td:nth-child(20),
+.col-21-left td:nth-child(21),
+.col-22-left td:nth-child(22),
+.col-23-left td:nth-child(23),
+.col-24-left td:nth-child(24),
+.col-25-left td:nth-child(25)
+{
+  text-align: left;
+}
 
-.col-1-center td:nth-child(1) { text-align: center; }
-.col-2-center td:nth-child(2) { text-align: center; }
-.col-3-center td:nth-child(3) { text-align: center; }
-.col-4-center td:nth-child(4) { text-align: center; }
-.col-5-center td:nth-child(5) { text-align: center; }
-.col-6-center td:nth-child(6) { text-align: center; }
-.col-7-center td:nth-child(7) { text-align: center; }
-.col-8-center td:nth-child(8) { text-align: center; }
-.col-9-center td:nth-child(9) { text-align: center; }
+.col-1-center td:nth-child(1),
+.col-2-center td:nth-child(2),
+.col-3-center td:nth-child(3),
+.col-4-center td:nth-child(4),
+.col-5-center td:nth-child(5),
+.col-6-center td:nth-child(6),
+.col-7-center td:nth-child(7),
+.col-8-center td:nth-child(8),
+.col-9-center td:nth-child(9),
+.col-10-center td:nth-child(10),
+.col-11-center td:nth-child(11),
+.col-12-center td:nth-child(12),
+.col-13-center td:nth-child(13),
+.col-14-center td:nth-child(14),
+.col-15-center td:nth-child(15),
+.col-16-center td:nth-child(16),
+.col-17-center td:nth-child(17),
+.col-18-center td:nth-child(18),
+.col-19-center td:nth-child(19),
+.col-20-center td:nth-child(20),
+.col-21-center td:nth-child(21),
+.col-22-center td:nth-child(22),
+.col-23-center td:nth-child(23),
+.col-24-center td:nth-child(24),
+.col-25-center td:nth-child(25)
+{
+  text-align: center;
+}
 
-.col-1-right td:nth-child(1) { text-align: right; }
-.col-2-right td:nth-child(2) { text-align: right; }
-.col-3-right td:nth-child(3) { text-align: right; }
-.col-4-right td:nth-child(4) { text-align: right; }
-.col-5-right td:nth-child(5) { text-align: right; }
-.col-6-right td:nth-child(6) { text-align: right; }
-.col-7-right td:nth-child(7) { text-align: right; }
-.col-8-right td:nth-child(8) { text-align: right; }
-.col-9-right td:nth-child(9) { text-align: right; }
+.col-1-right td:nth-child(1),
+.col-2-right td:nth-child(2),
+.col-3-right td:nth-child(3),
+.col-4-right td:nth-child(4),
+.col-5-right td:nth-child(5),
+.col-6-right td:nth-child(6),
+.col-7-right td:nth-child(7),
+.col-8-right td:nth-child(8),
+.col-9-right td:nth-child(9),
+.col-10-right td:nth-child(10),
+.col-11-right td:nth-child(11),
+.col-12-right td:nth-child(12),
+.col-13-right td:nth-child(13),
+.col-14-right td:nth-child(14),
+.col-15-right td:nth-child(15),
+.col-16-right td:nth-child(16),
+.col-17-right td:nth-child(17),
+.col-18-right td:nth-child(18),
+.col-19-right td:nth-child(19),
+.col-20-right td:nth-child(20),
+.col-21-right td:nth-child(21),
+.col-22-right td:nth-child(22),
+.col-23-right td:nth-child(23),
+.col-24-right td:nth-child(24),
+.col-25-right td:nth-child(25)
+{
+  text-align: right;
+}
 
 /* ширина на центрирана таблица съобразно съдържанието, а не 100% */
 .wikitable.center {
