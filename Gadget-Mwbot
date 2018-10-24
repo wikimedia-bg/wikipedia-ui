@@ -1,1 +1,0 @@
-'''Mwbot''' – extends the functionality of an inputbox in a div.mwbot element, appends { { MAINPAGE/SUBPAGE } } to MAINPAGE upon creation of MAINPAGE/SUBPAGE.
