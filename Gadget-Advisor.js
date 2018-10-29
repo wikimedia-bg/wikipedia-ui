@@ -105,7 +105,7 @@ ct.rules.push(function (s) {
 			replacement: '[[' + m[1] + ']]' + ext2,
 			name: 'А|А' + ext1,
 			description: '„[['+ m[1] +'|'+ m[1] + ext2 + ']]“ може да се опрости до „[[' + m[1] +']]' + ext2 + '“.',
-			help: 'Синтаксисът на МедияУики позволява препратки от вида „<tt>[[А|А' + ext1 + ']]</tt>“ да се пишат като „<tt>[[А]]' + ext1 + '</tt>“.'
+			help: 'Синтаксисът на МедияУики позволява препратки от вида „<kbd>[[А|А' + ext1 + ']]</kbd>“ да се пишат като „<kbd>[[А]]' + ext1 + '</kbd>“.'
 		};
 	}
 	return a;
@@ -260,7 +260,7 @@ ct.rules.push(function (s) {
 				replacement: m[1] + ' ' + m[3] + ' ' + m[1],
 				name: 'заглавие-стил',
 				description: 'Поправи интервалите',
-				help: 'Стилът на заглавието трябва да е <tt>==&nbsp;С интервали&nbsp;==</tt>.'
+				help: 'Стилът на заглавието трябва да е <kbd>==&nbsp;С интервали&nbsp;==</kbd>.'
 			});
 		}
 		var oldLevel = level;
@@ -293,7 +293,7 @@ ct.rules.push(function (s) {
 						replacement: r,
 						name: fm.code,
 						description: 'Поправи на „' + fm.correct + "“.",
-						help: 'Правилното изписване е „<tt>' + fm.correct + "</tt>“."
+						help: 'Правилното изписване е „<kbd>' + fm.correct + "</kbd>“."
 					});
 				}
 			}
@@ -316,7 +316,7 @@ ct.rules.push(function (s) {
 				name: 'ISBN',
 				description: 'Трябва да е дълъг 10 или 13 цифри',
 				help: 'ISBN номерата трябва да са дълги 10 или 13 цифри. '
-					+ 'Този се състои от ' + s.length + ' цифри:<br><tt>' + m[1] + '</tt>'
+					+ 'Този се състои от ' + s.length + ' цифри:<br><kbd>' + m[1] + '</kbd>'
 			});
 			continue;
 		}
@@ -328,8 +328,8 @@ ct.rules.push(function (s) {
 				end: m.end,
 				name: 'ISBN',
 				description: 'Неправилна употреба на X като цифра',
-				help: "``<tt>X</tt>'' може да се ползва само като последна цифра в в 10-цифрен ISBN номер "
-					+ '<br><tt>' + m[1] + '</tt>'
+				help: "``<kbd>X</kbd>'' може да се ползва само като последна цифра в в 10-цифрен ISBN номер "
+					+ '<br><kbd>' + m[1] + '</kbd>'
 			});
 			continue;
 		}
@@ -353,7 +353,7 @@ ct.rules.push(function (s) {
 			end: m.end,
 			name: 'ISBN',
 			description: 'Неправилна контролна сума',
-			help: 'Неправилна контролна сума на ISBN номер:<br/><tt>' + m[1] + '</tt><br/>'
+			help: 'Неправилна контролна сума на ISBN номер:<br/><kbd>' + m[1] + '</kbd><br/>'
 		});
 	}
 	return b;
@@ -418,8 +418,8 @@ ct.rules.push(function (s) {
 				name: 'число+' + unit,
 				description: 'Добави интервал между числото и ' + unit,
 				help: 'Между число и „' + unit + '“ трябва да се оставя един интервал, '
-					+ 'за предпочитане непренасящият се <tt>&amp;nbsp;</tt> '
-					+ '(non-breaking space, <tt>U+00A0</tt>).'
+					+ 'за предпочитане непренасящият се <kbd>&amp;nbsp;</kbd> '
+					+ '(non-breaking space, <kbd>U+00A0</kbd>).'
 			});
 		}
 	}
