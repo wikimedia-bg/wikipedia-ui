@@ -28,9 +28,6 @@ sup {vertical-align: baseline; font-size: 0.8em; position: relative; top: -0.4em
 	font-style: italic;
 }
 
-/* бутона „Предварителен преглед“ */
-#wpPreview { font-weight: bold; }
-
 .code { font-family: monospace; }
 
 /* подравняване на текста в таблицата нагоре */
