@@ -233,7 +233,7 @@ function addChars() {
 	var len = chars.length;
 	for (var i in chars) {
 		for (var j in chars[i]) {
-			cont += "<a href=\"javascript:mw.toolbar.insertTags('"+chars[i][j]+"', '', '')\" "+
+			cont += "<a href=\"javascript:mw.libs.toolbar.insertTags('"+chars[i][j]+"', '', '')\" "+
 			'title="' + mw.msg("et-addchar", chars[i][j]) +'">'+chars[i][j]+'</a> ';
 		}
 		if (i != len-1) {
@@ -255,7 +255,7 @@ function setupCustomEditTools() {
 		return;
 	}
 
-	mw.loader.using("mediawiki.toolbar", function(){
+	mw.loader.using("ext.gadget.MwToolbar", function(){
 		var toolbar = putToolbar(true);
 		toolbar.addClass("buttonlinks");
 		if ( showMenus ) {
@@ -284,7 +284,7 @@ function appendCustomButtons(parent) {
 		}
 		var title, href, html;
 		if (el.length > 3) { // an Insert button
-			href = "javascript:mw.toolbar.insertTags('"+el[0] +"','"+el[2]+"','"+ el[1]+"')";
+			href = "javascript:mw.libs.toolbar.insertTags('"+el[0] +"','"+el[2]+"','"+ el[1]+"')";
 			title = el[4];
 			html = el[3];
 		} else { // a general button
@@ -398,7 +398,7 @@ function insertIntoWikiText(content) {
 		delete(parts[0]);
 		right = parts.join('');
 	}
-	mw.toolbar.insertTags(unescapeNl(left), unescapeNl(right), unescapeNl(def));
+	mw.libs.toolbar.insertTags(unescapeNl(left), unescapeNl(right), unescapeNl(def));
 }
 
 function escapeNl(s) {
