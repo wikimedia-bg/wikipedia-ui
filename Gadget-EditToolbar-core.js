@@ -255,7 +255,7 @@ function setupCustomEditTools() {
 		return;
 	}
 
-	mw.loader.using("mediawiki.toolbar", function(){}, function(){
+	mw.loader.using("mediawiki.toolbar", function(){
 		var toolbar = putToolbar(true);
 		toolbar.addClass("buttonlinks");
 		if ( showMenus ) {
