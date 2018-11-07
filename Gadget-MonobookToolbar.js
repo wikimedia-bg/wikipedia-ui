@@ -8,14 +8,11 @@ MonobookToolbar.buttons = [];
 
 MonobookToolbar.functions = {};
 
-MonobookToolbar.toolbarId = mw.user.options.get('usebetatoolbar') ? 'monobooktoolbar' : 'toolbar';
+MonobookToolbar.toolbarId = 'monobooktoolbar';
 
 MonobookToolbar.functions.Init = function($){
    var Textarea = document.getElementById("wpTextbox1");
    if(!Textarea) return;
-   var UseBetaToolbar = mw.user.options.get('usebetatoolbar');
-   var forceOldToolbar = mw.user.options.get('gadget-ForceMonobookToolbar');
-   if(UseBetaToolbar && !forceOldToolbar) return;
 
    var toolbar = document.getElementById(MonobookToolbar.toolbarId);
    if(!toolbar){
