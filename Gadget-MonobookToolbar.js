@@ -11,14 +11,16 @@ MonobookToolbar.functions = {};
 MonobookToolbar.toolbarId = 'monobooktoolbar';
 
 MonobookToolbar.functions.Init = function($){
-   var Textarea = document.getElementById("wpTextbox1");
-   if(!Textarea) return;
+   var EntryPoint = document.getElementById("ddmenu_tpl1");
+   if(!EntryPoint) EntryPoint = document.getElementById("advisorSuggestions");
+   if(!EntryPoint) EntryPoint = document.getElementById("editform");
+   if(!EntryPoint) return;
 
    var toolbar = document.getElementById(MonobookToolbar.toolbarId);
    if(!toolbar){
       toolbar = document.createElement('div');
       toolbar.id = MonobookToolbar.toolbarId;
-      Textarea.parentNode.insertBefore(toolbar, Textarea);
+      EntryPoint.parentNode.insertBefore(toolbar, EntryPoint);
    }
    MonobookToolbar.functions.InitButtons();
 };
