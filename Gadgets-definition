@@ -15,7 +15,7 @@
 
 * MwToolbar[ResourceLoader|hidden]|MwToolbar.js
 * EditToolbar[ResourceLoader|default]|EditToolbar.js
-* EditToolbar-core[ResourceLoader|hidden|dependencies=mediawiki.user,mediawiki.util,ext.gadget.MwToolbar]|EditToolbar-core.js
+* EditToolbar-core[ResourceLoader|hidden|dependencies=mediawiki.user,mediawiki.util]|EditToolbar-core.js
 * edittop[ResourceLoader|dependencies=user.options]|edittop.js
 * wikEd[ResourceLoader]|wikEd.js
 * HotCat[ResourceLoader]|HotCat.js
