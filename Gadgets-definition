@@ -22,7 +22,7 @@
 * Advisor[ResourceLoader]|Advisor.js
 * CategoryMaster[ResourceLoader|rights=autopatrol|dependencies=mediawiki.util]|CategoryMaster.js
 * MonobookToolbar [ResourceLoader|dependencies=user.options|hidden] | MonobookToolbar.js
-* MonobookToolbarStandard [ResourceLoader|dependencies=ext.gadget.MonobookToolbar|default] | MonobookToolbarStandard.js
+* MonobookToolbarStandard [ResourceLoader|dependencies=ext.gadget.MonobookToolbar] | MonobookToolbarStandard.js
 
 == interface-gadgets ==
 
