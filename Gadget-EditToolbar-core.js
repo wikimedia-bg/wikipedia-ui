@@ -842,3 +842,4 @@ function zamena_5ko() {
 		txt = txt.replace(r, a_petko[i++]);
 	}
 }
+// vim: set ts=8 sts=8 sw=8 noet:
