@@ -21,6 +21,7 @@
 * Cat-a-lot[ResourceLoader|dependencies=mediawiki.util]|Cat-a-lot.js|Cat-a-lot.css
 * Advisor[ResourceLoader]|Advisor.js
 * CategoryMaster[ResourceLoader|rights=autopatrol|dependencies=mediawiki.util]|CategoryMaster.js
+* MonobookToolbarStandard[ResourceLoader]|MonobookToolbarStandard.js
 
 == interface-gadgets ==
 
