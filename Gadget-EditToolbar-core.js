@@ -8,10 +8,8 @@
  * insert an edit toolbar before the textarea.
  */
 window.putToolbar = function(rightNow) {
-   var toolbar = document.getElementById('monobooktoolbar');
-   if(!toolbar){
-	var toolbar = $('<div>');
- 	var putIt = function() {
+	var toolbar = $('<div>', {'class': 'custom-toolbar'});
+	var putIt = function() {
 		var $advisorDiv = $("#advisorSuggestions");
 		if ($advisorDiv.length > 0)
 			$advisorDiv.before(toolbar);
@@ -23,10 +21,7 @@ window.putToolbar = function(rightNow) {
 	} else {
 		$(putIt);
 	}
-        toolber.id = 'monobooktoolbar';
-   }
-   toolbar.addClass("custom-toolbar");
-   return toolbar;
+	return toolbar;
 };
 
 mw.libs.EditToolbar = {};
