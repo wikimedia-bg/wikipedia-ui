@@ -40,6 +40,7 @@
 * SmartWatchlist[ResourceLoader]|SmartWatchlist.js
 * SWLHideSettings[ResourceLoader|type=styles]|SWLHideSettings.css
 * Switcher[ResourceLoader|default|hidden]|Switcher.js
+* ParsePhabLinks[ResourceLoader|default|hidden]|ParsePhabLinks.js
 * Mwbot[ResourceLoader|dependencies=mediawiki.cookie|default|hidden]|Mwbot.js
 * WatchlistTopSectionWidgetFix[ResourceLoader|default|type=styles]|WatchlistTopSectionWidgetFix.css
 
