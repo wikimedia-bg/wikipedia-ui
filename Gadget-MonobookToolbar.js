@@ -11,8 +11,7 @@ MonobookToolbar.functions = {};
 MonobookToolbar.toolbarId = 'monobooktoolbar';
 
 MonobookToolbar.functions.Init = function($){
-   var EntryPoint = document.getElementById("ddmenu_tpl1");
-   if(!EntryPoint) EntryPoint = document.getElementById("advisorSuggestions");
+   var EntryPoint = document.getElementById("advisorSuggestions");
    if(!EntryPoint) EntryPoint = document.getElementById("editform");
    if(!EntryPoint) return;
 
