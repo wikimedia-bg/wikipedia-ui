@@ -12,14 +12,15 @@ window.putToolbar = function(rightNow) {
 	var putIt = function() {
 		var $advisorDiv = $("#advisorSuggestions");
 		var $monobookToolbar = $("#monobooktoolbar");
-		if ($monobookToolbar.length > 0)
+		if ($monobookToolbar.length > 0) {
 			$monobookToolbar.before(toolbar);
-		else if ($advisorDiv.length > 0)
+		} else if ($advisorDiv.length > 0) {
 			$advisorDiv.before(toolbar);
-		else
+		} else {
 			$("#editform").before(toolbar);
+                }
 	};
-	if ( window.rightNow ) {
+ 	if ( window.rightNow ) {
 		putIt();
 	} else {
 		$(putIt);
