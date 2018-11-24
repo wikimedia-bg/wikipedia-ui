@@ -14,7 +14,7 @@ window.putToolbar = function(rightNow) {
 		var $monobookToolbar = $("#monobooktoolbar");
 		if ($monobookToolbar.length > 0)
 			$monobookToolbar.before(toolbar);
-		elseif ($advisorDiv.length > 0)
+		else if ($advisorDiv.length > 0)
 			$advisorDiv.before(toolbar);
 		else
 			$("#editform").before(toolbar);
