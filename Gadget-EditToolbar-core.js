@@ -11,7 +11,10 @@ window.putToolbar = function(rightNow) {
 	var toolbar = $('<div>', {'class': 'custom-toolbar'});
 	var putIt = function() {
 		var $advisorDiv = $("#advisorSuggestions");
-		if ($advisorDiv.length > 0)
+		var $monobookToolbar = $("#monobooktoolbar");
+		if ($monobookToolbar.length > 0)
+			$monobookToolbar.before(toolbar);
+		elseif ($advisorDiv.length > 0)
 			$advisorDiv.before(toolbar);
 		else
 			$("#editform").before(toolbar);
