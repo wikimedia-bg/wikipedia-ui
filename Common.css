@@ -1463,7 +1463,7 @@ Two columns on wide, single on narrow and mobile screens.
 и голямото количество нарушения на авторски права, които се качват по този начин.
 За повече информация: https://phabricator.wikimedia.org/T120867#1876447
 */
-.ve-ui-mwMediaDialog-panel-search > div > div:nth-of-type(2) > div > div > div:nth-of-type(2) {
+.ve-ui-mwMediaDialog-panel-search > div > div > div > div > div:nth-of-type(2) {
 	display: none !important;
 }
 
