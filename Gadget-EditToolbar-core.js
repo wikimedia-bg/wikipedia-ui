@@ -92,8 +92,32 @@ mw.loader.using("user", function() {
 
 /* * *   Drop down menus for template insertion   * * */
 
-/* по идея на [[:he:MediaWiki:Summary|еврейската Уикипедия]] */
-window.tpl1 = window.tpl1 || {
+window.tpl = [];
+window.atpl = [];
+var atplBasePath = "МедияУики:Common.js/Edit tools data/";
+
+/*
+ * Backward compatibility: load all tpl/atpl{i} that may have been defined in users' JS.
+ * Load at most 10 menus; also a safety check to prevent unexpected endless loops.
+ */
+function loadUserMenus( menuVarBaseName, globalMenuArray ) {
+	var menuVar;
+	var userMenu;
+	for ( var i = 1; i <= 10; i++ ) {
+		menuVar = menuVarBaseName + i;
+		eval("userMenu = typeof(" + menuVar + ") == 'object' ? " + menuVar + " : null");
+		// Only consecutively named menus are supported, as we exit on first undefined one.
+		if ( userMenu !== null ) {
+			globalMenuArray.push( userMenu );
+		}
+	}
+}
+loadUserMenus( "tpl", tpl );
+loadUserMenus( "atpl", atpl );
+
+// Initialize core menus (more may be added by gadgets).
+
+window.tpl.push( {
 	// "SHOWN TEXT" : "TEMPLATE CONTENT",
 	"Елементи от статията…" : "-",
 	"==  ==" : "\n== >>|<< ==\n",
@@ -108,89 +132,85 @@ window.tpl1 = window.tpl1 || {
 	"Категория" : "[[Категория:>>|<<]]",
 	"Мъниче" : "{{мъниче>>|<<}}",
 	"Към пояснение" : "{"+"{към пояснение|"+ mw.config.get('wgTitle') +"|>>|<<"+ mw.config.get('wgTitle') +" (пояснение)}}"
-};
+} );
 
-var atplb = "МедияУики:Common.js/Edit tools data/";
-window.atpl1 = window.atpl1 || {
+window.atpl.push( {
 	// "SHOWN TEXT" : "PAGE NAME",
 	"Тематични шаблони…" : "-",
-	"Биография инфо" : atplb + "Биография инфо",
-	"Книга инфо" : atplb + "Книга инфо",
-	"Писател" : atplb + "Писател",
-	"Музикален албум" : atplb + "Музикален албум",
-	"Музикален изпълнител" : atplb + "Музикален изпълнител",
-	"Музикална група" : atplb + "Музикална група",
-	"Филм" : atplb + "Филм",
-	"Актьор" : atplb + "Актьор",
-	"Футболен отбор" : atplb + "Футболен отбор",
-	"Футболист" : atplb + "Футболист",
-	"Тенисист" : atplb + "Тенисист",
-	"Таксокутия" : atplb + "Таксокутия",
-	"Летателен апарат" : atplb + "Летателен апарат"
-};
+	"Биография инфо" : atplBasePath + "Биография инфо",
+	"Книга инфо" : atplBasePath + "Книга инфо",
+	"Писател" : atplBasePath + "Писател",
+	"Музикален албум" : atplBasePath + "Музикален албум",
+	"Музикален изпълнител" : atplBasePath + "Музикален изпълнител",
+	"Музикална група" : atplBasePath + "Музикална група",
+	"Филм" : atplBasePath + "Филм",
+	"Актьор" : atplBasePath + "Актьор",
+	"Футболен отбор" : atplBasePath + "Футболен отбор",
+	"Футболист" : atplBasePath + "Футболист",
+	"Тенисист" : atplBasePath + "Тенисист",
+	"Таксокутия" : atplBasePath + "Таксокутия",
+	"Летателен апарат" : atplBasePath + "Летателен апарат"
+} );
 
-window.atpl2 = window.atpl2 || {
+window.atpl.push( {
 	"Работни шаблони…" : "-",
 	"Шаблони за статии" : {
-		"Авторски права" : atplb + "Авторски права",
-		"Бързо изтриване" : atplb + "Бързо изтриване",
-		"Друго значение" : atplb + "Друго значение",
-		"Изтриване" : atplb + "Изтриване",
-		"Източник?" : atplb + "Източник",
-		"Без източници" : atplb + "Без източници",
-		"Микромъниче" : atplb + "Микромъниче",
-		"Обработка" : atplb + "Обработка",
-		"Пояснение" : atplb + "Пояснение",
-		"Превод от" : atplb + "Превод от",
-		"Прессъобщение" : atplb + "Прессъобщение",
-		"Редактирам" : atplb + "Редактирам",
-		"Сливане" : atplb + "Сливане",
-		"Сюжет" : atplb + "Сюжет",
-		"Цитат" : atplb + "Цитат",
-		"Цитат книга" : atplb + "Цитат книга",
-		"Цитат периодика" : atplb + "Цитат периодика",
-		"Цитат уеб" : atplb + "Цитат уеб",
-		"Уикицитат" : atplb + "Уикицитат",
-		"Commons" : atplb + "Commons",
-		"Commonscat" : atplb + "Commonscat",
-		"IMDB Name" : atplb + "Imdb name",
-		"IMDB Title" : atplb + "Imdb title"
+		"Авторски права" : atplBasePath + "Авторски права",
+		"Бързо изтриване" : atplBasePath + "Бързо изтриване",
+		"Друго значение" : atplBasePath + "Друго значение",
+		"Изтриване" : atplBasePath + "Изтриване",
+		"Източник?" : atplBasePath + "Източник",
+		"Без източници" : atplBasePath + "Без източници",
+		"Микромъниче" : atplBasePath + "Микромъниче",
+		"Обработка" : atplBasePath + "Обработка",
+		"Пояснение" : atplBasePath + "Пояснение",
+		"Превод от" : atplBasePath + "Превод от",
+		"Прессъобщение" : atplBasePath + "Прессъобщение",
+		"Редактирам" : atplBasePath + "Редактирам",
+		"Сливане" : atplBasePath + "Сливане",
+		"Сюжет" : atplBasePath + "Сюжет",
+		"Цитат" : atplBasePath + "Цитат",
+		"Цитат книга" : atplBasePath + "Цитат книга",
+		"Цитат периодика" : atplBasePath + "Цитат периодика",
+		"Цитат уеб" : atplBasePath + "Цитат уеб",
+		"Уикицитат" : atplBasePath + "Уикицитат",
+		"Commons" : atplBasePath + "Commons",
+		"Commonscat" : atplBasePath + "Commonscat",
+		"IMDB Name" : atplBasePath + "Imdb name",
+		"IMDB Title" : atplBasePath + "Imdb title"
 	},
 	"Шаблони за беседи" : {
-		"Благодарност" : atplb + "Благодарност",
-		"Добре дошли" : atplb + "Добре дошли",
-		"Добре дошли нерег" : atplb + "Добре дошли нерег",
-		"Неподписано" : atplb + "Неподписано",
-		"Заб.-вандал" : atplb + "П-вандал1",
-		"Заб.-нахален вандал" : atplb + "П-нахален вандал",
-		"Заб.-предв. преглед" : atplb + "П-преглед",
-		"Заб.-без източник" : atplb + "П-източник1",
-		"Заб.-изтриване" : atplb + "П-изтриване1",
-		"Заб.-копиране" : atplb + "П-копиране1",
-		"Заб.-превод" : atplb + "П-превод1",
-		"Заб.-реклама" : atplb + "П-реклама1",
-		"Заб.-спам" : atplb + "П-спам1",
-		"Заб.-тест" : atplb + "П-тест1",
-		"Заб.-шега" : atplb + "П-шега1",
-		"Заб.-име" : atplb + "П-име"
+		"Благодарност" : atplBasePath + "Благодарност",
+		"Добре дошли" : atplBasePath + "Добре дошли",
+		"Добре дошли нерег" : atplBasePath + "Добре дошли нерег",
+		"Неподписано" : atplBasePath + "Неподписано",
+		"Заб.-вандал" : atplBasePath + "П-вандал1",
+		"Заб.-нахален вандал" : atplBasePath + "П-нахален вандал",
+		"Заб.-предв. преглед" : atplBasePath + "П-преглед",
+		"Заб.-без източник" : atplBasePath + "П-източник1",
+		"Заб.-изтриване" : atplBasePath + "П-изтриване1",
+		"Заб.-копиране" : atplBasePath + "П-копиране1",
+		"Заб.-превод" : atplBasePath + "П-превод1",
+		"Заб.-реклама" : atplBasePath + "П-реклама1",
+		"Заб.-спам" : atplBasePath + "П-спам1",
+		"Заб.-тест" : atplBasePath + "П-тест1",
+		"Заб.-шега" : atplBasePath + "П-шега1",
+		"Заб.-име" : atplBasePath + "П-име"
 	},
 	"Шаблони за картинки" : {
-		"Без лиценз" : atplb + "Без лиценз"
+		"Без лиценз" : atplBasePath + "Без лиценз"
 	},
 	"Шаблони за категории" : {
-		"Категория" : atplb + "Категория",
-		"Категория инфо" : atplb + "Категория инфо"
+		"Категория" : atplBasePath + "Категория",
+		"Категория инфо" : atplBasePath + "Категория инфо"
 	},
 	"Шаблони за шаблони" : {
-		"Навигационен шаблон" : atplb + "Навигационен шаблон",
-		"Шаблон на мъниче" : atplb + "Шаблон на мъниче",
-		"Includeonly" : atplb + "Includeonly",
-		"Noinclude" : atplb + "Noinclude"
+		"Навигационен шаблон" : atplBasePath + "Навигационен шаблон",
+		"Шаблон на мъниче" : atplBasePath + "Шаблон на мъниче",
+		"Includeonly" : atplBasePath + "Includeonly",
+		"Noinclude" : atplBasePath + "Noinclude"
 	}
-};
-
-var tplVarBaseName = "tpl";
-var atplVarBaseName = "atpl";
+} );
 
 // името на елемента за допълнителните знаци
 var charsElemId = "extraChars";
@@ -261,13 +281,18 @@ function setupCustomEditTools() {
 	}
 
 	mw.loader.using("ext.gadget.MwToolbar", function(){
+		var i;
 		var toolbar = putToolbar(true);
 		toolbar.addClass("buttonlinks");
 		if ( showMenus ) {
 			// drop-down menus inserting text put direct in the javascript
-			appendDropDownMenus(toolbar, tplVarBaseName, insertIntoWikiText);
+			for ( i = 0; i < tpl.length; i++) {
+				appendDropDownMenu(toolbar, tpl[i], insertIntoWikiText, "ddmenu_tpl" + i);
+			}
 			// drop-down menus inserting content from wiki pages
-			appendDropDownMenus(toolbar, atplVarBaseName, loadPage);
+			for ( i = 0; i < atpl.length; i++) {
+				appendDropDownMenu(toolbar, atpl[i], loadPage, "ddmenu_atpl" + i);
+			}
 		}
 		if ( showButtons ) {
 			appendCustomButtons(toolbar);
@@ -316,15 +341,6 @@ function appendCustomButton(box, item) {
 
 function appendExtraChars(parent) {
 	$('<div>', { id: charsElemId, style: 'display: none' }).appendTo(parent);
-}
-
-function appendDropDownMenus(parent, tplVarBaseName, callback) {
-	var tplVar = null;
-	for ( var i = 1; tplVar = tplVarBaseName + i,
-			eval("var tpl = typeof("+ tplVar +") == 'object' ? "+ tplVar +" : null"),
-			tpl !== null; i++ ) {
-		appendDropDownMenu(parent, tpl, callback, "ddmenu_" + tplVar);
-	}
 }
 
 /** generates a drop-down menu */
