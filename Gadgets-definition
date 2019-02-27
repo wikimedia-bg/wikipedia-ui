@@ -25,6 +25,17 @@
 * MonobookToolbar [ResourceLoader|dependencies=user.options|hidden] | MonobookToolbar.js
 * MonobookToolbarStandard [ResourceLoader|dependencies=ext.gadget.MonobookToolbar] | MonobookToolbarStandard.js
 
+== edittoolbar-menus ==
+
+* EditToolbar-menu-page_elements[ResourceLoader|default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-page_elements.js
+* EditToolbar-menu-thematic_templates[ResourceLoader|default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-thematic_templates.js
+* EditToolbar-menu-article_templates[ResourceLoader|default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-article_templates.js
+* EditToolbar-menu-talk_templates[ResourceLoader|default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-talk_templates.js
+* EditToolbar-menu-other_templates[ResourceLoader|default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-other_templates.js
+* EditToolbar-menu-sources_templates[ResourceLoader|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-sources_templates.js
+* EditToolbar-menu-admin_templates[ResourceLoader|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-admin_templates.js
+* EditToolbar-menu-oldstyle_work_templates[ResourceLoader|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-oldstyle_work_templates.js
+
 == interface-gadgets ==
 
 * OpenStreetMap[ResourceLoader|dependencies=mediawiki.util|default]|OpenStreetMap.js

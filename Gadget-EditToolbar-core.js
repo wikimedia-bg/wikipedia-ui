@@ -90,7 +90,7 @@ mw.loader.using("user", function() {
 
 }); // end using("user")
 
-/* * *   Drop down menus for template insertion   * * */
+/* * *   Drop down menus from Gadget-EditToolbar-menu-... for template insertion   * * */
 
 window.tpl = [];
 window.atpl = [];
@@ -114,103 +114,6 @@ function loadUserMenus( menuVarBaseName, globalMenuArray ) {
 }
 loadUserMenus( "tpl", tpl );
 loadUserMenus( "atpl", atpl );
-
-// Initialize core menus (more may be added by gadgets).
-
-window.tpl.push( {
-	// "SHOWN TEXT" : "TEMPLATE CONTENT",
-	"Елементи от статията…" : "-",
-	"==  ==" : "\n== >>|<< ==\n",
-	"===  ===" : "\n=== >>|<< ===\n",
-	"Таблица" : "\n{| class=\"wikitable\"\n|+ >>|Заглавие на таблицата|<<\n! колона 1\n! колона 2\n! колона 3\n|-\n| ред 1, клетка 1\n| ред 1, клетка 2\n| ред 1, клетка 3\n|-\n| ред 2, клетка 1\n| ред 2, клетка 2\n| ред 2, клетка 3\n|}",
-	"Галерия" : "<gallery caption=\">>|<<\" class=\"center\">\n Файл: | \n Файл: | \n Файл: | \n Файл: | \n</gallery>",
-	"Източници" : "\n== Източници ==\n<references />\n>>|<<",
-	"Бележки" : "\n== Бележки ==\n<references />\n>>|<<",
-	"Вижте също" : "\n== Вижте също ==\n* [[>>|<<]]\n",
-	"Външни препратки" : "\n== Външни препратки ==\n* [>>|<<]\n",
-	"Сортиране по ключ" : "{{СОРТКАТ:>>|<<}}",
-	"Категория" : "[[Категория:>>|<<]]",
-	"Мъниче" : "{{мъниче>>|<<}}",
-	"Към пояснение" : "{"+"{към пояснение|"+ mw.config.get('wgTitle') +"|>>|<<"+ mw.config.get('wgTitle') +" (пояснение)}}"
-} );
-
-window.atpl.push( {
-	// "SHOWN TEXT" : "PAGE NAME",
-	"Тематични шаблони…" : "-",
-	"Биография инфо" : atplBasePath + "Биография инфо",
-	"Книга инфо" : atplBasePath + "Книга инфо",
-	"Писател" : atplBasePath + "Писател",
-	"Музикален албум" : atplBasePath + "Музикален албум",
-	"Музикален изпълнител" : atplBasePath + "Музикален изпълнител",
-	"Музикална група" : atplBasePath + "Музикална група",
-	"Филм" : atplBasePath + "Филм",
-	"Актьор" : atplBasePath + "Актьор",
-	"Футболен отбор" : atplBasePath + "Футболен отбор",
-	"Футболист" : atplBasePath + "Футболист",
-	"Тенисист" : atplBasePath + "Тенисист",
-	"Таксокутия" : atplBasePath + "Таксокутия",
-	"Летателен апарат" : atplBasePath + "Летателен апарат"
-} );
-
-window.atpl.push( {
-	"Работни шаблони…" : "-",
-	"Шаблони за статии" : {
-		"Авторски права" : atplBasePath + "Авторски права",
-		"Бързо изтриване" : atplBasePath + "Бързо изтриване",
-		"Друго значение" : atplBasePath + "Друго значение",
-		"Изтриване" : atplBasePath + "Изтриване",
-		"Източник?" : atplBasePath + "Източник",
-		"Без източници" : atplBasePath + "Без източници",
-		"Микромъниче" : atplBasePath + "Микромъниче",
-		"Обработка" : atplBasePath + "Обработка",
-		"Пояснение" : atplBasePath + "Пояснение",
-		"Превод от" : atplBasePath + "Превод от",
-		"Прессъобщение" : atplBasePath + "Прессъобщение",
-		"Редактирам" : atplBasePath + "Редактирам",
-		"Сливане" : atplBasePath + "Сливане",
-		"Сюжет" : atplBasePath + "Сюжет",
-		"Цитат" : atplBasePath + "Цитат",
-		"Цитат книга" : atplBasePath + "Цитат книга",
-		"Цитат периодика" : atplBasePath + "Цитат периодика",
-		"Цитат уеб" : atplBasePath + "Цитат уеб",
-		"Уикицитат" : atplBasePath + "Уикицитат",
-		"Commons" : atplBasePath + "Commons",
-		"Commonscat" : atplBasePath + "Commonscat",
-		"IMDB Name" : atplBasePath + "Imdb name",
-		"IMDB Title" : atplBasePath + "Imdb title"
-	},
-	"Шаблони за беседи" : {
-		"Благодарност" : atplBasePath + "Благодарност",
-		"Добре дошли" : atplBasePath + "Добре дошли",
-		"Добре дошли нерег" : atplBasePath + "Добре дошли нерег",
-		"Неподписано" : atplBasePath + "Неподписано",
-		"Заб.-вандал" : atplBasePath + "П-вандал1",
-		"Заб.-нахален вандал" : atplBasePath + "П-нахален вандал",
-		"Заб.-предв. преглед" : atplBasePath + "П-преглед",
-		"Заб.-без източник" : atplBasePath + "П-източник1",
-		"Заб.-изтриване" : atplBasePath + "П-изтриване1",
-		"Заб.-копиране" : atplBasePath + "П-копиране1",
-		"Заб.-превод" : atplBasePath + "П-превод1",
-		"Заб.-реклама" : atplBasePath + "П-реклама1",
-		"Заб.-спам" : atplBasePath + "П-спам1",
-		"Заб.-тест" : atplBasePath + "П-тест1",
-		"Заб.-шега" : atplBasePath + "П-шега1",
-		"Заб.-име" : atplBasePath + "П-име"
-	},
-	"Шаблони за картинки" : {
-		"Без лиценз" : atplBasePath + "Без лиценз"
-	},
-	"Шаблони за категории" : {
-		"Категория" : atplBasePath + "Категория",
-		"Категория инфо" : atplBasePath + "Категория инфо"
-	},
-	"Шаблони за шаблони" : {
-		"Навигационен шаблон" : atplBasePath + "Навигационен шаблон",
-		"Шаблон на мъниче" : atplBasePath + "Шаблон на мъниче",
-		"Includeonly" : atplBasePath + "Includeonly",
-		"Noinclude" : atplBasePath + "Noinclude"
-	}
-} );
 
 // името на елемента за допълнителните знаци
 var charsElemId = "extraChars";
