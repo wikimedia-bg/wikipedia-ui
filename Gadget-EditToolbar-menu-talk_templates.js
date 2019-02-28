@@ -31,6 +31,7 @@ window.atpl.push( {
 	"Заб.-машинен пр. 2" : window.atplBasePath + "П-превод2",
 	"Заб.-реклама 1" : window.atplBasePath + "П-реклама1",
 	"Заб.-реклама 2" : window.atplBasePath + "П-реклама2",
+	"Заб.-платено 1" : window.atplBasePath + "П-платено1",
 	"Заб.-неутралност" : window.atplBasePath + "П-НГТ",
 	"Заб.-У:НЕЕ трибуна" : window.atplBasePath + "П-кауза1",
 	"Заб.-спам 1" : window.atplBasePath + "П-спам1",
