@@ -94,7 +94,7 @@ mw.loader.using("user", function() {
 
 window.tpl = [];
 window.atpl = [];
-var atplBasePath = "МедияУики:Common.js/Edit tools data/";
+window.atplBasePath = "МедияУики:Common.js/Edit tools data/";
 
 /*
  * Backward compatibility: load all tpl/atpl{i} that may have been defined in users' JS.

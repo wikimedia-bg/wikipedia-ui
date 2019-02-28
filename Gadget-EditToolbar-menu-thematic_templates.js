@@ -1,18 +1,18 @@
 window.atpl.push( {
 	// "SHOWN TEXT" : "PAGE NAME",
 	"Тематични шаблони…" : "-",
-	"Биография инфо" : atplBasePath + "Биография инфо",
-	"Книга инфо" : atplBasePath + "Книга инфо",
-	"Писател" : atplBasePath + "Писател",
-	"Музикален албум" : atplBasePath + "Музикален албум",
-	"Музикален изпълнител" : atplBasePath + "Музикален изпълнител",
-	"Музикална група" : atplBasePath + "Музикална група",
-	"Филм" : atplBasePath + "Филм",
-	"Актьор" : atplBasePath + "Актьор",
-	"Футболен отбор" : atplBasePath + "Футболен отбор",
-	"Футболист" : atplBasePath + "Футболист",
-	"Тенисист" : atplBasePath + "Тенисист",
-	"Таксокутия" : atplBasePath + "Таксокутия",
-	"Летателен апарат" : atplBasePath + "Летателен апарат"
+	"Биография инфо" : window.atplBasePath + "Биография инфо",
+	"Книга инфо" : window.atplBasePath + "Книга инфо",
+	"Писател" : window.atplBasePath + "Писател",
+	"Музикален албум" : window.atplBasePath + "Музикален албум",
+	"Музикален изпълнител" : window.atplBasePath + "Музикален изпълнител",
+	"Музикална група" : window.atplBasePath + "Музикална група",
+	"Филм" : window.atplBasePath + "Филм",
+	"Актьор" : window.atplBasePath + "Актьор",
+	"Футболен отбор" : window.atplBasePath + "Футболен отбор",
+	"Футболист" : window.atplBasePath + "Футболист",
+	"Тенисист" : window.atplBasePath + "Тенисист",
+	"Таксокутия" : window.atplBasePath + "Таксокутия",
+	"Летателен апарат" : window.atplBasePath + "Летателен апарат"
 } );
 // vim: set ts=8 sts=8 sw=8 noet:
