@@ -10,7 +10,7 @@
 * lum[ResourceLoader]|lum.js
 * Big dynamap[ResourceLoader]|Big dynamap.js
 * ExternalSearch[ResourceLoader]|externalsearch.js
-* QRpediaFix [ResourceLoader|default|hidden] | QRpediaFix.js
+* QRpediaFix [ResourceLoader|default|hidden|targets=desktop,mobile] | QRpediaFix.js
 
 == editing-gadgets ==
 
