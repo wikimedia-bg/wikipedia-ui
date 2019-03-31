@@ -7,7 +7,7 @@ window.atpl.push( {
 		"Цитат периодика" : window.atplBasePath + "Цитат периодика",
 		"Цитат уеб" : window.atplBasePath + "Цитат уеб",
 		"Hrf" : window.atplBasePath + "Hrf",
-		"Srf" : window.atplBasePath + "Srf"
+		"Sfn" : window.atplBasePath + "Sfn"
 	},
 	"Други" : {
 		"Авторски права" : window.atplBasePath + "Авторски права",
