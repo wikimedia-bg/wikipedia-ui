@@ -2,6 +2,7 @@ window.atpl.push( {
 	// "SHOWN TEXT" : "PAGE NAME",
 	"Шаблони за статии…" : "-",
 	"Цитиране" : {
+		"Цитат" : window.atplBasePath + "Цитат",
 		"Цитат книга" : window.atplBasePath + "Цитат книга",
 		"Цитат периодика" : window.atplBasePath + "Цитат периодика",
 		"Цитат уеб" : window.atplBasePath + "Цитат уеб",
@@ -26,7 +27,6 @@ window.atpl.push( {
 		"Сливане" : window.atplBasePath + "Сливане",
 		"Сюжет" : window.atplBasePath + "Сюжет",
 		"Уикицитат" : window.atplBasePath + "Уикицитат",
-		"Цитат" : window.atplBasePath + "Цитат",
 		"Commons" : window.atplBasePath + "Commons",
 		"Commonscat" : window.atplBasePath + "Commonscat",
 		"IMDB Name" : window.atplBasePath + "Imdb name",
