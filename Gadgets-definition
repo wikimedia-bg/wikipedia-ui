@@ -25,6 +25,7 @@
 * CategoryMaster[ResourceLoader|rights=autopatrol|dependencies=mediawiki.util]|CategoryMaster.js
 * MonobookToolbar [ResourceLoader|dependencies=user.options|hidden] | MonobookToolbar.js
 * MonobookToolbarStandard [ResourceLoader|dependencies=ext.gadget.MonobookToolbar] | MonobookToolbarStandard.js
+* ProveIt [ResourceLoader] | ProveIt.js
 
 == edittoolbar-menus ==
 
