@@ -26,27 +26,17 @@ if ( namespace === 0 || namespace === 2 ) {
 
 					// Configure the gadget (all options are optional)
 					mw.config.set({
-						'proveit-tag': 'Редакция с ProveIt', // Revision tag created at 
-
-Special:Tags
-						'proveit-summary': 'Източник редактиран с ProveIt', // Automatic edit 
-
-summary
-						'proveit-templates': [ // These templates should have their TemplateData 
-
-defined
+						'proveit-tag': 'Редакция с ProveIt', // Revision tag created at Special:Tags
+						'proveit-summary': 'Източник редактиран с ProveIt', // Automatic edit summary
+						'proveit-templates': [ // These templates should have their TemplateData defined
 							'Шаблон:Cite book',
 							'Шаблон:Цитат книга'
 						]
 					});
 
 					// Load the latest code directly from Commons
-					mw.loader.load( '//commons.wikimedia.org/w/load.php?
-
-modules=ext.gadget.ProveIt&only=scripts' );
-					mw.loader.load( '//commons.wikimedia.org/w/load.php?
-
-modules=ext.gadget.ProveIt&only=styles', 'text/css' );
+					mw.loader.load( '//commons.wikimedia.org/w/load.php?modules=ext.gadget.ProveIt&only=scripts' );
+					mw.loader.load( '//commons.wikimedia.org/w/load.php?modules=ext.gadget.ProveIt&only=styles', 'text/css' );
 				}
 			} );
 		}
