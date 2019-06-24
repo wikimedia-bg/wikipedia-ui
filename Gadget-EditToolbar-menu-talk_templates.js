@@ -37,7 +37,7 @@ window.atpl.push( {
 	"Заб.-спам 1" : window.atplBasePath + "П-спам1",
 	"Заб.-спам 2" : window.atplBasePath + "П-спам2",
 	"Заб.-тест 1" : window.atplBasePath + "П-тест1",
-	"Заб.-тест 2" : window.atplBasePath + "П-тест1",
+	"Заб.-тест 2" : window.atplBasePath + "П-тест2",
 	"Заб.-шльокавица" : window.atplBasePath + "П-шльокавица1",
 	"Заб.-небивалици" : window.atplBasePath + "П-шега1",
 	"Заб.-У:НЕЕ чат" : window.atplBasePath + "П-чат1",
