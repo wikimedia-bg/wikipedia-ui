@@ -30,7 +30,9 @@ if ( namespace === 0 || namespace === 2 ) {
 						'proveit-summary': 'Източник редактиран с ProveIt', // Automatic edit summary
 						'proveit-templates': [ // These templates should have their TemplateData defined
 							'Шаблон:Cite book',
-							'Шаблон:Цитат книга'
+							'Шаблон:Цитат книга',
+							'Шаблон:Cite web',
+							'Шаблон:Цитат уеб'
 						]
 					});
 
