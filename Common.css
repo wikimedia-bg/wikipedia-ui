@@ -1457,6 +1457,37 @@ Two columns on wide, single on narrow and mobile screens.
     }
 }
 
+/* Джаджи: */
+
+/* ProveIt: Стилови множества за data-tooltip, които са дефинирани извън ProveIt и пречат на коректната визуализация */
+#proveit [data-tooltip]:before {
+	box-shadow: none;
+	transform: none !important;
+	transition: none;
+	width: auto;
+	height: auto;
+	background: transparent;
+	bottom: 20px;
+}
+
+#proveit [data-tooltip]:after {
+	transition: none;
+	border: none;
+}
+
+#proveit [data-tooltip]:not([data-position]):after {
+	bottom: 20px;
+}
+
+#proveit [data-tooltip]:hover:before {
+	transform: none;
+}
+
+#proveit [data-tooltip]:hover:after {
+	transform: none !important;
+	white-space: normal;
+}
+
 /*
 Временно скриване на таба Upload в меню Вмъкване >> Медия на Визуалния редактор, 
 заради нерешен към момента проблем с филтрирането на cross-wiki uploads по език
