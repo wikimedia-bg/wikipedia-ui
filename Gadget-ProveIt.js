@@ -33,7 +33,8 @@ if ( namespace === 0 || namespace === 2 ) {
 							'Шаблон:Цитат книга',
 							'Шаблон:Cite web',
 							'Шаблон:Цитат уеб',
-							'Шаблон:Cite journal'
+							'Шаблон:Cite journal',
+							'Шаблон:Cite news'
 						]
 					});
 
