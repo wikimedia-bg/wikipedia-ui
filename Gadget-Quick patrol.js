@@ -6,9 +6,9 @@
  */
 
 mw.messages.set({
-	"markaspatrolledtext1" : "Отбелязване на следната редакция като проверена",
-	"markaspatrolledtext"  : "Отбелязване на следните $1 редакции като проверени",
-	"markedaspatrolledtext1": "Редакцията беше отбелязана като проверена.",
+	"markaspatrolledtext1" : "Отбелязване на следната редакция като патрулирана",
+	"markaspatrolledtext"  : "Отбелязване на следните $1 редакции като патрулирани",
+	"markedaspatrolledtext1": "Редакцията беше отбелязана като патрулирана.",
 	"markedaspatrolledtext" : "Готово.",
 	"showalldiffs"      : "Показване на редакциите",
 	"recentchangespage" : "Специални:Последни промени",
