@@ -5,6 +5,7 @@ window.atpl.push( {
 	"Цитат беседа" : window.atplBasePath + "Цитат беседа",
 	"Неподписано" : window.atplBasePath + "Неподписано",
 	"Благодарност" : window.atplBasePath + "Благодарност",
+	"Бъдете смели" : window.atplBasePath + "Бъдете смели",
 	"Добре дошли" : window.atplBasePath + "Добре дошли",
 	"Добре дошли нерег" : window.atplBasePath + "Добре дошли нерег",
 	"Не хранете тролове" : window.atplBasePath + "Не хранете тролове",
