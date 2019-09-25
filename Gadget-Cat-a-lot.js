@@ -600,7 +600,7 @@
 			this.connectionError = [];
 			this.counterCurrent = 1;
 			this.counterNeeded = files.length;
-			mw.loader.using( ['jquery.ui.dialog', 'mediawiki.RegExp'], function() {
+			mw.loader.using( ['jquery.ui.dialog', 'mediawiki.util'], function() {
 				catALot.showProgress();
 				for ( var i = 0; i < files.length; i++ ) {
 					catALot.getContent( files[ i ], targetcat, mode );
