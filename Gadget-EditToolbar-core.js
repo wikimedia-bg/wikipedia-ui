@@ -76,7 +76,8 @@ mw.loader.using("user", function() {
     	"mkNumList" : ["mw.libs.EditToolbar.mkList(true)", "#..", "Добавяне на # в началото на всеки ред"],
 		// уикификатора
 		"#" : ["mw.libs.EditToolbar.obrabotka(false)", "#", "Преобразуване на някои знаци"],
-		"$" : ["mw.libs.EditToolbar.obrabotka(true)", "$", "Преобразуване на числа към БДС"],
+		// Temporary disabled. For details, see http://bg.wikipedia.org/wiki/Special:Diff/9636118
+		// "$" : ["mw.libs.EditToolbar.obrabotka(true)", "$", "Преобразуване на числа към БДС"],
 		// допълнителните знаци
 		"ch" : ["mw.libs.EditToolbar.toggleChars()", "Още…", "Виртуална клавиатура"]
 	}, mw.vars.get("EditToolbar.buttons"));
