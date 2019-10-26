@@ -395,7 +395,7 @@ mw.libs.CategoryMaster = function() {
 
 };
 
-mw.libs.CategoryMaster.dependencies = ['mediawiki.ui', 'mediawiki.ui.input', 'mediawiki.jqueryMsg', 'jquery.ui.progressbar'];
+mw.libs.CategoryMaster.dependencies = ['mediawiki.ui', 'mediawiki.ui.input', 'mediawiki.jqueryMsg', 'jquery.ui'];
 
 mw.libs.CategoryMaster.messages = {
 	'cm-portlet-link': 'Преместване на категория',
