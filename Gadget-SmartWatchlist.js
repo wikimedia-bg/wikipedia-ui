@@ -1318,7 +1318,7 @@
 
 	// dialog windows
 	var setupCategories = null;
-	mw.loader.using( ['jquery.ui.dialog', 'jquery.ui.sortable'], function() {
+	mw.loader.using( ['jquery.ui'], function() {
 
 		setupCategories = function () {
 		
