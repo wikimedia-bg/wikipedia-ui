@@ -215,7 +215,7 @@
 				.click( function() {
 					$( this ).toggleClass( 'cat_a_lot_enabled' );
 					// Load autocomplete on demand
-					mw.loader.using( ['jquery.ui.autocomplete'], initAutocomplete );
+					mw.loader.using( ['jquery.ui'], initAutocomplete );
 					catALot.run();
 				} );
 			$settingsLink
@@ -600,7 +600,7 @@
 			this.connectionError = [];
 			this.counterCurrent = 1;
 			this.counterNeeded = files.length;
-			mw.loader.using( ['jquery.ui.dialog', 'mediawiki.util'], function() {
+			mw.loader.using( ['jquery.ui', 'mediawiki.util'], function() {
 				catALot.showProgress();
 				for ( var i = 0; i < files.length; i++ ) {
 					catALot.getContent( files[ i ], targetcat, mode );
@@ -786,7 +786,7 @@
 		},
 
 		manageSettings: function() {
-			mw.loader.using( [ 'ext.gadget.SettingsManager', 'ext.gadget.SettingsUI', 'jquery.ui.progressbar' ], function() {
+			mw.loader.using( [ 'ext.gadget.SettingsManager', 'ext.gadget.SettingsUI', 'jquery.ui' ], function() {
 				catALot._manageSettings();
 			} );
 		},
