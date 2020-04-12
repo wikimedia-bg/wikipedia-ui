@@ -253,7 +253,7 @@ $(function() {
 //});
 
 // Преименуване на етикета "Статия" за началната страница
-if (mw.config.get('wgPageName') == 'Начална_страница' || mw.config.get('wgPageName') == 'Беседа:Начална_страница') {
+if (mw.config.get('wgIsMainPage') || mw.config.get('wgPageName') == 'Беседа:Начална_страница') {
     $(function () {
         var nstab = document.getElementById('ca-nstab-main');
         if (nstab && mw.config.get('wgUserLanguage')=='bg') {
@@ -329,7 +329,7 @@ if (mw.ext.isAction(["view", "purge", "submit"])) {
 /*global mw, $, importStylesheet, importScript */
 /*jshint curly:false eqnull:true, strict:false, browser:true, */
 
-mw.loader.using( ['mediawiki.util', 'mediawiki.notify', 'jquery.client'], function () {
+mw.loader.using( ['mediawiki.util', 'jquery.client'], function () {
 /* Начало на mw.loader.using callback */
 
 /**
