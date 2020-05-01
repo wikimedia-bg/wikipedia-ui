@@ -1,20 +1,7 @@
 <nowiki>{{Taxobox
 | image = 
 | image_caption = 
-| regnum     = 
-| regnum-bg  = 
-| divisio    = 
-| divisio-bg = 
-| classis    = 
-| classis-bg = 
-| ordo       = 
-| ordo-bg    = 
-| familia    = 
-| familia-bg = 
-| genus      = 
-| genus-bg   = 
-| species    =
-| species-bg = 
-| subdivision_ranks = 
-| subdivision = 
+| status_bg = 
+| status_bg_extinct = 
+| status_bg_ref = 
 }}</nowiki>
