@@ -104,17 +104,6 @@ mw.vars = {
 };
 
 mw.messages.set({
-	// Projects
-	"wikipedia": "Уикипедия",
-	"wiktionary": "Уикиречник",
-	"wikiquote": "Уикицитат",
-	"wikibooks": "Уикикниги",
-	"wikisource": "Уикиизточник",
-	"wikinews": "Уикиновини",
-	"wikiversity": "Уикиверситет",
-	"wikispecies": "Уикивидове",
-	"commons": "Общомедия",
-
 	// Featured article marker
 	"fa-linktitle" : "Тази статия на друг език е избрана.",
 
@@ -125,7 +114,6 @@ mw.messages.set({
 
 	// Toolbox add-ons
 	"tb-subpages": "Подстраници",
-	"tb-inother": "В други проекти"
 });
 
 // for backwards compatibility
@@ -158,72 +146,6 @@ mw.loader.using( 'mediawiki.util' ).then( function() {
 			"Управление на правата", 't-userrights' );
 	}
 });
-
-
-/**
-* ProjectLinks
-*
-* by [[en:wikt:user:Pathoschild]] (idea from an older, uncredited script)
-* generates a sidebar list of links to other projects
-*
-* (copied from [[en:wikt:MediaWiki:Monobook.js]] and modified)
-*/
-function Projectlinks() {
-	var ptb = $("#p-tb");
-	if ( ! ptb.length ) {
-		return; // no toolbox, no place to go, asta la vista
-	}
-
-	var wrappers = $('.interProject');
-	if ( wrappers.length === 0 ) {
-		return;
-	}
-
-	var projects = {
-		"wiktionary": mw.msg("wiktionary"),
-		"wikiquote": mw.msg("wikiquote"),
-		"wikibooks": mw.msg("wikibooks"),
-		"wikisource": mw.msg("wikisource"),
-		"wikinews": mw.msg("wikinews"),
-		"wikispecies": mw.msg("wikispecies"),
-		"wikiversity": mw.msg("wikiversity"),
-		"commons.wiki": mw.msg("commons")
-	};
-
-	function getProjectName(url) {
-		for ( var code in projects ) {
-			if ( url.indexOf( code ) != -1 ) {
-				return projects[code];
-			}
-		}
-		return "";
-	}
-
-	// get projectlinks
-	var elements = [];
-	wrappers.each(function() {
-		var link = $(this).find('a:first').clone();
-		elements.push(link.text(getProjectName(link[0].href)));
-	});
-
-	// sort alphabetically
-	elements.sort(function(a, b) {
-		return (a.text() < b.text()) ? -1 : 1;
-	});
-
-	// create list
-	var pllist = $('<ul>');
-	$.each(elements, function(i, element) {
-		$('<li>', { html: element }).appendTo(pllist);
-	});
-	// and navbox
-	var plheader = $('<h3>', {text: mw.msg("tb-inother")});
-	var plbox = $('<div>', {'class': 'body', html: pllist}).show();
-	var portlet = $('<div>', {'class': 'portal', id: 'p-sl'}).append(plheader, plbox);
-	ptb.after(portlet);
-}
-
-mw.hook('wikipage.content').add(Projectlinks);
 
 
 // поздравително съобщение за нерегистрираните потребители
