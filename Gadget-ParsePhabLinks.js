@@ -1,4 +1,4 @@
-function parsePhabLinks() {
+function parseGitLinks() {
 	var $jss9Comments =
 	// The method of selecting only and all JSS 9's comments depends on the page we're on.
 		( mw.config.get( 'wgCanonicalSpecialPageName' ) === 'Contributions' ) ?
@@ -57,7 +57,7 @@ function parsePhabLinks() {
 				mw.config.get( 'wgAction' ) === 'history'
 			)
 		)
-	) $( parsePhabLinks() );
+	) $( parseGitLinks() );
 } )( jQuery, mediaWiki );
 
 // vim: ts=4 sts=4 sw=4 tw=100 noet:
