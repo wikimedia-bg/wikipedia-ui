@@ -174,16 +174,6 @@ $(function() {
 //    logoLink.href = '/wiki/Име на страницата'; // <-- поставете името на страницата между апострофите, но запазете /wiki/ отпред
 //});
 
-// Преименуване на етикета "Статия" за началната страница
-if (mw.config.get('wgIsMainPage') || mw.config.get('wgPageName') == 'Беседа:Начална_страница') {
-    $(function () {
-        var nstab = document.getElementById('ca-nstab-main');
-        if (nstab && mw.config.get('wgUserLanguage')=='bg') {
-            while (nstab.firstChild) { nstab = nstab.firstChild; }
-            nstab.nodeValue = 'Начална страница';
-        }
-    });
-}
 
 /**
  * Script pour alterner entre plusieurs cartes de géolocalisation
