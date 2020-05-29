@@ -153,7 +153,7 @@ $(function() {
 	var shouldSeeWelcomeMsg = mw.ext.isAction("view") // преглед на страница
 		&& mw.config.get("wgUserName") === null // нерегистриран потребител
 		&& mw.config.get("wgCanonicalNamespace") === "" // основно именно пространство = статия
-		&& mw.config.get("wgRestrictionEdit") === [] // няма защита
+		&& mw.config.get("wgRestrictionEdit").length === 0 // няма защита
 		&& mw.config.get("wgIsProbablyEditable") === true // може да се редактира
 		&& (document.referrer !== "") // има препращач
 		&& (/bg\.wikipedia\.org/.test(document.referrer) === false) // идва извън Уикипедия
