@@ -1304,11 +1304,6 @@ pre.source-lua {
 /* Géolocalisation dynamique */
 /* Стилове за Шаблон:ПК група */
 
-.NavContent .img_toggle {
-  zoom: 1; /* be kind to IE7 */
-  clear: both; /* be kind to IE7 */
-}
-
 .img_toggle,
 .img_toggle * {
  margin: 0 auto !important;
