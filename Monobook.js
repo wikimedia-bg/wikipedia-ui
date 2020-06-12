@@ -29,19 +29,3 @@ mw.libs.addCreatePageForm = function() {
 };
 
 $(mw.libs.addCreatePageForm);
-
-
-//Temporary fix for missing wikidata sidebar links, pending [[phab:T254485]] resolution
-mw.loader.using(['mediawiki.util'], function () {
-  if (mw.config.get('wgWikibaseItemId')) {
-    mw.util.addPortletLink(
-      'p-tb',
-      'https://www.wikidata.org/wiki/' + mw.config.get('wgWikibaseItemId'),
-      'Уикиданни',
-      't-wikidata',
-      'Structured data on this page hosted by Wikidata',
-      null,
-      '#t-cite'
-    );
-  };
-});
