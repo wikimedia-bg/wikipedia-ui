@@ -149,20 +149,21 @@ mw.loader.using( 'mediawiki.util' ).then( function() {
 
 
 // поздравително съобщение за нерегистрираните потребители
-$(function() {
-	var shouldSeeWelcomeMsg = mw.ext.isAction("view") // преглед на страница
-		&& mw.config.get("wgUserName") === null // нерегистриран потребител
-		&& mw.config.get("wgCanonicalNamespace") === "" // основно именно пространство = статия
-		&& mw.config.get("wgRestrictionEdit").length === 0 // няма защита
-		&& mw.config.get("wgIsProbablyEditable") === true // може да се редактира
-		&& (document.referrer !== "") // има препращач
-		&& (/bg\.wikipedia\.org/.test(document.referrer) === false) // идва извън Уикипедия
-		;
-	if (shouldSeeWelcomeMsg) {
-		mw.util.$content.prepend('<div class="custom-usermessage"><b>Добре дошли</b> в Уикипедия! Можете не само да четете тази статия, но също така и да я <b><a href="/wiki/%D0%A3%D0%B8%D0%BA%D0%B8%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F:%D0%92%D1%8A%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5" title="Повече информация за редактирането на статии в Уикипедия">редактирате и подобрите</a></b>.</div>');
-	}
+mw.loader.using(['mediawiki.util']).then(function () {
+	$(function() {
+		var shouldSeeWelcomeMsg = mw.ext.isAction("view") // преглед на страница
+			&& mw.config.get("wgUserName") === null // нерегистриран потребител
+			&& mw.config.get("wgCanonicalNamespace") === "" // основно именно пространство = статия
+			&& mw.config.get("wgRestrictionEdit").length === 0 // няма защита
+			&& mw.config.get("wgIsProbablyEditable") === true // може да се редактира
+			&& (document.referrer !== "") // има препращач
+			&& (/bg\.wikipedia\.org/.test(document.referrer) === false) // идва извън Уикипедия
+			;
+		if (shouldSeeWelcomeMsg && mw.util.$content) {
+			mw.util.$content.prepend('<div class="custom-usermessage"><b>Добре дошли</b> в Уикипедия! Можете не само да четете тази статия, но също така и да я <b><a href="/wiki/%D0%A3%D0%B8%D0%BA%D0%B8%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F:%D0%92%D1%8A%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5" title="Повече информация за редактирането на статии в Уикипедия">редактирате и подобрите</a></b>.</div>');
+		}
+	});
 });
-
 
 // Използвайте този код, за да пренасочите връзката от логото на Уикипедия
 // към определена страница в енциклопедията. За целта разкоментирайте кода
