@@ -471,6 +471,10 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	column-count:2;
 }
 
+div.reflist ol.references {
+	list-style-type: inherit;  /* Enable custom list style types */
+}
+
 .same-bg { background: none }
 
 /* Highlight clicked reference in blue to help navigation */
