@@ -471,7 +471,7 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	column-count:2;
 }
 
-div.reflist ol.references {
+ol.references {
 	list-style-type: inherit;  /* Enable custom list style types */
 }
 
