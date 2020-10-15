@@ -47,7 +47,9 @@ mw.ext.Patroller.quick = function() {
 			my.gotoRcIfWanted();
 		}).fail(function() {
 			$patrolLink.addClass(my.diffLinkClassNotDone);
-			my.quick.handleError(data.error, $patrolLink);
+			if(my.quick) {
+				my.quick.handleError(data.error, $patrolLink);
+			}
 		});
 	};
 
