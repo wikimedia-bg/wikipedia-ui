@@ -1109,6 +1109,15 @@ from [[Template:Navbar]], so they need to be the same width. */
 	width: 6em;
 }
 
+/*
+Correct the broken layout of the legend tag in Special:Contributions.
+For details, see [[Special:Permalink/10543114#mw-collapsible-toggle]]
+*/
+.oo-ui-fieldsetLayout-header.mw-collapsible-toggle {
+	float: left;
+	text-align: left;
+}
+
 
 /* Infobox v_2 */
 .infobox_v2 { /* monobookocentré debut */
