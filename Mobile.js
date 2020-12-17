@@ -3,5 +3,6 @@ mw.vars = {
 	use: function() {
 		// please translate
 		mw.notify('You are loading a gadget on mobile that is not supported. Please notify your gadget developer.')
+		return this;
 	}
 };
