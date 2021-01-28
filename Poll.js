@@ -16,7 +16,7 @@ function showPolls() {
 }
 
 function createPoll(pollElem) {
-	var pollName = wgDBname + "-poll-" + pollElem.id;
+	var pollName = mw.config.get('wgDBname') + "-poll-" + pollElem.id;
 	var page = pollElem.getElementsByTagName("p")[0];
 	var pageName = page.textContent.trim();
 
