@@ -53,6 +53,6 @@ function SpecialSearchEnhanced() {
 
 var searchEngines = [];
 
-if (wgCanonicalNamespace == "Special" && wgCanonicalSpecialPageName == "Search") {
+if (mw.config.get('wgCanonicalNamespace') == "Special" && wgCanonicalSpecialPageName == "Search") {
   $(SpecialSearchEnhanced);
 }
