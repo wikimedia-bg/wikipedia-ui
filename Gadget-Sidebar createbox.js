@@ -20,7 +20,7 @@ $(function(){
 
 	var header = Creator.createElement('h5', {}, gLang.msg("p-createnew"));
 	var form = Creator.createElement('form', {
-		action : wgScript, id: "createform"
+		action : mw.config.get('wgScript'), id: "createform"
 	}, Creator.createElement("div", {}, [
 		Creator.createHiddenField("action", "edit"),
 		Creator.createElement("input", {type: "text", name: "title", id: "createPageInput"}),
