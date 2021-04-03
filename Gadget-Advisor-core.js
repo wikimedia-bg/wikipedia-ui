@@ -400,7 +400,7 @@ ct.scan = function (force) {
 				: ct._('$1 suggestions: ', ct.suggestions.length)
 	));
 	for (var i = 0; i < nSuggestions; i++) {
-		var suggestion = ct.suggestions[i];
+		var suggestion = ct.suggestions[i] || {};
 		var eA = ct.anchor(
 				suggestion.name,
 				'javascript:ct.showSuggestion(' + i + '); void(0);',
@@ -470,6 +470,7 @@ ct.showSuggestion = function (k) {
 		return;
 	}
 	var suggestion = ct.suggestions[k];
+	if(!suggestion) return;
 	var now = new Date().getTime();
 	if ((suggestion.help != null) && (ct.lastShownSuggestionIndex === k) && (now - ct.lastShownSuggestionTime < 1000)) {
 		// Show help
@@ -517,7 +518,7 @@ ct.fixSuggestion = function (k) {
 		return;
 	}
 	var suggestion = ct.suggestions[k];
-	if (suggestion.replacement == null) { // the issue is not automatically fixable
+	if (!suggestion || suggestion.replacement == null) { // the issue is not automatically fixable
 		return;
 	}
 	ct.setWikiText(
