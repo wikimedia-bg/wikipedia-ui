@@ -28,7 +28,9 @@ function SpecialSearchEnhanced() {
     var selectBox = document.createElement('select');
     selectBox.id = 'searchEngine';
     searchForm.onsubmit = function() {
-        var optSelected = searchEngines[document.getElementById('searchEngine').selectedIndex];
+    	var engine = document.getElementById('searchEngine');
+    	if(!engine) return;
+        var optSelected = searchEngines[engine.selectedIndex];
         searchForm.action = optSelected[0];
         searchBox.name = optSelected[1];
         searchForm.title.value = optSelected[3];
