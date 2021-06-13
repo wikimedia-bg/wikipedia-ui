@@ -56,6 +56,7 @@
 * ParsePhabLinks[ResourceLoader|default|hidden]|ParsePhabLinks.js
 * Mwbot[ResourceLoader|dependencies=mediawiki.cookie|default|hidden]|Mwbot.js
 * WatchlistTopSectionWidgetFix[ResourceLoader|default|type=styles]|WatchlistTopSectionWidgetFix.css
+* UploadRedirectToCommons [ResourceLoader|default] | UploadRedirectToCommons.js
 * MoveToIncubator [ResourceLoader|rights=autopatrol|default] | MoveToIncubator.js
 
 == patrol-gadgets ==
