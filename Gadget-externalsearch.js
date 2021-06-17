@@ -36,6 +36,7 @@ function SpecialSearchEnhanced() {
         searchForm.title.value = optSelected[3];
         searchForm.title.name = optSelected[2];
     }
+    var wgScriptPath = mw.config.get('wgScriptPath');
     selectBox.appendChild(createOption('Уикипедия на български', wgScriptPath + '/index.php', 'search', 'title', 'Special:Search'));
     selectBox.appendChild(createOption('Уикипедия на английски', '//en.wikipedia.org/w/index.php', 'search', 'title', 'Special:Search'));
     selectBox.appendChild(createOption('Google', 'http://www.google.com/search', 'q', 'sitesearch', 'bg.wikipedia.org'));
