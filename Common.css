@@ -1100,7 +1100,7 @@ from [[Template:Navbar]], so they need to be the same width. */
 }
 
 /* Styling for JQuery makeCollapsible, matching that of collapseButton */
-.mw-collapsible-toggle {
+.mw-parser-output .mw-collapsible-toggle {
 	font-weight: normal;
 	/* @noflip */
 	text-align: right;
