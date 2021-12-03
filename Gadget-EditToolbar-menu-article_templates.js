@@ -9,17 +9,23 @@ window.atpl.push( {
 		"Hrf" : window.atplBasePath + "Hrf",
 		"Sfn" : window.atplBasePath + "Sfn"
 	},
+	"Изтриване" : {
+		"Бързо изтриване" : window.atplBasePath + "Бързо изтриване",
+		"Изтриване" : window.atplBasePath + "Изтриване"
+	},
+	"Източници" : {
+		"Без източници" : window.atplBasePath + "Без източници",
+		"Без конкретни източници" : window.atplBasePath + "Без конкретни източници",
+		"Повече източници" : window.atplBasePath + "Повече източници",
+		"Източник?" : window.atplBasePath + "Източник"
+	},
 	"Други" : {
 		"Авторски права" : window.atplBasePath + "Авторски права",
-		"Без източници" : window.atplBasePath + "Без източници",
-		"Бързо изтриване" : window.atplBasePath + "Бързо изтриване",
+		"Без категория" : window.atplBasePath + "Без категория",
 		"Друго значение" : window.atplBasePath + "Друго значение",
-		"Източник?" : window.atplBasePath + "Източник",
-		"Изтриване" : window.atplBasePath + "Изтриване",
 		"Микромъниче" : window.atplBasePath + "Микромъниче",
 		"Незавършена" : window.atplBasePath + "Незавършена",
 		"Обработка" : window.atplBasePath + "Обработка",
-		"Повече източници" : window.atplBasePath + "Повече източници",
 		"Пояснение" : window.atplBasePath + "Пояснение",
 		"Превод от" : window.atplBasePath + "Превод от",
 		"Прессъобщение" : window.atplBasePath + "Прессъобщение",
