@@ -2,7 +2,7 @@ function initMoveToIncubatorMenu() {
 
 	// =======================  CONFIGURATION  =======================
 
-	var incubatorPrefix = 'Уикипедия:Инкубатор/Статии/';
+	var incubatorPrefix = 'Чернова:';
 
 	var menuText = '... в инкубатор';
 	var menuHotkey = 'z';
