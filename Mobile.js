@@ -9,7 +9,3 @@ mw.vars = {
                  };
 	}
 };
-
-window.importScript = function () {
-		mw.notify('You are trying to load a script via the deprecated importScript method which is not available on mobile. Please notify your gadget developer.');
-}
