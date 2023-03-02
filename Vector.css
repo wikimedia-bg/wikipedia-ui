@@ -18,6 +18,7 @@ if it works, the rules can be safely removed
 
 /* Fix the position of {{Coord}} and similar geo templates. */
 #coordinates { top: -4em }
+.skin-vector-2022 #coordinates { top: -9em; right: 0; }
  
 /* Fix the position of the featured (FA) and good (GA) articles' icon.
    Note: !important _is_ important! ;) */
