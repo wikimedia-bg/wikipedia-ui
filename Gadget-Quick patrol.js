@@ -91,7 +91,9 @@ mw.ext.Patroller.bulk = function(quick) {
 	/** Works on Special:Recentchanges */
 	my.makeBulkDiffsPatrollable = function() {
 		$('table.mw-enhanced-rc').each(function() {
-			my.makeBulkDiffPatrollable(this);
+			if ($(this).find('.unpatrolled').length) {
+				my.makeBulkDiffPatrollable(this);
+			}
 		});
 	};
 
