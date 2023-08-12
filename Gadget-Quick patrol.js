@@ -127,7 +127,6 @@ mw.ext.Patroller.bulk = function(quick) {
 				return this.href + extraParams;
 			}).addClass(my.bulkDiffLinkClass);
 		} else {
-			var revs = revids.split(my.paramDelim);
 			my.addBulkDiffLinkTo(
 				$('td:eq(4)', $holder), // fifth table cell
 				revids.split(my.paramDelim),
@@ -137,10 +136,18 @@ mw.ext.Patroller.bulk = function(quick) {
 	};
 
 	my.addBulkDiffLinkTo = function($holder, revs, extraParams) {
-		var title = $holder.find('.mw-changeslist-title').attr('title').replace(/\s+/g, '_');
 		if (revs.length === 0) { return; }
-		var oldid = revs[0], diff = revs[0];
-		if (revs.length > 1) {
+		var title = $holder.find('.mw-changeslist-title').attr('title').replace(/\s+/g, '_');
+		var oldid, diff;
+		if (revs.length === 1) {
+			if (!revs[0]) {
+				oldid = $holder.closest('table').attr('data-mw-revid') || '';
+				diff = oldid || '';
+			} else {
+				oldid = revs[0];
+				diff = revs[0];
+			}
+		} else {
 			$.each(revs, function(i) {
 				oldid = Math.min(oldid, revs[i]);
 				diff = Math.max(diff, revs[i]);
