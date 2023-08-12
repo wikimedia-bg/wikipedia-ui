@@ -402,4 +402,13 @@ mw.hook('wikipage.content').add(function($content) {
 
 /* Край на mw.loader.using callback */
 } );
+
+$(function() {
+	// remove any "coordinates" ids after the first one
+	// see https://bg.wikipedia.org/wiki/Шаблон_беседа:Coord#Проблем_с_наслагващи_се_координати
+	$('[id="coordinates"]').each(function(i) {
+		if (i > 0) { $(this).remove(); }
+	});
+});
+
 /* НЕ ДОБАВЯЙТЕ КОМАНДИ ПОД ТОЗИ РЕД */
