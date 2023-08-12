@@ -142,15 +142,14 @@ mw.ext.Patroller.bulk = function(quick) {
 		if (revs.length === 1) {
 			if (!revs[0]) {
 				oldid = $holder.closest('table').attr('data-mw-revid') || '';
-				diff = oldid || '';
 			} else {
 				oldid = revs[0];
-				diff = revs[0];
 			}
+			diff = oldid ? 'prev' : '';
 		} else {
 			$.each(revs, function(i) {
-				oldid = Math.min(oldid, revs[i]);
-				diff = Math.max(diff, revs[i]);
+				oldid = Math.min(oldid || revs[i], revs[i]);
+				diff = Math.max(diff || revs[i], revs[i]);
 			});
 		}
 		$holder.html($holder.html().replace(
