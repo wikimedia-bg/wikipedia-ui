@@ -517,6 +517,7 @@ ct.rules.push(function (s) {
         	else if (m[1].indexOf('x') > -1) replace('x', 'х');
         	else if (m[1].indexOf('p') > -1) replace('p', 'р');
         	else if (m[1].indexOf('c') > -1) replace('c', 'с');
+        	else if (m[1].indexOf('c') > -1) replace('i', 'і');
         }
     }
     return a;
