@@ -1,4 +1,3 @@
-// <nowiki>
 // Българска версия на правилата за скрипта Advisor.js
 // Виж МедияУики:Gadget-Advisor-core.js за основния скрипт
 // виж http://en.wikipedia.org/wiki/User:Cameltrader/Advisor.js/Description
@@ -6,13 +5,13 @@
 var ct = ct || {};
 
 ct.inBrackets = function (s, m, brackets) {
-	let leftContext = s.substring(0, m.start);
-	let rightContext = s.substring(m.end);
+	var leftContext = s.substring(0, m.start);
+	var rightContext = s.substring(m.end);
 
-	let indexOfOpeningLeft = leftContext.lastIndexOf(brackets[0]);
-	let indexOfClosingLeft = leftContext.lastIndexOf(brackets[1]);
-	let indexOfOpeningRight = rightContext.indexOf(brackets[0]);
-	let indexOfClosingRight = rightContext.indexOf(brackets[1]);
+	var indexOfOpeningLeft = leftContext.lastIndexOf(brackets[0]);
+	var indexOfClosingLeft = leftContext.lastIndexOf(brackets[1]);
+	var indexOfOpeningRight = rightContext.indexOf(brackets[0]);
+	var indexOfClosingRight = rightContext.indexOf(brackets[1]);
 
 	return (indexOfOpeningLeft !== -1 && (indexOfClosingLeft === -1 || indexOfOpeningLeft > indexOfClosingLeft)) ||
 		(indexOfClosingRight !== -1 && (indexOfOpeningRight === -1 || indexOfOpeningRight > indexOfClosingRight));
@@ -21,17 +20,17 @@ ct.inBrackets = function (s, m, brackets) {
 // originally from https://en.wikipedia.org/wiki/User:GregU/dashes.js
 // checkPat1, checkPat2, checkTags, checkFileName default to true
 ct.doNotFix = function (s, m, checkPat1, checkPat2, checkTags, checkFileName, checkWikiPreCode, checkQuotes, checkPat3) {
-	let pos = m.start;
-	let pat = /\[\[[^|\]]*$|\{\{[^|}]*$/;
+	var pos = m.start;
+	var pat = /\[\[[^|\]]*$|\{\{[^|}]*$/;
 	if (checkPat1 !== false && s.substring(pos - 260, pos + 1).search(pat) > -1)
 		return true; // it's a link or template name, so don't change it
 
-	let pat2 = /\{\{\s*(?:#[a-z]+:|друг[ои]\s+значени[ея]|основна|вижте\s+също|main|към|от\s+пренасочване|категория|anchor|cite|citation|цитат2?|долап|c?quote|is[sb]n|lang[i2]?|[es]fn|hrf|harv|пост\s+списък)(?:(?=([^{}]+))\1|\{(?:(?=([^{}]+))\2|\{(?:(?=([^{}]+))\3|\{(?:(?=([^{}]+))\4|\{(?:(?=([^{}]+))\5|\{(?:(?=([^{}]+))\6|\{(?=([^{}]*))\7\})*\})*\})*\})*\})*\})*$/i; // long and ugly regex because of limited JS regex engine
+	var pat2 = /\{\{\s*(?:#[a-z]+:|друг[ои]\s+значени[ея]|основна|вижте\s+също|main|към|от\s+пренасочване|категория|anchor|cite|citation|цитат2?|долап|c?quote|is[sb]n|lang[i2]?|[es]fn|hrf|harv|пост\s+списък)(?:(?=([^{}]+))\1|\{(?:(?=([^{}]+))\2|\{(?:(?=([^{}]+))\3|\{(?:(?=([^{}]+))\4|\{(?:(?=([^{}]+))\5|\{(?:(?=([^{}]+))\6|\{(?=([^{}]*))\7\})*\})*\})*\})*\})*\})*$/i; // long and ugly regex because of limited JS regex engine
 	if (checkPat2 !== false && s.slice(0, pos + 1).search(pat2) > -1)
 		return true; // specific template/parser function (with up to six balanced curly brackets -- 3 levels of template/parser function nesting or 2 levels of parameter placeholder nesting)
 
 	if (checkTags !== false) {
-		let nextTagPos = s.slice(pos).search(/<\/?(?:chem|math|pre|code|tt|source|syntaxhighlight|timeline|graph|mapframe|maplink|poem|blockquote|q|i|ref)\b/i);
+		var nextTagPos = s.slice(pos).search(/<\/?(?:chem|math|pre|code|tt|source|syntaxhighlight|timeline|graph|mapframe|maplink|poem|blockquote|q|i|ref)\b/i);
 		if (nextTagPos > -1 && s.charAt(pos + nextTagPos + 1) === '/')
 			return true; // skip math/chem equations, source code, timelines, graphs, maps, ref content, content in citation tags
 	}
@@ -43,8 +42,8 @@ ct.doNotFix = function (s, m, checkPat1, checkPat2, checkTags, checkFileName, ch
 		return true; // it's a text in wiki pre code (a line starting with a normal space)
 
 	if (checkQuotes !== false) {
-		let leftSlice = s.slice(0, pos + 1).replace(/'''(.+?)'''/g, '$1');
-		let rightSlice = s.slice(pos + 1).replace(/'''(.+?)'''/g, '$1');
+		var leftSlice = s.slice(0, pos + 1).replace(/'''(.+?)'''/g, '$1');
+		var rightSlice = s.slice(pos + 1).replace(/'''(.+?)'''/g, '$1');
 		if (leftSlice.match(/„(?:(?=([^„“”]+))\1|„[^„“”]*[“”])*$/) &&
 			rightSlice.match(/^(?:(?=([^„“”]+))\1|„[^„“”]*[“”])*[“”]/) ||
 			leftSlice.match(/“(?:(?=([^“”]+))\1|“[^“”]*”)*$/) &&
@@ -62,7 +61,7 @@ ct.doNotFix = function (s, m, checkPat1, checkPat2, checkTags, checkFileName, ch
 		) return true; // it's a text in quotes or italicized text
 	}
 	
-	let pat3 = /(?:[\[\s](?:ht|f)tps?:\/\/|\[\/\/)[^\[\]\s<>]+$|<[a-z]+\b[^>]*$|\{\|[^\n]*$|\n\|-[^\n]*$|\|[^|=]+=$/i;
+	var pat3 = /(?:[\[\s](?:ht|f)tps?:\/\/|\[\/\/)[^\[\]\s<>]+$|<[a-z]+\b[^>]*$|\{\|[^\n]*$|\n\|-[^\n]*$|\|[^|=]+=$/i;
 	if (checkPat3 !== false && (s.slice(0, m.end).search(pat3) > -1 || s.slice(0, m.end).search(/[\n!]![^\n|!]*$|[\n|]\|[^\n|]*$/) > -1 && s.slice(m.end).search(/^[^\n|!]*\|(?!\|)/) > -1))
 		return true; // it's an external link, html tag, wikitable tag/row/cell with attributes or parameter name
 };
@@ -134,15 +133,15 @@ ct.rules = ct.rules || [];
 // implementations.
 
 ct.rules.push(function (s) {
-	let re = ct.fixRegExp(/\[\[([{letter}]?)([^\|\[\]]+)\|(['„\(]*)([{letter}]?)\2([{letter}]*)(['“\).:,;]*)\]\]/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = ct.fixRegExp(/\[\[([{letter}]?)([^\|\[\]]+)\|(['„\(]*)([{letter}]?)\2([{letter}]*)(['“\).:,;]*)\]\]/g);
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (m[1].toLowerCase() !== m[4].toLowerCase()) continue;
-		let ext1 = m[3] ? '..' : '';
-		let	ext2 = m[5] ? 'Б' : '';
-		let	ext3 = m[6] ? '..' : '';
+		var ext1 = m[3] ? '..' : '';
+		var	ext2 = m[5] ? 'Б' : '';
+		var	ext3 = m[6] ? '..' : '';
 		b.push({
 			start: m.start,
 			end: m.end,
@@ -159,15 +158,15 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	function doNotFixSpaces(str, index) {
-		let nextTagPos = str.slice(index).search(/<\/?(?:source|syntaxhighlight|pre)\b/i);
-		let wikiPre = str.slice(0, index + 1).search(/(?:^|\n) +.*$/);
+		var nextTagPos = str.slice(index).search(/<\/?(?:source|syntaxhighlight|pre)\b/i);
+		var wikiPre = str.slice(0, index + 1).search(/(?:^|\n) +.*$/);
 		return (nextTagPos > -1 && str.charAt(index + nextTagPos + 1) === '/' || wikiPre > -1);
 	}
 
-	let start = -1, end = 0, spacesRemoved = [0, 0, 0];
-	let replacement = s.replace(/[^\S\r\n]+$/gm, function (m, index, str) {
+	var start = -1, end = 0, spacesRemoved = [0, 0, 0];
+	var replacement = s.replace(/[^\S\r\n]+$/gm, function (m, index, str) {
 		// Remove end-of-line spaces
-		let prev2chars = str.slice(index - 2, index);
+		var prev2chars = str.slice(index - 2, index);
 		// don't rm EOL-space in empty table cells (after |) and in empty template param vals (after =)
 		// but after headings, yes (after ==)
 		if (prev2chars[1] === '=' && prev2chars !== '==' || prev2chars[1] === '|') return m;
@@ -191,8 +190,8 @@ ct.rules.push(function (s) {
 	replacement = replacement.replace(/\[\[[^\S\r\n]*(?![Cc]ategory:|[Кк]атегория:)(?:[^\[\]]|\[(?:[^\[\]]|\[[^\[\]]+\])+\])+\]\]/g, function (m, index) {
 		// Remove unnecessary spaces before and/or after brackets/pipes in wikilinks (including files but not categories)
 		return m.replace(/[^\S\r\n]+/g, function (m2, index2, str) {
-			let prevChar = str[index2 - 1];
-			let nextChar = str[index2 + m2.length];
+			var prevChar = str[index2 - 1];
+			var nextChar = str[index2 + m2.length];
 			if (prevChar !== '[' && nextChar !== ']' &&
 				prevChar !== '|' && nextChar !== '|' ||
 				(prevChar === '|' || nextChar === '|') &&
@@ -207,7 +206,7 @@ ct.rules.push(function (s) {
 	});
 	end -= spacesRemoved[2];
 
-	let totalRemoved = spacesRemoved[0] + spacesRemoved[1] + spacesRemoved[2];
+	var totalRemoved = spacesRemoved[0] + spacesRemoved[1] + spacesRemoved[2];
 	if (totalRemoved === 0) return [];
 	
 	return [{
@@ -223,11 +222,11 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let re = ct.fixRegExp(/([{letter}\d]+[^{letter}\d\s]*)(?:[^\S\r\n]|&nbsp;)+[\u2014-][^\S\r\n]+(?=([^{letter}\d\s]*[{letter}\d]+|\n))/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = ct.fixRegExp(/([{letter}\d]+[^{letter}\d\s]*)(?:[^\S\r\n]|&nbsp;)+[\u2014-][^\S\r\n]+(?=([^{letter}\d\s]*[{letter}\d]+|\n))/g);
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (!m[1].match(/[а-ъьюяѝ\d]/i) && !m[2].match(/[а-ъьюяѝ\d]/i) || // думите и от двете страни не съдържат кирилка буква или цифра
 			m[1].match(ct.fixRegExp(/^(?:[Пп]о|[Нн]ай)[^{letter}\d]*$/)) || // пропусни случаите с "по- и "най-"
 			ct.doNotFix(s, m)
@@ -248,11 +247,11 @@ ct.rules.push(function (s) {
 ct.rules.push(function (s) {
 	// не работи при липса на интервал преди цифра, защото може да е негативно число
 	// също не работи преди " и" или " или"; за случаи като "антропо- и зооморфна пластика"
-	let re = /((?:^|\s)(?:[Пп]о|[Нн]ай)|[А-ЪЮЯа-ъьюя]|\d(?![^\S\r\n]*-[^\S\r\n]*[\n\)]))(?:[^\S\r\n]+-(?!\d)|-(?:[^\S\r\n]+(?!и(?:ли)?[^\S\r\n])|\s*\n))(?=[А-ЪЮЯа-ъьюя\d\)])/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = /((?:^|\s)(?:[Пп]о|[Нн]ай)|[А-ЪЮЯа-ъьюя]|\d(?![^\S\r\n]*-[^\S\r\n]*[\n\)]))(?:[^\S\r\n]+-(?!\d)|-(?:[^\S\r\n]+(?!и(?:ли)?[^\S\r\n])|\s*\n))(?=[А-ЪЮЯа-ъьюя\d\)])/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (m[1].length > 1 || ct.doNotFix(s, m)) continue; // пропусни случаите с "по- и "най-"
 		b.push({
 			start: m.start + 1,
@@ -269,11 +268,11 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// сравнителни частици, изписани с интервали между дефиса или с тирета, различни от дефис
-	let re = /((?:^|\s)(?:[Пп]о|[Нн]ай))(?:-[^\S\r\n]+|[^\S\r\n]+-[^\S\r\n]*|[^\S\r\n]*[\u2014\u2013][^\S\r\n]*)([а-я]+)/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = /((?:^|\s)(?:[Пп]о|[Нн]ай))(?:-[^\S\r\n]+|[^\S\r\n]+-[^\S\r\n]*|[^\S\r\n]*[\u2014\u2013][^\S\r\n]*)([а-я]+)/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (ct.doNotFix(s, m)) continue;
 		if (m[2] === 'и' || m[2] === 'или') {
 			if (s[m.start + m[1].length + 1] === '-') continue;
@@ -295,11 +294,11 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// U+2014 е дълго тире (em dash), U+2013 е средно тире (en dash)
-	let re = ct.fixRegExp(/([^{letter}\d](?:IS[SB]N|код)(?:[^{letter}\d]*[\dx])+)|[^{letter}\d\u2014\u2013-](\d+(?:\]\])?|\?|\.{3}|…)(?:[\u2014\u2013-]|--|[^\S\r\n]+(?:[\u2014-](?=[\r\n\)])|--(?=[^\S\r\n]*[\r\n\)])))((?:(?:\[\[)?\d+|\?|\.{3}|…)(?![{letter}\d\u2014\u2013-])|(?=[^\S\r\n]*[\r\n\)]))/gi);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = ct.fixRegExp(/([^{letter}\d](?:IS[SB]N|код)(?:[^{letter}\d]*[\dx])+)|[^{letter}\d\u2014\u2013-](\d+(?:\]\])?|\?|\.{3}|…)(?:[\u2014\u2013-]|--|[^\S\r\n]+(?:[\u2014-](?=[\r\n\)])|--(?=[^\S\r\n]*[\r\n\)])))((?:(?:\[\[)?\d+|\?|\.{3}|…)(?![{letter}\d\u2014\u2013-])|(?=[^\S\r\n]*[\r\n\)]))/gi);
+	var a = ct.getAllMatches(re, s);
+	var b = [], i, m;
+	for (i = 0; i < a.length; i++) {
+		m = a[i];
 		if (m[1] || ct.doNotFix(s, m)) continue; // m[1]: ISBN, ISSN, телефонен, пощенски код -- мачва го и го пропуска
 		b.push({
 			start: m.start + 1,
@@ -316,8 +315,8 @@ ct.rules.push(function (s) {
 	// Също и за римски числа с тире помежду
 	re = ct.fixRegExp(/[^{letter}\d\u2014\u2013-]([IVXLCD]+(?:\]\])?)(?:[\u2014\u2013-]|--|[^\S\r\n]+(?:[\u2014-](?=[\r\n\)])|--(?=[^\S\r\n]*[\r\n\)])))((?:\[\[)?[IVXLCD]+(?![{letter}\d\u2014\u2013-])|(?=[^\S\r\n]*[\r\n\)]))/g);
 	a = ct.getAllMatches(re, s);
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	for (i = 0; i < a.length; i++) {
+		m = a[i];
 		if (ct.doNotFix(s, m)) continue;
 		b.push({
 			start: m.start + 1,
@@ -334,15 +333,15 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let re = /^(={2,})([^=\n]*(?:=[^=\n]+)*)(={2,})$/gm;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	let level = 0; // == Level 1 ==, === Level 2 ===, ==== Level 3 ====, etc.
-	let editform = document.getElementById('editform');
+	var re = /^(={2,})([^=\n]*(?:=[^=\n]+)*)(={2,})$/gm;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	var level = 0; // == Level 1 ==, === Level 2 ===, ==== Level 3 ====, etc.
+	var editform = document.getElementById('editform');
 	// If we are editing a section, we have to be tolerant to the first heading's level
-	let isSection = editform && editform.wpSection !== null && editform.wpSection.value !== '';
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var isSection = editform && editform.wpSection !== null && editform.wpSection.value !== '';
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (!m[2] || m[2].trim() === '') {
 			b.push({
 				start: m.start,
@@ -363,7 +362,7 @@ ct.rules.push(function (s) {
 					help: 'Стилът на заглавието трябва да е <kbd>==&nbsp;С интервали&nbsp;==</kbd>.'
 				});
 			}
-			let oldLevel = level;
+			var oldLevel = level;
 			level = m[1].length - 1;
 			if (level - oldLevel > 1 && (!isSection || oldLevel > 0) ||
 				m[1].length > 6 ||
@@ -379,16 +378,16 @@ ct.rules.push(function (s) {
 				});
 			}
 			/*
-			let frequentMistakes = [
+			var frequentMistakes = [
 				{ code: 'външни вр.', wrong: /^[Вв]ъншни *[Вв]ръзки$/i, correct: 'Външни препратки' },
 				{ code: 'see-also', wrong: /^see *al+so$/i, correct: 'See also' },
 				{ code: 'ext-links', wrong: /^external links?$/i, correct: 'External links' },
 				{ code: 'refs', wrong: /^ref+e?r+en(c|s)es?$/i, correct: 'References' }
 			];
-			for (let j = 0; j < frequentMistakes.length; j++) {
-				let fm = frequentMistakes[j];
+			for (var j = 0; j < frequentMistakes.length; j++) {
+				var fm = frequentMistakes[j];
 				if (fm.wrong.test(m[3]) && m[3] != fm.correct) {
-					let r = m[1] + m[2] + fm.correct + m[2] + m[1];
+					var r = m[1] + m[2] + fm.correct + m[2] + m[1];
 					if (r != m[0]) {
 						b.push({
 							start: m.start,
@@ -409,11 +408,11 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// ISBN: ten or thirteen digits, each digit optionally followed by a hyphen, the last digit can be 'X' or 'x'
-	let a = ct.getAllMatches(/ISBN(?:\s*=?|(?:\]\])?:?)?\s*(\d[\d-]+[\dX])/gi, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		let str = m[1].replace(/[^\dX]+/gi, '').toUpperCase(); // remove all non-digits
+	var a = ct.getAllMatches(/ISBN(?:\s*=?|(?:\]\])?:?)?\s*(\d[\d-]+[\dX])/gi, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
+		var str = m[1].replace(/[^\dX]+/gi, '').toUpperCase(); // remove all non-digits
 		if (str.length !== 10 && str.length !== 13) {
 			b.push({
 				start: m.start,
@@ -425,8 +424,8 @@ ct.rules.push(function (s) {
 			});
 			continue;
 		}
-		let isNew = str.length === 13; // old (10 digits) or new (13 digits)
-		let xIndex = str.indexOf('X');
+		var isNew = str.length === 13; // old (10 digits) or new (13 digits)
+		var xIndex = str.indexOf('X');
 		if (xIndex !== -1 && (xIndex !== 9 || isNew)) {
 			b.push({
 				start: m.start,
@@ -438,18 +437,18 @@ ct.rules.push(function (s) {
 			});
 			continue;
 		}
-		let computedChecksum = 0;
-		let modulus = isNew ? 10 : 11;
-		for (let j = str.length - 2; j >= 0; j--) {
-			let digit = str.charCodeAt(j) - 48; // 48 is the ASCII code of '0'
-			let quotient = isNew
+		var computedChecksum = 0;
+		var modulus = isNew ? 10 : 11;
+		for (var j = str.length - 2; j >= 0; j--) {
+			var digit = str.charCodeAt(j) - 48; // 48 is the ASCII code of '0'
+			var quotient = isNew
 				? ((j & 1) ? 3 : 1) // the new way: 1 for even, 3 for odd
 				: 10 - j; // the old way: 10, 9, 8, etc
 			computedChecksum = (computedChecksum + (quotient * digit)) % modulus;
 		}
 		computedChecksum = (modulus - computedChecksum) % modulus;
-		let c = str.charCodeAt(str.length - 1) - 48;
-		let actualChecksum = (c < 0 || 9 < c) ? 10 : c;
+		var c = str.charCodeAt(str.length - 1) - 48;
+		var actualChecksum = (c < 0 || 9 < c) ? 10 : c;
 		if (computedChecksum === actualChecksum) continue;
 		b.push({
 			start: m.start,
@@ -463,11 +462,11 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let re = ct.fixRegExp(/((?!Й)[{letter}\d][^{letter}\d\s]*[^\S\r\n]+)й(?![{letter}\d])/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = ct.fixRegExp(/((?!Й)[{letter}\d][^{letter}\d\s]*[^\S\r\n]+)й(?![{letter}\d])/g);
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (ct.doNotFix(s, m)) continue;
 		b.push({
 			start: m.start + m[1].length,
@@ -484,11 +483,11 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// год., предшествано от цифри, евентуално в препратка
-	let re = /(\d+(?:\]\])?)(?:[^\S\r\n]|&nbsp;)*год\./g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = /(\d+(?:\]\])?)(?:[^\S\r\n]|&nbsp;)*год\./g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (ct.doNotFix(s, m)) continue;
 		b.push({
 			start: m.start,
@@ -504,15 +503,15 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// единица, предшествана от цифри, евентуално в препратка
-	let re = ct.fixRegExp(/[^{letter}\d](\d+(?:\]\])?)(г\.|лв\.|щ\.д\.|(?:[мк]?г|[мск]?м|[mk]?g|[mck]?m)(?![{letter}\d]))/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = ct.fixRegExp(/[^{letter}\d](\d+(?:\]\])?)(г\.|лв\.|щ\.д\.|(?:[мк]?г|[мск]?м|[mk]?g|[mck]?m)(?![{letter}\d]))/g);
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (ct.doNotFix(s, m)) continue;
-		let number = m[1];
-		let unit = m[2];
-		let autofix = $.inArray(unit, ['г.', 'лв.', 'щ.д.']) > -1;
+		var number = m[1];
+		var unit = m[2];
+		var autofix = $.inArray(unit, ['г.', 'лв.', 'щ.д.']) > -1;
 		b.push({
 			start: m.start + 1,
 			end: m.end,
@@ -528,11 +527,11 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let re = ct.fixRegExp(/(([{letter}\d])[\]\)“']*)([^\S\r\n]+,[^\S\r\n]*|,)(?=[\[\(„']*([{letter}\d]))/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = ct.fixRegExp(/(([{letter}\d])[\]\)“']*)([^\S\r\n]+,[^\S\r\n]*|,)(?=[\[\(„']*([{letter}\d]))/g);
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (ct.doNotFix(s, m) ||
 			m[3] === ',' && !isNaN(m[2]) && !isNaN(m[4]) // m[2] и m[4] са цифри; вероятност за десетично число
 		) continue;
@@ -549,15 +548,15 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let re = ct.fixRegExp(/(([{letter}\d])[\]\)“']*)([^\S\r\n]+\.[^\S\r\n]*|\.(?!\n))(?=([\[\(„']*([{letter}\d])([{letter}\d]*)|\n))/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		let nonStandart;
+	var re = ct.fixRegExp(/(([{letter}\d])[\]\)“']*)([^\S\r\n]+\.[^\S\r\n]*|\.(?!\n))(?=([\[\(„']*([{letter}\d])([{letter}\d]*)|\n))/g);
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
+		var nonStandart;
 		if (m[5]) {
 			nonStandart = m[5] !== m[5].toUpperCase(); // true: символът не е в капитализирана форма
-			for (let j = 0; j < m[6].length; j++) {
+			for (var j = 0; j < m[6].length; j++) {
 				if (m[6][j] !== m[6][j].toLowerCase()) nonStandart = true; // true: символът е в капитализирана форма
 				if (nonStandart) break;
 			}
@@ -579,14 +578,14 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let re = /((=\n{2,}.)|[^=\n]\n=|.\n{3,}.|\.\n[А-ЪЮЯ])|^\n+/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		let nextTagPos = s.slice(m.start).search(/<\/?(?:gallery|poem)\b/i);
+	var re = /((=\n{2,}.)|[^=\n]\n=|.\n{3,}.|\.\n[А-ЪЮЯ])|^\n+/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
+		var nextTagPos = s.slice(m.start).search(/<\/?(?:gallery|poem)\b/i);
 		if (nextTagPos > -1 && s.charAt(m.start + nextTagPos + 1) === '/') continue; // пропусни галериите и поетичните текстове
-		let lines = m[2] ? '\n' : '\n\n';
+		var lines = m[2] ? '\n' : '\n\n';
 		b.push({
 			start: m.start,
 			end: m.end,
@@ -600,7 +599,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let replacement = {
+	var replacement = {
 		'A': 'А', 'a': 'а',
 		'B': 'В',
 		'E': 'Е', 'e': 'е',
@@ -617,11 +616,11 @@ ct.rules.push(function (s) {
 		'y': 'у'
 	}; // key: value => latin: cyrillic
 	
-	let re = /(?:[А-ЪЮЯа-ъьюяѝ]['"“\]]*[^\S\r\n]+[ec]|[А-ЪЮЯа-ъьюяѝ]['"“\]]*\.\s+[ABCE])[^\S\r\n]+['"„\[]*[А-ЪЮЯа-ъьюяѝ]|[a-zA-Z][\u0400-\u04ff]|[\u0400-\u04ff][a-zA-Z]/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = /(?:[А-ЪЮЯа-ъьюяѝ]['"“\]]*[^\S\r\n]+[ec]|[А-ЪЮЯа-ъьюяѝ]['"“\]]*\.\s+[ABCE])[^\S\r\n]+['"„\[]*[А-ЪЮЯа-ъьюяѝ]|[a-zA-Z][\u0400-\u04ff]|[\u0400-\u04ff][a-zA-Z]/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (ct.doNotFix(s, m, false, false, false, true, true, true, true)) continue; // Изкл.: checkPat1, checkPat2, checkTagName; Вкл.: checkFileName, checkWikiPre, checkQuotes, checkPat3
 		b.push({
 			start: m.start,
@@ -634,9 +633,9 @@ ct.rules.push(function (s) {
 				: "Латинско '" + m[0][0] + "', следвано от кирилско '" + m[0][1] + "'"),
 			help: 'Една дума трябва да бъде написана или само на кирилица, или само на латиница.'
 		});
-		let word = s.substring(m.start - 49, m.start).match(/[\u0400-\u04ffa-zA-Z]*$/)[0] + m[0] + s.substring(m.end, m.end + 49).match(/^[\u0400-\u04ffa-zA-Z]*/)[0];
-		let subtract = word.match(/[\u0400-\u04ff]/g).length - word.match(/[a-zA-Z]/g).length;
-		for (let key in replacement) {
+		var word = s.substring(m.start - 49, m.start).match(/[\u0400-\u04ffa-zA-Z]*$/)[0] + m[0] + s.substring(m.end, m.end + 49).match(/^[\u0400-\u04ffa-zA-Z]*/)[0];
+		var subtract = word.match(/[\u0400-\u04ff]/g).length - word.match(/[a-zA-Z]/g).length;
+		for (var key in replacement) {
 			if (subtract >= 0 && m[0].indexOf(key) > -1) {
 				// по-голям брой кирилски букви или броят на кирилските и латинските букви е равен;
 				// замени с кирилски еквивалент
@@ -656,12 +655,12 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// отварящи кавички ако са в нач. на реда или след списъчен елемент, интервал, '', >, }, |, = или (
-	let re = /((?:^|\n)[*#:;]*|[^\S\r\n]|''|[>}|=\(])(?:"(?![\s,;:]|\.(?!\.))((?:[^"\[\]\s]|\s(?!")|\[\[[^\[\]]+\]\]|\[[^\[\]]+\])+)"|[„“](?![\s,;:]|\.(?!\.))((?:[^„“”\[\]\s]|\s(?![“”])|\[\[[^\[\]]+\]\]|\[[^\[\]]+\])+)”|«(?![\s,;:]|\.(?!\.))((?:[^«»\[\]\s]|\s(?!»)|\[\[[^\[\]]+\]\]|\[[^\[\]]+\])+)»)/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		let str = m[2] || m[3] || m[4];
+	var re = /((?:^|\n)[*#:;]*|[^\S\r\n]|''|[>}|=\(])(?:"(?![\s,;:]|\.(?!\.))((?:[^"\[\]\s]|\s(?!")|\[\[[^\[\]]+\]\]|\[[^\[\]]+\])+)"|[„“](?![\s,;:]|\.(?!\.))((?:[^„“”\[\]\s]|\s(?![“”])|\[\[[^\[\]]+\]\]|\[[^\[\]]+\])+)”|«(?![\s,;:]|\.(?!\.))((?:[^«»\[\]\s]|\s(?!»)|\[\[[^\[\]]+\]\]|\[[^\[\]]+\])+)»)/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
+		var str = m[2] || m[3] || m[4];
 		if (ct.doNotFix(s, m, true, true, true, true, true, false, true) || // Изкл.: checkQuotes
 			!str.match(/[А-ЪЮЯа-ъьюяѝ]/) // не съдържа нито една кирилска буква, ползвана в българския
 		) continue;
@@ -678,11 +677,11 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let re = /[^\S\r\n]('{2,})?["„“”«»]('{2,})?[^\S\r\n]/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = /[^\S\r\n]('{2,})?["„“”«»]('{2,})?[^\S\r\n]/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (ct.doNotFix(s, m, true, true, true, true, true, false, true)) continue; // Изкл.: checkQuotes
 		b.push({
 			start: m.start,
@@ -700,14 +699,14 @@ ct.rules.push(function (s) {
 Премахването на празни параметри от шаблоните като практика не се ползва с
 консенсусна подкрепа сред редакторите, затова на този етап е изключено.
 ct.rules.push(function (s) {
-	let re = /(^|[^\n ] *)(\| *[\wА-я-]+ *= *(?=[\|\}]))+/g;
-	let a = ct.getAllMatches(re, s);
+	var re = /(^|[^\n ] *)(\| *[\wА-я-]+ *= *(?=[\|\}]))+/g;
+	var a = ct.getAllMatches(re, s);
 	if (a.length === 0) return [];
-	let n = a.length;
-	let start = a[0].start + a[0][1].length;
-	let end = a[n - 1].end + 1;
-	let replacement = s.slice(start, end).replace(re, '$1');
-	let b = [{
+	var n = a.length;
+	var start = a[0].start + a[0][1].length;
+	var end = a[n - 1].end + 1;
+	var replacement = s.slice(start, end).replace(re, '$1');
+	var b = [{
 		start: start,
 		end: end - 1,
 		replacement: replacement.slice(0, -1),
@@ -720,29 +719,29 @@ ct.rules.push(function (s) {
 */
 
 ct.rules.push(function (s) {
-	let skipNext = 0;
-	let decoder = function (match, charCode, index, s) {
+	var skipNext = 0;
+	var decoder = function (match, charCode, index, s) {
 		if (skipNext > 0) {
 			skipNext--;
 			return '';
 		}
-		let decimal = parseInt(charCode, 16);
-		let bin = Number(decimal).toString(2);
+		var decimal = parseInt(charCode, 16);
+		var bin = Number(decimal).toString(2);
 		if (decimal < 128) return match; // ASCII, don't decode
-		let nOfBytes = bin.match(/^1+/)[0].length;
+		var nOfBytes = bin.match(/^1+/)[0].length;
 		skipNext = nOfBytes - 1;
-		let urlEncoded = match + s.slice(index + 3, index + 3 * nOfBytes);
-		let char = decodeURI(urlEncoded);
+		var urlEncoded = match + s.slice(index + 3, index + 3 * nOfBytes);
+		var char = decodeURI(urlEncoded);
 		return (char.length === 1 ? char : urlEncoded);
 	};
 
-	let re = /((?:https?:|ftps?:|\[)\/\/[^\/\s]+\/)([^\s|}<>\]%]*%[^\s|}<>\]]*)|(\[\[)([^\[\]|%]*%[^\[\]|]*)/gi;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = /((?:https?:|ftps?:|\[)\/\/[^\/\s]+\/)([^\s|}<>\]%]*%[^\s|}<>\]]*)|(\[\[)([^\[\]|%]*%[^\[\]|]*)/gi;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		try {
-			let decoded = m[1] ? m[2].replace(/%([a-f\d]{2})/gi, decoder) : decodeURIComponent(m[4]);
+			var decoded = m[1] ? m[2].replace(/%([a-f\d]{2})/gi, decoder) : decodeURIComponent(m[4]);
 			if (m[2] === decoded || m[4] === decoded) continue;
 			b.push({
 				start: m.start,
@@ -760,11 +759,11 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let re = /\([^\S\r\n]+|[^\S\r\n]+\)/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = /\([^\S\r\n]+|[^\S\r\n]+\)/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		m[0] = m[0].trim();
 		if (ct.doNotFix(s, m) || m[0] === ')' && s[m.start - 1].match(/[\u2013\u2014-]/)) continue;
 		b.push({
@@ -780,11 +779,11 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let re = /((?:(?:^|\s)(?:[Оо]т|[Дд]о|[Пп]ре(?:з|ди)|[Сс]лед|[Мм]е(?:жду|сец)|[Ии](?:ли)?|[Вв])|[\d,])[^\S\r\n]+)(Януари|Февруари|Март|Април|Май|Юни|Юли|Август|Септември|Октомври|Ноември|Декември)(?![А-яA-z\d])/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = /((?:(?:^|\s)(?:[Оо]т|[Дд]о|[Пп]ре(?:з|ди)|[Сс]лед|[Мм]е(?:жду|сец)|[Ии](?:ли)?|[Вв])|[\d,])[^\S\r\n]+)(Януари|Февруари|Март|Април|Май|Юни|Юли|Август|Септември|Октомври|Ноември|Декември)(?![А-яA-z\d])/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (ct.doNotFix(s, m)) continue;
 		b.push({
 			start: m.start + m[1].length,
@@ -799,11 +798,11 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let re = /№(\d+)/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = /№(\d+)/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (ct.doNotFix(s, m)) continue;
 		b.push({
 			start: m.start,
@@ -819,14 +818,14 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	function skipReferenceTags(str, index) {
-		let nextTagPos = str.slice(index).search(/<\/?references\b/i);
-		let tempPos = str.slice(0, index).search(/\{\{\s*[Rr]eflist\b(?:(?=([^{}]+))\1|\{(?:(?=([^{}]+))\2|\{(?:(?=([^{}]+))\3|\{(?:(?=([^{}]+))\4|\{(?:(?=([^{}]+))\5|\{(?:(?=([^{}]+))\6|\{(?=([^{}]*))\7\})*\})*\})*\})*\})*\})*$/);
+		var nextTagPos = str.slice(index).search(/<\/?references\b/i);
+		var tempPos = str.slice(0, index).search(/\{\{\s*[Rr]eflist\b(?:(?=([^{}]+))\1|\{(?:(?=([^{}]+))\2|\{(?:(?=([^{}]+))\3|\{(?:(?=([^{}]+))\4|\{(?:(?=([^{}]+))\5|\{(?:(?=([^{}]+))\6|\{(?=([^{}]*))\7\})*\})*\})*\})*\})*\})*$/);
 		return nextTagPos > -1 && str.charAt(index + nextTagPos + 1) === '/' || tempPos > -1;
 	}
 
-	let start = -1, end = 0;
-	let charsRemoved = [0, 0, 0], charsAdded = 0;
-	let replacement = s.replace(/(<\/[Rr][Ee][Ff]\s*>|<[Rr][Ee][Ff]\b[^>]*\/>|\{\{\s*(?:[SsEe]fn|[Hh]rf|[Rr]p)\b[^{}]*\}\})[\s.:,;]+(?=<[Rr][Ee][Ff]\b|\{\{\s*(?:[SsEe]fn|[Hh]rf|[Rr]p)\b)/g, function (m, g1, index, str) {
+	var start = -1, end = 0;
+	var charsRemoved = [0, 0, 0], charsAdded = 0;
+	var replacement = s.replace(/(<\/[Rr][Ee][Ff]\s*>|<[Rr][Ee][Ff]\b[^>]*\/>|\{\{\s*(?:[SsEe]fn|[Hh]rf|[Rr]p)\b[^{}]*\}\})[\s.:,;]+(?=<[Rr][Ee][Ff]\b|\{\{\s*(?:[SsEe]fn|[Hh]rf|[Rr]p)\b)/g, function (m, g1, index, str) {
 		// Remove punctuation chars and spaces between refs
 		if (skipReferenceTags(str, index)) return m;
 		if (start === -1) start = index;
@@ -839,7 +838,7 @@ ct.rules.push(function (s) {
 	replacement = replacement.replace(/([^\s.:,;=|]\s+|\s*[.,]\s+|[^\S\r\n]*[:;][^\S\r\n]+)(?:<[Rr][Ee][Ff]\b|\{\{\s*(?:[SsEe]fn|[Hh]rf|[Rr]p)\b)|(?:<\/[Rr][Ee][Ff]\s*>|<[Rr][Ee][Ff]\b[^>]*\/>|\{\{\s*(?:[SsEe]fn|[Hh]rf|[Rr]p)\b[^{}]*\}\})(?:\s+(?=[.,])|[^\S\r\n]+(?=[:;]))/g, function (m, g1, index, str) {
 		// Remove spaces before ref/after ref and between punctuation chars
 		if (skipReferenceTags(str, index)) return m;
-		let r = (g1 ? g1.trim() + m.slice(g1.length) : m).trim();
+		var r = (g1 ? g1.trim() + m.slice(g1.length) : m).trim();
 		if (start === -1 || start > index) start = index;
 		if (end < index + m.length) end = index + m.length;
 		charsRemoved[1] += m.length - r.length;
@@ -880,15 +879,15 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let re = ct.fixRegExp(/(^|\s+)([Вв](?:ъв)?|[Сс](?:ъс)?)(\s+(?:(?:[^{letter}\d\s\[\]{}<>-]|<[^>]*>)*\[\[?[^\[\]]+|(?:(?:[^\s\[\]{}<>]|<[^>]*>)+\s+){1,2}))/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
+	var re = ct.fixRegExp(/(^|\s+)([Вв](?:ъв)?|[Сс](?:ъс)?)(\s+(?:(?:[^{letter}\d\s\[\]{}<>-]|<[^>]*>)*\[\[?[^\[\]]+|(?:(?:[^\s\[\]{}<>]|<[^>]*>)+\s+){1,2}))/g);
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 		if (ct.doNotFix(s, m)) continue;
-		let tooltip;
-		let preposition = m[2];
-		let text = m[3].replace(/\[(?:(?:https?:|ftps?:)?\/\/\S+|\[[^|\[\]]+\|)|<[^>]*>/gi, '');
+		var tooltip;
+		var preposition = m[2];
+		var text = m[3].replace(/\[(?:(?:https?:|ftps?:)?\/\/\S+|\[[^|\[\]]+\|)|<[^>]*>/gi, '');
 		text = text.replace(ct.fixRegExp(/[^{letter}\d.,-]+/g), ' ');
 		text = text.replace(/^[\s.,]+/, '');
 		if (preposition.toLowerCase() === 'в' && text.match(/^(?:[ВвФф][А-Яа-я]|2-(?:рa|р?[ио])|II(?![А-яA-z\d])|и(?:ли)?\s+)/)) {
@@ -922,11 +921,11 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	let re = /(?:(?:^|[\[\s=|*#;:<])(?:http|ftp)s?:|\[)\/\/[^\s\[\]<>"|\/]+\/(?:[^\s\[\]<>"|]*\[[^\s\[\]<>"|]*\])+[^\s\[\]<>"|]*/gi;
-	let a = ct.getAllMatches(re, s);
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		let str = m[0];
+	var re = /(?:(?:^|[\[\s=|*#;:<])(?:http|ftp)s?:|\[)\/\/[^\s\[\]<>"|\/]+\/(?:[^\s\[\]<>"|]*\[[^\s\[\]<>"|]*\])+[^\s\[\]<>"|]*/gi;
+	var a = ct.getAllMatches(re, s);
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
+		var str = m[0];
 		if (str.match(/^[\[\s=|*#;:<]/)) {
 			m.start++;
 			str = str.slice(1);
@@ -951,5 +950,3 @@ if (mw.config.get('wgPageContentModel') === 'wikitext' && $.inArray(mw.config.ge
 		mw.loader.load('//bg.wikipedia.org/w/index.php?title=МедияУики:Gadget-Advisor-core.js&action=raw&ctype=text/javascript');
 	});
 }
-
-// </nowiki>
