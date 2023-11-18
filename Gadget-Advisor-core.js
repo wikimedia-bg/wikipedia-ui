@@ -549,7 +549,7 @@ ct.fixSuggestion = function (k) {
 		ct.eAddToSummary.style.display = '';
 		ct.eAddToSummary.appendChild(ct.anchor(
 			ct._('Add to summary'),
-			'javascript: ct.addToSummary(unescape("' + escape(str) + '"));',
+			'javascript: ct.addToSummary(decodeURIComponent("' + encodeURIComponent(str) + '"));',
 			ct._('Append the proposed summary to the input field below')
 		));
 		ct.eAddToSummary.appendChild(document.createTextNode(': "' + str + '"'));
