@@ -1,4 +1,3 @@
-// <nowiki>
 // Българска версия на правилата за скрипта Advisor.js
 // Виж МедияУики:Gadget-Advisor-core.js за основния скрипт
 // виж http://en.wikipedia.org/wiki/User:Cameltrader/Advisor.js/Description
@@ -6,78 +5,51 @@
 var ct = ct || {};
 
 ct.inBrackets = function (s, m, brackets) {
-	let leftContext = s.substring(0, m.start);
-	let rightContext = s.substring(m.end);
+    var leftContext = s.substring(0, m.start);
+    var rightContext = s.substring(m.end);
 
-	let indexOfOpeningLeft = leftContext.lastIndexOf(brackets[0]);
-	let indexOfClosingLeft = leftContext.lastIndexOf(brackets[1]);
-	let indexOfOpeningRight = rightContext.indexOf(brackets[0]);
-	let indexOfClosingRight = rightContext.indexOf(brackets[1]);
+    var indexOfOpeningLeft = leftContext.lastIndexOf(brackets[0]);
+    var indexOfClosingLeft = leftContext.lastIndexOf(brackets[1]);
+    var indexOfOpeningRight = rightContext.indexOf(brackets[0]);
+    var indexOfClosingRight = rightContext.indexOf(brackets[1]);
 
-	return (indexOfOpeningLeft !== -1 && (indexOfClosingLeft === -1 || indexOfOpeningLeft > indexOfClosingLeft)) ||
-		(indexOfClosingRight !== -1 && (indexOfOpeningRight === -1 || indexOfOpeningRight > indexOfClosingRight));
+    return (indexOfOpeningLeft != -1 && (indexOfClosingLeft == -1 || indexOfOpeningLeft > indexOfClosingLeft)) ||
+        (indexOfClosingRight != -1 && (indexOfOpeningRight == -1 || indexOfOpeningRight > indexOfClosingRight));
 };
 
 // originally from https://en.wikipedia.org/wiki/User:GregU/dashes.js
 // checkPat1, checkPat2, checkTags, checkFileName default to true
-ct.doNotFix = function (s, m, checkPat1, checkPat2, checkTags, checkFileName, checkWikiPreCode, checkQuotes, checkPat3) {
-	let pos = m.start;
-	let pat = /\[\[[^|\]]*$|\{\{[^|}]*$/;
-	if (checkPat1 !== false && s.substring(pos - 260, pos + 1).search(pat) > -1)
-		return true; // it's a link or template name, so don't change it
+ct.doNotFix = function (s, m, checkPat1, checkPat2, checkTags, checkFileName) {
+	var pos = m.start;
+    var pat = /\[\[[^|\]]*$|\{\{[^|}]*$|[:\/%][^\s|>]+$|<[^>]*$|#\w*expr:.*$/i;
+    if (checkPat1 !== false && s.substring(pos - 260, pos + 1).search(pat) >= 0)
+        return true;             // it's a link, so don't change it
 
-	let pat2 = /\{\{\s*(?:#[a-z]+:|друг[ои]\s+значени[ея]|основна|вижте\s+също|main|към|от\s+пренасочване|категория|anchor|cite|citation|цитат2?|долап|c?quote|is[sb]n|lang[i2]?|[es]fn|hrf|harv|пост\s+списък)(?:(?=([^{}]+))\1|\{(?:(?=([^{}]+))\2|\{(?:(?=([^{}]+))\3|\{(?:(?=([^{}]+))\4|\{(?:(?=([^{}]+))\5|\{(?:(?=([^{}]+))\6|\{(?=([^{}]*))\7\})*\})*\})*\})*\})*\})*$/i; // long and ugly regex because of limited JS regex engine
-	if (checkPat2 !== false && s.slice(0, pos + 1).search(pat2) > -1)
-		return true; // specific template/parser function (with up to six balanced curly brackets -- 3 levels of template/parser function nesting or 2 levels of parameter placeholder nesting)
+    var pat2 = /\{\{(друг[ои] значени[ея]|основна|към|от пренасочване|категория|anchor)[^}]*$/i;
+    if (checkPat2 !== false && s.substring(pos - 260, pos + 1).search(pat2) >= 0)
+        return true;             // likely templates with page-name
 
-	if (checkTags !== false) {
-		let nextTagPos = s.slice(pos).search(/<\/?(?:chem|math|pre|code|tt|source|syntaxhighlight|timeline|graph|mapframe|maplink|poem|blockquote|q|i|ref)\b/i);
-		if (nextTagPos > -1 && s.charAt(pos + nextTagPos + 1) === '/')
-			return true; // skip math/chem equations, source code, timelines, graphs, maps, ref content, content in citation tags
-	}
+    if (checkTags !== false) {
+        var nextTagPos = s.slice(pos).search(/<\/?(math|pre|code|tt|source|syntaxhighlight|timeline|graph)\b/i);
+        if (nextTagPos >= 0 && s.charAt(pos + nextTagPos + 1) == '/')
+            return true;         // don't break a <math> equation, or source code
+    }
 
-	if (checkFileName !== false && s.slice(pos).search(/^[^|{}[\]<>\n]*\.[a-z]{3,4}\s*(?:[|}\n]|\{\{!\})/i) > -1)
-		return true; // it's a file name parameter
-
-	if (checkWikiPreCode !== false && s.slice(0, pos + 1).search(/(?:^|\n) +.*$/) > -1)
-		return true; // it's a text in wiki pre code (a line starting with a normal space)
-
-	if (checkQuotes !== false) {
-		let leftSlice = s.slice(0, pos + 1).replace(/'''(.+?)'''/g, '$1');
-		let rightSlice = s.slice(pos + 1).replace(/'''(.+?)'''/g, '$1');
-		if (leftSlice.match(/„(?:(?=([^„“”]+))\1|„[^„“”]*[“”])*$/) &&
-			rightSlice.match(/^(?:(?=([^„“”]+))\1|„[^„“”]*[“”])*[“”]/) ||
-			leftSlice.match(/“(?:(?=([^“”]+))\1|“[^“”]*”)*$/) &&
-			rightSlice.match(/^(?:(?=([^“”]+))\1|“[^“”]*”)*”/) ||
-			leftSlice.match(/«(?:(?=([^«»]+))\1|«[^«»]*»)*$/) &&
-			rightSlice.match(/^(?:(?=([^«»]+))\1|«[^«»]*»)*»/) ||
-			leftSlice.match(/"[^"]*$/) &&
-			rightSlice.match(/^[^"]*"/) &&
-			leftSlice.match(/"/g).length % 2 === 1 &&
-			rightSlice.match(/"/g).length % 2 === 1 ||
-			leftSlice.match(/''(?:(?!'').)*$/) &&
-			rightSlice.match(/^.*?''/) &&
-			leftSlice.match(/''/g).length % 2 === 1 &&
-			rightSlice.match(/''/g).length % 2 === 1
-		) return true; // it's a text in quotes or italicized text
-	}
-	
-	let pat3 = /(?:[\[\s](?:ht|f)tps?:\/\/|\[\/\/)[^\[\]\s<>]+$|<[a-z]+\b[^>]*$|\{\|[^\n]*$|\n\|-[^\n]*$|\|[^|=]+=$/i;
-	if (checkPat3 !== false && (s.slice(0, m.end).search(pat3) > -1 || s.slice(0, m.end).search(/[\n!]![^\n|!]*$|[\n|]\|[^\n|]*$/) > -1 && s.slice(m.end).search(/^[^\n|!]*\|(?!\|)/) > -1))
-		return true; // it's an external link, html tag, wikitable tag/row/cell with attributes or parameter name
+    if (checkFileName !== false && s.slice(pos).search(/^[^|{}[\]<>\n]*\.([a-z]{3,4}\s*([|}\n]|\{\{!\}))/i) >= 0)
+        return true;             // it's a file name parameter
 };
 
 if (mw.config.get('wgUserLanguage') === 'bg') {
 	ct.translation = {
+	
+'Changing text in wikEd is not yet supported.':
+	'Променянето на текст в wikEd още не се поддържа.',
 
-'The page is too long. Parsing of the text is disabled\u00a0\u2014\u00a0Advisor.js will consume a lot of RAM and CPU resources while trying to parse the text, which can cause freezing of the page, the browser or even the CPU.':
-	'Тази страница е прекалено дълга. Oбработката на текста е спряна\u00a0\u2014\u00a0Advisor.js ще изисква много RAM и процесорни ресурси, докато се опитва да анализира текста, което може да доведе до спиране на страницата, браузъра или дори процесора.',
+'This article is rather long.  Advisor.js may consume a lot of RAM and CPU resources while trying to parse the text.  You could limit your edit to a single section, or ':
+	'Тази статия е твърде дълга. Advisor.js може да консумира много RAM и процесорни ресурси, докато се опитва да анализира текста. Можеш да ограничиш редакцията на един раздел, или да ',
 
-'This page is rather long. Advisor.js may consume a lot of RAM and CPU resources while trying to parse the text. You could limit your edit to a single section, or ':
-	'Тази страница е сравнително дълга. Advisor.js може да консумира много RAM и процесорни ресурси, докато се опитва да анализира текста. Можеш да ограничиш редакцията на един раздел или да ',
-
-'Advisor.js is disabled on talk pages and pages in the namespace "Wikipedia:", because it might suggest changing other users\' comments. That would be something against talk page conventions. If you promise to be careful, you can ':
-	'Advisor.js по подразбиране е спрян за беседите и страниците от именно пространство „Уикипедия“, защото има опасност да предложи промяна на чужди коментари. Това би било в противоречие с конвенциите за беседи. Ако обещаваш да си внимателен, можеш да ',
+'Advisor.js is disabled on talk pages, because it might suggest changing other users\' comments.  That would be something against talk page conventions.  If you promise to be careful, you can ':
+	'Advisor.js по подразбиране е спрян за беседите, защото има опасност да предложи промяна на чужди коментари. Това би било в противоречие с конвенциите за беседи. Ако обещаваш да си внимателен, можеш да ',
 
 'scan the text anyway.':
 	'провериш текста.',
@@ -85,8 +57,8 @@ if (mw.config.get('wgUserLanguage') === 'bg') {
 'Ignore this warning.':
 	'Игнорирай това предупреждение.',
 
-'OK\u00a0\u2014\u00a0Advisor.js found no issues with the text.':
-	'ОК\u00a0\u2013\u00a0Advisor.js не намира проблеми в текста.',
+'OK \u2014 Advisor.js found no issues with the text.':
+	'ОК \u2014 Advisor.js не намира проблеми в текста.',
 
 '1 suggestion: ':
 	'1 предложение: ',
@@ -116,292 +88,215 @@ if (mw.config.get('wgUserLanguage') === 'bg') {
 	};
 }
 
+
 ct.rules = ct.rules || [];
-// == Rules ==
-// The "rules" that produce suggestions is where
-// most of the load resides. Each rule is a javascript function that accepts a
-// string as a parameter (the wikitext of the page being edited) and returns an
-// array of "suggestion" objects. A suggestion object must have the following
-// properties:
-// * start -- the 0-based inclusive index of the first character to be replaced
-// * end -- analogous to start, but exclusive
-// * replacement -- the proposed wikitext
-// * name -- this is what appears at the top of the page
-// * description -- used as a tooltip for the name of the suggestion
-// The set of rules to apply depends on the content language. Different
-// languages have different formatting conventions, therefore this is not
-// a matter of internationalisation like the UI core, but of unrelated
-// implementations.
 
 ct.rules.push(function (s) {
-	let re = ct.fixRegExp(/\[\[([{letter}]?)([^\|\[\]]+)\|(['„\(]*)([{letter}]?)\2([{letter}]*)(['“\).:,;]*)\]\]/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (m[1].toLowerCase() !== m[4].toLowerCase()) continue;
-		let ext1 = m[3] ? '..' : '';
-		let	ext2 = m[5] ? 'Б' : '';
-		let	ext3 = m[6] ? '..' : '';
-		b.push({
+	var re = /\[\[([{letter} ,\(\)\-]+)\|\1([{letter}]+)?\]\]/g;
+	re = ct.fixRegExp(re);
+	var a = ct.getAllMatches(re, s);
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
+		var ext1 = m[2] === undefined ? '' : 'Б';
+		var ext2 = m[2] === undefined ? '' : m[2];
+		a[i] = {
 			start: m.start,
 			end: m.end,
-			replacement: m[3] + '[[' + m[4] + m[2] + ']]' + m[5] + m[6],
-			name: 'А|' + ext1 + 'А' + ext2 + ext3,
-			description: m[0] + ' може да се опрости до ' + m[3] + '[[' + m[4] + m[2] + ']]' + m[5] + m[6],
-			help: 'Синтаксисът на МедияУики позволява препратки от вида <kbd>'
-				+ '[[А|' + ext1 + 'А' + ext2 + ext3 + ']]</kbd> да се пишат '
-				+ 'като <kbd>' + ext1 + '[[А]]' + ext2 + ext3 + '</kbd>.'
-		});
+			replacement: '[[' + m[1] + ']]' + ext2,
+			name: 'А|А' + ext1,
+			description: '„[['+ m[1] +'|'+ m[1] + ext2 + ']]“ може да се опрости до „[[' + m[1] +']]' + ext2 + '“.',
+			help: 'Синтаксисът на МедияУики позволява препратки от вида „<kbd>[[А|А' + ext1 + ']]</kbd>“ да се пишат като „<kbd>[[А]]' + ext1 + '</kbd>“.'
+		};
 	}
-	return b;
+	return a;
 });
 
 ct.rules.push(function (s) {
-	function doNotFixSpaces(str, index) {
-		let nextTagPos = str.slice(index).search(/<\/?(?:source|syntaxhighlight|pre)\b/i);
-		let wikiPre = str.slice(0, index + 1).search(/(?:^|\n) +.*$/);
-		return (nextTagPos > -1 && str.charAt(index + nextTagPos + 1) === '/' || wikiPre > -1);
-	}
+    var preTagRE = /<\/?pre\b/i;
+    var sourceTagRE = /<\/?(source|syntaxhighlight)\b/i;
+    function doNotFixSpaces(s, index, re) {
+        var nextTagPos = s.slice(index).search(re);
+        if (nextTagPos >= 0 && s.charAt(index + nextTagPos + 1) == '/') return true;
+        return false;
+    }
 
-	let start = -1, end = 0, spacesRemoved = [0, 0, 0];
-	let replacement = s.replace(/[^\S\r\n]+$/gm, function (m, index, str) {
-		// Remove end-of-line spaces
-		let prev2chars = str.slice(index - 2, index);
-		// don't rm EOL-space in empty table cells (after |) and in empty template param vals (after =)
-		// but after headings, yes (after ==)
-		if (prev2chars[1] === '=' && prev2chars !== '==' || prev2chars[1] === '|') return m;
-		if (start === -1) start = index;
-		end = index + m.length;
-		spacesRemoved[0] += m.length;
-		return '';
-	});
-	end -= spacesRemoved[0];
+    var start = -1, end = 0;
+    var replacement;
+    var spacesRemoved1 = 0;
+    var spacesRemoved2 = 0;
 
-	replacement = replacement.replace(/[^\s][^\S\r\n]{2,}(?=[^\s=]|==)/g, function (m, index, str) {
-		// Remove double spaces
-		if (doNotFixSpaces(str, index)) return m;
-		if (start === -1 || start > index + 1) start = index + 1;
-		if (end < index + m.length) end = index + m.length;
-		spacesRemoved[1] += m.length - 2;
-		return m[0] + ' ';
-	});
-	end -= spacesRemoved[1];
-	
-	replacement = replacement.replace(/\[\[[^\S\r\n]*(?![Cc]ategory:|[Кк]атегория:)(?:[^\[\]]|\[(?:[^\[\]]|\[[^\[\]]+\])+\])+\]\]/g, function (m, index) {
-		// Remove unnecessary spaces before and/or after brackets/pipes in wikilinks (including files but not categories)
-		return m.replace(/[^\S\r\n]+/g, function (m2, index2, str) {
-			let prevChar = str[index2 - 1];
-			let nextChar = str[index2 + m2.length];
-			if (prevChar !== '[' && nextChar !== ']' &&
-				prevChar !== '|' && nextChar !== '|' ||
-				(prevChar === '|' || nextChar === '|') &&
-				ct.inBrackets(str, { 'start': index2, 'end': index2 + m2.length }, ['{', '}'])
-			) return m2;
-			index2 += index;
-			if (start === -1 || start > index2) start = index2;
-			if (end < index2 + m2.length) end = index2 + m2.length;
-			spacesRemoved[2] += m2.length;
-			return '';
-		});
-	});
-	end -= spacesRemoved[2];
+    // Remove end-of-line spaces
+    replacement = s.replace(/ +$/gm, function (m, index, s) {
+        var prev2chars = s.slice(index - 2, index);
+        // don't rm EOL-space in empty table cells (after |) and in empty template param vals (after =)
+        // but after headings, yes (after ==)
+        if (prev2chars[1] == '|' || ( prev2chars[1] == '=' && prev2chars != '==' )) return m;
+        if ( doNotFixSpaces(s, index, preTagRE) ) return m;
+        if (start == -1) start = index;
+        end = index + m.length;
+        spacesRemoved1 += m.length;
+        return '';
+    });
 
-	let totalRemoved = spacesRemoved[0] + spacesRemoved[1] + spacesRemoved[2];
-	if (totalRemoved === 0) return [];
-	
-	return [{
-		start: start,
-		end: end + totalRemoved,
-		replacement: replacement.slice(start, end),
-		name: totalRemoved === 1 ? 'интервал' : totalRemoved + ' интервала',
-		description: 'Изтрий двойните интервали, интервалите в края на '
-			+ 'редовете и интервалите в началото/края вътре в препратките',
-		help: 'Двойните интервали, интервалите в края на редовете, както и '
-			+ 'интервалите в началото/края вътре в препратките са ненужни.'
-	}];
+    end = end - spacesRemoved1;
+
+    // Remove double spaces
+    replacement = replacement.replace(/([^\s])([ \u00a0]{2,})(?=[^ =]|==)/g, function (m, $1, $2, index, s) {
+        var repl;
+        if ( doNotFixSpaces(s, index, sourceTagRE) || doNotFixSpaces(s, index, preTagRE) ) {
+            repl = m;
+        }
+        else {
+            repl = $1 + ' ';
+            if (start == -1 || start > index + 1) start = index + 1;
+            if (index + m.length > end) end = index + m.length;
+            spacesRemoved2 += $2.length - 1;
+        }
+        return repl;
+    });
+
+    end = end - spacesRemoved2;
+
+    var spacesRemoved = spacesRemoved1 + spacesRemoved2;  // == s.length - replacement.length;
+
+    if (spacesRemoved === 0) return [];
+
+    replacement = replacement.slice(start, end);
+
+    var a = [{
+        start: start,
+        end: end + spacesRemoved,
+        replacement: replacement,
+        name: (spacesRemoved == 1 ? 'интервал' : spacesRemoved + ' интервала'),
+        description: 'Изтрий двойните интервали и интервалите в края на редовете',
+        help: 'Двойните интервали и интервалите в края на редовете са ненужни.'
+    }];
+
+    return a;
 });
 
 ct.rules.push(function (s) {
-	let re = ct.fixRegExp(/([{letter}\d]+[^{letter}\d\s]*)(?:[^\S\r\n]|&nbsp;)+[\u2014-][^\S\r\n]+(?=([^{letter}\d\s]*[{letter}\d]+|\n))/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (!m[1].match(/[а-ъьюяѝ\d]/i) && !m[2].match(/[а-ъьюяѝ\d]/i) || // думите и от двете страни не съдържат кирилка буква или цифра
-			m[1].match(ct.fixRegExp(/^(?:[Пп]о|[Нн]ай)[^{letter}\d]*$/)) || // пропусни случаите с "по- и "най-"
-			ct.doNotFix(s, m)
-		) continue;
+	// [^|] - пропусни ако вероятно е за означаване на празна клетка в таблица
+	var re = /[^|]([ \u00a0]+|&nbsp;)[-\u2014] +/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0, l = a.length; i < l; i++) {
+		var m = a[i];
+		if ( ct.doNotFix(s, m) ) {
+			continue;
+		}
 		b.push({
-			start: m.start + m[1].length,
+			start: m.start + 1,
 			end: m.end,
 			replacement: '\u00a0\u2013 ', // U+2013 is an ndash
 			name: 'тире',
-			description: 'Смени със средно тире',
-			help: 'В изречение, късо или дълго тире, оградено с интервали, '
-				+ 'почти сигурно трябва да е средно тире.'
+			description: 'Смени със средно тире (en dash)',
+			help: 'В изречение, късо тире оградено с интервали, почти сигурно трябва да е средно тире (en dash).'
 		});
 	}
 	return b;
 });
 
 ct.rules.push(function (s) {
-	// не работи при липса на интервал преди цифра, защото може да е негативно число
-	// също не работи преди " и" или " или"; за случаи като "антропо- и зооморфна пластика"
-	let re = /((?:^|\s)(?:[Пп]о|[Нн]ай)|[А-ЪЮЯа-ъьюя]|\d(?![^\S\r\n]*-[^\S\r\n]*[\n\)]))(?:[^\S\r\n]+-(?!\d)|-(?:[^\S\r\n]+(?!и(?:ли)?[^\S\r\n])|\s*\n))(?=[А-ЪЮЯа-ъьюя\d\)])/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (m[1].length > 1 || ct.doNotFix(s, m)) continue; // пропусни случаите с "по- и "най-"
+	// [^|] - пропусни ако вероятно е за означаване на празна клетка в таблица
+	// не работи при липса на интервал преди цифра защото може да е негативно число
+	// също не работи преди " и" или " или" за случаи като "антропо- и зооморфна пластика"
+	var re = /[^|]([ \u00a0]+|&nbsp;)-[^\s\d-]|[^-| \u00a0\n]-(\n| (?!и |или ))/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0, l = a.length; i < l; i++) {
+		var m = a[i];
+		if ( ct.doNotFix(s, m) ) continue;
 		b.push({
 			start: m.start + 1,
-			end: m.end,
-			name: 'дефис',
-			description: 'Късо тире (дефис) с интервал от едната страна',
-			help: 'Късо тире (дефис) с интервал от едната страна вероятно '
-				+ 'трябва да стане средно тире с интервали и от двете '
-				+ 'страни или дефис без интервал (полуслято изписване).'
+			end: m.end - 1,
+			//replacement: '\u00a0\u2013 ', // U+2013 is an ndash
+			name: 'тире-',
+			description: 'Късо тире с интервал само от едната страна',
+			help: 'Късо тире с интервал само от едната страна вероятно трябва да е средно тире (en dash) с интервали и от двете страни.'
 		});
 	}
 	return b;
 });
 
 ct.rules.push(function (s) {
-	// сравнителни частици, изписани с интервали между дефиса или с тирета, различни от дефис
-	let re = /((?:^|\s)(?:[Пп]о|[Нн]ай))(?:-[^\S\r\n]+|[^\S\r\n]+-[^\S\r\n]*|[^\S\r\n]*[\u2014\u2013][^\S\r\n]*)([а-я]+)/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (ct.doNotFix(s, m)) continue;
-		if (m[2] === 'и' || m[2] === 'или') {
-			if (s[m.start + m[1].length + 1] === '-') continue;
-			m[2] = ' ' + m[2];
-		}
-		b.push({
-			start: m.start + m[1].length - m[1].trim().length,
-			end: m.end,
-			name: m[1].trim().toLowerCase() + '-',
-			replacement: m[1].trim() + '-' + m[2],
-			description: 'Поправи сравнителната частица, така че да е '
-				+ 'изписана с дефис и без интервал преди дефиса',
-			help: 'Сравнителната частица се изписва с дефис, без интервали '
-				+ 'преди и/или след дефиса.'
-		});
-	}
-	return b;
-});
+	var re = /[^\d\wА-я–-](\d+|\[\[\d+\]\])(?:-|\u2014|--|\u2013)(\d+|\[\[\d+\]\]|\?|\.{3}|…)[^\d\wА-я–-]/g;
+    // U+2014 is mdash, U+2013 is ndash
+	re = ct.fixRegExp(re);
+	var a = ct.getAllMatches(re, s);
+    var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
 
-ct.rules.push(function (s) {
-	// U+2014 е дълго тире (em dash), U+2013 е средно тире (en dash)
-	let re = ct.fixRegExp(/([^{letter}\d](?:IS[SB]N|код)(?:[^{letter}\d]*[\dx])+)|[^{letter}\d\u2014\u2013-](\d+(?:\]\])?|\?|\.{3}|…)(?:[\u2014\u2013-]|--|[^\S\r\n]+(?:[\u2014-](?=[\r\n\)])|--(?=[^\S\r\n]*[\r\n\)])))((?:(?:\[\[)?\d+|\?|\.{3}|…)(?![{letter}\d\u2014\u2013-])|(?=[^\S\r\n]*[\r\n\)]))/gi);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (m[1] || ct.doNotFix(s, m)) continue; // m[1]: ISBN, ISSN, телефонен, пощенски код -- мачва го и го пропуска
+        if ( ct.doNotFix(s, m) || (m[1].length == 3 && m[2].length == 10) ) continue; // don't change ISBN-13
+
 		b.push({
 			start: m.start + 1,
-			end: m.end,
-			replacement: m[2] + ('\u00a0\u2013 ' + m[3]).trimEnd(),
+			end: m.end - 1,
+			replacement: m[1] + '\u00a0\u2013 ' + m[2],
 			name: 'тире-числа',
-			description: 'Смени късото или дългото тире със средно тире '
-				+ 'и добави интервали от двете му страни',
-			help: 'За числовите интервали се използва средно тире, '
-				+ 'оградено с интервали.'
-		});
-	}
-
-	// Също и за римски числа с тире помежду
-	re = ct.fixRegExp(/[^{letter}\d\u2014\u2013-]([IVXLCD]+(?:\]\])?)(?:[\u2014\u2013-]|--|[^\S\r\n]+(?:[\u2014-](?=[\r\n\)])|--(?=[^\S\r\n]*[\r\n\)])))((?:\[\[)?[IVXLCD]+(?![{letter}\d\u2014\u2013-])|(?=[^\S\r\n]*[\r\n\)]))/g);
-	a = ct.getAllMatches(re, s);
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (ct.doNotFix(s, m)) continue;
-		b.push({
-			start: m.start + 1,
-			end: m.end,
-			replacement: m[1] + ('\u00a0\u2013 ' + m[2]).trimEnd(),
-			name: 'тире-числа',
-			description: 'Смени късото или дългото тире със средно тире '
-				+ 'и добави интервали от двете му страни',
-			help: 'За числовите интервали се използва средно тире, '
-				+ 'оградено с интервали.'
+			description: 'За числовите интервали се използва средно тире (en dash) оградено с интервали.'
 		});
 	}
 	return b;
 });
 
 ct.rules.push(function (s) {
-	let re = /^(={2,})([^=\n]*(?:=[^=\n]+)*)(={2,})$/gm;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	let level = 0; // == Level 1 ==, === Level 2 ===, ==== Level 3 ====, etc.
-	let editform = document.getElementById('editform');
+	var re = /^(==+)( *)([^=]*[^= ])( *)\1/gm;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	var level = 0; // == Level 1 ==, === Level 2 ===, ==== Level 3 ====, etc.
+	var editform = document.getElementById('editform');
 	// If we are editing a section, we have to be tolerant to the first heading's level
-	let isSection = editform && editform.wpSection !== null && editform.wpSection.value !== '';
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (!m[2] || m[2].trim() === '') {
+	var isSection = editform &&
+		editform['wpSection'] != null &&
+		editform['wpSection'].value != '';
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
+		if (m[2] != ' ' || m[4] != ' ') {
 			b.push({
 				start: m.start,
 				end: m.end,
-				replacement: '',
-				name: 'заглавие-празно',
-				description: 'Премахни празно заглавие',
-				help: 'Празните заглавия са ненужни.'
+				replacement: m[1] + ' ' + m[3] + ' ' + m[1],
+				name: 'заглавие-стил',
+				description: 'Поправи интервалите',
+				help: 'Стилът на заглавието трябва да е <kbd>==&nbsp;С интервали&nbsp;==</kbd>.'
 			});
-		} else {
-			if (!m[2].startsWith(' ') || !m[2].endsWith(' ')) {
-				b.push({
-					start: m.start,
-					end: m.end,
-					replacement: m[1] + ' ' + m[2].trim() + ' ' + m[3],
-					name: 'заглавие-стил',
-					description: 'Поправи интервалите',
-					help: 'Стилът на заглавието трябва да е <kbd>==&nbsp;С интервали&nbsp;==</kbd>.'
-				});
-			}
-			let oldLevel = level;
-			level = m[1].length - 1;
-			if (level - oldLevel > 1 && (!isSection || oldLevel > 0) ||
-				m[1].length > 6 ||
-				m[3].length > 6 ||
-				m[1].length !== m[3].length
-			) {
-				b.push({
-					start: m.start,
-					end: m.end,
-					name: 'заглавие-вложеност',
-					description: 'Поправи ръчно неправилната вложеност, провери ръчно и следващите подзаглавия',
-					help: 'Всяко заглавие трябва да е вложено точно едно ниво под по-общото заглавие.'
-				});
-			}
-			/*
-			let frequentMistakes = [
-				{ code: 'външни вр.', wrong: /^[Вв]ъншни *[Вв]ръзки$/i, correct: 'Външни препратки' },
-				{ code: 'see-also', wrong: /^see *al+so$/i, correct: 'See also' },
-				{ code: 'ext-links', wrong: /^external links?$/i, correct: 'External links' },
-				{ code: 'refs', wrong: /^ref+e?r+en(c|s)es?$/i, correct: 'References' }
-			];
-			for (let j = 0; j < frequentMistakes.length; j++) {
-				let fm = frequentMistakes[j];
-				if (fm.wrong.test(m[3]) && m[3] != fm.correct) {
-					let r = m[1] + m[2] + fm.correct + m[2] + m[1];
-					if (r != m[0]) {
-						b.push({
-							start: m.start,
-							end: m.end,
-							replacement: r,
-							name: fm.code,
-							description: 'Поправи на „' + fm.correct + "“.",
-							help: 'Правилното изписване е „<kbd>' + fm.correct + "</kbd>“."
-						});
-					}
+		}
+		var oldLevel = level;
+		level = m[1].length - 1;
+		if (level - oldLevel > 1 && (!isSection || oldLevel > 0) ) {
+			var h = '======='.substring(0, oldLevel + 2);
+			b.push({
+				start: m.start,
+				end: m.end,
+				//replacement: h + m[2] + m[3] + m[2] + h,
+				name: 'заглавие-вложеност',
+				description: 'Поправи ръчно неправилната вложеност, провери ръчно и следващите подзаглавия',
+				help: 'Всяко заглавие трябва да е вложено точно едно ниво под по-общото заглавие.'
+			});
+		}
+		var frequentMistakes = [
+//			{ code: 'външни вр.',  wrong: /^[Вв]ъншни *[Вв]ръзки$/i,   correct: 'Външни препратки' },
+//			{ code: 'see-also',  wrong: /^see *al+so$/i,          correct: 'See also' },
+//			{ code: 'ext-links', wrong: /^external links?$/i,     correct: 'External links' },
+//			{ code: 'refs',      wrong: /^ref+e?r+en(c|s)es?$/i,  correct: 'References' }
+		];
+		for (var j = 0; j < frequentMistakes.length; j++) {
+			var fm = frequentMistakes[j];
+			if (fm.wrong.test(m[3]) && m[3] != fm.correct) {
+				var r = m[1] + m[2] + fm.correct + m[2] + m[1];
+				if (r != m[0]) {
+					b.push({
+						start: m.start,
+						end: m.end,
+						replacement: r,
+						name: fm.code,
+						description: 'Поправи на „' + fm.correct + "“.",
+						help: 'Правилното изписване е „<kbd>' + fm.correct + "</kbd>“."
+					});
 				}
 			}
-			*/
 		}
 	}
 	return b;
@@ -409,266 +304,240 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// ISBN: ten or thirteen digits, each digit optionally followed by a hyphen, the last digit can be 'X' or 'x'
-	let a = ct.getAllMatches(/ISBN(?:\s*=?|(?:\]\])?:?)?\s*(\d[\d-]+[\dX])/gi, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		let str = m[1].replace(/[^\dX]+/gi, '').toUpperCase(); // remove all non-digits
-		if (str.length !== 10 && str.length !== 13) {
+	var a = ct.getAllMatches(/ISBN *=? *(([0-9Xx]-?)+)/gi, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
+		var s = m[1].replace(/[^0-9Xx]+/g, '').toUpperCase(); // remove all non-digits
+		if (s.length !== 10 && s.length !== 13) {
 			b.push({
 				start: m.start,
 				end: m.end,
 				name: 'ISBN',
 				description: 'Трябва да е дълъг 10 или 13 цифри',
 				help: 'ISBN номерата трябва да са дълги 10 или 13 цифри. '
-					+ 'Този се състои от ' + str.length + ' цифри:<br><kbd>' + m[1] + '</kbd>'
+					+ 'Този се състои от ' + s.length + ' цифри:<br><kbd>' + m[1] + '</kbd>'
 			});
 			continue;
 		}
-		let isNew = str.length === 13; // old (10 digits) or new (13 digits)
-		let xIndex = str.indexOf('X');
+		var isNew = (s.length === 13); // old (10 digits) or new (13 digits)
+		var xIndex = s.indexOf('X');
 		if (xIndex !== -1 && (xIndex !== 9 || isNew)) {
 			b.push({
 				start: m.start,
 				end: m.end,
 				name: 'ISBN',
 				description: 'Неправилна употреба на X като цифра',
-				help: '<kbd>X</kbd> може да се ползва само като последна цифра в в 10-цифрен ISBN номер '
+				help: "``<kbd>X</kbd>'' може да се ползва само като последна цифра в в 10-цифрен ISBN номер "
 					+ '<br><kbd>' + m[1] + '</kbd>'
 			});
 			continue;
 		}
-		let computedChecksum = 0;
-		let modulus = isNew ? 10 : 11;
-		for (let j = str.length - 2; j >= 0; j--) {
-			let digit = str.charCodeAt(j) - 48; // 48 is the ASCII code of '0'
-			let quotient = isNew
+		var computedChecksum = 0;
+		var modulus = isNew ? 10 : 11;
+		for (var j = s.length - 2; j >= 0; j--) {
+			var digit = s.charCodeAt(j) - 48; // 48 is the ASCII code of '0'
+			var quotient = isNew
 				? ((j & 1) ? 3 : 1) // the new way: 1 for even, 3 for odd
-				: 10 - j; // the old way: 10, 9, 8, etc
+				: 10 - j;           // the old way: 10, 9, 8, etc
 			computedChecksum = (computedChecksum + (quotient * digit)) % modulus;
 		}
 		computedChecksum = (modulus - computedChecksum) % modulus;
-		let c = str.charCodeAt(str.length - 1) - 48;
-		let actualChecksum = (c < 0 || 9 < c) ? 10 : c;
-		if (computedChecksum === actualChecksum) continue;
+		var c = s.charCodeAt(s.length - 1) - 48;
+		var actualChecksum = (c < 0 || 9 < c) ? 10 : c;
+		if (computedChecksum === actualChecksum) {
+			continue;
+		}
 		b.push({
 			start: m.start,
 			end: m.end,
 			name: 'ISBN',
 			description: 'Неправилна контролна сума',
-			help: 'Неправилна контролна сума на ISBN номер:<br/><kbd>' + m[1] + '</kbd>'
+			help: 'Неправилна контролна сума на ISBN номер:<br/><kbd>' + m[1] + '</kbd><br/>'
 		});
 	}
 	return b;
 });
 
 ct.rules.push(function (s) {
-	let re = ct.fixRegExp(/((?!Й)[{letter}\d][^{letter}\d\s]*[^\S\r\n]+)й(?![{letter}\d])/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (ct.doNotFix(s, m)) continue;
-		b.push({
-			start: m.start + m[1].length,
-			end: m.end,
+	var re = / й[^А-я\w]/g;
+	re = ct.fixRegExp(re);
+	var a = ct.getAllMatches(re, s);
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
+		if ( ct.doNotFix(s, m) ) continue;
+		a[i] = {
+			start: m.start + 1,
+			end: m.end - 1,
 			replacement: 'ѝ',
 			name: 'й→ѝ',
 			description: 'Промени „й“ на „ѝ“',
 			help: 'Когато се ползва като местоимение, „й“ трябва да се изписва '
 				+ 'като „ѝ“ с ударение.'
-		});
+		};
 	}
-	return b;
+	return a;
 });
 
 ct.rules.push(function (s) {
-	// год., предшествано от цифри, евентуално в препратка
-	let re = /(\d+(?:\]\])?)(?:[^\S\r\n]|&nbsp;)*год\./g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (ct.doNotFix(s, m)) continue;
-		b.push({
+	// год. предшествано от цифри, евентуално оградени с [[ и ]]
+	var re = /(\[\[[0-9]+\]\]|[0-9]+)([ \u00a0]+|&nbsp;)?\u0433\u043e\u0434\./g;
+	var a = ct.getAllMatches(re, s);
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
+		if ( ct.doNotFix(s, m) ) continue;
+		a[i] = {
 			start: m.start,
 			end: m.end,
 			replacement: m[1] + '\u00a0г.',
 			name: 'год.→г.',
-			description: 'Поправи съкращението „год.“ на „г.“',
+			description: 'год.→г.',
 			help: 'Приетото съкращение за година е „г.“, а не „год.“'
-		});
+		};
 	}
-	return b;
+	return a;
 });
 
 ct.rules.push(function (s) {
-	// единица, предшествана от цифри, евентуално в препратка
-	let re = ct.fixRegExp(/[^{letter}\d](\d+(?:\]\])?)(г\.|лв\.|щ\.д\.|(?:[мк]?г|[мск]?м|[mk]?g|[mck]?m)(?![{letter}\d]))/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (ct.doNotFix(s, m)) continue;
-		let number = m[1];
-		let unit = m[2];
-		let autofix = $.inArray(unit, ['г.', 'лв.', 'щ.д.']) > -1;
-		b.push({
-			start: m.start + 1,
-			end: m.end,
-			replacement: autofix ? number + '\u00a0' + unit : null,
-			name: 'число+' + unit,
-			description: 'Добави интервал между числото и единицата ' + unit,
-			help: 'Между числото и единицата <i>' + unit + '</i> трябва да се оставя един интервал, '
-				+ 'за предпочитане непренасящият се <kbd>&amp;nbsp;</kbd> '
-				+ '(non-breaking space, <kbd>U+00A0</kbd>).'
-		});
-	}
-	return b;
-});
-
-ct.rules.push(function (s) {
-	let re = ct.fixRegExp(/(([{letter}\d])[\]\)“']*)([^\S\r\n]+,[^\S\r\n]*|,)(?=[\[\(„']*([{letter}\d]))/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (ct.doNotFix(s, m) ||
-			m[3] === ',' && !isNaN(m[2]) && !isNaN(m[4]) // m[2] и m[4] са цифри; вероятност за десетично число
-		) continue;
-		b.push({
-			start: m.start + m[1].length,
-			end: m.end,
-			replacement: ', ',
-			name: 'запетая',
-			description: 'Премахни интервала преди запетаята и/или добави такъв след нея',
-			help: 'Интервалът трябва да е след запетаята и не преди нея.'
-		});
-	}
-	return b;
-});
-
-ct.rules.push(function (s) {
-	let re = ct.fixRegExp(/(([{letter}\d])[\]\)“']*)([^\S\r\n]+\.[^\S\r\n]*|\.(?!\n))(?=([\[\(„']*([{letter}\d])([{letter}\d]*)|\n))/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		let nonStandart;
-		if (m[5]) {
-			nonStandart = m[5] !== m[5].toUpperCase(); // true: символът не е в капитализирана форма
-			for (let j = 0; j < m[6].length; j++) {
-				if (m[6][j] !== m[6][j].toLowerCase()) nonStandart = true; // true: символът е в капитализирана форма
-				if (nonStandart) break;
-			}
-		}
-		if (ct.doNotFix(s, m) ||
-			nonStandart || // не започва с главна буква и/или съдържа други главни букви освен началната
-			!isNaN(m[2]) && !isNaN(m[5]) // m[2] и m[5] са цифри; вероятност за десетично число след копиране
-		) continue;
-		b.push({
-			start: m.start + m[1].length,
-			end: m.end,
-			replacement: m[4] === '\n' ? '.' : '. ',
-			name: 'точка',
-			description: 'Премахни интервала преди точката в края на изречението и/или добави такъв след нея',
-			help: 'Интервалът трябва да е след точката и не преди нея.'
-		});
-	}
-	return b;
-});
-
-ct.rules.push(function (s) {
-	let re = /((=\n{2,}.)|[^=\n]\n=|.\n{3,}.|\.\n[А-ЪЮЯ])|^\n+/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		let nextTagPos = s.slice(m.start).search(/<\/?(?:gallery|poem)\b/i);
-		if (nextTagPos > -1 && s.charAt(m.start + nextTagPos + 1) === '/') continue; // пропусни галериите и поетичните текстове
-		let lines = m[2] ? '\n' : '\n\n';
-		b.push({
-			start: m.start,
-			end: m.end,
-			replacement: m[1] ? m[1][0] + lines + m[1][m.end - m.start - 1] : '',
-			name: 'нов ред',
-			description: 'Премахни излишните празни редове или добави нов ред между отделните абзаци',
-			help: 'Между отделните абзаци трябва да има един празен ред. Повече от един празен ред е излишен.'
-		});
-	}
-	return b;
-});
-
-ct.rules.push(function (s) {
-	let replacement = {
-		'A': 'А', 'a': 'а',
-		'B': 'В',
-		'E': 'Е', 'e': 'е',
-		'H': 'Н',
-		'i': 'і',
-		'J': 'Ј', 'j': 'ј',
-		'K': 'К',
-		'M': 'М',
-		'O': 'О', 'o': 'о',
-		'P': 'Р', 'p': 'р',
-		'C': 'С', 'c': 'с',
-		'T': 'Т',
-		'X': 'Х', 'x': 'х',
-		'y': 'у'
-	}; // key: value => latin: cyrillic
-	
-	let re = /(?:[А-ЪЮЯа-ъьюяѝ]['"“\]]*[^\S\r\n]+[ec]|[А-ЪЮЯа-ъьюяѝ]['"“\]]*\.\s+[ABCE])[^\S\r\n]+['"„\[]*[А-ЪЮЯа-ъьюяѝ]|[a-zA-Z][\u0400-\u04ff]|[\u0400-\u04ff][a-zA-Z]/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (ct.doNotFix(s, m, false, false, false, true, true, true, true)) continue; // Изкл.: checkPat1, checkPat2, checkTagName; Вкл.: checkFileName, checkWikiPre, checkQuotes, checkPat3
-		b.push({
-			start: m.start,
-			end: m.end,
-			name: 'шльокавица',
-			description: 'Неизвестна замяна. ' + (m[0].length !== 2
-				? 'Проверете текста'
-				: m[0][0].match(/[\u0400-\u04ff]/)
-				? "Кирилско '" + m[0][0] + "', следвано от латинско '" + m[0][1] + "'"
-				: "Латинско '" + m[0][0] + "', следвано от кирилско '" + m[0][1] + "'"),
-			help: 'Една дума трябва да бъде написана или само на кирилица, или само на латиница.'
-		});
-		let word = s.substring(m.start - 49, m.start).match(/[\u0400-\u04ffa-zA-Z]*$/)[0] + m[0] + s.substring(m.end, m.end + 49).match(/^[\u0400-\u04ffa-zA-Z]*/)[0];
-		let subtract = word.match(/[\u0400-\u04ff]/g).length - word.match(/[a-zA-Z]/g).length;
-		for (let key in replacement) {
-			if (subtract >= 0 && m[0].indexOf(key) > -1) {
-				// по-голям брой кирилски букви или броят на кирилските и латинските букви е равен;
-				// замени с кирилски еквивалент
-				b[b.length - 1].replacement = m[0].replace(key, replacement[key]);
-				b[b.length - 1].description = "Замени латинско '" + key + "' с кирилско.";
-				break;
-			} else if (subtract < 0 && m[0].indexOf(replacement[key]) > -1) {
-				// по-голям брой латински букви; замени с латински еквивалент
-				b[b.length - 1].replacement = m[0].replace(replacement[key], key);
-				b[b.length - 1].description = "Замени кирилско '" + replacement[key] + "' с латинско.";
-				break;
-			}
+	var re = /(\[\[[0-9]+\]\]|[0-9]+)( +|&nbsp;)?(г\.|лв\.|щ\.д\.|(мг|кг|мм|см|км|mg|kg|mm|cm|km|m|м|g|г)(?![\w\dА-я]))/g;
+	var autofix = ['г.', 'лв.', 'щ.д.'];
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0; i < a.length; i++) {
+		var m = a[i];
+		if ( ct.doNotFix(s, m) ) continue;
+		var number = m[1]; // може да е оградено с [[ и ]]
+		var spacing = m[2] || '';
+		var unit = m[3];
+		var autofixThis = $.inArray(unit, autofix) > -1;
+		if ( ( autofixThis && spacing !== ' ' ) || ( !autofixThis && spacing == '' ) ) {
+			b.push({
+				start: m.start,
+				end: m.end,
+				replacement: ( autofixThis ? number + '\u00a0' + unit : undefined ),
+				name: 'число+' + unit,
+				description: 'Добави интервал между числото и ' + unit,
+				help: 'Между число и „' + unit + '“ трябва да се оставя един интервал, '
+					+ 'за предпочитане непренасящият се <kbd>&amp;nbsp;</kbd> '
+					+ '(non-breaking space, <kbd>U+00A0</kbd>).'
+			});
 		}
 	}
 	return b;
 });
 
 ct.rules.push(function (s) {
-	// отварящи кавички ако са в нач. на реда или след списъчен елемент, интервал, '', >, }, |, = или (
-	let re = /((?:^|\n)[*#:;]*|[^\S\r\n]|''|[>}|=\(])(?:"(?![\s,;:]|\.(?!\.))((?:[^"\[\]\s]|\s(?!")|\[\[[^\[\]]+\]\]|\[[^\[\]]+\])+)"|[„“](?![\s,;:]|\.(?!\.))((?:[^„“”\[\]\s]|\s(?![“”])|\[\[[^\[\]]+\]\]|\[[^\[\]]+\])+)”|«(?![\s,;:]|\.(?!\.))((?:[^«»\[\]\s]|\s(?!»)|\[\[[^\[\]]+\]\]|\[[^\[\]]+\])+)»)/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		let str = m[2] || m[3] || m[4];
-		if (ct.doNotFix(s, m, true, true, true, true, true, false, true) || // Изкл.: checkQuotes
-			!str.match(/[А-ЪЮЯа-ъьюяѝ]/) // не съдържа нито една кирилска буква, ползвана в българския
-		) continue;
+    var re = /([А-я\]\)“]+)( , ?|,)(?=[А-я\[\(„])/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    var b = [];
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        if (ct.inBrackets(s, m, ['[', ']']) || ct.inBrackets(s, m, ['{', '}'])) {
+        	continue;
+        }
+        b.push({
+            start: m.start + m[1].length,
+            end: m.end,
+            replacement: m[2].trim() + ' ',
+            name: 'запетая',
+            description: 'Премахни интервала преди запетаята и/или добави такъв след нея',
+            help: 'Интервалът трябва да е след запетаята и не преди нея.'
+        });
+    }
+    return b;
+});
+
+ct.rules.push(function (s) {
+    var re = /( [а-я]{2,})( \. ?|\.)(?=[А-Я][а-я]+)/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    var b = [];
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        if (ct.inBrackets(s, m, ['[', ']']) || ct.inBrackets(s, m, ['{', '}'])) {
+        	continue;
+        }
+        b.push({
+            start: m.start + m[1].length,
+            end: m.end,
+            replacement: m[2].trim() + ' ',
+            name: 'точка',
+            description: 'Премахни интервала преди точката в края на изречението и/или добави такъв след нея',
+            help: 'Интервалът трябва да е след точката и не преди нея.'
+        });
+    }
+    return b;
+});
+
+ct.rules.push(function (s) {
+    var re = /((=\n{2,}.)|[^=\n]\n=|.\n{3,}.|\.\n[А-я])/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        var lines = (m[2] === undefined) ? '\n\n' : '\n';
+        a[i] = {
+            start: m.start,
+            end: m.end,
+            replacement: m[1][0] + lines + m[1][m.end - m.start - 1],
+            name: 'нов ред',
+            description: 'Премахни излишните празни редове или добави нов ред между отделните абзаци',
+            help: 'Между отделните абзаци трябва да има един празен ред. Повече от един празен ред е излишен.'
+        };
+    }
+    return a;
+});
+
+ct.rules.push(function (s) {
+    var re = /(([А-я] e [А-я])|[a-z][А-я]|[А-я][a-z])/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        a[i] = {
+            start: m.start,
+            end: m.end,
+            replacement: null,
+            name: '6lokavica',
+            description: 'Неизвестна замяна. Проверете текста.',
+            help: 'Една дума трябва да бъде написана или само на кирилица или само на латиница.'
+        };
+        
+        function replace(latin, cyrillic) {
+        	a[i].replacement = m[1].replace(latin, cyrillic);
+        	a[i].description = 'Замени латинско "' + latin + '" с кирилско.';
+        }
+        
+        if (m[2] !== undefined) replace('e', 'е');
+        else {
+        	if (m[1].indexOf('a') > -1) replace('a', 'а');
+        	else if (m[1].indexOf('e') > -1) replace('e', 'е');
+        	else if (m[1].indexOf('o') > -1) replace('o', 'о');
+        	else if (m[1].indexOf('x') > -1) replace('x', 'х');
+        	else if (m[1].indexOf('p') > -1) replace('p', 'р');
+        	else if (m[1].indexOf('c') > -1) replace('c', 'с');
+        	else if (m[1].indexOf('i') > -1) replace('i', 'і');
+        }
+    }
+    return a;
+});
+
+ct.rules.push(function (s) {
+	// отварящи кавички ако са в нач. на реда или след '', интервали (непредхождани от единично =), ==, *, #, >, }, (, [, «
+	// за "" (но не и за “”) също работи когато има "„“ кавички в адреса на връзка вътре в кавички
+	var re = /(\n|''|[^= ] +|== *|[*#>}|(\[«])(?:"(?![\s.,;])((?:[^"„“\[]|\[\[[^|\]"„“]+\]|\[\[[^\]|]+\|)*[^"„“\s(\[«])"|[“„](?![\s.,;])([^"„“]*[^"„“\s(\[«])”|[«](?![\s.,;])([^"„“«»]*[^"„“\s(\[«»])»)/g;
+	var a = ct.getAllMatches(re, s);
+	var b = [];
+	for (var i = 0, l = a.length; i < l; i++) {
+		var m = a[i];
+		if ( ct.doNotFix(s, m) ) {
+			continue;
+		}
 		b.push({
 			start: m.start + m[1].length,
 			end: m.end,
-			replacement: '„' + str + '“',
+			replacement: '„' + (m[2] || m[3] || m[4]) + '“',
 			name: 'кавички',
 			description: 'Заместване на "прави", “други горни”, „смесени” или «френски» с „български“ кавички.',
 			help: 'В българския език и в Уикипедия на български се използват тези кавички: „ и “.'
@@ -677,279 +546,122 @@ ct.rules.push(function (s) {
 	return b;
 });
 
-ct.rules.push(function (s) {
-	let re = /[^\S\r\n]('{2,})?["„“”«»]('{2,})?[^\S\r\n]/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (ct.doNotFix(s, m, true, true, true, true, true, false, true)) continue; // Изкл.: checkQuotes
-		b.push({
-			start: m.start,
-			end: m.end,
-			name: 'кавичка-интервали',
-			description: 'Кавичка, оградена с интервали от двете страни',
-			help: 'След отварящата кавичка не трябва да има интрвал, '
-				+ 'преди затварящата също.'
-		});
-	}
-	return b;
-});
-
 /*
-Премахването на празни параметри от шаблоните като практика не се ползва с
-консенсусна подкрепа сред редакторите, затова на този етап е изключено.
+	Премахването на празни параметри от шаблоните като практика не се ползва с
+	консенсусна подкрепа сред редакторите, затова на този етап е изключено.
+*/
+/*
 ct.rules.push(function (s) {
-	let re = /(^|[^\n ] *)(\| *[\wА-я-]+ *= *(?=[\|\}]))+/g;
-	let a = ct.getAllMatches(re, s);
-	if (a.length === 0) return [];
-	let n = a.length;
-	let start = a[0].start + a[0][1].length;
-	let end = a[n - 1].end + 1;
-	let replacement = s.slice(start, end).replace(re, '$1');
-	let b = [{
-		start: start,
-		end: end - 1,
-		replacement: replacement.slice(0, -1),
-		name: (n == 1 ? 'параметър' : n + '+ параметъра'),
-		description: 'Премахва неизползваните параметри от шаблоните',
-		help: 'Неизползваните параметри са излишни.'
-	}];
-	return b;
+    var re = /(^|[^\n ] *)(\| *[\wА-я-]+ *= *(?=[\|\}]))+/g;
+    var a = ct.getAllMatches(re, s);
+    if (a.length === 0) return [];
+    var n = a.length;
+    var start = a[0].start + a[0][1].length;
+    var end = a[n - 1].end + 1;
+
+    var replacement = s.slice(start, end).replace(re, '$1');
+
+    var b = [{
+            start: start,
+            end: end - 1,
+            replacement: replacement.slice(0, -1),
+            name: (n == 1 ? 'параметър' : n + '+ параметъра'),
+            description: 'Премахва неизползваните параметри от шаблоните',
+            help: 'Неизползваните параметри са излишни.'
+    }];
+    return b;
 });
 */
 
 ct.rules.push(function (s) {
-	let skipNext = 0;
-	let decoder = function (match, charCode, index, s) {
-		if (skipNext > 0) {
-			skipNext--;
-			return '';
-		}
-		let decimal = parseInt(charCode, 16);
-		let bin = Number(decimal).toString(2);
-		if (decimal < 128) return match; // ASCII, don't decode
-		let nOfBytes = bin.match(/^1+/)[0].length;
-		skipNext = nOfBytes - 1;
-		let urlEncoded = match + s.slice(index + 3, index + 3 * nOfBytes);
-		let char = decodeURI(urlEncoded);
-		return (char.length === 1 ? char : urlEncoded);
-	};
+    var skipNext = 0;
+    var decoder = function (match, charCode, index, s) {
+        if (skipNext > 0) {
+            skipNext--;
+            return '';
+        }
 
-	let re = /((?:https?:|ftps?:|\[)\/\/[^\/\s]+\/)([^\s|}<>\]%]*%[^\s|}<>\]]*)|(\[\[)([^\[\]|%]*%[^\[\]|]*)/gi;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		try {
-			let decoded = m[1] ? m[2].replace(/%([a-f\d]{2})/gi, decoder) : decodeURIComponent(m[4]);
-			if (m[2] === decoded || m[4] === decoded) continue;
-			b.push({
-				start: m.start,
-				end: m.end,
-				replacement: (m[1] || m[3]) + decoded,
-				name: m[1] ? 'URL' : 'линк-адрес',
-				description: 'Декодира кодирани ' + (m[1] ? 'URL' : 'линкови') + ' адреси',
-				help: (m[1] ? 'URL адресите' : 'Линковите адреси') + ' се четат по-лесно, когато са декодирани.'
-			});
-		} catch (e) {
-			// не е кодиран Unicode текст
-		}
-	}
-	return b;
+        var decimal = parseInt(charCode, 16);
+        var bin = Number(decimal).toString(2);
+        if ( decimal < 128 ) return match; // ASCII, don't decode
+
+        var nOfBytes = bin.match(/^1+/)[0].length;
+        skipNext = nOfBytes - 1;
+
+        var urlEncoded = match + s.slice(index + 3, index + 3 * nOfBytes);
+
+        var char = decodeURI(urlEncoded);
+        return (char.length == 1 ? char : urlEncoded);
+    }
+
+    var re = /(https?:\/\/[^\/ ]+\/)(((?![ \n\|\]\}><]).)*)/g;
+    var a = ct.getAllMatches(re, s);
+    var b = [];
+    var decoded;
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        try {
+            decoded = m[2].replace(/%([0-9A-Fa-f]{2})/g, decoder);
+            if (m[2] === decoded) continue;
+            b.push({
+                start: m.start,
+                end: m.end,
+                replacement: m[1] + decoded,
+                name: 'URL',
+                description: 'Декодира кодирани URL адреси',
+                help: 'URL адресите се четат по-лесно когато са декодирани.'
+            });
+        }
+        catch (e) {
+            // не е кодиран Unicode текст
+        }
+    }
+    return b;
 });
 
 ct.rules.push(function (s) {
-	let re = /\([^\S\r\n]+|[^\S\r\n]+\)/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		m[0] = m[0].trim();
-		if (ct.doNotFix(s, m) || m[0] === ')' && s[m.start - 1].match(/[\u2013\u2014-]/)) continue;
-		b.push({
-			start: m.start,
-			end: m.end,
-			replacement: m[0],
-			name: 'скоба',
-			description: 'Премахни интервала след отварящата и/или преди затварящата скоба',
-			help: 'Интервалите са ненужни след отваряща и преди затваряща скоба.'
-		});
-	}
-	return b;
+    var re = /([А-я“"]+)(\(|\)| ?\( | \) ?)(?=[А-я\d]+)/g;
+    re = ct.fixRegExp(re);
+    var a = ct.getAllMatches(re, s);
+    for (var i = 0; i < a.length; i++) {
+        var m = a[i];
+        if ( ct.doNotFix(s, m) ) continue;
+        a[i] = {
+            start: m.start + m[1].length,
+            end: m.end,
+            // replacement: m[2].indexOf('(') != -1 ? ' (' : ') ', // чупи параметри в Шаблон:ТВ продукция
+            name: 'скоба',
+            description: 'Добави/премахни интервала преди/след отварящата/затварящата скоба',
+            help: 'Преди отваряща и след затваряща скоба трябва да има интервал. Интервалите са ненужни след отваряща и преди затваряща скоба.'
+        };
+    }
+    return a;
 });
 
 ct.rules.push(function (s) {
-	let re = /((?:(?:^|\s)(?:[Оо]т|[Дд]о|[Пп]ре(?:з|ди)|[Сс]лед|[Мм]е(?:жду|сец)|[Ии](?:ли)?|[Вв])|[\d,])[^\S\r\n]+)(Януари|Февруари|Март|Април|Май|Юни|Юли|Август|Септември|Октомври|Ноември|Декември)(?![А-яA-z\d])/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (ct.doNotFix(s, m)) continue;
-		b.push({
-			start: m.start + m[1].length,
-			end: m.end,
-			replacement: m[2].toLowerCase(),
-			name: 'месец',
-			description: m[2] + '→' + m[2].toLowerCase(),
-			help: 'В българския език имената на месеците се пишат с малка буква.'
-		});
-	}
-	return b;
-});
-
-ct.rules.push(function (s) {
-	let re = /№(\d+)/g;
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (ct.doNotFix(s, m)) continue;
-		b.push({
-			start: m.start,
-			end: m.end,
-			replacement: '№\u00a0' + m[1],
-			name: '№+число',
-			description: 'Добави несекаем интервал между № и последващите числа',
-			help: 'Между символа за номер и последващите числа трябва да има несекаем интервал.'
-		});
-	}
-	return b;
-});
-
-ct.rules.push(function (s) {
-	function skipReferenceTags(str, index) {
-		let nextTagPos = str.slice(index).search(/<\/?references\b/i);
-		let tempPos = str.slice(0, index).search(/\{\{\s*[Rr]eflist\b(?:(?=([^{}]+))\1|\{(?:(?=([^{}]+))\2|\{(?:(?=([^{}]+))\3|\{(?:(?=([^{}]+))\4|\{(?:(?=([^{}]+))\5|\{(?:(?=([^{}]+))\6|\{(?=([^{}]*))\7\})*\})*\})*\})*\})*\})*$/);
-		return nextTagPos > -1 && str.charAt(index + nextTagPos + 1) === '/' || tempPos > -1;
-	}
-
-	let start = -1, end = 0;
-	let charsRemoved = [0, 0, 0], charsAdded = 0;
-	let replacement = s.replace(/(<\/[Rr][Ee][Ff]\s*>|<[Rr][Ee][Ff]\b[^>]*\/>|\{\{\s*(?:[SsEe]fn|[Hh]rf|[Rr]p)\b[^{}]*\}\})[\s.:,;]+(?=<[Rr][Ee][Ff]\b|\{\{\s*(?:[SsEe]fn|[Hh]rf|[Rr]p)\b)/g, function (m, g1, index, str) {
-		// Remove punctuation chars and spaces between refs
-		if (skipReferenceTags(str, index)) return m;
-		if (start === -1) start = index;
-		end = index + m.length;
-		charsRemoved[0] += m.length - g1.length;
-		return g1;
-	});
-	end -= charsRemoved[0];
-
-	replacement = replacement.replace(/([^\s.:,;=|]\s+|\s*[.,]\s+|[^\S\r\n]*[:;][^\S\r\n]+)(?:<[Rr][Ee][Ff]\b|\{\{\s*(?:[SsEe]fn|[Hh]rf|[Rr]p)\b)|(?:<\/[Rr][Ee][Ff]\s*>|<[Rr][Ee][Ff]\b[^>]*\/>|\{\{\s*(?:[SsEe]fn|[Hh]rf|[Rr]p)\b[^{}]*\}\})(?:\s+(?=[.,])|[^\S\r\n]+(?=[:;]))/g, function (m, g1, index, str) {
-		// Remove spaces before ref/after ref and between punctuation chars
-		if (skipReferenceTags(str, index)) return m;
-		let r = (g1 ? g1.trim() + m.slice(g1.length) : m).trim();
-		if (start === -1 || start > index) start = index;
-		if (end < index + m.length) end = index + m.length;
-		charsRemoved[1] += m.length - r.length;
-		return r;
-	});
-	end -= charsRemoved[1];
-
-	replacement = replacement.replace(/([.:,;])((?:<[Rr][Ee][Ff]\b(?:(?=([^>/]+))\3|\/(?!>))*(?:\/|>(?:(?=([^<]+))\4|<(?!\/?[Rr][Ee][Ff]\b))*<\/[Rr][Ee][Ff]\s*)>|\{\{(?:[SsEe]fn|[Hh]rf|[Rr]p)\b[^{}]*\}\})+)\1/g, function (m, g1, g2, g3, g4, index, str) {
-		// Remove last punctuation char if equal at start/end position for a group of refs
-		if (skipReferenceTags(str, index)) return m;
-		if (start === -1 || start > index) start = index;
-		if (end < index + m.length) end = index + m.length;
-		charsRemoved[2]++;
-		return g1 + g2;
-	});
-	end -= charsRemoved[2];
-
-	replacement = replacement.replace(ct.fixRegExp(/(?:<\/[Rr][Ee][Ff]\s*>|<[Rr][Ee][Ff]\b[^>]*\/>|\{\{(?:[SsEe]fn|[Hh]rf|[Rr]p)\b[^{}]*\}\})[.:,;]?(?=[^{letter}\d\s<>{}|.:,;]*[{letter}\d])/g), function (m, index, str) {
-		// Add space if closing ref is followed by a word, only if the word is not positioned after opening/closing angular/curly bracket
-		if (skipReferenceTags(str, index)) return m;
-		if (start === -1 || start > index) start = index;
-		if (end < index + m.length) end = index + m.length;
-		charsAdded++;
-		return m + ' ';
-	});
-	end += charsAdded;
-
-	if (charsRemoved[0] + charsRemoved[1] + charsRemoved[2] + charsAdded === 0) return [];
-
-	return [{
-		start: start,
-		end: end + charsRemoved[0] + charsRemoved[1] + charsRemoved[2] - charsAdded,
-		replacement: replacement.slice(start, end),
-		name: 'пункт-ref',
-		description: 'Интервалите и/или част от пунктуационните знаци преди, между и след ref-овете са ненужни',
-		help: 'Изтрий ненужните пунктуационни знаци и интервали преди, между и след ref-овете.'
-	}];
-});
-
-ct.rules.push(function (s) {
-	let re = ct.fixRegExp(/(^|\s+)([Вв](?:ъв)?|[Сс](?:ъс)?)(\s+(?:(?:[^{letter}\d\s\[\]{}<>-]|<[^>]*>)*\[\[?[^\[\]]+|(?:(?:[^\s\[\]{}<>]|<[^>]*>)+\s+){1,2}))/g);
-	let a = ct.getAllMatches(re, s);
-	let b = [];
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		if (ct.doNotFix(s, m)) continue;
-		let tooltip;
-		let preposition = m[2];
-		let text = m[3].replace(/\[(?:(?:https?:|ftps?:)?\/\/\S+|\[[^|\[\]]+\|)|<[^>]*>/gi, '');
-		text = text.replace(ct.fixRegExp(/[^{letter}\d.,-]+/g), ' ');
-		text = text.replace(/^[\s.,]+/, '');
-		if (preposition.toLowerCase() === 'в' && text.match(/^(?:[ВвФф][А-Яа-я]|2-(?:рa|р?[ио])|II(?![А-яA-z\d])|и(?:ли)?\s+)/)) {
-			preposition += 'ъв';
-			tooltip = '„в“ трябва да стане „във“, тъй като следващата дума започва с „в“ или „ф“, или попада под логическо ударение.';
-		}
-		else if (preposition.toLowerCase() === 'във' && !text.match(/^(?:[ВвФфVvFfWw]|2|II(?![А-яA-z\d])|и(?:ли)?\s+)/)) {
-			preposition = preposition[0];
-			tooltip = '„във“ трябва да стане „в“, тъй като следващата дума не започва с „в“ или „ф“, или не попада под логическо ударение.';
-		}
-		else if (preposition.toLowerCase() === 'с' && text.match(/^(?:[СсЗз][А-Яа-я]|(?:7|17|7\d|[17]\d\d)(?:\s*\d{3})*(?!\d)|(?:X?VII|LXX[IVX]*|(?:DC)?C[IVXL]*)(?![А-яA-z\d])|и(?:ли)?\s+без\s+)/)) {
-			preposition += 'ъс';
-			tooltip = '„с“ трябва да стане „със“, тъй като следващата дума започва със „з“ или „с“, или попада под логическо ударение.';
-		}
-		else if (preposition.toLowerCase() === 'със' && !text.match(/^(?:[СсЗзSsZzCc]|(?:7|17|7\d|[17]\d\d)(?:\s*\d{3})*(?!\d)|(?:X?VII|LXX[IVX]*|DCC[IVXL]*)(?![А-яA-z\d])|и(?:ли)?\s+без\s+)/)) {
-			preposition = preposition[0];
-			tooltip = '„със“ трябва да стане „с“, тъй като следващата дума не започва със „з“ или „с“, или не попада под логическо ударение.';
-		}
-		if (tooltip) {
-			b.push({
-				start: m.start + m[1].length,
-				end: m.end - m[3].length,
-				replacement: preposition,
-				name: m[2].toLowerCase() + '→' + preposition.toLowerCase(),
-				description: 'Поправи „' + m[2] + '“ на „' + preposition + '“',
-				help: tooltip
-			});
-		}
-	}
-	return b;
-});
-
-ct.rules.push(function (s) {
-	let re = /(?:(?:^|[\[\s=|*#;:<])(?:http|ftp)s?:|\[)\/\/[^\s\[\]<>"|\/]+\/(?:[^\s\[\]<>"|]*\[[^\s\[\]<>"|]*\])+[^\s\[\]<>"|]*/gi;
-	let a = ct.getAllMatches(re, s);
-	for (let i = 0; i < a.length; i++) {
-		let m = a[i];
-		let str = m[0];
-		if (str.match(/^[\[\s=|*#;:<]/)) {
-			m.start++;
-			str = str.slice(1);
-		}
-		a[i] = {
-			start: m.start,
-			end: m.end,
-			replacement: str.replace(/\[/g, '%5B').replace(/\]/g, '%5D'),
-			name: 'кв.скоби-URL',
-			description: 'Процентно кодиране на отварящи/затварящи квадратни скоби в URL адрес',
-			help: 'Замества <kbd>[</kbd> с <kbd>%5B</kbd> и/или <kbd>]</kbd> с <kbd>%5D</kbd> в URL адреса'
-
-		};
-	}
-	return a;
+    var re = /[0-9] (Януари|Февруари|Март|Април|Май|Юни|Юли|Август|Септември|Октомври|Ноември|Декември)[^А-я]/g;
+    var a = ct.getAllMatches(re, s);
+    var m, replacement, b = [];
+    for (var i = 0; i < a.length; i++) {
+        m = a[i];
+        if ( ct.doNotFix(s, m) ) continue;
+        replacement = m[1][0].toLowerCase() + m[1].slice(1);
+        b.push({
+            start: m.start + 2,
+            end: m.end - 1,
+            replacement: replacement,
+            name: 'месец',
+            description: m[1] + ' -> ' + replacement,
+            help: 'В българския език имената на месеците се пишат с малка буква.'
+        });
+    }
+    return b;
 });
 
 window.ct = ct;
 
-if (mw.config.get('wgPageContentModel') === 'wikitext' && ['MediaWiki', 'Template'].indexOf(mw.config.get('wgCanonicalNamespace')) === -1) {
-	mw.loader.using('ext.gadget.Advisor', function () {
+if ($.inArray(mw.config.get('wgCanonicalNamespace'), ['MediaWiki', 'Template', 'Module']) === -1) {
+	mw.loader.using( 'ext.gadget.Advisor', function () {
 		mw.loader.load('//bg.wikipedia.org/w/index.php?title=МедияУики:Gadget-Advisor-core.js&action=raw&ctype=text/javascript');
 	});
 }
-
-// </nowiki>
