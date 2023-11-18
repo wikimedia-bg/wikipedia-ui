@@ -629,13 +629,12 @@ ct.rules.push(function (s) {
 			name: 'шльокавица',
 			description: 'Неизвестна замяна. ' + (m[0].length !== 2
 				? 'Проверете текста'
-				: (m[0][0].match(/[\u0400-\u04ff]/)
+				: m[0][0].match(/[\u0400-\u04ff]/)
 				? "Кирилско '" + m[0][0] + "', следвано от латинско '" + m[0][1] + "'"
-				: "Латинско '" + m[0][0] + "', следвано от кирилско '" + m[0][1] + "'")),
+				: "Латинско '" + m[0][0] + "', следвано от кирилско '" + m[0][1] + "'"),
 			help: 'Една дума трябва да бъде написана или само на кирилица, или само на латиница.'
 		});
 		let word = s.substring(m.start - 49, m.start).match(/[\u0400-\u04ffa-zA-Z]*$/)[0] + m[0] + s.substring(m.end, m.end + 49).match(/^[\u0400-\u04ffa-zA-Z]*/)[0];
-		console.log(word);
 		let subtract = word.match(/[\u0400-\u04ff]/g).length - word.match(/[a-zA-Z]/g).length;
 		for (let key in replacement) {
 			if (subtract >= 0 && m[0].indexOf(key) > -1) {
