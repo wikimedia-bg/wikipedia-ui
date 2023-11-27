@@ -573,7 +573,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var re = ct.fixRegExp(/[^\S\r\n]+[.,:;](?=[^\S\r\n]*$)/gm);
+	var re = /[^\S\r\n]+[.,:;](?=[^\S\r\n]*(?:[\r\n]|$))/g;
 	var a = ct.getAllMatches(re, s);
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
