@@ -459,7 +459,7 @@ ct.showSuggestion = function (k) {
 	var suggestion = ct.suggestions[k];
 	if (!suggestion) { return; }
 	var now = new Date().getTime();
-	if (suggestion.help != null && ct.lastShownSuggestionIndex === k && now - ct.lastShownSuggestionTime < 2000) {
+	if (suggestion.help != null && ct.lastShownSuggestionIndex === k && now - ct.lastShownSuggestionTime < 1000) {
 		// Show help
 		var p = ct.getPosition(suggestion.element);
 		var POPUP_WIDTH = 300;
