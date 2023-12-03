@@ -559,7 +559,6 @@ ct.rules.push(function (s) {
 		if (ct.doNotFix(s, m)
 			|| m[2] !== m[2].toLowerCase()
 			|| m[3] !== m[3].toUpperCase()
-			|| /[IVXLCD]/.test(m[2]) && !isNaN(m[3])
 		) continue;
 		b.push({
 			start: m.start,
