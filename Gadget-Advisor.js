@@ -45,18 +45,18 @@ ct.doNotFix = function (s, m, checkPat1, checkPat2, checkTags, checkFileName, ch
 	if (checkQuotes !== false) {
 		var leftSlice = s.slice(0, pos + 1).replace(/'''(.+?)'''/g, '$1');
 		var rightSlice = s.slice(pos + 1).replace(/'''(.+?)'''/g, '$1');
-		if (leftSlice.match(/„(?:(?=([^„“”]+))\1|„[^„“”]*[“”])*$/) &&
-			rightSlice.match(/^(?:(?=([^„“”]+))\1|„[^„“”]*[“”])*[“”]/) ||
-			leftSlice.match(/“(?:(?=([^“”]+))\1|“[^“”]*”)*$/) &&
-			rightSlice.match(/^(?:(?=([^“”]+))\1|“[^“”]*”)*”/) ||
-			leftSlice.match(/«(?:(?=([^«»]+))\1|«[^«»]*»)*$/) &&
-			rightSlice.match(/^(?:(?=([^«»]+))\1|«[^«»]*»)*»/) ||
-			leftSlice.match(/"[^"]*$/) &&
-			rightSlice.match(/^[^"]*"/) &&
+		if (/„(?:(?=([^„“”]+))\1|„[^„“”]*[“”])*$/.test(leftSlice) &&
+			/^(?:(?=([^„“”]+))\1|„[^„“”]*[“”])*[“”]/.test(rightSlice) ||
+			/“(?:(?=([^“”]+))\1|“[^“”]*”)*$/.test(leftSlice) &&
+			/^(?:(?=([^“”]+))\1|“[^“”]*”)*”/.test(rightSlice) ||
+			/«(?:(?=([^«»]+))\1|«[^«»]*»)*$/.test(leftSlice) &&
+			/^(?:(?=([^«»]+))\1|«[^«»]*»)*»/.test(rightSlice) ||
+			/"[^"]*$/.test(leftSlice) &&
+			/^[^"]*"/.test(rightSlice) &&
 			leftSlice.match(/"/g).length % 2 === 1 &&
 			rightSlice.match(/"/g).length % 2 === 1 ||
-			leftSlice.match(/''(?:(?!'').)*$/) &&
-			rightSlice.match(/^.*?''/) &&
+			/''(?:(?!'').)*$/.test(leftSlice) &&
+			/^.*?''/.test(rightSlice) &&
 			leftSlice.match(/''/g).length % 2 === 1 &&
 			rightSlice.match(/''/g).length % 2 === 1
 		) return true; // it's a text in quotes or italicized text
@@ -186,15 +186,16 @@ ct.rules.push(function (s) {
 		if (start === -1 || start > index + 1) start = index + 1;
 		if (end < index + m.length) end = index + m.length;
 		spacesRemoved[1] += m.length - 2;
-		return m[0] + ' ';
+		var space = m.slice(1).replace(/^ *([^ ]).*$/, '$1');
+		return m[0] + (space.length === 1 ? space : ' ');
 	});
 	end -= spacesRemoved[1];
 	
 	replacement = replacement.replace(/\[\[[^\S\r\n]*(?![Cc]ategory:|[Кк]атегория:)(?:[^\[\]]|\[(?:[^\[\]]|\[[^\[\]]+\])+\])+\]\]/g, function (m, index) {
 		// Премахване на ненужни интервали в препратки (включително и за файлове; изключение за категории)
 		return m.replace(/[^\S\r\n]+/g, function (m2, index2, str) {
-			var prevChar = str[index2 - 1];
-			var nextChar = str[index2 + m2.length];
+			var prevChar = str.charAt(index2 - 1);
+			var nextChar = str.charAt(index2 + m2.length);
 			if (prevChar !== '[' && nextChar !== ']' &&
 				prevChar !== '|' && nextChar !== '|' ||
 				(prevChar === '|' || nextChar === '|') &&
@@ -230,9 +231,9 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
-		if (!m[1].match(/[а-ъьюяѝ\d]/i) && !m[2].match(/[а-ъьюяѝ\d]/i) || // думите и от двете страни не съдържат кирилка буква или цифра
-			m[1].match(ct.fixRegExp(/^(?:[Пп]о|[Нн]ай)[^{letter}\d]*$/)) || // пропусни случаите с "по- и "най-"
-			ct.doNotFix(s, m)
+		if (ct.doNotFix(s, m)
+			|| !/[а-ъьюяѝ\d]/i.test(m[1]) && !/[а-ъьюяѝ\d]/i.test(m[2]) // думите и от двете страни не съдържат кирилка буква или цифра
+			|| ct.fixRegExp(/^(?:[Пп]о|[Нн]ай)[^{letter}\d]*$/).test(m[1]) // пропусни случаите с "по- и "най-"
 		) continue;
 		b.push({
 			start: m.start + m[1].length,
@@ -255,7 +256,7 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
-		if (m[1].length > 1 || ct.doNotFix(s, m)) continue; // пропусни случаите с "по- и "най-"
+		if (ct.doNotFix(s, m) || m[1].length > 1) continue; // пропусни случаите с "по- и "най-"
 		b.push({
 			start: m.start + 1,
 			end: m.end,
@@ -302,7 +303,7 @@ ct.rules.push(function (s) {
 	var i, m, b = [];
 	for (i = 0; i < a.length; i++) {
 		m = a[i];
-		if (m[1] || ct.doNotFix(s, m)) continue; // m[1]: ISBN, ISSN, телефонен, пощенски код -- мачва го и го пропуска
+		if (ct.doNotFix(s, m) || m[1]) continue; // m[1]: ISBN, ISSN, телефонен, пощенски код -- мачва го и го пропуска
 		b.push({
 			start: m.start + 1,
 			end: m.end,
@@ -533,6 +534,7 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
+		if (m[3] === ';' && /&(?:amp;)?(?:#(?:\d*|x[a-f\d]*)|[a-z\d]*)$/i.test(s.substring(m.start - 30, m.start))) continue; // HTML единица
 		m.start += m[1].length;
 		if (ct.doNotFix(s, m) || m[3] === ',' && !isNaN(m[2]) && !isNaN(m[4])) continue; // m[2] и m[4] са цифри; вероятност за десетично число
 		b.push({
@@ -548,17 +550,15 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var re = ct.fixRegExp(/(([{letter}\d]+)[\]\)“']*)(?:[^\S\r\n]+\.[^\S\r\n]*|\.)(?=[\[\(„']*([{letter}\d]+))/g);
+	var re = ct.fixRegExp(/(([{letter}])[\]\)“']*)(?:[^\S\r\n]+\.[^\S\r\n]*|\.)(?=[\[\(„']*([{letter}]))/g);
 	var a = ct.getAllMatches(re, s);
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		m.start += m[1].length;
-		var skip = m[3][0] !== m[3][0].toUpperCase();
-		for (var j = 1; !skip && j < m[3].length; j++) { skip = m[3][j] !== m[3][j].toLowerCase(); }
 		if (ct.doNotFix(s, m)
-			|| skip // следващата дума не започва с главна буква или съдържа повече от една главна буква
-			|| !isNaN(m[2].replace(/[IVXLCD]/g, '')) && !isNaN(m[3].replace(/[IVXLCD]/g, '')) // m[2] и m[3] са цифри (също римски); вероятност за десетично число след копиране или формат дата (римски числа)
+			|| m[2] !== m[2].toLowerCase()
+			|| m[3] !== m[3].toUpperCase()
 		) continue;
 		b.push({
 			start: m.start,
@@ -645,7 +645,7 @@ ct.rules.push(function (s) {
 			name: 'шльокавица',
 			description: 'Неизвестна замяна. ' + (m[0].length !== 2
 				? 'Проверете текста'
-				: m[0][0].match(/[\u0400-\u04ff]/)
+				: /[\u0400-\u04ff]/.test(m[0][0])
 				? "Кирилско '" + m[0][0] + "', следвано от латинско '" + m[0][1] + "'"
 				: "Латинско '" + m[0][0] + "', следвано от кирилско '" + m[0][1] + "'"),
 			help: 'Една дума трябва да бъде написана или само на кирилица, или само на латиница.'
@@ -679,7 +679,7 @@ ct.rules.push(function (s) {
 		var m = a[i];
 		var str = m[2] || m[3] || m[4];
 		if (ct.doNotFix(s, m, true, true, true, true, true, false, true) || // Изкл.: checkQuotes
-			str.match(/ь(?!о)/) || !str.match(/[А-ЪЮЯа-ъьюяѝ]/) // не съдържа нито една кирилска буква, ползвана в българския
+			/ь(?!о)/.test(str) || !/[А-ЪЮЯа-ъьюяѝ]/.test(str) // не съдържа нито една кирилска буква, ползвана в българския
 		) continue;
 		b.push({
 			start: m.start + m[1].length,
@@ -786,7 +786,7 @@ ct.rules.push(function (s) {
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		m[0] = m[0].trim();
-		if (ct.doNotFix(s, m) || m[0] === ')' && s[m.start - 1].match(/[\u2013\u2014-]/)) continue;
+		if (ct.doNotFix(s, m) || m[0] === ')' && /[\u2013\u2014-]/.test(s.charAt(m.start - 1))) continue;
 		b.push({
 			start: m.start,
 			end: m.end,
@@ -912,19 +912,19 @@ ct.rules.push(function (s) {
 		var preposition = m[2];
 		var text = m[3].replace(/\[(?:(?:https?:|ftps?:)?\/\/\S+|\[[^|\[\]]+\|)|<[^>]*>/gi, '');
 		text = text.replace(ct.fixRegExp(/^[^{letter}\d]+/g), '');
-		if (preposition.toLowerCase() === 'в' && text.match(/^(?:[ВвФф][А-Яа-я]|2-(?:рa|р?[ио])|II(?![А-яA-z\d])|и(?:ли)?\s+)/)) {
+		if (preposition.toLowerCase() === 'в' && /^(?:[ВвФф][А-Яа-я]|2-(?:рa|р?[ио])|II(?![А-яA-z\d])|и(?:ли)?\s+)/.test(text)) {
 			preposition += 'ъв';
 			tooltip = '„в“ трябва да стане „във“, тъй като следващата дума започва с „в“ или „ф“, или попада под логическо ударение.';
 		}
-		if (preposition.toLowerCase() === 'във' && !text.match(/^(?:[ВвФфVvFfWw]|2|II(?![А-яA-z\d])|и(?:ли)?\s+)/)) {
+		if (preposition.toLowerCase() === 'във' && !/^(?:[ВвФфVvFfWw]|2|II(?![А-яA-z\d])|и(?:ли)?\s+)/.test(text)) {
 			preposition = preposition[0];
 			tooltip = '„във“ трябва да стане „в“, тъй като следващата дума не започва с „в“ или „ф“, или не попада под логическо ударение.';
 		}
-		if (preposition.toLowerCase() === 'с' && text.match(/^(?:[СсЗз][А-Яа-я]|(?:7|17|7\d|[17]\d\d)(?:\s*\d{3})*(?!\d)|(?:X?VII|LXX[IVX]*|(?:DC)?C[IVXL]*)(?![А-яA-z\d])|и(?:ли)?\s+без\s+)/)) {
+		if (preposition.toLowerCase() === 'с' && /^(?:[СсЗз][А-Яа-я]|(?:7|17|7\d|[17]\d\d)(?:\s*\d{3})*(?!\d)|(?:X?VII|LXX[IVX]*|(?:DC)?C[IVXL]*)(?![А-яA-z\d])|и(?:ли)?\s+без\s+)/.test(text)) {
 			preposition += 'ъс';
 			tooltip = '„с“ трябва да стане „със“, тъй като следващата дума започва със „з“ или „с“, или попада под логическо ударение.';
 		}
-		if (preposition.toLowerCase() === 'със' && !text.match(/^(?:[СсЗзSsZzCc]|(?:7|17|7\d|[17]\d\d)(?:\s*\d{3})*(?!\d)|(?:X?VII|LXX[IVX]*|DCC[IVXL]*)(?![А-яA-z\d])|и(?:ли)?\s+без\s+)/)) {
+		if (preposition.toLowerCase() === 'със' && !/^(?:[СсЗзSsZzCc]|(?:7|17|7\d|[17]\d\d)(?:\s*\d{3})*(?!\d)|(?:X?VII|LXX[IVX]*|DCC[IVXL]*)(?![А-яA-z\d])|и(?:ли)?\s+без\s+)/.test(text)) {
 			preposition = preposition[0];
 			tooltip = '„със“ трябва да стане „с“, тъй като следващата дума не започва със „з“ или „с“, или не попада под логическо ударение.';
 		}
@@ -948,7 +948,7 @@ ct.rules.push(function (s) {
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		var str = m[0];
-		if (str.match(/^[\[\s=|*#;:<]/)) {
+		if (/^[\[\s=|*#;:<]/.test(str)) {
 			m.start++;
 			str = str.slice(1);
 		}
