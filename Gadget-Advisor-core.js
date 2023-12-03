@@ -476,7 +476,7 @@ ct.showSuggestion = function (k) {
 		eDiv.style.padding = '0.3em';
 		eDiv.style.zIndex = 10;
 		document.body.appendChild(eDiv);
-		ct.observe(document.body, 'click', function handler(event) {
+		ct.observe(document.body, 'click', function (event) {
 			event = event || window.event;
 			var target = event.target || event.srcElement;
 			var e = target;
@@ -485,7 +485,7 @@ ct.showSuggestion = function (k) {
 				e = e.parentNode;
 			}
 			document.body.removeChild(eDiv);
-			ct.stopObserving(document.body, 'click', handler(event));
+			ct.stopObserving(document.body, 'click', arguments.callee);
 		});
 		ct.focusWikiText();
 		return;
@@ -565,7 +565,7 @@ ct.addToSummary = function (summary) {
 	var wpSummary = document.getElementById('wpSummary');
 	if (wpSummary.value.trim() != '') {
 		 // do not add separator if the summary contains only the section being edited
-		summary = wpSummary.value + (wpSummary.value.match(/^\s*\/\*.*?\*\/\s*$/) ? '' : '; ') + summary;
+		summary = wpSummary.value + (/^\s*\/\*.*?\*\/\s*$/.test(wpSummary.value) ? '' : '; ') + summary;
 	}
 	if (wpSummary.maxLength > 0 && summary.length > wpSummary.maxLength) {
 		alert(ct._(
