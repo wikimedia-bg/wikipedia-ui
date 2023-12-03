@@ -550,7 +550,7 @@ ct.rules.push(function (s) {
 });
 
 ct.rules.push(function (s) {
-	var re = ct.fixRegExp(/(([{letter}])[\]\)“']*)(?:[^\S\r\n]+\.[^\S\r\n]*|\.)(?=[\[\(„']*([{letter}]))/g);
+	var re = ct.fixRegExp(/(([{letter}])[\]\)“']*)(?:[^\S\r\n]+\.[^\S\r\n]*|\.)(?=[\[\(„']*([{letter}\d]))/g);
 	var a = ct.getAllMatches(re, s);
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
