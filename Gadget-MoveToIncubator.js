@@ -8,7 +8,7 @@ function initMoveToIncubatorMenu() {
 	var menuHotkey = 'z';
 	var menuPopupText = 'Преместване на статията в инкубатора';
 
-	var moveLeaveRedirect = '0'; // '0' - false, '1' - true
+	var moveLeaveRedirect = '1'; // '0' - false, '1' - true
 	var moveReason = (
 		'Преместване в [[Уикипедия:Инкубатор|инкубатора]], ' +
 		'тъй като статията не отговаря на изискванията на Уикипедия.'
