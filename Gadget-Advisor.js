@@ -70,11 +70,8 @@ ct.doNotFix = function (s, m, checkPat1, checkPat2, checkTags, checkFileName, ch
 if (mw.config.get('wgUserLanguage') === 'bg') {
 	ct.translation = {
 
-'The page is too long. Parsing of the text is disabled\u00a0\u2014\u00a0Advisor.js will consume a lot of RAM and CPU resources while trying to parse the text, which can cause freezing of the page, the browser or even the CPU.':
-	'Тази страница е прекалено дълга. Oбработката на текста е спряна\u00a0\u2014\u00a0Advisor.js ще изисква много RAM и процесорни ресурси, докато се опитва да анализира текста, което може да доведе до спиране на страницата, браузъра или дори процесора.',
-
-'This page is rather long. Advisor.js may consume a lot of RAM and CPU resources while trying to parse the text. You could limit your edit to a single section, or ':
-	'Тази страница е сравнително дълга. Advisor.js може да консумира много RAM и процесорни ресурси, докато се опитва да анализира текста. Можеш да ограничиш редакцията на един раздел или да ',
+'This page is rather long. Advisor.js may consume a lot of RAM and CPU resources while trying to parse the text. This can cause freezing of the page, the browser or even the CPU. You could limit your edit to a single section, or ':
+	'Тази страница е сравнително дълга. Advisor.js може да консумира много RAM и процесорни ресурси, докато се опитва да анализира текста. Това може да доведе до спиране на страницата, браузъра или дори процесора. Можеш да ограничиш редакцията на един раздел или да ',
 
 'Advisor.js is disabled on talk pages and pages in the namespace "Wikipedia:", because it might suggest changing other users\' comments. That would be something against talk page conventions. If you promise to be careful, you can ':
 	'Advisor.js по подразбиране е спрян за беседите и страниците от именно пространство „Уикипедия“, защото има опасност да предложи промяна на чужди коментари. Това би било в противоречие с конвенциите за беседи. Ако обещаваш да си внимателен, можеш да ',
@@ -231,12 +228,13 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
+		m.start += m[1].length;
 		if (ct.doNotFix(s, m)
 			|| !/[а-ъьюяѝ\d]/i.test(m[1]) && !/[а-ъьюяѝ\d]/i.test(m[2]) // думите и от двете страни не съдържат кирилка буква или цифра
 			|| ct.fixRegExp(/^(?:[Пп]о|[Нн]ай)[^{letter}\d]*$/).test(m[1]) // пропусни случаите с "по- и "най-"
 		) continue;
 		b.push({
-			start: m.start + m[1].length,
+			start: m.start,
 			end: m.end,
 			replacement: '\u00a0\u2013 ', // U+2013 is an ndash
 			name: 'тире',
@@ -298,7 +296,7 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// U+2014 е дълго тире (em dash), U+2013 е средно тире (en dash)
-	var re = ct.fixRegExp(/([^{letter}\d](?:IS[SB]N|код)(?:[^{letter}\d]*[\dx])+)|[^{letter}\d\u2014\u2013-](\d+(?:\]\])?|\?|\.{3}|…)(?:[\u2014\u2013-]|--|[^\S\r\n]+(?:[\u2014-](?=[\r\n\)])|--(?=[^\S\r\n]*[\r\n\)])))((?:(?:\[\[)?\d+|\?|\.{3}|…)(?![{letter}\d\u2014\u2013-])|(?=[^\S\r\n]*[\r\n\)]))/gi);
+	var re = ct.fixRegExp(/([^{letter}\d](?:IS[SB]N|код)(?:[^{letter}\d]*[\dx])+)|[^{letter}\d\u2014\u2013-](\d+|\[\[\d+\]\]|\?|\.{3}|…)(?:[\u2014\u2013-]|--|[^\S\r\n]+(?:[\u2014-](?=[\r\n\)])|--(?=[^\S\r\n]*[\r\n\)])))((?:\d+|\[\[\d+\]\]|\?|\.{3}|…)(?![{letter}\d\u2014\u2013-])|(?=[^\S\r\n]*[\r\n\)]))/gi);
 	var a = ct.getAllMatches(re, s);
 	var i, m, b = [];
 	for (i = 0; i < a.length; i++) {
@@ -317,7 +315,7 @@ ct.rules.push(function (s) {
 	}
 
 	// Също и за римски числа с тире помежду
-	re = ct.fixRegExp(/[^{letter}\d\u2014\u2013-]([IVXLCD]+(?:\]\])?)(?:[\u2014\u2013-]|--|[^\S\r\n]+(?:[\u2014-](?=[\r\n\)])|--(?=[^\S\r\n]*[\r\n\)])))((?:\[\[)?[IVXLCD]+(?![{letter}\d\u2014\u2013-])|(?=[^\S\r\n]*[\r\n\)]))/g);
+	re = ct.fixRegExp(/[^{letter}\d\u2014\u2013-]([IVXLCD]+|\[\[[IVXLCD]+\]\])(?:[\u2014\u2013-]|--|[^\S\r\n]+(?:[\u2014-](?=[\r\n\)])|--(?=[^\S\r\n]*[\r\n\)])))((?:[IVXLCD]+|\[\[[IVXLCD]+\]\])(?![{letter}\d\u2014\u2013-])|(?=[^\S\r\n]*[\r\n\)]))/g);
 	a = ct.getAllMatches(re, s);
 	for (i = 0; i < a.length; i++) {
 		m = a[i];
@@ -471,9 +469,10 @@ ct.rules.push(function (s) {
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
+		m.start += m[1].length;
 		if (ct.doNotFix(s, m)) continue;
 		b.push({
-			start: m.start + m[1].length,
+			start: m.start,
 			end: m.end,
 			replacement: 'ѝ',
 			name: 'й→ѝ',
@@ -487,7 +486,7 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// год., предшествано от цифри, евентуално в препратка
-	var re = /(\d+(?:\]\])?)(?:[^\S\r\n]|&nbsp;)*год\./g;
+	var re = /(\d+|\[\[\d+\]\])(?:[^\S\r\n]|&nbsp;)*год\./g;
 	var a = ct.getAllMatches(re, s);
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
@@ -507,9 +506,9 @@ ct.rules.push(function (s) {
 
 ct.rules.push(function (s) {
 	// единица, предшествана от цифри, евентуално в препратка
-	var re = ct.fixRegExp(/[^{letter}\d](\d+(?:\]\])?)(г\.|лв\.|щ\.д\.|°[CF]|(?:[мк]?г|[мск]?м|[mk]?g|[mck]?m)(?![{letter}\d]))/g);
+	var re = ct.fixRegExp(/[^{letter}\d](\d+|\[\[\d+\]\])(г\.|лв\.|щ\.д\.|(?:[мк]?г|[мск]?м|[mk]?g|[mck]?m)(?![{letter}\d]))/g);
 	var a = ct.getAllMatches(re, s);
-	var autofix = ['г.', 'лв.', 'щ.д.', '°C', '°F'];
+	var autofix = ['г.', 'лв.', 'щ.д.'];
 	var b = [];
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
