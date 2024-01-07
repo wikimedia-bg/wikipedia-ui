@@ -22,8 +22,8 @@ function loadProveIt() {
 			2, // User namespace
 		]
 	});
-	mw.loader.load( '//commons.wikimedia.org/w/load.php?modules=ext.gadget.ProveIt&only=scripts' );
-	mw.loader.load( '//commons.wikimedia.org/w/load.php?modules=ext.gadget.ProveIt&only=styles', 'text/css' );
+	mw.loader.load( '//www.mediawiki.org/w/load.php?modules=ext.gadget.ProveIt&only=scripts' );
+	mw.loader.load( '//www.mediawiki.org/w/load.php?modules=ext.gadget.ProveIt&only=styles', 'text/css' );
 }
 
 // Only load when editing
