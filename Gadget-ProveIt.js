@@ -1,9 +1,9 @@
 /**
- * ProveIt is a powerful reference manager for Wikipedia
- * Documentation at https://commons.wikimedia.org/wiki/Help:Gadget-ProveIt
+ * ProveIt is a reference manager for Wikipedia and any other MediaWiki wiki
+ * Documentation at https://www.mediawiki.org/wiki/ProveIt
  *
- * This script sets the configuration options specific to this wiki
- * and loads the gadget code from Wikimedia Commons
+ * This initialization script sets the configuration options specific to this wiki
+ * and then loads the ProveIt code directly from MediaWiki.org
  */
 function loadProveIt() {
 	mw.config.set({
