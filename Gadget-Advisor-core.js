@@ -329,22 +329,12 @@ ct.scan = function (force) {
 	var len = s.length;
 	try { len = new TextEncoder().encode(s.trimEnd()).length; }
 	catch (e) {} // likely not possible on some older browsers
-	// Page size is way too big; do not parse the text at all;
-	// it can cause slowdown and ugly freezes
-	if (len > ct.BIG_THRESHOLD * 2) {
-		ct.eSuggestions.appendChild(document.createTextNode(
-			ct._('The page is too long. Parsing of the text is '
-			+ 'disabled\u00a0\u2014\u00a0Advisor.js will consume a lot '
-			+ 'of RAM and CPU resources while trying to parse the text, which '
-			+ 'can cause freezing of the page, the browser or even the CPU.') // U+00A0 is a non-breaking space; U+2014 is an mdash
-		));
-		return;
-	}
 	// Warn about scanning a big page
 	if (len > ct.BIG_THRESHOLD && !ct.isBigScanConfirmed) {
 		ct.eSuggestions.appendChild(document.createTextNode(
 			ct._('This page is rather long. Advisor.js may consume a lot '
 			+ 'of RAM and CPU resources while trying to parse the text. '
+			+ 'This can cause freezing of the page, the browser or even the CPU. '
 			+ 'You could limit your edit to a single section, or ')
 		));
 		ct.eSuggestions.appendChild(ct.anchor(
