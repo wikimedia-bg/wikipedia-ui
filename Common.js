@@ -400,15 +400,36 @@ mw.hook('wikipage.content').add(function($content) {
 	});
 })();
 
-/* Край на mw.loader.using callback */
-} );
-
-$(function() {
-	// remove any "coordinates" ids after the first one
-	// see https://bg.wikipedia.org/wiki/Шаблон_беседа:Coord#Проблем_с_наслагващи_се_координати
-	$('[id="coordinates"]').each(function(i) {
-		if (i > 0) { $(this).remove(); }
-	});
+// преместване на координати в заглавието
+// виж https://bg.wikipedia.org/w/index.php?title=Шаблон_беседа:Планина&oldid=12220871#Грешка_в_Алтъ_тепе
+mw.hook('wikipage.content').add(function ($content) {
+	var className = 'coordinates-title';
+	var coordTitle = document.querySelectorAll('.' + className);
+	// !!!ВАЖНО ЗА ПРЕДВАРИТЕЛНИЯ ПРЕГЛЕД!!!
+	// премахване на елементите с добавен отличителен клас след преместването им в заглавието;
+	// така се избягва задържането на елемент в заглавието при последващи прегледи,
+	// когато вече няма налични #coordinates в .mw-body-content
+	for (var i = 0; i < coordTitle.length; i++) { coordTitle[i].remove(); }
+	
+	var coord = document.querySelectorAll('.mw-body-content #coordinates');
+	if (coord.length == 0) { return; }
+	// премахване на всички #coordinates след първия срещнат
+	// виж https://bg.wikipedia.org/w/index.php?title=Шаблон_беседа:Coord&oldid=11901003#Проблем_с_наслагващи_се_координати
+	for (var j = coord.length - 1; j > 0; j--) { coord[j].remove(); }
+	
+	var h1 = document.querySelector('h1.mw-first-heading');
+	if (h1 == null) { return; }
+	// добавяне на отличителен клас преди преместването
+	coord[0].classList.add(className);
+	// преместване на координатите (floating div) преди заглавието
+	h1.parentNode.insertBefore(coord[0], h1);
+	if (mw.config.get('skin').toLowerCase() == 'vector-2022') {
+		// за Vector 2022 преместването е след заглавието,
+		// тъй като родителският елемент е flex кутия
+		coord[0].parentNode.insertBefore(h1, coord[0]);
+	}
 });
 
+/* Край на mw.loader.using callback */
+} );
 /* НЕ ДОБАВЯЙТЕ КОМАНДИ ПОД ТОЗИ РЕД */
