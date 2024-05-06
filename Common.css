@@ -427,29 +427,21 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 }
 
 /* стилове за шаблоните за координати */
-
 #coordinates {
-	position: absolute;
-	z-index: 1;
-	border: none;
-	background: none;
-	right: 30px;
-	top: 4.8em;
 	float: right;
 	line-height: 1.5em;
 	text-align: right;
-	text-indent: 0;
-	font-size: 85%;
-	white-space: nowrap;
-	text-transform: none;
+	font-size: 0.7rem;
+}
+
+#coordinates, .coordinates {
 	margin: 0;
 	padding: 0;
 }
 
-#coordinates, .coordinates {
-	text-transform:none;
-	margin:0;
-	padding:0;
+/* скриване на координати за заглавието при изключен/неподдържан JS */
+.client-nojs #coordinates {
+	display: none;
 }
 
 .geo-google {
