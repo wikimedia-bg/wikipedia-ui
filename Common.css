@@ -428,20 +428,12 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 
 /* стилове за шаблоните за координати */
 #coordinates {
-	float: right;
-	line-height: 1.5em;
-	text-align: right;
-	font-size: 0.7rem;
+	font-size: 80%;
 }
 
 #coordinates, .coordinates {
 	margin: 0;
 	padding: 0;
-}
-
-/* скриване на координати за заглавието при изключен/неподдържан JS */
-.client-nojs #coordinates {
-	display: none;
 }
 
 .geo-google {
