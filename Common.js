@@ -400,6 +400,9 @@ mw.hook('wikipage.content').add(function($content) {
 	});
 })();
 
+/* Край на mw.loader.using callback */
+} );
+
 // преместване на координати в заглавието
 // виж https://bg.wikipedia.org/w/index.php?title=Шаблон_беседа:Планина&oldid=12220871#Грешка_в_Алтъ_тепе
 mw.hook('wikipage.content').add(function ($content) {
@@ -430,6 +433,4 @@ mw.hook('wikipage.content').add(function ($content) {
 	}
 });
 
-/* Край на mw.loader.using callback */
-} );
 /* НЕ ДОБАВЯЙТЕ КОМАНДИ ПОД ТОЗИ РЕД */
