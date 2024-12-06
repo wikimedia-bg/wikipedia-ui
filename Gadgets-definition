@@ -58,6 +58,7 @@
 * WatchlistTopSectionWidgetFix[ResourceLoader|default|type=styles]|WatchlistTopSectionWidgetFix.css
 * UploadRedirectToCommons [ResourceLoader|default] | UploadRedirectToCommons.js
 * MoveToIncubator [ResourceLoader|rights=autopatrol|default] | MoveToIncubator.js
+* LegacyStyles [ResourceLoader|type=styles|default] | LegacyStyles.css
 
 == patrol-gadgets ==
 * Quick patrol[ResourceLoader|dependencies=mediawiki.util]|Quick patrol.js
