@@ -1233,6 +1233,7 @@ pre.source-lua {
 .title.book        {background: url("//upload.wikimedia.org/wikipedia/commons/4/42/Picto_infobox_book.png") no-repeat top right;}
 .title.box         {background: url("//upload.wikimedia.org/wikipedia/commons/a/a2/Picto_infobox_box.png") no-repeat top right;}
 .title.bridge      {background: url("//upload.wikimedia.org/wikipedia/commons/8/87/Picto_infobox_bridge.png") no-repeat top right;}
+.title.buddhism    {background: url("//upload.wikimedia.org/wikipedia/commons/thumb/0/0d/BuddhismSymbolWhite.PNG/45px-BuddhismSymbolWhite.PNG") no-repeat top right;}
 .title.cardinal    {background: url("//upload.wikimedia.org/wikipedia/commons/b/b3/Picto_infobox_bishop.png") no-repeat  top right;}
 .title.castle      {background: url("//upload.wikimedia.org/wikipedia/commons/5/5c/Picto_infobox_chateau.png") no-repeat top right;}
 .title.christianity{background: url("//upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Picto_infobox_christianity_1.svg/110px-Picto_infobox_christianity_1.svg.png") no-repeat top right;}
@@ -1257,7 +1258,7 @@ pre.source-lua {
 .title.football    {background: url("//upload.wikimedia.org/wikipedia/commons/8/87/Picto_infobox_fotbal_high.png") no-repeat center right; background-size: auto 70px;}
 .title.formula1    {background: url("//upload.wikimedia.org/wikipedia/commons/d/da/Picto_infobox_race.png") no-repeat top right;} 
 .title.fungus      {background: url("//upload.wikimedia.org/wikipedia/commons/7/79/Picto_infobox_fungus.png") no-repeat top right;}
-.title.game        {background: url("//upload.wikimedia.org/wikipedia/commons/0/07/Picto_infobox_game.png") no-repeat top right;}
+.title.game        {background: url("//upload.wikimedia.org/wikipedia/commons/9/90/Picto_infobox_Game.png") no-repeat top right;}
 .title.gymnastic   {background: url("//upload.wikimedia.org/wikipedia/commons/thumb/1/12/Gymnastics_%28artistic%29_pictogram.svg/35px-Gymnastics_%28artistic%29_pictogram.svg.png") no-repeat top right;}
 .title.handbal     {background: url("//upload.wikimedia.org/wikipedia/commons/e/e3/Picto_infobox_handbal.png") no-repeat top right;}
 .title.hockey      {background: url("//upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Picto_Infobox_Ice_hockey.svg/120px-Picto_Infobox_Ice_hockey.svg.png") no-repeat top right;}
