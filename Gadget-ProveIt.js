@@ -19,10 +19,10 @@ function loadProveIt() {
 		// Supported namespaces, see https://www.mediawiki.org/wiki/Manual:Namespace_constants
 		'proveit-namespaces': [ 0, 2 ],
 
-		// Revision tag defined at Special:Tags (optional)
+		// Revision tag defined at Special:Tags
 		'proveit-tag': 'Редакция с ProveIt',
 
-		// Automatic edit summary (optional)
+		// Automatic edit summary
 		'proveit-summary': 'Източник редактиран с ProveIt',
 	} );
 
