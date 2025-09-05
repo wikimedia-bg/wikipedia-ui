@@ -6,12 +6,6 @@
 function loadProveIt() {
 	mw.config.set( {
 
-		// Revision tag defined at Special:Tags (optional)
-		'proveit-tag': 'Редакция с ProveIt',
-
-		// Automatic edit summary (optional)
-		'proveit-summary': 'Източник редактиран с ProveIt',
-
 		// Local citation templates (without namespace)
 		'proveit-templates': [
 			'Cite book',
@@ -24,6 +18,12 @@ function loadProveIt() {
 
 		// Supported namespaces, see https://www.mediawiki.org/wiki/Manual:Namespace_constants
 		'proveit-namespaces': [ 0, 2 ],
+
+		// Revision tag defined at Special:Tags (optional)
+		'proveit-tag': 'Редакция с ProveIt',
+
+		// Automatic edit summary (optional)
+		'proveit-summary': 'Източник редактиран с ProveIt',
 	} );
 
 	// Load from the central, global version at MediaWiki.org
