@@ -1,1 +1,15 @@
-a.mw-disambig {background-color: #ffdada;}
+a.mw-disambig {
+	background-color: #ffdada;
+}
+
+@media screen {
+	html.skin-theme-clientpref-night а.mw-disambig {
+		background-color: #373700;
+	}
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	html.skin-theme-clientpref-os а.mw-disambig {
+		background-color: #373700;
+	}
+}
