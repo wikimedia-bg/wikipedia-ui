@@ -3,13 +3,13 @@ a.mw-disambig {
 }
 
 @media screen {
-	html.skin-theme-clientpref-night а.mw-disambig {
+	.skin-theme-clientpref-night a.mw-disambig {
 		background-color: #373700;
 	}
 }
 
 @media screen and (prefers-color-scheme: dark) {
-	html.skin-theme-clientpref-os а.mw-disambig {
+	.skin-theme-clientpref-os a.mw-disambig {
 		background-color: #373700;
 	}
 }
