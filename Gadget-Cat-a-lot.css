@@ -10,6 +10,7 @@
 	-webkit-box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 	box-shadow: 0 2px 4px rgba(0,0,0,0.5); 
 	background-color: #FBFCC7;
+	color: #000;
 	background: -moz-linear-gradient(top, rgba(251, 252, 209, 0.9), #FBFCC7);
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(251, 252, 209, 0.9)), to(#FBFCC7));
 }
@@ -44,6 +45,7 @@ a {
 {
 	border: 1px #A9DE16 solid !important;
 	background: #EAF2CB url(//upload.wikimedia.org/wikipedia/commons/d/de/Ajax-loader.gif) no-repeat 8px 14px !important;
+	color: #000  !important;
 	padding-left: 2.85em !important;
 	padding-top: 10px !important;
 	font-size: 1.1em !important;
@@ -64,10 +66,12 @@ a {
 }
 .cat_a_lot_markAsDone {
 	background-color: #BABABA;
+	color: #000;
 }
 .cat_a_lot_selected
 {
 	background-color: #DF6;
+	color: #000;
 }
 #cat_a_lot_no_found, #cat_a_lot_last_selected, #cat_a_lot_settings {
 	font-weight:bold;
