@@ -87,7 +87,8 @@ var QuickDiff = {
 				width: 100%;\
 				border: thin outset silver;\
 				box-shadow: 0 0 30px #888888;\
-				background-color: white;\
+				background-color: var(--background-color-base, #fff);\
+				color: var(--color-base, #000);\
 			}\
 			#quickdiff-close {\
 				z-index: 1;\
