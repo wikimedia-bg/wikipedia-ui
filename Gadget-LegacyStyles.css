@@ -132,9 +132,11 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 /* [[МедияУики:Monobook.js|поздравително съобщение]] за всеки невлязъл потребител */
 #externMessage {
 	text-align: center;
-	color: black;
-	background-color: #FFEE99;
-	border: thin solid #FFA500;
+	color: var(--color-base, #000);
+	background-color: var(--background-color-warning-subtle, #FFEE99);
+	border-color: var(--border-color-warning, #FFA500);
+	border-style: solid;
+	border-width: thin;
 	padding: .4em;
 	margin-top: .2em;
 }
@@ -179,8 +181,8 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 /* Шаблон Infobox */
 .infobox {
 	border: 1px solid #aaaaaa;
-	background-color: #f9f9f9;
-	color: black;
+	background-color: var(--background-color-neutral-subtle, #f9f9f9);
+	color: var(--color-base, #000);
 	margin-bottom: 0.5em;
 	margin-left: 1em;
 	padding: 0.2em;
@@ -281,7 +283,7 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 /* wikitable/prettytable class for skinning normal tables */
 .wikitable, .prettytable {
 	margin: 1em 1em 1em 0;
-	background: #f9f9f9;
+	background-color: var(--background-color-neutral-subtle, #f9f9f9);
 	border: 1px #aaaaaa solid;
 	border-collapse: collapse;
 }
@@ -291,7 +293,7 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	padding: 0.2em;
 }
 .wikitable th, .prettytable th {
-	background: #f2f2f2;
+	background-color: var(--background-color-neutral, #f2f2f2);
 	text-align: center;
 }
 .wikitable caption, .prettytable caption {
@@ -335,7 +337,7 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 .col-24-left td:nth-child(24),
 .col-25-left td:nth-child(25)
 {
-  text-align: left;
+	text-align: left;
 }
 
 .col-1-center td:nth-child(1),
@@ -364,7 +366,7 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 .col-24-center td:nth-child(24),
 .col-25-center td:nth-child(25)
 {
-  text-align: center;
+	text-align: center;
 }
 
 .col-1-right td:nth-child(1),
@@ -393,7 +395,7 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 .col-24-right td:nth-child(24),
 .col-25-right td:nth-child(25)
 {
-  text-align: right;
+	text-align: right;
 }
 
 /* ширина на центрирана таблица съобразно съдържанието, а не 100% */
@@ -404,7 +406,7 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 /* wikitable2 class for skinning normal tables with borders */
 .wikitable2 {
 	margin: 1em 1em 1em 0;
-	background: #f9f9f9;
+	background-color: var(--background-color-neutral-subtle, #f9f9f9);
 	border: 1px #aaaaaa solid;
 	border-collapse: collapse;
 }
@@ -413,7 +415,7 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	padding: 0.2em;
 }
 .wikitable2 th {
-	background: #f2f2f2;
+	background-color: var(--background-color-neutral, #f2f2f2);
 	text-align: center;
 }
 .wikitable2 caption {
@@ -470,16 +472,16 @@ cite:target {
 
 /* T156351: Support for Parsoid's Cite implementation */
 @counter-style custom-backlink {
-    system: alphabetic;
-    symbols: 'а' 'б' 'в' 'г' 'д' 'е' 'ж' 'з' 'и' 'к' 'л' 'м' 'н' 'о' 'п' 'р' 'с' 'т' 'у' 'ф' 'х' 'ц' 'ч' 'ш' 'щ' 'ю' 'я';
+	system: alphabetic;
+	symbols: 'а' 'б' 'в' 'г' 'д' 'е' 'ж' 'з' 'и' 'к' 'л' 'м' 'н' 'о' 'п' 'р' 'с' 'т' 'у' 'ф' 'х' 'ц' 'ч' 'ш' 'щ' 'ю' 'я';
 }
 span[rel="mw:referencedBy"] {
-    counter-reset: mw-ref-linkback 0;
+	counter-reset: mw-ref-linkback 0;
 }
 span[rel="mw:referencedBy"] > a::before {
-    font-weight: bold;
-    font-style: italic;
-    content: counter( mw-ref-linkback, custom-backlink );
+	font-weight: bold;
+	font-style: italic;
+	content: counter( mw-ref-linkback, custom-backlink );
 }
 
 /* "notices" */
@@ -498,19 +500,11 @@ span[rel="mw:referencedBy"] > a::before {
 	border-bottom:2px solid #ddd;
 }
 
-/* Coloured watchlist numbers */
-.mw-plusminus-pos {
-	color: #006400; /* darkgreen */
-}
-/* .mw-plusminus-null currently at developer default */
-.mw-plusminus-neg {
-	color: #8B0000; /* darkred */
-}
-
 /* Шаблони за Messagebox */
 .messagebox {
 	border: 1px solid #aaaaaa;
-	background-color: #f9f9f9;
+	background-color: var(--background-color-neutral-subtle, #f9f9f9);
+	color: var(--color-base, #000);
 	width: 80%;
 	margin: 0 auto 1em auto;
 	padding: .2em;
@@ -533,223 +527,226 @@ span[rel="mw:referencedBy"] > a::before {
 
 /* Cell sizes for ambox/tmbox/imbox/cmbox/ombox/fmbox/dmbox message boxes */
 .mbox-text {     				/* The message body cell(s) */
-    border: none;
-    padding: 0.25em 0.9em;    	/* 0.9em left/right */
-    width: 100%;    			/* Make all mboxes the same width regardless of text length */
+	border: none;
+	padding: 0.25em 0.9em;    	/* 0.9em left/right */
+	width: 100%;    			/* Make all mboxes the same width regardless of text length */
 }
 .mbox-image {                  	/* The left image cell */
-    border: none;
-    padding: 2px 0 2px 0.9em;  	/* 0.9em left, 0px right */
-    text-align: center;
+	border: none;
+	padding: 2px 0 2px 0.9em;  	/* 0.9em left, 0px right */
+	text-align: center;
 }
 .mbox-imageright {          	/* The right image cell */
-    border: none;
-    padding: 2px 0.9em 2px 0;  	/* 0px left, 0.9em right */
-    text-align: center;
+	border: none;
+	padding: 2px 0.9em 2px 0;  	/* 0px left, 0.9em right */
+	text-align: center;
 }
 .mbox-empty-cell {         		/* An empty narrow cell */
-    border: none;
-    padding: 0px;
-    width: 1px;
+	border: none;
+	padding: 0px;
+	width: 1px;
 }
 
 /* Article message box styles */
 .ambox {
-    margin: 0px 10%;   /* 10% = Will not overlap with other elements */
-    border: 1px solid #aaa;
-    border-left: 10px solid #1e90ff;    /* Default "notice" blue */
-    background: #fbfbfb;
+	margin: 0px 10%;   /* 10% = Will not overlap with other elements */
+	border: 1px solid #aaa;
+	border-left: 10px solid #1e90ff;    /* Default "notice" blue */
+	background: #fbfbfb;
 }
 .ambox + .ambox {   /* Single border between stacked boxes. */
-    margin-top: -1px;
+	margin-top: -1px;
 }
 .ambox .mbox-text {            /* The message body cell(s) */
-    padding: 0.25em 0.5em;       /* 0.5em left/right */
+	padding: 0.25em 0.5em;       /* 0.5em left/right */
 }
 .ambox .mbox-image {           /* The left image cell */
-    padding: 2px 0 2px 0.5em;    /* 0.5em left, 0px right */
+	padding: 2px 0 2px 0.5em;    /* 0.5em left, 0px right */
 }
 .ambox .mbox-imageright {      /* The right image cell */
-    padding: 2px 0.5em 2px 0;    /* 0px left, 0.5em right */
+	padding: 2px 0.5em 2px 0;    /* 0px left, 0.5em right */
 }
 
 .ambox-notice {
-    border-left: 10px solid #1e90ff;    /* Blue */
+	border-left: 10px solid #1e90ff;    /* Blue */
 }
 .ambox-delete,
 .ambox-serious {
-    border-left: 10px solid #b22222;    /* Red */
+	border-left: 10px solid #b22222;    /* Red */
 }
 .ambox-content {
-    border-left: 10px solid #f28500;    /* Orange */
+	border-left: 10px solid #f28500;    /* Orange */
 }
 .ambox-style {
-    border-left: 10px solid #f4c430;    /* Yellow */
+	border-left: 10px solid #f4c430;    /* Yellow */
 }
 .ambox-move,
 .ambox-merge {
-    border-left: 10px solid #9932cc;    /* Purple */
+	border-left: 10px solid #9932cc;    /* Purple */
 }
 .ambox-stub {
-    border-left: 10px solid #c0c090;    /* Gray-brown */
+	border-left: 10px solid #c0c090;    /* Gray-brown */
 }
 .ambox-protection {
-    border-left: 10px solid #bba;       /* Gray-gold */
+	border-left: 10px solid #bba;       /* Gray-gold */
 }
 
 /* Image message box styles */
 .imbox {
-    margin: 4px 10%;
-    border-collapse: collapse;
-    border: 3px solid #1e90ff;    /* Default "notice" blue */
-    background: #fbfbfb;
+	margin: 4px 10%;
+	border-collapse: collapse;
+	border: 3px solid #1e90ff;    /* Default "notice" blue */
+	background: #fbfbfb;
 }
 .imbox .mbox-text .imbox {  	  /* For imboxes inside imbox-text cells. */
-    margin: 0 -0.5em;   		  /* 0.9 - 0.5 = 0.4em left/right.        */
-    display: block;    			  /* Fix for webkit to force 100% width.  */
+	margin: 0 -0.5em;   		  /* 0.9 - 0.5 = 0.4em left/right.        */
+	display: block;    			  /* Fix for webkit to force 100% width.  */
 }
 .mbox-inside .imbox {       	  /* For imboxes inside other templates.  */
-    margin: 4px;
+	margin: 4px;
 }
 
 .imbox-notice {
-    border: 3px solid #1e90ff;    /* Blue */
+	border: 3px solid #1e90ff;    /* Blue */
 }
 .imbox-delete,
 .imbox-serious {
-    border: 3px solid #b22222;    /* Red */
+	border: 3px solid #b22222;    /* Red */
 }
 .imbox-content {
-    border: 3px solid #f28500;    /* Orange */
+	border: 3px solid #f28500;    /* Orange */
 }
 .imbox-style {
-    border: 3px solid #f4c430;    /* Yellow */
+	border: 3px solid #f4c430;    /* Yellow */
 }
 .imbox-move,
 .imbox-merge {
-    border: 3px solid #9932cc;    /* Purple */
+	border: 3px solid #9932cc;    /* Purple */
 }
 .imbox-protection {
-    border: 3px solid #bba;       /* Gray-gold */
+	border: 3px solid #bba;       /* Gray-gold */
 }
 .imbox-license {
-    border: 3px solid #88a;       /* Dark gray */
-    background: #f7f8ff;          /* Light gray */
+	border: 3px solid #88a;       /* Dark gray */
+	background: #f7f8ff;          /* Light gray */
 }
 .imbox-featured {
-    border: 3px solid #cba135;    /* Brown-gold */
+	border: 3px solid #cba135;    /* Brown-gold */
 }
 
 /* Category message box styles */
 .cmbox {
-    margin: 3px 10%;
-    border-collapse: collapse;
-    border: 1px solid #aaa;
-    background: #DFE8FF;          /* Default "notice" blue */
+	margin: 3px 10%;
+	border-collapse: collapse;
+	border: 1px solid #aaa;
+	background: #DFE8FF;          /* Default "notice" blue */
 }
 
 .cmbox-notice {
-    background: #D8E8FF;		  /* Blue */
+	background: #D8E8FF;		  /* Blue */
 }
 .cmbox-delete,
 .cmbox-serious {
-    background: #FFDBDB;    	  /* Red */
+	background: #FFDBDB;    	  /* Red */
 }
 .cmbox-content {
-    background: #FFE7CE;    	  /* Orange */
+	background: #FFE7CE;    	  /* Orange */
 }
 .cmbox-style {
-    background: #FFF9DB;		  /* Yellow */
+	background: #FFF9DB;		  /* Yellow */
 }
 .cmbox-move,
 .cmbox-merge {
-    background: #E4D8FF;		  /* Purple */
+	background: #E4D8FF;		  /* Purple */
 }
 .cmbox-protection {
-    background: #EFEFE1;		  /* Gray-gold */
+	background: #EFEFE1;		  /* Gray-gold */
 }
 
 /* Talk page message box styles */
 .tmbox {
-    margin: 4px 10%;
-    border-collapse: collapse;
-    border: 1px solid #c0c090;    /* Default "notice" gray-brown */
-    background: #f8eaba;
+	margin: 4px 10%;
+	border-collapse: collapse;
+	border: 1px solid #c0c090;    /* Default "notice" gray-brown */
+	background: #f8eaba;
 }
 .mediawiki .mbox-inside .tmbox { /* For tmboxes inside other templates. The "mediawiki" class ensures that */
-    margin: 2px 0;               /* this declaration overrides other styles (including mbox-small above)   */
-    width: 100%;                 /* For Safari and Opera */
+	margin: 2px 0;               /* this declaration overrides other styles (including mbox-small above)   */
+	width: 100%;                 /* For Safari and Opera */
 }
 .mbox-inside .tmbox.mbox-small { /* "small" tmboxes should not be small when  */
-    line-height: 1.5em;          /* also "nested", so reset styles that are   */
-    font-size: 100%;             /* set in "mbox-small" above.                */
+	line-height: 1.5em;          /* also "nested", so reset styles that are   */
+	font-size: 100%;             /* set in "mbox-small" above.                */
 }
 
 .tmbox-delete,
 .tmbox-serious {
-    border: 2px solid #b22222;    /* Red */
+	border: 2px solid #b22222;    /* Red */
 }
 .tmbox-content {
-    border: 2px solid #f28500;    /* Orange */
+	border: 2px solid #f28500;    /* Orange */
 }
 .tmbox-style {
-    border: 2px solid #f4c430;    /* Yellow */
+	border: 2px solid #f4c430;    /* Yellow */
 }
 .tmbox-move,
 .tmbox-merge {
-    border: 2px solid #9932cc;    /* Purple */
+	border: 2px solid #9932cc;    /* Purple */
 }
 .tmbox-protection,
 .tmbox-notice {
-    border: 1px solid #c0c090;    /* Gray-brown */
+	border: 1px solid #c0c090;    /* Gray-brown */
 }
 
 /* Other pages message box styles */
 .ombox {
-    margin: 4px 10%;
-    border-collapse: collapse;
-    border: 1px solid #aaa;       /* Default "notice" gray */
-    background: #f9f9f9;
+	margin: 4px 10%;
+	border-collapse: collapse;
+	border: 1px solid #aaa;       /* Default "notice" gray */
+	background-color: var(--background-color-neutral-subtle, #f9f9f9);
+	color: var(--color-base, #000);
 }
 
 .ombox-notice {
-    border: 1px solid #aaa;       /* Gray */
+	border: 1px solid #aaa;       /* Gray */
 }
 .ombox-delete,
 .ombox-serious {
-    border: 2px solid #b22222;    /* Red */
+	border: 2px solid #b22222;    /* Red */
 }
 .ombox-content {
-    border: 1px solid #f28500;    /* Orange */
+	border: 1px solid #f28500;    /* Orange */
 }
 .ombox-style {
-    border: 1px solid #f4c430;    /* Yellow */
+	border: 1px solid #f4c430;    /* Yellow */
 }
 .ombox-move,
 .ombox-merge {
-    border: 1px solid #9932cc;    /* Purple */
+	border: 1px solid #9932cc;    /* Purple */
 }
 .ombox-protection {
-    border: 2px solid #bba;       /* Gray-gold */
+	border: 2px solid #bba;       /* Gray-gold */
 }
 
 /* Footer and header message box styles */
 .fmbox {
-    clear: both;
-    margin: 0.2em 0;
-    width: 100%;
-    border: 1px solid #aaa;
-    background: #f9f9f9;     /* Default "system" gray */
+	clear: both;
+	margin: 0.2em 0;
+	width: 100%;
+	border: 1px solid #aaa;
+	background-color: var(--background-color-neutral-subtle, #f9f9f9);    /* Default "system" gray for light themes */
+	color: var(--color-base, #000);
 }
 .fmbox-system {
-    background: #f9f9f9;
+	background-color: var(--background-color-neutral-subtle, #f9f9f9);
+	color: var(--color-base, #000);
 }
 .fmbox-warning {
-    border: 1px solid #bb7070;  /* Dark pink */
-    background: #ffdbdb;        /* Pink */
+	border: 1px solid #bb7070;  /* Dark pink */
+	background: #ffdbdb;        /* Pink */
 }
 .fmbox-editnotice {
-    background: transparent;
+	background: transparent;
 }
 
 .FA {
@@ -824,6 +821,7 @@ span[rel="mw:referencedBy"] > a::before {
 	margin: 0;
 }
 /* за редове, които не трябва да се пренасят */
+.nowrap,
 .oneline { white-space: nowrap; }
 
 /*
@@ -853,16 +851,16 @@ span[rel="mw:referencedBy"] > a::before {
 
 /* Styling for Template:Quote */
 .templatequote {
-     margin-top: 0;
+	margin-top: 0;
 }
 .templatequote .templatequotecite {
-    line-height: 1em;
-    text-align: left;
-    padding-left: 2em;
-    margin-top: 0;
+	line-height: 1em;
+	text-align: left;
+	padding-left: 2em;
+	margin-top: 0;
 }
 .templatequote .templatequotecite cite {
-    font-size: 85%;
+	font-size: 85%;
 }
 
 
@@ -902,13 +900,15 @@ span[rel="mw:referencedBy"] > a::before {
 }
 .hlist dd:after,
 .hlist li:after {
-	content: " ·";
+	content: "\00a0· ";
 	font-weight: bold;
+	white-space: normal;
 }
 .hlist-big dd:after,
 .hlist-big li:after {
-	content: " •";
+	content: "\00a0• ";
 	font-weight: normal;
+	white-space: normal;
 }
 .hlist dd:last-child:after,
 .hlist dt:last-child:after,
@@ -1059,7 +1059,7 @@ ul + table.navbox {
 	word-spacing: -0.125em;
 }
 .navbar.mini li span {
-font-variant: small-caps;
+	font-variant: small-caps;
 }
 /* Navbar styling when nested in infobox and navbox */
 .infobox .navbar {
@@ -1119,49 +1119,49 @@ For details, see [[Special:Permalink/10543114#mw-collapsible-toggle]]
 
 /* Infobox v_2 */
 .infobox_v2 { /* monobookocentré debut */
- background: #f9f9f9;
- color: #000;
- float:right;
- clear:right;
- margin:0 0 .5em 1em; /* haut droite bas gauche */
- width:300px;
- border: 1px solid #aaa;
- padding: 0.1em;
+	background-color: var(--background-color-neutral-subtle, #f9f9f9);
+	color: var(--color-base, #000);
+	float:right;
+	clear:right;
+	margin:0 0 .5em 1em; /* haut droite bas gauche */
+	width:300px;
+	border: 1px solid #aaa;
+	padding: 0.1em;
 }
 
 .infobox_v2 th {
- text-align:left;
+	text-align:left;
 }
 
 .pictoinfobox-map {
- background: url("//upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png") no-repeat top right;
- height:45px;
- vertical-align:middle;
- text-align:center;
- font-size:150%;
- font-weight:bolder;
- line-height:1.2em;
- color:#000
+	background: url("//upload.wikimedia.org/wikipedia/commons/7/7a/Picto_infobox_map.png") no-repeat top right;
+	height:45px;
+	vertical-align:middle;
+	text-align:center;
+	font-size:150%;
+	font-weight:bolder;
+	line-height:1.2em;
+	color:#000
 }
 
 /* Стил за Шаблон:Основна */
 .details {
-margin:0 0 .7em 2em;
-border:solid #E7E7E7;
-border-width:1px 0;
-text-align:left;
-font-size:95%;
-background:#FDFDFD url(//upload.wikimedia.org/wikipedia/commons/thumb/6/61/Searchtool.svg/15px-Searchtool.svg.png) no-repeat left center;
-padding:1px 4px 1px 24px;
-overflow:hidden;
+	margin:0 0 .7em 2em;
+	border:solid #E7E7E7;
+	border-width:1px 0;
+	text-align:left;
+	font-size:95%;
+	background:#FDFDFD url(//upload.wikimedia.org/wikipedia/commons/thumb/6/61/Searchtool.svg/15px-Searchtool.svg.png) no-repeat left center;
+	padding:1px 4px 1px 24px;
+	overflow:hidden;
 }
 
 /* Dashed border and grey background for GeSHi */
 div.mw-geshi {
-    padding: 1em;
-    margin: 1em 0;
-    border: 1px dashed #2f6fab;
-    background-color: #f9f9f9;
+	padding: 1em;
+	margin: 1em 0;
+	border: 1px dashed #2f6fab;
+	background-color: var(--background-color-neutral-subtle, #f9f9f9);
 }
 
 /* Fix so <syntaxhighlight> tags and .css and .js pages get normal text size.
@@ -1172,12 +1172,12 @@ span.mw-geshi,
 pre.source-css,
 pre.source-javascript,
 pre.source-lua {
-    font-family: monospace, Courier !important;
+	font-family: monospace, Courier !important;
 }
 
 /* Неща, видими само при печат (URL на източници, ...) */
 .printonly {
-    display: none;
+	display: none;
 }
 
 /* Allow limiting of which header levels are shown in a TOC;
@@ -1192,22 +1192,22 @@ pre.source-lua {
 .toclimit-5 .toclevel-4 ul,
 .toclimit-6 .toclevel-5 ul,
 .toclimit-7 .toclevel-6 ul {
-    display: none;
+	display: none;
 }
 
 .infobox_v2 .title {
- height:45px;
- vertical-align:middle;
- text-align:center;
- font-size:150%;
- font-weight:bolder;
- line-height:1.2em;
- color:#000
+	height:45px;
+	vertical-align:middle;
+	text-align:center;
+	font-size:150%;
+	font-weight:bolder;
+	line-height:1.2em;
+	color:#000
 }
 
 /* Pie chart test: Transparent borders */
 .transborder {
-    border: solid transparent;
+	border: solid transparent;
 }
 
 .title.defaut {}
@@ -1320,55 +1320,55 @@ pre.source-lua {
 
 .img_toggle,
 .img_toggle * {
- margin: 0 auto !important;
- padding: 0 !important;
+	margin: 0 auto !important;
+	padding: 0 !important;
 }
 
 .img_toggle .a_toggle {
-  display: block;
-  text-align: center !important;
-  font-size: 0.95em;
+	display: block;
+	text-align: center !important;
+	font-size: 0.95em;
 }
 
 .img_toggle .location-map {
-  position: relative
+	position: relative
 }
 
 .img_toggle .location-map +.location-map {
-  border-top: 5px solid #aaa
+	border-top: 5px solid #aaa
 }
 
 .img_toggle .geopoint {
-  position: absolute;
-  width: 5px;
-  height: 5px;
-  font-size: 1px;
-  border: 1px solid #000;
-  background: #F00;
+	position: absolute;
+	width: 5px;
+	height: 5px;
+	font-size: 1px;
+	border: 1px solid #000;
+	background: #F00;
 }
 
 .img_toggle ul {
-  list-style-type: none !important;
-  list-style-image: none !important;
-  list-style-position: outside !important;
-  padding:0 !important;
-  margin:0 0 0 5px !important;
+	list-style-type: none !important;
+	list-style-image: none !important;
+	list-style-position: outside !important;
+	padding:0 !important;
+	margin:0 0 0 5px !important;
 }
 
 .img_toggle ul li {
-  float: left;
-  border: 1px solid #aaa;
-  border-top-width: 0;
-  margin: 0 2px 0 0 !important;
-  position: relative;
-  background: #F9F9F9;
+	float: left;
+	border: 1px solid #aaa;
+	border-top-width: 0;
+	margin: 0 2px 0 0 !important;
+	position: relative;
+	background-color: var(--background-color-neutral-subtle, #f9f9f9);
 }
 
 .img_toggle ul li a {
-  padding: 0 5px !important;
-  font-size: 85%;
-  text-decoration: none;
-  color: black;
+	padding: 0 5px !important;
+	font-size: 85%;
+	text-decoration: none;
+	color: black;
 }
 
 /* copied from https://foundation.wikimedia.org/wiki/Template:Social_accounts */
@@ -1399,30 +1399,30 @@ pre.source-lua {
 
 /* За [[Шаблон:Портал]] и [[Шаблон:Портал линк]] - от fr:MediaWiki:Common.css */
 #bandeau-portal {
-        border: solid #aaa 1px;
-        background-color: #f9f9f9;
-        text-align: center;
-        margin-top: 1em;
+	border: solid #aaa 1px;
+	background-color: var(--background-color-neutral-subtle, #f9f9f9);
+	text-align: center;
+	margin-top: 1em;
 }
 #bandeau-portal,
 #list-portal {
-        padding: 4px;
-        margin-left: 0;
-        clear: both;
+	padding: 4px;
+	margin-left: 0;
+	clear: both;
 }
 #list-portal li,
 #bandeau-portal li{
-        display: inline;
+	display: inline;
 }
 .bandeau-portal-element {
-        white-space: nowrap;
-        margin: auto 1.5em;
+	white-space: nowrap;
+	margin: auto 1.5em;
 }
 .bandeau-portal-icon {
-        margin-right: 0.5em;
+	margin-right: 0.5em;
 }
 .bandeau-portal-text {
-        font-weight: bold;
+	font-weight: bold;
 }
 
 .globegris {
@@ -1451,19 +1451,19 @@ See [[:mw:Making MediaWiki Mobile Friendly]] for details.
 Two columns on wide, single on narrow and mobile screens.
 */
 .mainpage-column-left {
-    float: left;
-    width: 54%;
+	float: left;
+	width: 54%;
 }
 .mainpage-column-right {
-    float: right;
-    width: 44%;
+	float: right;
+	width: 44%;
 }
 @media only screen and (max-width: 800px) {
-    .mainpage-column-left,
-    .mainpage-column-right {
-        float: inherit;
-        width: inherit;
-    }
+	.mainpage-column-left,
+	.mainpage-column-right {
+		float: inherit;
+		width: inherit;
+	}
 }
 
 /* Джаджи: */
@@ -1515,3 +1515,316 @@ Put a custom logo.
 	background-image: url(//upload.wikimedia.org/wikipedia/commons/a/ae/Wikipedia-logo-m20k-bg.png) !important;
 }
 */
+
+/* Корекция на разни фонови и текстови цветове за по-добра четимост в тъмната тема (Vector 2022 night mode) */
+/* При експлицитно зададена опция за тъмна тема */
+@media screen {
+	html.skin-theme-clientpref-night .wp-admin .mw-redirect:after {
+		background-color: inherit;
+	}
+
+	html.skin-theme-clientpref-night #editpage-copywarn {
+		background-color: #393417;
+	}
+
+	html.skin-theme-clientpref-night .hilite {
+		color: #fff;
+		background-color: #000919;
+	}
+
+	html.skin-theme-clientpref-night .archive {
+		background-color: #00050f;
+	}
+
+	html.skin-theme-clientpref-night .toccolours .hrow th {
+		background-color: #1f1916;
+	}
+		
+	html.skin-theme-clientpref-night .even {
+		background-color: #13100c;
+	}
+
+	html.skin-theme-clientpref-night .references > :target,
+	html.skin-theme-clientpref-night .reference:target,
+	html.skin-theme-clientpref-night cite:target {
+		background-color: #210;
+	}
+
+	html.skin-theme-clientpref-night .messagebox.merge {
+		background-color: #0f1a00;
+	}
+
+	html.skin-theme-clientpref-night .messagebox.cleanup {
+		background-color: #101000;
+	}
+
+	html.skin-theme-clientpref-night .messagebox.standard-talk,
+	html.skin-theme-clientpref-night .tmbox {
+		background-color: #071545;
+	}
+
+	html.skin-theme-clientpref-night .ambox,
+	html.skin-theme-clientpref-night .imbox {
+		background-color: #040404;
+	}
+
+	html.skin-theme-clientpref-night .imbox-license {
+		background-color: #080700;
+	}
+
+	html.skin-theme-clientpref-night .cmbox {
+		background-color: #201700;
+	}
+
+	html.skin-theme-clientpref-night .cmbox-notice {
+		background-color: #271700;
+	}
+
+	html.skin-theme-clientpref-night .cmbox-delete,
+	html.skin-theme-clientpref-night .cmbox-serious,
+	html.skin-theme-clientpref-night .fmbox-warning {
+		background-color: #002424;
+	}
+
+	html.skin-theme-clientpref-night .cmbox-content {
+		background-color: #001731;
+	}
+
+	html.skin-theme-clientpref-night .cmbox-style {
+		background-color: #000624;
+	}
+
+	html.skin-theme-clientpref-night .cmbox-move,
+	html.skin-theme-clientpref-night .cmbox-merge {
+		background-color: #1b2700;
+	}
+
+	html.skin-theme-clientpref-night .cmbox-protection {
+		background-color: #10101e;
+	}
+
+	html.skin-theme-clientpref-night .user-block {
+		background-color: #00102a;
+	}
+
+	html.skin-theme-clientpref-night .template-documentation {
+		background-color: #150e0b;
+	}
+
+	html.skin-theme-clientpref-night .yaw {
+		background-color: #000;
+		color: #fff;
+	}
+
+	html.skin-theme-clientpref-night .user-wpnav {
+		background-color: #070300;
+		color: #fff;
+	}
+
+	html.skin-theme-clientpref-night .navbox th,
+	html.skin-theme-clientpref-night .navbox-title {
+		background: #220000;
+	}
+
+	html.skin-theme-clientpref-night .navbox-abovebelow,
+	html.skin-theme-clientpref-night th.navbox-group,
+	html.skin-theme-clientpref-night .navbox-subgroup .navbox-title {
+		background: #111100;
+	}
+
+	html.skin-theme-clientpref-night .navbox-subgroup .navbox-group,
+	html.skin-theme-clientpref-night .navbox-subgroup .navbox-abovebelow {
+		background: #191900;
+	}
+
+	html.skin-theme-clientpref-night .navbox-even {
+		background: #080808;
+	}
+
+	html.skin-theme-clientpref-night .fancy-btn {
+		background-color: #021100;
+		color: #000;
+	}
+	
+	html.skin-theme-clientpref-night [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) .mw-collapsible-toggle,
+	html.skin-theme-clientpref-night [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) .mw-heading,
+	html.skin-theme-clientpref-night [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) h1,
+	html.skin-theme-clientpref-night [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) h2,
+	html.skin-theme-clientpref-night [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) h3,
+	html.skin-theme-clientpref-night [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) h4,
+	html.skin-theme-clientpref-night [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) h5,
+	html.skin-theme-clientpref-night [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) h6 {
+		color: #000;		/* цветът на текста става винаги черен при зададен определен фонов цвят, за да се избегне потенциална нечетимост */
+	}
+
+	html.skin-theme-clientpref-night body.ns-0 :not(table):not(caption):not(tr):not(th):not(td)[style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) a:not([role="button"]),
+	html.skin-theme-clientpref-night body:not(.ns-0) [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) a:not([role="button"]),
+	html.skin-theme-clientpref-night body:not(.ns-0) [bgcolor]:not([bgcolor*="transparent"]):not([bgcolor*="inherit"]):not([bgcolor*="var"]) a:not([role="button"]),
+	html.skin-theme-clientpref-night body.ns-0 :not(table):not(caption):not(tr):not(th):not(td)[style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) .mw-collapsible-text,
+	html.skin-theme-clientpref-night body:not(.ns-0) [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) .mw-collapsible-text,
+	html.skin-theme-clientpref-night body:not(.ns-0) [bgcolor]:not([bgcolor*="transparent"]):not([bgcolor*="inherit"]):not([bgcolor*="var"]) .mw-collapsible-text {
+		color: #35d;	/* по-тъмносиньо при зададен фонов цвят; цветът е същият като при светлите облици */
+	}
+
+	html.skin-theme-clientpref-night body.ns-0 :not(table):not(caption):not(tr):not(th):not(td)[style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) a.new:not([role="button"]),
+	html.skin-theme-clientpref-night body:not(.ns-0) [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) a.new:not([role="button"]),
+	html.skin-theme-clientpref-night body:not(.ns-0) [bgcolor]:not([bgcolor*="transparent"]):not([bgcolor*="inherit"]):not([bgcolor*="var"]) a.new:not([role="button"]) {
+		color: #bf3c2c;		/* по-тъмночервено при зададен фонов цвят; цветът е същият като при светлите облици */
+	}
+}
+
+/* При автоматично разпознаване (авторежим) - тъмна тема е следствие на настройките на брауъра и/или ОС */
+@media screen and (prefers-color-scheme: dark) {
+	html.skin-theme-clientpref-os .wp-admin .mw-redirect:after {
+		background-color: inherit;
+	}
+
+	html.skin-theme-clientpref-os #editpage-copywarn {
+		background-color: #393417;
+	}
+
+	html.skin-theme-clientpref-os .hilite {
+		color: #fff;
+		background-color: #000919;
+	}
+
+	html.skin-theme-clientpref-os .archive {
+		background-color: #00050f;
+	}
+
+	html.skin-theme-clientpref-os .toccolours .hrow th {
+		background-color: #1f1916;
+	}
+		
+	html.skin-theme-clientpref-os .even {
+		background-color: #13100c;
+	}
+
+	html.skin-theme-clientpref-os .references > :target,
+	html.skin-theme-clientpref-os .reference:target,
+	html.skin-theme-clientpref-os cite:target {
+		background-color: #210;
+	}
+
+	html.skin-theme-clientpref-os .messagebox.merge {
+		background-color: #0f1a00;
+	}
+
+	html.skin-theme-clientpref-os .messagebox.cleanup {
+		background-color: #101000;
+	}
+
+	html.skin-theme-clientpref-os .messagebox.standard-talk,
+	html.skin-theme-clientpref-os .tmbox {
+		background-color: #071545;
+	}
+
+	html.skin-theme-clientpref-os .ambox,
+	html.skin-theme-clientpref-os .imbox {
+		background-color: #040404;
+	}
+
+	html.skin-theme-clientpref-os .imbox-license {
+		background-color: #080700;
+	}
+
+	html.skin-theme-clientpref-os .cmbox {
+		background-color: #201700;
+	}
+
+	html.skin-theme-clientpref-os .cmbox-notice {
+		background-color: #271700;
+	}
+
+	html.skin-theme-clientpref-os .cmbox-delete,
+	html.skin-theme-clientpref-os .cmbox-serious,
+	html.skin-theme-clientpref-os .fmbox-warning {
+		background-color: #002424;
+	}
+
+	html.skin-theme-clientpref-os .cmbox-content {
+		background-color: #001731;
+	}
+
+	html.skin-theme-clientpref-os .cmbox-style {
+		background-color: #000624;
+	}
+
+	html.skin-theme-clientpref-os .cmbox-move,
+	html.skin-theme-clientpref-os .cmbox-merge {
+		background-color: #1b2700;
+	}
+
+	html.skin-theme-clientpref-os .cmbox-protection {
+		background-color: #10101e;
+	}
+
+	html.skin-theme-clientpref-os .user-block {
+		background-color: #00102a;
+	}
+
+	html.skin-theme-clientpref-os .template-documentation {
+		background-color: #150e0b;
+	}
+
+	html.skin-theme-clientpref-os .yaw {
+		background-color: #000;
+		color: #fff;
+	}
+
+	html.skin-theme-clientpref-os .user-wpnav {
+		background-color: #070300;
+		color: #fff;
+	}
+
+	html.skin-theme-clientpref-os .navbox th,
+	html.skin-theme-clientpref-os .navbox-title {
+		background: #220000;
+	}
+
+	html.skin-theme-clientpref-os .navbox-abovebelow,
+	html.skin-theme-clientpref-os th.navbox-group,
+	html.skin-theme-clientpref-os .navbox-subgroup .navbox-title {
+		background: #111100;
+	}
+
+	html.skin-theme-clientpref-os .navbox-subgroup .navbox-group,
+	html.skin-theme-clientpref-os .navbox-subgroup .navbox-abovebelow {
+		background: #191900;
+	}
+
+	html.skin-theme-clientpref-os .navbox-even {
+		background: #080808;
+	}
+
+	html.skin-theme-clientpref-os .fancy-btn {
+		background-color: #021100;
+		color: #fff;
+	}
+	
+	html.skin-theme-clientpref-os [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) .mw-collapsible-toggle,
+	html.skin-theme-clientpref-os [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) .mw-heading,
+	html.skin-theme-clientpref-os [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) h1,
+	html.skin-theme-clientpref-os [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) h2,
+	html.skin-theme-clientpref-os [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) h3,
+	html.skin-theme-clientpref-os [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) h4,
+	html.skin-theme-clientpref-os [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) h5,
+	html.skin-theme-clientpref-os [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) h6 {
+		color: #000;		/* цветът на текста става винаги черен при зададен определен фонов цвят, за да се избегне потенциална нечетимост */
+	}
+
+	html.skin-theme-clientpref-os body.ns-0 :not(table):not(caption):not(tr):not(th):not(td)[style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) a:not([role="button"]),
+	html.skin-theme-clientpref-os body:not(.ns-0) [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) a:not([role="button"]),
+	html.skin-theme-clientpref-os body:not(.ns-0) [bgcolor]:not([bgcolor*="transparent"]):not([bgcolor*="inherit"]):not([bgcolor*="var"]) a:not([role="button"]),
+	html.skin-theme-clientpref-os body.ns-0 :not(table):not(caption):not(tr):not(th):not(td)[style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) .mw-collapsible-text,
+	html.skin-theme-clientpref-os body:not(.ns-0) [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) .mw-collapsible-text,
+	html.skin-theme-clientpref-os body:not(.ns-0) [bgcolor]:not([bgcolor*="transparent"]):not([bgcolor*="inherit"]):not([bgcolor*="var"]) .mw-collapsible-text {
+		color: #35d;		/* по-тъмносиньо при зададен фонов цвят; цветът е същият като при светлите облици */
+	}
+
+	html.skin-theme-clientpref-os body.ns-0 :not(table):not(caption):not(tr):not(th):not(td)[style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) a.new:not([role="button"]),
+	html.skin-theme-clientpref-os body:not(.ns-0) [style*="background"]:not([style*="transparent"]):not([style*="inherit"]):not([style*="var"]) a.new:not([role="button"]),
+	html.skin-theme-clientpref-os body:not(.ns-0) [bgcolor]:not([bgcolor*="transparent"]):not([bgcolor*="inherit"]):not([bgcolor*="var"]) a.new:not([role="button"]) {
+		color: #bf3c2c;		/* по-тъмночервено при зададен фонов цвят; цветът е същият като при светлите облици */
+	}
+}
