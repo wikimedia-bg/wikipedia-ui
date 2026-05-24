@@ -236,23 +236,24 @@ mw.libs.CategoryMaster = function() {
 	}
 
 	function generateForm() {
-		return $('<form class="mw-ui-vform" id="cmMoveForm" style="width:100%">')
-			.append('<div class="mw-ui-vform-field">' + mw.msg('cm-form-intro') + '</div>')
-			.append('<div class="mw-ui-vform-field warningbox">' + mw.msg('cm-form-intro-warning') + '</div>')
-			.append( $('<div class="mw-ui-vform-field">')
+		mw.loader.load('codex-search-styles');
+		return $('<form class="cdx-vform" id="cmMoveForm" style="width:100%">')
+			.append('<p>' + mw.msg('cm-form-intro') + '</p>')
+			.append('<p class="cdx-message cdx-message--warning cdx-message--block" aria-live="polite">' + mw.msg('cm-form-intro-warning') + '</p>')
+			.append( $('<p class="cdx-text-input">')
 				.append('<label for="cmOldCategory">'+mw.msg('cm-form-old-cat')+'</label>')
-				.append('<input name="oldCategory" id="cmOldCategory" class="mw-ui-input cm-cat-field" value="'+my.categoryPrefix+'" data-invalid="1">')
+				.append('<input name="oldCategory" id="cmOldCategory" class="cdx-text-input__input cm-cat-field" value="'+my.categoryPrefix+'" data-invalid="1">')
 			)
-			.append( $('<div class="mw-ui-vform-field">')
+			.append( $('<p class="cdx-text-input">')
 				.append('<label for="cmNewCategory">'+mw.msg('cm-form-new-cat')+'</label>')
-				.append('<input name="newCategory" id="cmNewCategory" class="mw-ui-input cm-cat-field" value="'+my.categoryPrefix+'" data-invalid="1">')
+				.append('<input name="newCategory" id="cmNewCategory" class="cdx-text-input__input cm-cat-field" value="'+my.categoryPrefix+'" data-invalid="1">')
 			)
-			.append( $('<div class="mw-ui-vform-field">')
+			.append( $('<p class="cdx-text-input">')
 				.append('<label for="cmReason">'+mw.msg('cm-form-reason')+'</label>')
-				.append('<input name="reason" id="cmReason" class="mw-ui-input">')
+				.append('<input name="reason" id="cmReason" class="cdx-text-input__input">')
 			)
-			.append( $('<div class="mw-ui-vform-field">')
-				.append('<input type="submit" class="mw-ui-button mw-ui-constructive" value="'+mw.msg('cm-form-submit')+'" disabled>')
+			.append( $('<p class="cdx-text-input">')
+				.append('<input type="submit" class="cdx-text-input__input" value="'+mw.msg('cm-form-submit')+'" disabled>')
 			);
 	}
 
@@ -265,8 +266,10 @@ mw.libs.CategoryMaster = function() {
 	function updateFormSubmit(form) {
 		if ($(form).find('[data-invalid]').length === 0) {
 			$(form).find(':submit').prop('disabled', false);
+			$(form).find(':submit').attr('style', 'background: lightgreen; color: black');
 		} else {
 			$(form).find(':submit').prop('disabled', true);
+			$(form).find(':submit').removeAttr('style');
 		}
 	}
 
@@ -395,7 +398,7 @@ mw.libs.CategoryMaster = function() {
 
 };
 
-mw.libs.CategoryMaster.dependencies = ['mediawiki.ui', 'mediawiki.ui.input', 'mediawiki.jqueryMsg', 'jquery.ui'];
+mw.libs.CategoryMaster.dependencies = ['mediawiki.jqueryMsg', 'jquery.ui'];
 
 mw.libs.CategoryMaster.messages = {
 	'cm-portlet-link': 'Преместване на категория',
