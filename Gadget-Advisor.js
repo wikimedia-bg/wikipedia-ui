@@ -26,7 +26,7 @@ ct.doNotFix = function (s, m, checkPat1, checkPat2, checkTags, checkFileName, ch
 	if (checkPat1 !== false && s.substring(pos - 260, pos + 1).search(pat) > -1)
 		return true; // it's a link or template name, so don't change it
 
-	var pat2 = /\{\{\s*(?:#[a-z]+:|друг[ои]\s+значени[ея]|основна|вижте\s+също|main|към|от\s+пренасочване|категория|anchor|cite|citation|цитат2?|долап|c?quote|is[sb]n|lang[i2]?|[es]fn|hrf|harv|пост\s+списък)(?:(?=([^{}]+))\1|\{(?:(?=([^{}]+))\2|\{(?:(?=([^{}]+))\3|\{(?:(?=([^{}]+))\4|\{(?:(?=([^{}]+))\5|\{(?:(?=([^{}]+))\6|\{(?=([^{}]*))\7\})*\})*\})*\})*\})*\})*$/i; // long and ugly regex because of limited JS regex engine
+	var pat2 = /\{\{\s*(?:#[a-z]+:|друг[ои]\s+значени[ея]|основна|вижте\s+също|main|към|от\s+пренасочване|категория|anchor|cite|citation|цитат2?|долап|c?quote|is[sb]n|lang[i2]?|[es]fn|hrf|harv|пост\s+списък|webarchive|wayback)(?:(?=([^{}]+))\1|\{(?:(?=([^{}]+))\2|\{(?:(?=([^{}]+))\3|\{(?:(?=([^{}]+))\4|\{(?:(?=([^{}]+))\5|\{(?:(?=([^{}]+))\6|\{(?=([^{}]*))\7\})*\})*\})*\})*\})*\})*$/i; // long and ugly regex because of limited JS regex engine
 	if (checkPat2 !== false && s.slice(0, pos + 1).search(pat2) > -1)
 		return true; // specific template/parser function (with up to six balanced curly brackets -- 3 levels of template/parser function nesting or 2 levels of parameter placeholder nesting)
 
@@ -535,7 +535,9 @@ ct.rules.push(function (s) {
 		var m = a[i];
 		if (m[3] === ';' && /&(?:amp;)?(?:#(?:\d*|x[a-f\d]*)|[a-z\d]*)$/i.test(s.substring(m.start - 30, m.start))) continue; // HTML единица
 		m.start += m[1].length;
-		if (ct.doNotFix(s, m) || m[3] === ',' && !isNaN(m[2]) && !isNaN(m[4])) continue; // m[2] и m[4] са цифри; вероятност за десетично число
+		if (ct.doNotFix(s, m, true, true, false, true, false, false, true) // Изкл.: checkTagName, checkWikiPre, checkQuotes; Вкл.: checkPat1, checkPat2, checkFileName, checkPat3
+			|| m[3] === ',' && !isNaN(m[2]) && !isNaN(m[4])  // m[2] и m[4] са цифри; вероятност за десетично число
+		) continue;
 		b.push({
 			start: m.start,
 			end: m.end,
@@ -555,7 +557,7 @@ ct.rules.push(function (s) {
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		m.start += m[1].length;
-		if (ct.doNotFix(s, m)
+		if (ct.doNotFix(s, m, true, true, false, true, false, false, true) // Изкл.: checkTagName, checkWikiPre, checkQuotes; Вкл.: checkPat1, checkPat2, checkFileName, checkPat3
 			|| m[2] !== m[2].toLowerCase()
 			|| m[3] !== m[3].toUpperCase()
 		) continue;
