@@ -154,6 +154,7 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 	width: 16px;
 	height: 16px;
 	margin-right: 2px;
+	vertical-align: sub;
 	content: " ";
 	background-repeat: no-repeat;
 	background-position: center;
@@ -161,16 +162,16 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 }
 /* contents are currently loaded */
 .loading:before {
-	background-image: url(//upload.wikimedia.org/wikipedia/commons/c/cd/Vector_Loading_fallback.gif);
+	background-image: url(//upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Vector_Loading_fallback.gif/20px-Vector_Loading_fallback.gif);
 }
 /* A working element has done its job */
 .done:before {
-	background-image: url(//upload.wikimedia.org/wikipedia/commons/f/fb/Yes_check.svg);
+	background-image: url(//upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Yes_check.svg/20px-Yes_check.svg.png);
 }
 /* A working element that hadn’t been so lucky */
 .not-done:before,
 .fail:before {
-	background-image: url(//upload.wikimedia.org/wikipedia/commons/b/ba/Red_x.svg);
+	background-image: url(//upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Red_x.svg/20px-Red_x.svg.png);
 }
 
 .plainlinksneverexpand { background: none ! important; padding: 0 ! important; }
