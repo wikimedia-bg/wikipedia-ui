@@ -535,7 +535,7 @@ ct.rules.push(function (s) {
 		var m = a[i];
 		if (m[3] === ';' && /&(?:amp;)?(?:#(?:\d*|x[a-f\d]*)|[a-z\d]*)$/i.test(s.substring(m.start - 30, m.start))) continue; // HTML единица
 		m.start += m[1].length;
-		if (ct.doNotFix(s, m, true, true, false, true, false, false, true) // Изкл.: checkTagName, checkWikiPre, checkQuotes; Вкл.: checkPat1, checkPat2, checkFileName, checkPat3
+		if (ct.doNotFix(s, m, true, true, true, true, false, false, true) // Изкл.: checkWikiPre, checkQuotes; Вкл.: checkPat1, checkPat2, checkTagName, checkFileName, checkPat3
 			|| m[3] === ',' && !isNaN(m[2]) && !isNaN(m[4])  // m[2] и m[4] са цифри; вероятност за десетично число
 		) continue;
 		b.push({
@@ -557,7 +557,7 @@ ct.rules.push(function (s) {
 	for (var i = 0; i < a.length; i++) {
 		var m = a[i];
 		m.start += m[1].length;
-		if (ct.doNotFix(s, m, true, true, false, true, false, false, true) // Изкл.: checkTagName, checkWikiPre, checkQuotes; Вкл.: checkPat1, checkPat2, checkFileName, checkPat3
+		if (ct.doNotFix(s, m, true, true, true, true, false, false, true) // Изкл.: checkWikiPre, checkQuotes; Вкл.: checkPat1, checkPat2, checkTagName, checkFileName, checkPat3
 			|| m[2] !== m[2].toLowerCase()
 			|| m[3] !== m[3].toUpperCase()
 		) continue;
