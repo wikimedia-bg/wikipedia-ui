@@ -152,7 +152,9 @@ Ref: https://git.wikimedia.org/tree/mediawiki%2Fextensions%2FDismissableSiteNoti
 .fail:before {
 	display: inline-block;
 	width: 16px;
+	height: 16px;
 	margin-right: 2px;
+	content: " ";
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 16px;
