@@ -1,4 +1,4 @@
-//<source lang="javascript">
+<syntaxhighlight lang="javascript">
 // Localization of HotCat
 if (window.HotCat) {
 	$.extend(HotCat.messages, {
@@ -41,4 +41,4 @@ if (window.HotCat) {
 		multi_tooltip: 'Промяна на няколко категории'
 	});
 }
-//</source>
+</syntaxhighlight>
