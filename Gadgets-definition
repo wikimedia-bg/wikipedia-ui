@@ -26,6 +26,7 @@
 * MonobookToolbar [ResourceLoader|dependencies=user.options|hidden] | MonobookToolbar.js
 * MonobookToolbarStandard [ResourceLoader|dependencies=ext.gadget.MonobookToolbar] | MonobookToolbarStandard.js
 * ProveIt [ResourceLoader] | ProveIt.js
+* ClassicAddTopic[ResourceLoader|actions=view|contentModels=wikitext]|ClassicAddTopic.js
 
 == edittoolbar-menus ==
 
