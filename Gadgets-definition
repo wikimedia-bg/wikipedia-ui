@@ -5,63 +5,63 @@
 
 == browsing-gadgets ==
 
-* Navigation_popups[ResourceLoader|dependencies=mediawiki.user,mediawiki.util|type=general]|popups.js|navpop.css
-* exlinks[ResourceLoader|dependencies=mediawiki.util]|exlinks.js
-* lum[ResourceLoader]|lum.js
-* Big dynamap[ResourceLoader]|Big dynamap.js
-* ExternalSearch[ResourceLoader]|externalsearch.js
-* QRpediaFix [ResourceLoader|default|hidden|targets=desktop,mobile] | QRpediaFix.js
+* Navigation_popups[dependencies=mediawiki.user,mediawiki.util|type=general]|popups.js|navpop.css
+* exlinks[dependencies=mediawiki.util]|exlinks.js
+* lum|lum.js
+* Big dynamap|Big dynamap.js
+* ExternalSearch|externalsearch.js
+* QRpediaFix [default|hidden|targets=desktop,mobile] | QRpediaFix.js
 
 == editing-gadgets ==
 
-* MwToolbar[ResourceLoader|hidden]|MwToolbar.js
-* EditToolbar[ResourceLoader|default]|EditToolbar.js
-* EditToolbar-core[ResourceLoader|hidden|dependencies=mediawiki.user,mediawiki.util]|EditToolbar-core.js
-* edittop[ResourceLoader|dependencies=user.options]|edittop.js
-* wikEd[ResourceLoader]|wikEd.js
-* HotCat[ResourceLoader]|HotCat.js
-* Cat-a-lot[ResourceLoader|dependencies=mediawiki.util]|Cat-a-lot.js|Cat-a-lot.css
-* Advisor[ResourceLoader]|Advisor.js
-* CategoryMaster[ResourceLoader|rights=autopatrol|dependencies=mediawiki.util]|CategoryMaster.js
-* MonobookToolbar [ResourceLoader|dependencies=user.options|hidden] | MonobookToolbar.js
-* MonobookToolbarStandard [ResourceLoader|dependencies=ext.gadget.MonobookToolbar] | MonobookToolbarStandard.js
-* ProveIt [ResourceLoader] | ProveIt.js
-* ClassicAddTopic[ResourceLoader|actions=view|contentModels=wikitext]|ClassicAddTopic.js
+* MwToolbar[hidden]|MwToolbar.js
+* EditToolbar[default]|EditToolbar.js
+* EditToolbar-core[hidden|dependencies=mediawiki.user,mediawiki.util]|EditToolbar-core.js
+* edittop[dependencies=user.options]|edittop.js
+* wikEd|wikEd.js
+* HotCat|HotCat.js
+* Cat-a-lot[dependencies=mediawiki.util]|Cat-a-lot.js|Cat-a-lot.css
+* Advisor|Advisor.js
+* CategoryMaster[rights=autopatrol|dependencies=mediawiki.util]|CategoryMaster.js
+* MonobookToolbar [dependencies=user.options|hidden] | MonobookToolbar.js
+* MonobookToolbarStandard [dependencies=ext.gadget.MonobookToolbar] | MonobookToolbarStandard.js
+* ProveIt  | ProveIt.js
+* ClassicAddTopic[actions=view|contentModels=wikitext]|ClassicAddTopic.js
 
 == edittoolbar-menus ==
 
-* EditToolbar-menu-page_elements[ResourceLoader|default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-page_elements.js
-* EditToolbar-menu-thematic_templates[ResourceLoader|default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-thematic_templates.js
-* EditToolbar-menu-article_templates[ResourceLoader|default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-article_templates.js
-* EditToolbar-menu-talk_templates[ResourceLoader|default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-talk_templates.js
-* EditToolbar-menu-other_templates[ResourceLoader|default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-other_templates.js
-* EditToolbar-menu-sources_templates[ResourceLoader|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-sources_templates.js
-* EditToolbar-menu-admin_templates[ResourceLoader|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-admin_templates.js
-* EditToolbar-menu-oldstyle_work_templates[ResourceLoader|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-oldstyle_work_templates.js
+* EditToolbar-menu-page_elements[default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-page_elements.js
+* EditToolbar-menu-thematic_templates[default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-thematic_templates.js
+* EditToolbar-menu-article_templates[default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-article_templates.js
+* EditToolbar-menu-talk_templates[default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-talk_templates.js
+* EditToolbar-menu-other_templates[default|dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-other_templates.js
+* EditToolbar-menu-sources_templates[dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-sources_templates.js
+* EditToolbar-menu-admin_templates[dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-admin_templates.js
+* EditToolbar-menu-oldstyle_work_templates[dependencies=ext.gadget.EditToolbar-core]|EditToolbar-menu-oldstyle_work_templates.js
 
 == interface-gadgets ==
 
-* OpenStreetMap[ResourceLoader|dependencies=mediawiki.util|default]|OpenStreetMap.js
-* ReferenceTooltips[ResourceLoader]|ReferenceTooltips.js|ReferenceTooltips.css
-* UTCLiveClock[ResourceLoader]|UTCLiveClock.js
-* Blackskin[ResourceLoader|skins=monobook]|Blackskin.css
-* purgetab[ResourceLoader|dependencies=mediawiki.util]|purgetab.js
-* cats-on-top[ResourceLoader]|cats-on-top.js
-* quicklinks[ResourceLoader|dependencies=mediawiki.user,mediawiki.util]|quicklinks.js
+* OpenStreetMap[dependencies=mediawiki.util|default]|OpenStreetMap.js
+* ReferenceTooltips|ReferenceTooltips.js|ReferenceTooltips.css
+* UTCLiveClock|UTCLiveClock.js
+* Blackskin[skins=monobook]|Blackskin.css
+* purgetab[dependencies=mediawiki.util]|purgetab.js
+* cats-on-top|cats-on-top.js
+* quicklinks[dependencies=mediawiki.user,mediawiki.util]|quicklinks.js
 * HideFundraisingNotice|HideFundraisingNotice.css
-* BKL[ResourceLoader]|HighlightDisambigLinks.css
-* quickeditcounter[ResourceLoader|dependencies=mediawiki.api,mediawiki.util]|quickeditcounter.js
-* SmartWatchlist[ResourceLoader]|SmartWatchlist.js
-* SWLHideSettings[ResourceLoader|type=styles]|SWLHideSettings.css
-* Switcher[ResourceLoader|default|hidden]|Switcher.js
-* ParsePhabLinks[ResourceLoader|default|hidden]|ParsePhabLinks.js
-* Mwbot[ResourceLoader|dependencies=mediawiki.cookie|default|hidden]|Mwbot.js
-* WatchlistTopSectionWidgetFix[ResourceLoader|default|type=styles]|WatchlistTopSectionWidgetFix.css
-* UploadRedirectToCommons [ResourceLoader|default] | UploadRedirectToCommons.js
-* MoveToIncubator [ResourceLoader|rights=autopatrol|default] | MoveToIncubator.js
+* BKL|HighlightDisambigLinks.css
+* quickeditcounter[dependencies=mediawiki.api,mediawiki.util]|quickeditcounter.js
+* SmartWatchlist|SmartWatchlist.js
+* SWLHideSettings[type=styles]|SWLHideSettings.css
+* Switcher[default|hidden]|Switcher.js
+* ParsePhabLinks[default|hidden]|ParsePhabLinks.js
+* Mwbot[dependencies=mediawiki.cookie|default|hidden]|Mwbot.js
+* WatchlistTopSectionWidgetFix[default|type=styles]|WatchlistTopSectionWidgetFix.css
+* UploadRedirectToCommons [default] | UploadRedirectToCommons.js
+* MoveToIncubator [rights=autopatrol|default] | MoveToIncubator.js
 * LegacyStyles [ ResourceLoader | default | skins=vector-2022,vector,monobook,timeless | type=styles ] | LegacyStyles.css
 
 == patrol-gadgets ==
-* Quick patrol[ResourceLoader|dependencies=mediawiki.util]|Quick patrol.js
-* Quick diff[ResourceLoader|dependencies=mediawiki.util]|Quick diff.js
-* Quick rollback[ResourceLoader]|Quick rollback.js
+* Quick patrol[dependencies=mediawiki.util]|Quick patrol.js
+* Quick diff[dependencies=mediawiki.util]|Quick diff.js
+* Quick rollback|Quick rollback.js
