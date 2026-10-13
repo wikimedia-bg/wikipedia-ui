@@ -59,7 +59,7 @@
 * WatchlistTopSectionWidgetFix[default|type=styles]|WatchlistTopSectionWidgetFix.css
 * UploadRedirectToCommons [default] | UploadRedirectToCommons.js
 * MoveToIncubator [rights=autopatrol|default] | MoveToIncubator.js
-* LegacyStyles [ ResourceLoader | default | skins=vector-2022,vector,monobook,timeless | type=styles ] | LegacyStyles.css
+* LegacyStyles [ default | skins=vector-2022,vector,monobook,timeless | type=styles ] | LegacyStyles.css
 
 == patrol-gadgets ==
 * Quick patrol[dependencies=mediawiki.util]|Quick patrol.js
