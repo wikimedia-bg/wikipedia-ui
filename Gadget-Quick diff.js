@@ -97,7 +97,7 @@ var QuickDiff = {
 				right: 0;\
 				width: 20px;\
 				height: 20px;\
-				background: url(//upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Fileclose.png/16px-Fileclose.png) no-repeat center center;\
+				background: url(//thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/Fileclose.png/16px-Fileclose.png) no-repeat center center;\
 				cursor: pointer;\
 			}'
 		);
