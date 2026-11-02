@@ -28,7 +28,7 @@ mw.loader.using( [ 'mediawiki.util' ], function() { $( function() {
 	c.append( separator );
 	var img = $( document.createElement( 'img' ) );
 	img.attr( {
-		'src': '//upload.wikimedia.org/wikipedia/commons/thumb/c/c9/OpenStreetMapLogo.png/20px-OpenStreetMapLogo.png',
+		'src': '//thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/OpenStreetMapLogo.png/20px-OpenStreetMapLogo.png',
 		'width': '17px',
 		'height': '17px'
 	} );
